@@ -66,20 +66,20 @@ export const FlowerDroppingPage = ({
   ];
 
   return (
-    <div className="w-full text-[#6B4E3D] bg-[#F3E9D0]">
+    <div className="w-full text-[var(--text-primary)] bg-[var(--background-subtle)]">
       {/* 1. HERO SECTION */}
-      <section className="relative pt-24 pb-16 lg:pt-32 lg:pb-24 border-b border-[#A67C52]/20 overflow-hidden bg-gradient-to-b from-[#D9C7B8] via-[#E6D5C1] to-[#F3E9D0]">
+      <section className="relative pt-24 pb-16 lg:pt-32 lg:pb-24 border-b border-[var(--brand-luxury)]/20 overflow-hidden bg-gradient-to-b from-[var(--background-subtle)] via-[var(--brand-navy)] to-[var(--background-subtle)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#8B6639]/50 border border-[#8B6639]/40 text-[#8B6639] text-[11px] font-bold tracking-[0.2em] uppercase mb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[var(--brand-luxury-hover)]/50 border border-[var(--brand-luxury-hover)]/40 text-[var(--brand-luxury-hover)] text-[11px] font-bold tracking-[0.2em] uppercase mb-4">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Ceremonial Aerial Aviation</span>
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black uppercase text-[#6B4E3D] tracking-tight leading-none font-sans">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black uppercase text-[var(--text-primary)] tracking-tight leading-none font-sans">
                 AERIAL FLOWER DROPPING CEREMONIES
               </h1>
-              <p className="text-[#6B4E3D] text-sm sm:text-base mt-4 leading-relaxed max-w-2xl font-normal">
+              <p className="text-[var(--text-primary)] text-sm sm:text-base mt-4 leading-relaxed max-w-2xl font-normal">
                 Thousands of fresh rose petals, released over your wedding, Pran Pratishtha or public celebration from a helicopter holding a steady hover. Booked 15 to 21 days ahead, because the NOCs take that long.
               </p>
 
@@ -89,7 +89,7 @@ export const FlowerDroppingPage = ({
                     onSelectServiceForBooking?.('flower-dropping');
                     onNavigate?.('booking');
                   }}
-                  className="bg-[#A67C52] hover:bg-[#8B6639] active:scale-95 text-white px-7 py-3.5 text-xs font-bold tracking-[0.16em] uppercase transition-all shadow-lg cursor-pointer flex items-center gap-2"
+                  className="bg-[var(--brand-luxury)] hover:bg-[var(--brand-luxury-hover)] active:scale-95 text-[var(--text-inverse)] px-7 py-3.5 text-xs font-bold tracking-[0.16em] uppercase transition-all shadow-lg cursor-pointer flex items-center gap-2"
                 >
                   <span>BOOK FLOWER SHOWER</span>
                   <ArrowRight className="w-4 h-4" />
@@ -97,9 +97,9 @@ export const FlowerDroppingPage = ({
 
                 <a
                   href="tel:+919355611996"
-                  className="bg-[#A67C52]/10 hover:bg-[#A67C52]/20 text-[#6B4E3D] border border-[#A67C52]/20 px-6 py-3.5 text-xs font-bold tracking-[0.16em] uppercase transition-all cursor-pointer flex items-center gap-2"
+                  className="bg-[var(--brand-luxury)]/10 hover:bg-[var(--brand-luxury)]/20 text-[var(--text-primary)] border border-[var(--brand-luxury)]/20 px-6 py-3.5 text-xs font-bold tracking-[0.16em] uppercase transition-all cursor-pointer flex items-center gap-2"
                 >
-                  <Phone className="w-3.5 h-3.5 text-[#8B6639]" />
+                  <Phone className="w-3.5 h-3.5 text-[var(--brand-luxury-hover)]" />
                   <span>CONSULT WEDDING DESK</span>
                 </a>
               </div>
@@ -107,7 +107,7 @@ export const FlowerDroppingPage = ({
 
             {/* Right Photo */}
             <div className="lg:col-span-5">
-              <div className="border border-[#A67C52]/20 bg-[#D9C7B8] p-2 relative">
+              <div className="border border-[var(--brand-luxury)]/20 bg-[var(--background-subtle)] p-2 relative">
                 <Image
                   src="/images/flystar_flower_dropping_1788161916372.webp"
                   alt="Helicopter Aerial Flower Dropping at Royal Wedding"
@@ -117,11 +117,11 @@ export const FlowerDroppingPage = ({
                   loading="eager"
                   className="w-full h-80 sm:h-96 object-cover filter brightness-95"
                 />
-                <div className="absolute bottom-4 left-4 right-4 bg-[#F3E9D0]/85 backdrop-blur-md p-4 border border-[#A67C52]/20 text-xs">
-                  <span className="text-[#A67C52] font-bold uppercase tracking-wider block">
+                <div className="absolute bottom-4 left-4 right-4 bg-[var(--background-subtle)]/85 backdrop-blur-md p-4 border border-[var(--brand-luxury)]/20 text-xs">
+                  <span className="text-[var(--brand-luxury)] font-bold uppercase tracking-wider block">
                     Varmala Aerial Pushp Varsha
                   </span>
-                  <span className="text-[#6B4E3D] text-[11px] block mt-0.5">
+                  <span className="text-[var(--text-primary)] text-[11px] block mt-0.5">
                     100 kg Fresh Red &amp; Pink Rose Petals over Lake Palace Courtyard
                   </span>
                 </div>
@@ -132,13 +132,13 @@ export const FlowerDroppingPage = ({
       </section>
 
       {/* 2. OCCASIONS GRID */}
-      <section className="py-20 bg-[#E6D5C1] border-b border-[#A67C52]/20">
+      <section className="py-20 bg-[var(--brand-navy)] border-b border-[var(--brand-luxury)]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
           <div className="mb-12">
-            <span className="text-[11px] font-bold tracking-[0.24em] text-[#A67C52] uppercase block mb-2">
+            <span className="text-[11px] font-bold tracking-[0.24em] text-[var(--brand-luxury)] uppercase block mb-2">
               CELEBRATIONS &amp; SACRED RITUALS
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black uppercase text-[#6B4E3D] tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-black uppercase text-[var(--text-primary)] tracking-tight">
               PERFECT OCCASIONS FOR AERIAL PETAL SHOWERS
             </h2>
           </div>
@@ -147,16 +147,16 @@ export const FlowerDroppingPage = ({
             {occasions.map((occ) => (
               <div
                 key={occ.title}
-                className="bg-[#D9C7B8] border border-[#A67C52]/20 p-6 flex flex-col justify-between hover:border-[#8B6639]/40 transition-colors"
+                className="bg-[var(--background-subtle)] border border-[var(--brand-luxury)]/20 p-6 flex flex-col justify-between hover:border-[var(--brand-luxury-hover)]/40 transition-colors"
               >
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#A67C52] mb-2 block">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--brand-luxury)] mb-2 block">
                     {occ.tag}
                   </span>
-                  <h3 className="text-lg font-bold uppercase text-[#6B4E3D] mb-2">
+                  <h3 className="text-lg font-bold uppercase text-[var(--text-primary)] mb-2">
                     {occ.title}
                   </h3>
-                  <p className="text-xs text-[#A67C52] leading-relaxed">
+                  <p className="text-xs text-[var(--brand-luxury)] leading-relaxed">
                     {occ.desc}
                   </p>
                 </div>
@@ -167,16 +167,16 @@ export const FlowerDroppingPage = ({
       </section>
 
       {/* 3. HOW IT WORKS: 4-STEP PROCESS */}
-      <section className="py-20 lg:py-24 bg-[#F3E9D0] border-b border-[#A67C52]/20">
+      <section className="py-20 lg:py-24 bg-[var(--background-subtle)] border-b border-[var(--brand-luxury)]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
           <div className="max-w-2xl mb-14">
-            <span className="text-[11px] font-bold tracking-[0.24em] text-[#A67C52] uppercase block mb-2">
+            <span className="text-[11px] font-bold tracking-[0.24em] text-[var(--brand-luxury)] uppercase block mb-2">
               EXECUTION BLUEPRINT
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black uppercase text-[#6B4E3D] tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-black uppercase text-[var(--text-primary)] tracking-tight">
               HOW BOOK MY CHARDHAM DELIVERS FLAWLESS CEREMONIES
             </h2>
-            <p className="text-[#A67C52] text-xs sm:text-sm mt-3 leading-relaxed">
+            <p className="text-[var(--brand-luxury)] text-xs sm:text-sm mt-3 leading-relaxed">
               We handle every regulatory, safety, and logistical detail so you can focus entirely on enjoying your monumental day.
             </p>
           </div>
@@ -185,16 +185,16 @@ export const FlowerDroppingPage = ({
             {steps.map((s) => (
               <div
                 key={s.step}
-                className="bg-[#D9C7B8] border border-[#A67C52]/20 p-6 relative flex flex-col justify-between"
+                className="bg-[var(--background-subtle)] border border-[var(--brand-luxury)]/20 p-6 relative flex flex-col justify-between"
               >
                 <div>
-                  <div className="text-3xl font-black text-[#A67C52] font-mono mb-4">
+                  <div className="text-3xl font-black text-[var(--brand-luxury)] font-mono mb-4">
                     {s.step}
                   </div>
-                  <h3 className="text-sm font-bold uppercase text-[#6B4E3D] mb-2">
+                  <h3 className="text-sm font-bold uppercase text-[var(--text-primary)] mb-2">
                     {s.title}
                   </h3>
-                  <p className="text-xs text-[#A67C52] leading-relaxed">
+                  <p className="text-xs text-[var(--brand-luxury)] leading-relaxed">
                     {s.desc}
                   </p>
                 </div>
@@ -205,18 +205,18 @@ export const FlowerDroppingPage = ({
       </section>
 
       {/* 4. PACKAGES & PRICING TIERS */}
-      <section className="py-20 bg-[#E6D5C1] border-b border-[#A67C52]/20">
+      <section className="py-20 bg-[var(--brand-navy)] border-b border-[var(--brand-luxury)]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
-              <span className="text-[11px] font-bold tracking-[0.24em] text-[#A67C52] uppercase block mb-2">
+              <span className="text-[11px] font-bold tracking-[0.24em] text-[var(--brand-luxury)] uppercase block mb-2">
                 CUSTOM FLOWER DROPPING PACKAGES
               </span>
-              <h2 className="text-3xl sm:text-4xl font-black uppercase text-[#6B4E3D] tracking-tight">
+              <h2 className="text-3xl sm:text-4xl font-black uppercase text-[var(--text-primary)] tracking-tight">
                 SELECT CEREMONY SCALE
               </h2>
             </div>
-            <span className="text-xs text-[#A67C52]">
+            <span className="text-xs text-[var(--brand-luxury)]">
               Includes Petals, Loading, Helicopter Sortie &amp; Regulatory Clearances
             </span>
           </div>
@@ -225,43 +225,43 @@ export const FlowerDroppingPage = ({
             {FLOWER_DROPPING_PACKAGES.map((pkg) => (
               <div
                 key={pkg.id}
-                className="bg-[#D9C7B8] border border-[#A67C52]/20 p-6 sm:p-8 flex flex-col justify-between hover:border-[#A67C52]/30 transition-all"
+                className="bg-[var(--background-subtle)] border border-[var(--brand-luxury)]/20 p-6 sm:p-8 flex flex-col justify-between hover:border-[var(--brand-luxury)]/30 transition-all"
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-[10px] font-bold text-[#A67C52] uppercase tracking-widest">
+                    <span className="text-[10px] font-bold text-[var(--brand-luxury)] uppercase tracking-widest">
                       {pkg.sorties}
                     </span>
-                    <span className="text-xs font-semibold text-[#6B4E3D]">
+                    <span className="text-xs font-semibold text-[var(--text-primary)]">
                       {pkg.capacity}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold uppercase text-[#6B4E3D] mb-2">
+                  <h3 className="text-xl font-bold uppercase text-[var(--text-primary)] mb-2">
                     {pkg.title}
                   </h3>
-                  <p className="text-xs text-[#A67C52] leading-relaxed mb-6">
+                  <p className="text-xs text-[var(--brand-luxury)] leading-relaxed mb-6">
                     {pkg.description}
                   </p>
 
-                  <div className="space-y-2 mb-6 text-xs text-[#6B4E3D] border-t border-[#A67C52]/20 pt-4">
+                  <div className="space-y-2 mb-6 text-xs text-[var(--text-primary)] border-t border-[var(--brand-luxury)]/20 pt-4">
                     <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#8B6639]" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[var(--brand-luxury-hover)]" />
                       <span>Fresh natural rose &amp; marigold petals</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#8B6639]" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[var(--brand-luxury-hover)]" />
                       <span>DGCA &amp; District Administration approvals</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#8B6639]" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[var(--brand-luxury-hover)]" />
                       <span>Ground-to-air radio coordination</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-[#A67C52]/20 flex items-center justify-between">
-                  <div className="text-sm font-bold text-[#6B4E3D]">
+                <div className="pt-4 border-t border-[var(--brand-luxury)]/20 flex items-center justify-between">
+                  <div className="text-sm font-bold text-[var(--text-primary)]">
                     {pkg.price}
                   </div>
                   <button
@@ -269,7 +269,7 @@ export const FlowerDroppingPage = ({
                       onSelectServiceForBooking?.('flower-dropping', pkg.id);
                       onNavigate?.('booking');
                     }}
-                    className="bg-[#A67C52] hover:bg-[#8B6639] active:scale-95 text-white px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
+                    className="bg-[var(--brand-luxury)] hover:bg-[var(--brand-luxury-hover)] active:scale-95 text-[var(--text-inverse)] px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
                   >
                     BOOK CEREMONY
                   </button>
@@ -281,12 +281,12 @@ export const FlowerDroppingPage = ({
       </section>
 
       {/* 5. CEREMONY CTA */}
-      <section className="py-16 bg-[#F3E9D0]">
+      <section className="py-16 bg-[var(--background-subtle)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12 text-center">
-          <h2 className="text-2xl sm:text-3xl font-black uppercase text-[#6B4E3D] mb-3">
+          <h2 className="text-2xl sm:text-3xl font-black uppercase text-[var(--text-primary)] mb-3">
             HAVE A UNIQUE EVENT LOCATION OR DATE?
           </h2>
-          <p className="text-[#A67C52] text-xs sm:text-sm max-w-xl mx-auto mb-6">
+          <p className="text-[var(--brand-luxury)] text-xs sm:text-sm max-w-xl mx-auto mb-6">
             Our wedding &amp; special event aviation team is available 7 days a week to review your venue coordinates and coordinate all DGCA permissions.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
@@ -295,13 +295,13 @@ export const FlowerDroppingPage = ({
                 onSelectServiceForBooking?.('flower-dropping');
                 onNavigate?.('booking');
               }}
-              className="bg-[#A67C52] hover:bg-[#8B6639] text-white px-8 py-3.5 text-xs font-bold tracking-widest uppercase transition-all cursor-pointer"
+              className="bg-[var(--brand-luxury)] hover:bg-[var(--brand-luxury-hover)] text-[var(--text-inverse)] px-8 py-3.5 text-xs font-bold tracking-widest uppercase transition-all cursor-pointer"
             >
               REQUEST CUSTOM FLOWER DROP QUOTE
             </button>
             <a
               href="tel:+919355611996"
-              className="bg-[#A67C52]/10 hover:bg-[#A67C52]/20 text-[#6B4E3D] border border-[#A67C52]/20 px-6 py-3.5 text-xs font-bold tracking-widest uppercase transition-all"
+              className="bg-[var(--brand-luxury)]/10 hover:bg-[var(--brand-luxury)]/20 text-[var(--text-primary)] border border-[var(--brand-luxury)]/20 px-6 py-3.5 text-xs font-bold tracking-widest uppercase transition-all"
             >
               CALL +91 93556 11996
             </a>

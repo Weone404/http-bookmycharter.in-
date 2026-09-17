@@ -20,13 +20,13 @@ export default function FleetCategorySelector({ onSelect, defaultSelected = 'all
   }
 
   return (
-    <section className="w-full border-y border-[#A67C52]/20 bg-[#E6D5C1] px-4 py-12 sm:py-14">
+    <section className="w-full border-y border-[var(--brand-luxury)]/20 bg-[var(--brand-navy)] px-4 py-12 sm:py-14">
       <div className="mx-auto max-w-5xl">
         <div className="mb-8 text-center">
-          <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#A67C52]">
+          <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[var(--brand-luxury)]">
             Choose your category
           </p>
-          <h2 className="mt-2 text-2xl font-black uppercase tracking-tight text-[#6B4E3D] sm:text-3xl">
+          <h2 className="mt-2 text-2xl font-black uppercase tracking-tight text-[var(--text-primary)] sm:text-3xl">
             Browse by Aircraft Type
           </h2>
         </div>
@@ -41,14 +41,14 @@ export default function FleetCategorySelector({ onSelect, defaultSelected = 'all
                 type="button"
                 onClick={() => handleSelect(category.id)}
                 aria-pressed={active}
-                className="group flex min-w-[5.5rem] flex-col items-center gap-3 rounded-sm text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#6B4E3D] focus-visible:ring-offset-4 focus-visible:ring-offset-[#E6D5C1]"
+                className="group flex min-w-[5.5rem] flex-col items-center gap-3 rounded-sm text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--text-primary)] focus-visible:ring-offset-4 focus-visible:ring-offset-[var(--brand-navy)]"
               >
                 <span
                   className={[
-                    'flex h-20 w-20 items-center justify-center rounded-full bg-[#F3E9D0] transition-[transform,box-shadow] duration-200 sm:h-28 sm:w-28',
+                    'flex h-20 w-20 items-center justify-center rounded-full bg-[var(--background-subtle)] transition-[transform,box-shadow] duration-200 sm:h-28 sm:w-28',
                     active
-                      ? 'scale-105 ring-2 ring-[#6B4E3D] shadow-[0_6px_14px_rgba(50,33,22,0.16)]'
-                      : 'ring-1 ring-[#A67C52]/25 shadow-sm',
+                      ? 'scale-105 ring-2 ring-[var(--text-primary)] shadow-[0_6px_14px_var(--shadow-surface)]'
+                      : 'ring-1 ring-[var(--brand-luxury)]/25 shadow-sm',
                   ].join(' ')}
                 >
                   <Image
@@ -63,7 +63,7 @@ export default function FleetCategorySelector({ onSelect, defaultSelected = 'all
                 <span
                   className={[
                     'text-xs uppercase tracking-[0.08em] sm:text-sm',
-                    active ? 'font-black text-[#6B4E3D]' : 'font-bold text-[#A67C52]',
+                    active ? 'font-black text-[var(--text-primary)]' : 'font-bold text-[var(--brand-luxury)]',
                   ].join(' ')}
                 >
                   {category.label}

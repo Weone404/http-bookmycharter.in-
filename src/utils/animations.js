@@ -109,7 +109,7 @@ export const hoverScaleSmall = {
 };
 
 export const hoverLift = {
-  whileHover: { y: -4, boxShadow: '0 20px 40px rgba(0,0,0,0.15)' },
+  whileHover: { y: -4, boxShadow: '0 20px 40px rgba(7,26,43,0.15)' },
   transition: { duration: 0.3, ease: 'easeOut' },
 };
 
@@ -158,7 +158,7 @@ export const buttonHover = {
 export const cardHover = {
   whileHover: { 
     y: -8,
-    boxShadow: '0 25px 50px rgba(166, 124, 82, 0.15)',
+    boxShadow: '0 25px 50px rgba(201, 162, 39, 0.15)',
   },
   transition: { duration: 0.3, ease: 'easeOut' },
 };

@@ -66,17 +66,17 @@ export default function KedarnathHelicopterYatra() {
         ])}
       />
 
-      <article className="w-full bg-[#F3E9D0] text-[#6B4E3D]">
+      <article className="w-full bg-[var(--background-subtle)] text-[var(--text-primary)]">
         <div className="max-w-[68ch] mx-auto px-5 sm:px-8 pt-28 pb-24" style={{ fontSize: '18px', lineHeight: 1.65 }}>
 
-          <nav aria-label="Breadcrumb" className="text-[13px] text-[#A67C52] mb-6">
-            <Link href="/" className="hover:text-[#6B4E3D] underline underline-offset-4">Home</Link>
+          <nav aria-label="Breadcrumb" className="text-[13px] text-[var(--brand-luxury)] mb-6">
+            <Link href="/" className="hover:text-[var(--text-primary)] underline underline-offset-4">Home</Link>
             <span className="mx-2">/</span>
             <span aria-current="page">Kedarnath Helicopter Yatra</span>
           </nav>
 
           <h1
-            className="font-bold tracking-tight text-[#6B4E3D] mb-6"
+            className="font-bold tracking-tight text-[var(--text-primary)] mb-6"
             style={{ fontSize: 'clamp(1.75rem, 5vw, 2.5rem)', lineHeight: 1.15, textWrap: 'balance' }}
           >
             Kedarnath Helicopter Yatra
@@ -92,12 +92,12 @@ export default function KedarnathHelicopterYatra() {
             capped at 5 kg.
           </p>
 
-          <p className="text-[13px] text-[#A67C52] border-y border-[#A67C52]/25 py-3 mb-10">
+          <p className="text-[13px] text-[var(--brand-luxury)] border-y border-[var(--brand-luxury)]/25 py-3 mb-10">
             Last updated {LAST_MODIFIED[PATH]} &middot; Written from our own dispatch
             desk &middot; Questions: {CONTACT.phoneDisplay}
           </p>
 
-          <h2 className="font-bold text-[#6B4E3D] mt-12 mb-4" style={{ fontSize: '1.4rem' }}>
+          <h2 className="font-bold text-[var(--text-primary)] mt-12 mb-4" style={{ fontSize: '1.4rem' }}>
             What does a Kedarnath helicopter ticket cost?
           </h2>
           <p className="mb-5">
@@ -110,18 +110,18 @@ export default function KedarnathHelicopterYatra() {
 
           <div className="overflow-x-auto my-8">
             <table className="w-full text-[15px] border-collapse" style={{ fontVariantNumeric: 'tabular-nums' }}>
-              <caption className="text-left text-[13px] text-[#A67C52] mb-3">
+              <caption className="text-left text-[13px] text-[var(--brand-luxury)] mb-3">
                 Kedarnath same-day helicopter yatra, {PKG.duration}
               </caption>
               <thead>
-                <tr className="border-b-2 border-[#A67C52]/40 text-left">
+                <tr className="border-b-2 border-[var(--brand-luxury)]/40 text-left">
                   <th scope="col" className="py-3 pr-4 font-bold">Option</th>
                   <th scope="col" className="py-3 pr-4 font-bold">Price</th>
                   <th scope="col" className="py-3 font-bold">Basis</th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b border-[#A67C52]/20">
+                <tr className="border-b border-[var(--brand-luxury)]/20">
                   <td className="py-3 pr-4">Shared seat</td>
                   <td className="py-3 pr-4 font-bold">{formatPrice(PRICE.perSeat)}</td>
                   <td className="py-3">Per person, return</td>
@@ -135,7 +135,7 @@ export default function KedarnathHelicopterYatra() {
             </table>
           </div>
 
-          <h2 className="font-bold text-[#6B4E3D] mt-12 mb-4" style={{ fontSize: '1.4rem' }}>
+          <h2 className="font-bold text-[var(--text-primary)] mt-12 mb-4" style={{ fontSize: '1.4rem' }}>
             Which helipad do you fly from?
           </h2>
           <p className="mb-5">
@@ -148,7 +148,7 @@ export default function KedarnathHelicopterYatra() {
             {HELIPADS.map((h) => (
               <div key={h.name}>
                 <dt className="font-bold text-[17px]">{h.name}</dt>
-                <dd className="m-0 text-[#6B4E3D]/85">{h.detail}</dd>
+                <dd className="m-0 text-[var(--text-primary)]/85">{h.detail}</dd>
               </div>
             ))}
           </dl>
@@ -158,19 +158,19 @@ export default function KedarnathHelicopterYatra() {
             pattern that week, and it is not a decision worth making off a webpage.
           </p>
 
-          <h2 className="font-bold text-[#6B4E3D] mt-12 mb-4" style={{ fontSize: '1.4rem' }}>
+          <h2 className="font-bold text-[var(--text-primary)] mt-12 mb-4" style={{ fontSize: '1.4rem' }}>
             How does the day actually run?
           </h2>
           <ol className="my-6 space-y-4 list-decimal pl-5">
             {PKG.itinerary.map((step) => (
               <li key={step.dayOrTime}>
                 <strong>{step.dayOrTime} &mdash; {step.title}.</strong>{' '}
-                <span className="text-[#6B4E3D]/85">{step.description}</span>
+                <span className="text-[var(--text-primary)]/85">{step.description}</span>
               </li>
             ))}
           </ol>
 
-          <h2 className="font-bold text-[#6B4E3D] mt-12 mb-4" style={{ fontSize: '1.4rem' }}>
+          <h2 className="font-bold text-[var(--text-primary)] mt-12 mb-4" style={{ fontSize: '1.4rem' }}>
             Are you the official IRCTC helicopter booking?
           </h2>
           <p className="mb-5">
@@ -180,7 +180,7 @@ export default function KedarnathHelicopterYatra() {
             <a
               href="https://heliyatra.irctc.co.in"
               rel="noopener nofollow"
-              className="underline underline-offset-4 text-[#8B6639] font-semibold"
+              className="underline underline-offset-4 text-[var(--brand-luxury-hover)] font-semibold"
             >
               heliyatra.irctc.co.in
             </a>
@@ -191,25 +191,25 @@ export default function KedarnathHelicopterYatra() {
             with you.
           </p>
 
-          <h2 className="font-bold text-[#6B4E3D] mt-12 mb-4" style={{ fontSize: '1.4rem' }}>
+          <h2 className="font-bold text-[var(--text-primary)] mt-12 mb-4" style={{ fontSize: '1.4rem' }}>
             What is included, and what is not
           </h2>
           <div className="grid sm:grid-cols-2 gap-8 my-6">
             <div>
-              <h3 className="font-bold text-[15px] uppercase tracking-wide text-[#A67C52] mb-3">Included</h3>
+              <h3 className="font-bold text-[15px] uppercase tracking-wide text-[var(--brand-luxury)] mb-3">Included</h3>
               <ul className="space-y-2 text-[16px] list-disc pl-5">
                 {PKG.inclusions.map((i) => <li key={i}>{i}</li>)}
               </ul>
             </div>
             <div>
-              <h3 className="font-bold text-[15px] uppercase tracking-wide text-[#A67C52] mb-3">Not included</h3>
+              <h3 className="font-bold text-[15px] uppercase tracking-wide text-[var(--brand-luxury)] mb-3">Not included</h3>
               <ul className="space-y-2 text-[16px] list-disc pl-5">
                 {PKG.exclusions.map((i) => <li key={i}>{i}</li>)}
               </ul>
             </div>
           </div>
 
-          <h2 className="font-bold text-[#6B4E3D] mt-12 mb-4" style={{ fontSize: '1.4rem' }}>
+          <h2 className="font-bold text-[var(--text-primary)] mt-12 mb-4" style={{ fontSize: '1.4rem' }}>
             When can you actually fly?
           </h2>
           <p className="mb-5">
@@ -227,52 +227,52 @@ export default function KedarnathHelicopterYatra() {
             hoping.
           </p>
 
-          <div className="my-10 p-6 bg-[#D9C7B8] border border-[#A67C52]/30">
+          <div className="my-10 p-6 bg-[var(--background-subtle)] border border-[var(--brand-luxury)]/30">
             <p className="m-0 mb-4 font-bold text-[17px]">
               Check dates for your group
             </p>
-            <p className="m-0 mb-5 text-[16px] text-[#6B4E3D]/85">
+            <p className="m-0 mb-5 text-[16px] text-[var(--text-primary)]/85">
               Tell us the travel window, number of passengers and their approximate
               weights. We will come back with what is flyable and from which pad.
             </p>
             <a
               href={WA}
               rel="noopener"
-              className="inline-flex items-center justify-center font-bold text-[15px] bg-[#6B4E3D] text-[#F3E9D0] px-6 hover:bg-[#8B6639] transition-colors"
+              className="inline-flex items-center justify-center font-bold text-[15px] bg-[var(--text-primary)] text-[var(--background-subtle)] px-6 hover:bg-[var(--brand-luxury-hover)] transition-colors"
               style={{ minHeight: '48px' }}
             >
               Ask on WhatsApp
             </a>
             <a
               href={`tel:${CONTACT.phone}`}
-              className="inline-flex items-center justify-center font-bold text-[15px] border border-[#6B4E3D] px-6 ml-3 hover:bg-[#6B4E3D] hover:text-[#F3E9D0] transition-colors"
+              className="inline-flex items-center justify-center font-bold text-[15px] border border-[var(--text-primary)] px-6 ml-3 hover:bg-[var(--text-primary)] hover:text-[var(--background-subtle)] transition-colors"
               style={{ minHeight: '48px' }}
             >
               {CONTACT.phoneDisplay}
             </a>
           </div>
 
-          <h2 className="font-bold text-[#6B4E3D] mt-12 mb-4" style={{ fontSize: '1.4rem' }}>
+          <h2 className="font-bold text-[var(--text-primary)] mt-12 mb-4" style={{ fontSize: '1.4rem' }}>
             Related
           </h2>
           <ul className="space-y-2 list-disc pl-5">
             <li>
-              <Link href="/char-dham-yatra-by-helicopter" className="underline underline-offset-4 text-[#8B6639]">
+              <Link href="/char-dham-yatra-by-helicopter" className="underline underline-offset-4 text-[var(--brand-luxury-hover)]">
                 Char Dham yatra by helicopter, all four dhams in five days
               </Link>
             </li>
             <li>
-              <Link href="/private-helicopter-charter" className="underline underline-offset-4 text-[#8B6639]">
+              <Link href="/private-helicopter-charter" className="underline underline-offset-4 text-[var(--brand-luxury-hover)]">
                 Private helicopter charter for VIP and emergency movement
               </Link>
             </li>
             <li>
-              <Link href="/helicopter-flower-dropping" className="underline underline-offset-4 text-[#8B6639]">
+              <Link href="/helicopter-flower-dropping" className="underline underline-offset-4 text-[var(--brand-luxury-hover)]">
                 Aerial flower dropping for weddings and temple events
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="underline underline-offset-4 text-[#8B6639]">
+              <Link href="/contact" className="underline underline-offset-4 text-[var(--brand-luxury-hover)]">
                 Departure points and how to reach our dispatch desk
               </Link>
             </li>

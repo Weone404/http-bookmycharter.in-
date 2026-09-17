@@ -42,7 +42,7 @@ export const Navbar = ({ currentPage: propCurrentPage, onNavigate }) => {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[#A67C52]/20 bg-[#E6D5C1]/85 backdrop-blur-md shadow-[0_2px_10px_rgba(40,24,18,0.08)] select-none transition-all">
+    <header className="sticky top-0 z-40 w-full border-b border-[var(--brand-luxury)]/20 bg-[var(--brand-navy)]/85 backdrop-blur-md shadow-[0_2px_10px_var(--shadow-navy)] select-none transition-all">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 px-3 sm:h-20 sm:gap-4 sm:px-6 md:px-10 lg:px-12">
         {/* Brand Logo */}
         <div className="min-w-0 flex-shrink-0">
@@ -60,13 +60,13 @@ export const Navbar = ({ currentPage: propCurrentPage, onNavigate }) => {
                 onClick={() => handleNavClick(item)}
                 className={`relative cursor-pointer py-1 text-[11.5px] font-bold uppercase tracking-[0.14em] transition-all duration-200 xl:text-[12.5px] ${
                   isActive
-                    ? 'text-[#6B4E3D]'
-                    : 'text-[#A67C52] hover:text-[#6B4E3D]'
+                    ? 'text-[var(--brand-luxury)]'
+                    : 'text-[var(--text-inverse)] hover:text-[var(--brand-luxury)]'
                 }`}
               >
                 {item.label}
                 <span
-                  className={`absolute -bottom-1 left-0 h-[2px] bg-[#A67C52] transition-all duration-200 ${
+                  className={`absolute -bottom-1 left-0 h-[2px] bg-[var(--brand-luxury)] transition-all duration-200 ${
                     isActive ? 'right-0 opacity-100' : 'right-full opacity-0 group-hover:right-0 group-hover:opacity-100'
                   }`}
                 />
@@ -80,10 +80,10 @@ export const Navbar = ({ currentPage: propCurrentPage, onNavigate }) => {
           {/* Phone Dispatch Link (Desktop) */}
           <a
             href="tel:+919355611996"
-            className="hidden items-center gap-2 rounded-xs border border-[#A67C52]/30 bg-[#A67C52]/10 px-3 py-1.5 text-[#A67C52] transition-colors hover:bg-[#A67C52]/20 hover:text-[#6B4E3D] xl:flex"
+            className="hidden items-center gap-2 rounded-xs border border-[var(--brand-luxury)]/30 bg-[var(--brand-luxury)]/10 px-3 py-1.5 text-[var(--brand-luxury)] transition-colors hover:bg-[var(--brand-luxury)]/20 hover:text-[var(--text-primary)] xl:flex"
           >
-            <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            <Phone className="h-3.5 w-3.5 text-neutral-400" />
+            <div className="h-2 w-2 rounded-full bg-[var(--brand-luxury)] animate-pulse" />
+            <Phone className="h-3.5 w-3.5 text-[var(--background-subtle)]" />
             <span className="text-[12px] font-bold tracking-wider">+91 93556 11996</span>
           </a>
 
@@ -91,7 +91,7 @@ export const Navbar = ({ currentPage: propCurrentPage, onNavigate }) => {
           <button
             id="header-book-now-btn"
             onClick={() => handleNavClick({ id: 'booking', href: '/booking' })}
-            className="flex items-center gap-2 rounded-xs border border-red-500/30 bg-[#c8102e] px-3 py-2 text-[10px] font-bold uppercase tracking-[0.12em] text-white shadow-md transition-all hover:bg-red-700 active:scale-95 sm:px-5 sm:text-[11.5px]"
+            className="flex items-center gap-2 rounded-xs border border-[var(--brand-primary)]/30 bg-[var(--brand-primary)] px-3 py-2 text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--text-inverse)] shadow-md transition-all hover:bg-[var(--brand-primary)] active:scale-95 sm:px-5 sm:text-[11.5px]"
           >
             <Calendar className="h-3.5 w-3.5" />
             <span>BOOK NOW</span>
@@ -102,7 +102,7 @@ export const Navbar = ({ currentPage: propCurrentPage, onNavigate }) => {
             id="mobile-menu-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
-            className="cursor-pointer rounded-xs border border-[#A67C52]/20 bg-[#A67C52]/10 p-2 text-[#6B4E3D] transition-colors hover:bg-[#A67C52]/20 lg:hidden"
+            className="cursor-pointer rounded-xs border border-[var(--brand-luxury)]/20 bg-[var(--brand-luxury)]/10 p-2 text-[var(--text-inverse)] transition-colors hover:bg-[var(--brand-navy-hover)] lg:hidden"
           >
             {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -111,7 +111,7 @@ export const Navbar = ({ currentPage: propCurrentPage, onNavigate }) => {
 
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="fixed inset-x-0 top-16 z-50 max-h-[calc(100dvh-4rem)] overflow-y-auto border-b border-white/15 bg-black/95 p-4 shadow-2xl backdrop-blur-xl animate-fadeIn sm:top-20 sm:p-6 lg:hidden">
+        <div className="fixed inset-x-0 top-16 z-50 max-h-[calc(100dvh-4rem)] overflow-y-auto border-b border-[var(--text-inverse)]/15 bg-[var(--brand-navy)]/95 p-4 shadow-2xl backdrop-blur-xl animate-fadeIn sm:top-20 sm:p-6 lg:hidden">
           <div className="flex flex-col space-y-3">
             {navItems.map((item) => {
               const isActive = activePage === item.id;
@@ -121,27 +121,27 @@ export const Navbar = ({ currentPage: propCurrentPage, onNavigate }) => {
                   onClick={() => handleNavClick(item)}
                   className={`flex items-center justify-between p-3 rounded-xs text-left text-xs font-bold tracking-[0.16em] uppercase transition-all cursor-pointer ${
                     isActive
-                      ? 'bg-[#181818] text-white border-l-2 border-[#c8102e]'
-                      : 'text-neutral-300 hover:bg-white/5 hover:text-white'
+                      ? 'bg-[var(--brand-navy)] text-[var(--text-inverse)] border-l-2 border-[var(--brand-luxury)]'
+                      : 'text-[var(--text-inverse)] hover:bg-[var(--brand-navy-hover)] hover:text-[var(--brand-luxury)]'
                   }`}
                 >
                   <span>{item.label}</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-neutral-500" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[var(--background-subtle)]" />
                 </button>
               );
             })}
 
-            <div className="pt-4 mt-2 border-t border-white/10 flex flex-col gap-3">
+            <div className="pt-4 mt-2 border-t border-[var(--text-inverse)]/10 flex flex-col gap-3">
               <a
                 href="tel:+919355611996"
-                className="flex items-center justify-center gap-2 p-3 bg-white/5 rounded-xs text-xs font-bold tracking-wider text-neutral-200"
+                className="flex items-center justify-center gap-2 p-3 bg-[var(--text-inverse)]/5 rounded-xs text-xs font-bold tracking-wider text-[var(--background-subtle)]"
               >
-                <Phone className="w-4 h-4 text-emerald-400" />
+                <Phone className="w-4 h-4 text-[var(--brand-luxury)]" />
                 <span>Call 24/7 Operations: +91 93556 11996</span>
               </a>
 
-              <div className="flex items-center justify-center gap-1.5 text-[11px] text-neutral-500 uppercase tracking-widest pt-2">
-                <Shield className="w-3.5 h-3.5 text-red-500" />
+              <div className="flex items-center justify-center gap-1.5 text-[11px] text-[var(--background-subtle)] uppercase tracking-widest pt-2">
+                <Shield className="w-3.5 h-3.5 text-[var(--brand-primary)]" />
                 <span>DGCA NSOP Certified Aviation</span>
               </div>
             </div>

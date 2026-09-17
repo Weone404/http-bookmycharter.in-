@@ -6,7 +6,7 @@ export const TrustStatBar = () => {
   const icons = [Award, ShieldCheck, Users, Compass];
 
   return (
-    <section className="w-full bg-black/90 border-y border-white/10 relative z-20 py-8 lg:py-10">
+    <section className="w-full bg-[var(--brand-navy)]/90 border-y border-[var(--text-inverse)]/10 relative z-20 py-8 lg:py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
           {TRUST_STATS.map((stat, idx) => {
@@ -19,15 +19,15 @@ export const TrustStatBar = () => {
                 }`}
               >
                 <div className="flex items-center gap-2.5 mb-2">
-                  <Icon className="w-4 h-4 text-[#c8102e]" />
-                  <span className="text-[11px] font-bold tracking-[0.18em] text-neutral-400 uppercase">
+                  <Icon className="w-4 h-4 text-[var(--brand-primary)]" />
+                  <span className="text-[11px] font-bold tracking-[0.18em] text-[var(--background-subtle)] uppercase">
                     {stat.label}
                   </span>
                 </div>
-                <div className="text-3xl sm:text-4xl font-black tracking-tight text-white font-sans">
+                <div className="text-3xl sm:text-4xl font-black tracking-tight text-[var(--text-inverse)] font-sans">
                   {stat.value}
                 </div>
-                <p className="text-[12.5px] text-neutral-400 mt-1.5 leading-relaxed font-normal">
+                <p className="text-[12.5px] text-[var(--background-subtle)] mt-1.5 leading-relaxed font-normal">
                   {stat.detail}
                 </p>
               </div>

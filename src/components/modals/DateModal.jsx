@@ -23,33 +23,33 @@ export const DateModal = ({
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[var(--brand-navy)]/85 backdrop-blur-md animate-fadeIn">
       <div
-        className="w-full max-w-md bg-[#121212] border border-[#262626] rounded-md shadow-2xl overflow-hidden"
+        className="w-full max-w-md bg-[var(--brand-navy)] border border-[var(--text-primary)] rounded-md shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-6 py-5 border-b border-[#222222]">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-[var(--brand-navy)]">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-red-600/20 text-red-500 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-[var(--brand-primary)]/20 text-[var(--brand-primary)] flex items-center justify-center">
               <CalendarIcon className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-base font-bold tracking-wider text-white uppercase">
+              <h3 className="text-base font-bold tracking-wider text-[var(--text-inverse)] uppercase">
                 FLIGHT DATE
               </h3>
-              <p className="text-xs text-neutral-400">Select your departure date</p>
+              <p className="text-xs text-[var(--background-subtle)]">Select your departure date</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 text-neutral-400 hover:text-white hover:bg-[#202020] rounded-full transition-colors cursor-pointer"
+            className="p-2 text-[var(--background-subtle)] hover:text-[var(--text-inverse)] hover:bg-[var(--brand-navy)] rounded-full transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         <div className="p-6 space-y-4">
-          <div className="text-xs font-bold tracking-widest text-neutral-400 uppercase">
+          <div className="text-xs font-bold tracking-widest text-[var(--background-subtle)] uppercase">
             Quick Select Date
           </div>
           <div className="grid grid-cols-2 gap-2.5">
@@ -63,18 +63,18 @@ export const DateModal = ({
                 }}
                 className={`p-3 rounded-sm border text-left flex items-center justify-between text-xs font-medium transition-all cursor-pointer ${
                   selected === d
-                    ? 'bg-red-900/30 border-red-600 text-white'
-                    : 'bg-[#181818] border-[#262626] text-neutral-300 hover:bg-[#222222] hover:border-neutral-500'
+                    ? 'bg-[var(--brand-navy)]/30 border-[var(--brand-primary)] text-[var(--text-inverse)]'
+                    : 'bg-[var(--brand-navy)] border-[var(--text-primary)] text-[var(--background-subtle)] hover:bg-[var(--brand-navy)] hover:border-[var(--brand-luxury)]'
                 }`}
               >
                 <span>{d}</span>
-                {selected === d && <Check className="w-3.5 h-3.5 text-red-500" />}
+                {selected === d && <Check className="w-3.5 h-3.5 text-[var(--brand-primary)]" />}
               </button>
             ))}
           </div>
 
           <div className="pt-2">
-            <label className="text-xs font-semibold text-neutral-400 block mb-1.5 uppercase tracking-wider">
+            <label className="text-xs font-semibold text-[var(--background-subtle)] block mb-1.5 uppercase tracking-wider">
               Custom Date Input
             </label>
             <input
@@ -82,15 +82,15 @@ export const DateModal = ({
               value={selected}
               onChange={(e) => setSelected(e.target.value)}
               placeholder="e.g. July 29, 2018"
-              className="w-full px-4 py-3 bg-[#1a1a1a] border border-[#2d2d2d] focus:border-red-600 rounded text-sm text-white outline-none"
+              className="w-full px-4 py-3 bg-[var(--brand-navy)] border border-[var(--text-primary)] focus:border-[var(--brand-primary)] rounded text-sm text-[var(--text-inverse)] outline-none"
             />
           </div>
         </div>
 
-        <div className="px-6 py-4 bg-[#0e0e0e] border-t border-[#1f1f1f] flex items-center justify-end gap-3">
+        <div className="px-6 py-4 bg-[var(--surface-dark)] border-t border-[var(--border-subtle)] flex items-center justify-end gap-3">
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-[#222222] hover:bg-[#333333] text-white rounded text-xs font-medium uppercase tracking-wider transition-colors cursor-pointer"
+            className="px-4 py-2 bg-[var(--brand-navy)] hover:bg-[var(--text-primary)] text-[var(--text-inverse)] rounded text-xs font-medium uppercase tracking-wider transition-colors cursor-pointer"
           >
             Cancel
           </button>
@@ -99,7 +99,7 @@ export const DateModal = ({
               onSelectDate(selected);
               onClose();
             }}
-            className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white rounded text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer shadow-md"
+            className="px-5 py-2 bg-[var(--brand-primary)] hover:bg-[var(--brand-primary)] text-[var(--text-inverse)] rounded text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer shadow-md"
           >
             Confirm Date
           </button>

@@ -134,7 +134,7 @@ export const HoverLiftCard = ({
       whileHover={safeVariants({ 
         whileHover: { 
           y: -8,
-          boxShadow: '0 25px 50px rgba(166, 124, 82, 0.15)',
+          boxShadow: '0 25px 50px var(--shadow-luxury)',
         }
       }).whileHover || {}}
       transition={safeTransition({ duration: 0.3, ease: 'easeOut' })}

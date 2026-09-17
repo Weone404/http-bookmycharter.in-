@@ -28,7 +28,7 @@ export function HomeHero({ variant }) {
         initial="initial"
         animate="animate"
         transition={transitionDefault}
-        className="inline-flex items-center gap-2 px-3 py-1 bg-[#F3E9D0]/60 backdrop-blur-md border border-[#A67C52]/20 rounded-xs w-fit mb-3 text-[11px] font-bold tracking-[0.2em] text-[#A67C52] uppercase"
+        className="inline-flex items-center gap-2 px-3 py-1 bg-[var(--brand-navy)]/75 backdrop-blur-md border border-[var(--brand-luxury)]/30 rounded-xs w-fit mb-3 text-[11px] font-bold tracking-[0.2em] text-[var(--brand-luxury)] uppercase"
       >
         <Sparkles className="w-3 h-3" />
         <span>India&apos;s Premier Helicopter Charter Service</span>

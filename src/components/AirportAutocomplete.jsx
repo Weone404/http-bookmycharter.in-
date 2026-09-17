@@ -38,7 +38,7 @@ function HighlightedText({ value, query }) {
   const pattern = new RegExp(`(${terms.map((term) => term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'ig');
   return value.split(pattern).map((part, index) => (
     terms.includes(normalize(part))
-      ? <mark key={`${part}-${index}`} className="bg-[#c8102e]/30 text-white">{part}</mark>
+      ? <mark key={`${part}-${index}`} className="bg-[var(--brand-primary)]/30 text-[var(--text-inverse)]">{part}</mark>
       : part
   ));
 }
@@ -101,7 +101,7 @@ export default function AirportAutocomplete({ value, onChange, onSelect }) {
   return (
     <div ref={containerRef} className="relative">
       <div className="relative">
-        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500" />
+        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--background-subtle)]" />
         <input
           type="text"
           value={query}
@@ -114,44 +114,44 @@ export default function AirportAutocomplete({ value, onChange, onSelect }) {
           onFocus={() => setOpen(true)}
           onKeyDown={(event) => event.key === 'Escape' && setOpen(false)}
           placeholder="Search for an airport or city..."
-          className="w-full bg-[#181818] border border-white/15 py-3 pl-10 pr-9 text-xs text-white focus:border-[#c8102e] focus:outline-none"
+          className="w-full bg-[var(--brand-navy)] border border-[var(--text-inverse)]/15 py-3 pl-10 pr-9 text-xs text-[var(--text-inverse)] focus:border-[var(--brand-primary)] focus:outline-none"
           aria-label="Departure Base / Helipad"
           autoComplete="off"
         />
-        <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500" />
+        <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--background-subtle)]" />
       </div>
 
       {open && debouncedQuery && (
-        <div className="absolute z-30 mt-1 max-h-80 w-full overflow-y-auto border border-white/15 bg-[#181818] shadow-2xl" role="listbox">
+        <div className="absolute z-30 mt-1 max-h-80 w-full overflow-y-auto border border-[var(--text-inverse)]/15 bg-[var(--brand-navy)] shadow-2xl" role="listbox">
           {results.length > 0 ? results.map((airport) => (
-            <div key={airport.id} className="border-b border-white/10 last:border-0">
-              <button type="button" onClick={() => selectAirport(airport)} className="flex w-full items-start gap-3 px-3 py-2.5 text-left hover:bg-white/10">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#c8102e]" />
-                <span className="min-w-0 text-xs text-white">
+            <div key={airport.id} className="border-b border-[var(--text-inverse)]/10 last:border-0">
+              <button type="button" onClick={() => selectAirport(airport)} className="flex w-full items-start gap-3 px-3 py-2.5 text-left hover:bg-[var(--text-inverse)]/10">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[var(--brand-primary)]" />
+                <span className="min-w-0 text-xs text-[var(--text-inverse)]">
                   <strong className="block font-semibold"><HighlightedText value={airport.name} query={debouncedQuery} /></strong>
-                  <span className="text-neutral-400"><HighlightedText value={airport.city} query={debouncedQuery} />{airport.code && ` • ${airport.code}`}</span>
+                  <span className="text-[var(--background-subtle)]"><HighlightedText value={airport.city} query={debouncedQuery} />{airport.code && ` • ${airport.code}`}</span>
                 </span>
               </button>
               {normalize(airport.city).includes(normalize(debouncedQuery)) && (
-                <button type="button" onClick={() => setExpandedCity(airport.city)} className="ml-10 mb-2 text-[10px] font-bold uppercase tracking-wider text-[#c8102e] hover:text-white">
+                <button type="button" onClick={() => setExpandedCity(airport.city)} className="ml-10 mb-2 text-[10px] font-bold uppercase tracking-wider text-[var(--brand-primary)] hover:text-[var(--text-inverse)]">
                   Show all {airport.city} airports
                 </button>
               )}
             </div>
           )) : (
-            <div className="px-3 py-4 text-xs text-neutral-400">
+            <div className="px-3 py-4 text-xs text-[var(--background-subtle)]">
               <p>No results found.</p>
-              <button type="button" onClick={() => { setOpen(false); onSelect(null); }} className="mt-2 font-bold uppercase tracking-wider text-[#c8102e] hover:text-white">
+              <button type="button" onClick={() => { setOpen(false); onSelect(null); }} className="mt-2 font-bold uppercase tracking-wider text-[var(--brand-primary)] hover:text-[var(--text-inverse)]">
                 Use this custom location
               </button>
             </div>
           )}
           {expandedCity && cityResults.length > 0 && (
-            <div className="border-t border-[#c8102e]/40 bg-[#121212] p-2">
-              <p className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#c8102e]">{expandedCity} locations</p>
+            <div className="border-t border-[var(--brand-primary)]/40 bg-[var(--brand-navy)] p-2">
+              <p className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--brand-primary)]">{expandedCity} locations</p>
               {cityResults.map((airport) => (
-                <button key={airport.id} type="button" onClick={() => selectAirport(airport)} className="block w-full px-2 py-2 text-left text-xs text-white hover:bg-white/10">
-                  {airport.name} {airport.code && <span className="text-neutral-400">({airport.code})</span>}
+                <button key={airport.id} type="button" onClick={() => selectAirport(airport)} className="block w-full px-2 py-2 text-left text-xs text-[var(--text-inverse)] hover:bg-[var(--text-inverse)]/10">
+                  {airport.name} {airport.code && <span className="text-[var(--background-subtle)]">({airport.code})</span>}
                 </button>
               ))}
             </div>

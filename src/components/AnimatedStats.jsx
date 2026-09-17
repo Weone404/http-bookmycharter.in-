@@ -15,26 +15,26 @@ export function AnimatedStats() {
       <motion.div
         variants={fadeInUp}
         transition={transitionDefault}
-        className="p-3 bg-[#D9C7B8] border border-[#A67C52]/20 hover:border-[#A67C52]/40 transition-colors"
+        className="p-3 bg-[var(--background-subtle)] border border-[var(--brand-luxury)]/20 hover:border-[var(--brand-luxury)]/40 transition-colors"
       >
-        <span className="text-lg font-black text-[#6B4E3D] block">23,000 FT</span>
-        <span className="text-[10px] uppercase tracking-wider text-[#A67C52]">Altitude Ceiling</span>
+        <span className="text-lg font-black text-[var(--text-primary)] block">23,000 FT</span>
+        <span className="text-[10px] uppercase tracking-wider text-[var(--brand-luxury)]">Altitude Ceiling</span>
       </motion.div>
       <motion.div
         variants={fadeInUp}
         transition={transitionDefault}
-        className="p-3 bg-[#D9C7B8] border border-[#A67C52]/20 hover:border-[#A67C52]/40 transition-colors"
+        className="p-3 bg-[var(--background-subtle)] border border-[var(--brand-luxury)]/20 hover:border-[var(--brand-luxury)]/40 transition-colors"
       >
-        <span className="text-lg font-black text-[#6B4E3D] block">260 KM/H</span>
-        <span className="text-[10px] uppercase tracking-wider text-[#A67C52]">Max Cruise Speed</span>
+        <span className="text-lg font-black text-[var(--text-primary)] block">260 KM/H</span>
+        <span className="text-[10px] uppercase tracking-wider text-[var(--brand-luxury)]">Max Cruise Speed</span>
       </motion.div>
       <motion.div
         variants={fadeInUp}
         transition={transitionDefault}
-        className="p-3 bg-[#D9C7B8] border border-[#A67C52]/20 hover:border-[#A67C52]/40 transition-colors"
+        className="p-3 bg-[var(--background-subtle)] border border-[var(--brand-luxury)]/20 hover:border-[var(--brand-luxury)]/40 transition-colors"
       >
-        <span className="text-lg font-black text-[#6B4E3D] block">45 MINS</span>
-        <span className="text-[10px] uppercase tracking-wider text-[#A67C52]">Rapid Dispatch</span>
+        <span className="text-lg font-black text-[var(--text-primary)] block">45 MINS</span>
+        <span className="text-[10px] uppercase tracking-wider text-[var(--brand-luxury)]">Rapid Dispatch</span>
       </motion.div>
     </motion.div>
   );

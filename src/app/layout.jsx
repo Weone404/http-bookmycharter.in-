@@ -58,7 +58,7 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: '#6B4E3D',
+  themeColor: '#071A2B',
   width: 'device-width',
   initialScale: 1,
 };
@@ -81,7 +81,7 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
       </head>
-      <body className="bg-[#F3E9D0] text-[#6B4E3D] antialiased min-h-screen flex flex-col justify-between selection:bg-[#A67C52] selection:text-[#F3E9D0] font-sans">
+      <body className="bg-[var(--background-subtle)] text-[var(--text-primary)] antialiased min-h-screen flex flex-col justify-between selection:bg-[var(--brand-luxury)] selection:text-[var(--background-subtle)] font-sans">
         <Navbar />
         <main className="flex-1 w-full relative z-10">{children}</main>
         <Footer />

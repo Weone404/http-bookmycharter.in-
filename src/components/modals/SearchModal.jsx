@@ -20,24 +20,24 @@ export const SearchModal = ({
   );
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/90 backdrop-blur-md animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-[var(--brand-navy)]/90 backdrop-blur-md animate-fadeIn">
       <div
-        className="w-full max-w-2xl bg-[#121212] border border-[#2a2a2a] rounded-md shadow-2xl overflow-hidden"
+        className="w-full max-w-2xl bg-[var(--brand-navy)] border border-[var(--border-strong)] rounded-md shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center gap-3 p-4 border-b border-[#222222] bg-[#161616]">
-          <Search className="w-5 h-5 text-red-500 shrink-0 ml-2" />
+        <div className="flex items-center gap-3 p-4 border-b border-[var(--brand-navy)] bg-[var(--brand-navy)]">
+          <Search className="w-5 h-5 text-[var(--brand-primary)] shrink-0 ml-2" />
           <input
             type="text"
             autoFocus
             placeholder="Search flights, offers, destinations, baggage rules..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full bg-transparent text-white text-base placeholder-neutral-500 outline-none"
+            className="w-full bg-transparent text-[var(--text-inverse)] text-base placeholder-[var(--background-subtle)] outline-none"
           />
           <button
             onClick={onClose}
-            className="p-2 text-neutral-400 hover:text-white rounded-full transition-colors cursor-pointer"
+            className="p-2 text-[var(--background-subtle)] hover:text-[var(--text-inverse)] rounded-full transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -45,7 +45,7 @@ export const SearchModal = ({
 
         <div className="p-6 space-y-5 max-h-96 overflow-y-auto">
           <div>
-            <div className="text-[11px] font-bold tracking-widest text-neutral-500 uppercase mb-3">
+            <div className="text-[11px] font-bold tracking-widest text-[var(--background-subtle)] uppercase mb-3">
               Popular Flight Searches
             </div>
             <div className="space-y-1.5">
@@ -56,27 +56,27 @@ export const SearchModal = ({
                     onSelectDestination(dest);
                     onClose();
                   }}
-                  className="w-full flex items-center justify-between p-3 rounded hover:bg-[#1a1a1a] text-left transition-colors group cursor-pointer"
+                  className="w-full flex items-center justify-between p-3 rounded hover:bg-[var(--brand-navy)] text-left transition-colors group cursor-pointer"
                 >
                   <div className="flex items-center gap-3">
-                    <Plane className="w-4 h-4 text-neutral-400 group-hover:text-red-500" />
+                    <Plane className="w-4 h-4 text-[var(--background-subtle)] group-hover:text-[var(--brand-primary)]" />
                     <div>
-                      <span className="text-sm font-semibold text-white group-hover:text-red-400">
+                      <span className="text-sm font-semibold text-[var(--text-inverse)] group-hover:text-[var(--brand-luxury)]">
                         Amsterdam (AMS) → {dest.city} ({dest.code})
                       </span>
-                      <span className="text-xs text-neutral-500 block">
+                      <span className="text-xs text-[var(--background-subtle)] block">
                         {dest.country} • Turkish Airlines direct flight
                       </span>
                     </div>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-neutral-600 group-hover:text-white" />
+                  <ArrowRight className="w-4 h-4 text-[var(--brand-luxury)] group-hover:text-[var(--text-inverse)]" />
                 </button>
               ))}
             </div>
           </div>
 
-          <div className="pt-2 border-t border-[#1f1f1f]">
-            <div className="text-[11px] font-bold tracking-widest text-neutral-500 uppercase mb-3">
+          <div className="pt-2 border-t border-[var(--border-subtle)]">
+            <div className="text-[11px] font-bold tracking-widest text-[var(--background-subtle)] uppercase mb-3">
               Quick Topics
             </div>
             <div className="flex flex-wrap gap-2">
@@ -90,9 +90,9 @@ export const SearchModal = ({
                 <button
                   key={topic}
                   onClick={onClose}
-                  className="px-3 py-1.5 rounded-full bg-[#1c1c1c] hover:bg-[#282828] border border-[#2a2a2a] text-xs text-neutral-300 transition-colors flex items-center gap-1.5 cursor-pointer"
+                  className="px-3 py-1.5 rounded-full bg-[var(--brand-navy)] hover:bg-[var(--text-primary)] border border-[var(--border-strong)] text-xs text-[var(--background-subtle)] transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
-                  <Tag className="w-3 h-3 text-red-500" />
+                  <Tag className="w-3 h-3 text-[var(--brand-primary)]" />
                   <span>{topic}</span>
                 </button>
               ))}

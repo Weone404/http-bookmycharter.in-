@@ -55,16 +55,16 @@ export default function Blogs() {
         ])}
       />
 
-      <div className="w-full text-[#6B4E3D]">
-        <section className="border-b border-[#A67C52]/20 bg-[#D9C7B8] px-4 pb-16 pt-24 sm:px-6 md:px-10 lg:px-12 lg:pb-24 lg:pt-32">
+      <div className="w-full text-[var(--text-primary)]">
+        <section className="border-b border-[var(--brand-luxury)]/20 bg-[var(--background-subtle)] px-4 pb-16 pt-24 sm:px-6 md:px-10 lg:px-12 lg:pb-24 lg:pt-32">
           <div className="mx-auto max-w-7xl">
-            <span className="mb-3 block text-[11px] font-bold tracking-[0.24em] text-[#A67C52]">
+            <span className="mb-3 block text-[11px] font-bold tracking-[0.24em] text-[var(--brand-luxury)]">
               THE BOOK MY CHARDHAM JOURNAL
             </span>
             <h1 className="max-w-4xl text-4xl font-black uppercase tracking-tight sm:text-5xl lg:text-7xl">
               Travel smarter. Fly with confidence.
             </h1>
-            <p className="mt-6 max-w-2xl text-sm leading-relaxed text-[#6B4E3D]/80 sm:text-base">
+            <p className="mt-6 max-w-2xl text-sm leading-relaxed text-[var(--text-primary)]/80 sm:text-base">
               Clear, practical advice for Himalayan pilgrimage travel and private aviation
               planning from the Book My CharDham flight operations team.
             </p>
@@ -75,14 +75,14 @@ export default function Blogs() {
           <div className="mx-auto max-w-7xl">
             <div className="mb-10 flex items-end justify-between gap-6">
               <div>
-                <span className="mb-2 block text-[11px] font-bold tracking-[0.2em] text-[#A67C52]">
+                <span className="mb-2 block text-[11px] font-bold tracking-[0.2em] text-[var(--brand-luxury)]">
                   LATEST GUIDES
                 </span>
                 <h2 className="text-3xl font-black uppercase tracking-tight sm:text-4xl">
                   From the flight desk
                 </h2>
               </div>
-              <BookOpen className="hidden h-10 w-10 text-[#A67C52]/50 sm:block" />
+              <BookOpen className="hidden h-10 w-10 text-[var(--brand-luxury)]/50 sm:block" />
             </div>
 
             <div className="grid gap-8 md:grid-cols-3">
@@ -90,7 +90,7 @@ export default function Blogs() {
                 <a
                   key={article.id}
                   href={`#${article.id}`}
-                  className="group flex flex-col overflow-hidden border border-[#A67C52]/20 bg-[#E6D5C1] transition-colors hover:border-[#A67C52]/50"
+                  className="group flex flex-col overflow-hidden border border-[var(--brand-luxury)]/20 bg-[var(--brand-navy)] transition-colors hover:border-[var(--brand-luxury)]/50"
                 >
                   <div className="relative h-56 overflow-hidden">
                     <Image
@@ -102,16 +102,16 @@ export default function Blogs() {
                     />
                   </div>
                   <div className="flex flex-1 flex-col p-6">
-                    <span className="text-[10px] font-bold tracking-[0.18em] text-[#A67C52]">
+                    <span className="text-[10px] font-bold tracking-[0.18em] text-[var(--brand-luxury)]">
                       {article.category}
                     </span>
-                    <h3 className="mt-3 text-xl font-black uppercase leading-tight group-hover:text-[#8B6639]">
+                    <h3 className="mt-3 text-xl font-black uppercase leading-tight group-hover:text-[var(--brand-luxury-hover)]">
                       {article.title}
                     </h3>
-                    <p className="mt-3 flex-1 text-sm leading-relaxed text-[#6B4E3D]/75">
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-[var(--text-primary)]/75">
                       {article.excerpt}
                     </p>
-                    <span className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#6B4E3D]">
+                    <span className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--text-primary)]">
                       Read guide <ArrowRight className="h-3.5 w-3.5" />
                     </span>
                   </div>
@@ -121,17 +121,17 @@ export default function Blogs() {
           </div>
         </section>
 
-        <section className="border-t border-[#A67C52]/20 bg-[#E6D5C1] px-4 py-16 sm:px-6 md:px-10 lg:px-12 lg:py-24">
+        <section className="border-t border-[var(--brand-luxury)]/20 bg-[var(--brand-navy)] px-4 py-16 sm:px-6 md:px-10 lg:px-12 lg:py-24">
           <div className="mx-auto max-w-4xl space-y-14">
             {ARTICLES.map((article) => (
               <article key={article.id} id={article.id} className="scroll-mt-28">
-                <span className="text-[10px] font-bold tracking-[0.18em] text-[#A67C52]">
+                <span className="text-[10px] font-bold tracking-[0.18em] text-[var(--brand-luxury)]">
                   {article.category} · {article.date}
                 </span>
                 <h2 className="mt-3 text-2xl font-black uppercase tracking-tight sm:text-3xl">
                   {article.title}
                 </h2>
-                <p className="mt-4 text-sm leading-7 text-[#6B4E3D]/80">
+                <p className="mt-4 text-sm leading-7 text-[var(--text-primary)]/80">
                   {article.excerpt} Our dispatch team recommends confirming passenger
                   requirements early, keeping plans flexible around mountain weather, and
                   choosing an operator that coordinates the complete journey rather than only

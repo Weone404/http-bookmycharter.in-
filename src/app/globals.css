@@ -1,11 +1,197 @@
 @import "tailwindcss" source("../");
 
 :root {
-  /* Beige + Brown Color Palette */
-  --color-light-beige: #F3E9D0;
-  --color-medium-beige: #E6D5C1;
-  --color-tan-brown: #A67C52;
-  --color-dark-brown: #6B4E3D;
+  /* Primitive palette: the single source of truth. */
+  --color-brand-primary: #1677B8;
+  --color-brand-primary-hover: #12659C;
+  --color-brand-primary-active: #0E5685;
+  --color-brand-luxury: #C9A227;
+  --color-brand-luxury-hover: #B38E1F;
+  --color-brand-luxury-active: #967719;
+  --color-brand-navy: #071A2B;
+  --color-brand-navy-hover: #0D2A40;
+  --color-brand-navy-active: #123A55;
+
+  /* Compatibility aliases for existing utility references. */
+  --brand-primary: var(--color-brand-primary);
+  --brand-primary-hover: var(--color-brand-primary-hover);
+  --brand-primary-active: var(--color-brand-primary-active);
+  --brand-luxury: var(--color-brand-luxury);
+  --brand-luxury-hover: var(--color-brand-luxury-hover);
+  --brand-luxury-active: var(--color-brand-luxury-active);
+  --brand-navy: var(--color-brand-navy);
+  --brand-navy-hover: var(--color-brand-navy-hover);
+  --brand-navy-active: var(--color-brand-navy-active);
+
+  /* Backgrounds and surfaces */
+  --background-page: #FFFFFF;
+  --background-subtle: #F3F7FA;
+  --background-dark: var(--color-brand-navy);
+  --background-dark-hover: var(--color-brand-navy-hover);
+  --surface-default: #FFFFFF;
+  --surface-subtle: #F3F7FA;
+  --surface-elevated: #FFFFFF;
+  --surface-brand: var(--color-brand-primary);
+  --surface-dark: var(--color-brand-navy);
+  --surface-luxury: var(--color-brand-luxury);
+
+  --color-bg-page: var(--background-page);
+  --color-bg-subtle: var(--background-subtle);
+  --color-bg-dark: var(--background-dark);
+  --color-surface-default: var(--surface-default);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-dark: var(--surface-dark);
+
+  /* Text */
+  --text-primary: #17232D;
+  --text-secondary: #536572;
+  --text-muted: #71818C;
+  --text-disabled: #8A9AA5;
+  --text-inverse: #FFFFFF;
+  --text-inverse-muted: #DCE7EF;
+  --text-brand: var(--brand-primary);
+  --text-brand-hover: var(--brand-primary-active);
+  --text-luxury: var(--brand-luxury);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-disabled: var(--text-disabled);
+  --color-text-inverse: var(--text-inverse);
+  --color-text-inverse-muted: var(--text-inverse-muted);
+
+  /* Borders */
+  --border-default: #DCE5EB;
+  --border-subtle: #E8EFF3;
+  --border-strong: #B8C9D4;
+  --border-brand: var(--brand-primary);
+  --border-brand-hover: var(--brand-primary-hover);
+  --border-luxury: var(--brand-luxury);
+  --border-focus: var(--brand-primary);
+
+  --color-border-default: var(--border-default);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+  --color-border-focus: var(--border-focus);
+
+  /* Interaction */
+  --interactive-primary: var(--brand-primary);
+  --interactive-primary-hover: var(--brand-primary-hover);
+  --interactive-primary-active: var(--brand-primary-active);
+  --interactive-primary-focus: #5AA9D6;
+  --interactive-luxury: var(--brand-luxury);
+  --interactive-luxury-hover: var(--brand-luxury-hover);
+  --interactive-luxury-active: var(--brand-luxury-active);
+  --interactive-luxury-focus: #E2CF7A;
+  --interactive-disabled-bg: var(--background-subtle);
+  --interactive-disabled-text: var(--text-disabled);
+  --color-focus-ring: rgb(22 119 184 / 20%);
+
+  /* Status */
+  --status-success: #2E7D5B;
+  --status-success-bg: #EAF5EF;
+  --status-success-border: #A9D5BD;
+  --status-warning: #A66A00;
+  --status-warning-bg: #FFF6DF;
+  --status-warning-border: #E5C878;
+  --status-error: #C0392B;
+  --status-error-bg: #FDEDEC;
+  --status-error-border: #E6A7A1;
+  --status-info: var(--brand-primary);
+  --status-info-bg: #EAF4FA;
+  --status-info-border: #A8CDE3;
+
+  --color-success: var(--status-success);
+  --color-success-bg: var(--status-success-bg);
+  --color-warning: var(--status-warning);
+  --color-warning-bg: var(--status-warning-bg);
+  --color-error: var(--status-error);
+  --color-error-bg: var(--status-error-bg);
+  --color-info: var(--status-info);
+  --color-info-bg: var(--status-info-bg);
+
+  /* Component semantics */
+  --button-primary-background: var(--interactive-primary);
+  --button-primary-background-hover: var(--interactive-primary-hover);
+  --button-primary-background-active: var(--interactive-primary-active);
+  --button-primary-text: var(--text-inverse);
+  --button-primary-focus-ring: var(--interactive-primary-focus);
+  --button-luxury-background: var(--interactive-luxury);
+  --button-luxury-background-hover: var(--interactive-luxury-hover);
+  --button-luxury-background-active: var(--interactive-luxury-active);
+  --button-luxury-text: var(--brand-navy);
+  --button-luxury-focus-ring: var(--interactive-luxury-focus);
+  --card-background: var(--surface-default);
+  --card-background-hover: var(--surface-subtle);
+  --card-border: var(--border-default);
+  --card-border-hover: var(--border-brand);
+  --input-background: var(--surface-default);
+  --input-border: #D1DCE3;
+  --input-border-hover: var(--border-brand);
+  --input-border-focus: var(--border-focus);
+  --input-focus-ring: rgb(22 119 184 / 20%);
+  --input-placeholder: var(--text-muted);
+  --input-disabled: var(--interactive-disabled-bg);
+  --nav-background: var(--brand-navy);
+  --nav-text: var(--text-inverse);
+  --nav-text-hover: var(--brand-luxury);
+  --nav-text-active: var(--brand-luxury);
+  --nav-active-indicator: var(--brand-luxury);
+  --link-default: var(--brand-primary);
+  --link-hover: var(--brand-primary-active);
+  --link-active: var(--brand-luxury);
+  --link-visited: var(--brand-primary-hover);
+  --shadow-navy: rgb(7 26 43 / 18%);
+  --shadow-surface: rgb(23 35 45 / 12%);
+  --shadow-luxury: rgb(201 162 39 / 15%);
+  --shadow-overlay: rgb(0 0 0 / 65%);
+  --shadow-overlay-soft: rgb(0 0 0 / 45%);
+
+  /* Component semantic tokens. */
+  --button-primary-bg: var(--button-primary-background);
+  --button-primary-bg-hover: var(--button-primary-background-hover);
+  --button-primary-bg-active: var(--button-primary-background-active);
+  --button-primary-text: var(--text-inverse);
+  --button-luxury-bg: var(--button-luxury-background);
+  --button-luxury-bg-hover: var(--button-luxury-background-hover);
+  --button-luxury-bg-active: var(--button-luxury-background-active);
+  --button-luxury-text: var(--brand-navy);
+  --card-bg: var(--card-background);
+  --card-bg-hover: var(--card-background-hover);
+  --input-bg: var(--input-background);
+  --nav-bg: var(--brand-navy);
+  --nav-text: var(--text-inverse);
+  --nav-text-hover: var(--brand-luxury);
+  --nav-text-active: var(--brand-luxury);
+  --nav-active-indicator: var(--brand-luxury);
+  --link-color: var(--brand-primary);
+  --link-hover: var(--brand-primary-active);
+  --link-active: var(--brand-luxury);
+
+  /* Backwards-compatible aliases for shared stylesheet rules. */
+  --color-deep-navy: var(--brand-navy);
+  --color-aviation-blue: var(--brand-primary);
+  --color-aviation-blue-hover: var(--brand-primary-hover);
+  --color-aviation-blue-active: var(--brand-primary-active);
+  --color-aviation-blue-focus: var(--interactive-primary-focus);
+  --color-aviation-blue-disabled: #A9C8DA;
+  --color-warm-gold: var(--brand-luxury);
+  --color-warm-gold-hover: var(--brand-luxury-hover);
+  --color-warm-gold-active: var(--brand-luxury-active);
+  --color-warm-gold-disabled: #D9CC9A;
+  --color-white: var(--text-inverse);
+  --color-light-blue-gray: var(--background-subtle);
+  --color-charcoal: var(--text-primary);
+  --color-navy-hover: var(--brand-navy-hover);
+  --color-navy-active: var(--brand-navy-active);
+  --color-link-visited: var(--link-visited);
+  --color-card-border: var(--card-border);
+  --color-input-border: var(--input-border);
+  --color-error-border: var(--status-error-border);
+  --color-error-text: var(--status-error);
+  --color-success-border: var(--status-success-border);
+  --color-success-text: var(--status-success);
+  --color-disabled-text: var(--text-disabled);
 }
 
 @layer base {
@@ -19,8 +205,8 @@
 
   body {
     font-family: var(--font-jakarta), var(--font-devanagari), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: #F3E9D0;
-    color: #6B4E3D;
+    background-color: var(--background-page);
+    color: var(--text-primary);
     overflow-x: hidden;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
@@ -43,6 +229,312 @@
   a, button {
     -webkit-tap-highlight-color: transparent;
   }
+
+  button, a, input, select, textarea {
+    transition-duration: 200ms;
+    transition-timing-function: ease;
+  }
+
+  :where(button, a, input, select, textarea):focus-visible {
+    outline: 2px solid var(--interactive-primary-focus);
+    outline-offset: 2px;
+  }
+
+  :where(button, input, select, textarea):disabled,
+  :where(button, input, select, textarea)[aria-disabled='true'] {
+    cursor: not-allowed;
+    opacity: 1;
+  }
+
+  :where(input, select, textarea) {
+    border-color: var(--input-border);
+  }
+
+  :where(input, select, textarea):hover,
+  :where(input, select, textarea):focus {
+    border-color: var(--input-border-hover);
+  }
+
+  :where(input, select, textarea):focus {
+    box-shadow: 0 0 0 3px var(--input-focus-ring);
+    outline: none;
+  }
+
+  :where(input, select, textarea):disabled {
+    background-color: var(--input-disabled);
+    color: var(--interactive-disabled-text);
+  }
+
+  :where(input, select, textarea)[aria-invalid='true'] {
+    border-color: var(--status-error-border);
+  }
+}
+
+@layer components {
+  .btn-primary,
+  .aviation-button--blue {
+    background: var(--button-primary-bg);
+    border-color: var(--button-primary-bg);
+    color: var(--button-primary-text);
+    transition: background-color 200ms ease, border-color 200ms ease, transform 200ms ease;
+  }
+
+  .btn-primary:hover,
+  .aviation-button--blue:hover {
+    background: var(--button-primary-bg-hover);
+    border-color: var(--button-primary-bg-hover);
+  }
+
+  .btn-primary:active,
+  .aviation-button--blue:active {
+    background: var(--button-primary-bg-active);
+    border-color: var(--button-primary-bg-active);
+  }
+
+  .btn-primary:focus-visible,
+  .btn-luxury:focus-visible {
+    outline: 3px solid var(--color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .btn-primary:disabled,
+  .btn-luxury:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .btn-luxury,
+  .aviation-button--gold {
+    background: var(--button-luxury-bg);
+    border-color: var(--button-luxury-bg);
+    color: var(--button-luxury-text);
+    transition: background-color 200ms ease, border-color 200ms ease, transform 200ms ease;
+  }
+
+  .btn-luxury:hover,
+  .aviation-button--gold:hover {
+    background: var(--button-luxury-bg-hover);
+    border-color: var(--button-luxury-bg-hover);
+  }
+
+  .btn-luxury:active,
+  .aviation-button--gold:active {
+    background: var(--button-luxury-bg-active);
+    border-color: var(--button-luxury-bg-active);
+  }
+
+  .service-card,
+  .aviation-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+  }
+
+  .service-card:hover,
+  .aviation-card:hover {
+    background: var(--card-bg-hover);
+    border-color: var(--card-border-hover);
+  }
+
+  .aviation-card--luxury:hover {
+    border-color: var(--border-luxury);
+  }
+
+  .aviation-button--blue {
+    background-color: var(--button-primary-background);
+    border-color: var(--button-primary-background);
+    color: var(--button-primary-text);
+  }
+
+  .aviation-button--blue:hover {
+    background-color: var(--button-primary-background-hover);
+    border-color: var(--button-primary-background-hover);
+  }
+
+  .aviation-button--blue:active {
+    background-color: var(--button-primary-background-active);
+    border-color: var(--button-primary-background-active);
+  }
+
+  .aviation-button--blue:disabled {
+    background-color: var(--interactive-disabled-text);
+    border-color: var(--interactive-disabled-text);
+    color: var(--button-primary-text);
+  }
+
+  .aviation-button--gold {
+    background-color: var(--button-luxury-background);
+    border-color: var(--button-luxury-background);
+    color: var(--button-luxury-text);
+  }
+
+  .aviation-button--gold:hover {
+    background-color: var(--button-luxury-background-hover);
+    border-color: var(--button-luxury-background-hover);
+  }
+
+  .aviation-button--gold:active {
+    background-color: var(--button-luxury-background-active);
+    border-color: var(--button-luxury-background-active);
+  }
+
+  .aviation-button--gold:disabled {
+    background-color: var(--interactive-disabled-bg);
+    border-color: var(--interactive-disabled-bg);
+  }
+
+  .aviation-navy {
+    background-color: var(--surface-dark);
+    color: var(--text-inverse);
+  }
+
+  .aviation-navy:hover {
+    background-color: var(--background-dark-hover);
+  }
+
+  .aviation-navy:active {
+    background-color: var(--brand-navy-active);
+  }
+
+  .aviation-input {
+    border-color: var(--input-border);
+    transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+  }
+
+  .form-input {
+    background: var(--input-bg);
+    color: var(--color-text-primary);
+    border: 1px solid var(--input-border);
+  }
+
+  .form-input::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  .navbar {
+    background: var(--nav-bg);
+  }
+
+  .nav-link {
+    color: var(--nav-text);
+    transition: color 150ms ease;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--nav-text-hover);
+  }
+
+  .nav-link.active::after {
+    background: var(--nav-active-indicator);
+  }
+
+  a {
+    color: var(--link-color);
+    transition: color 150ms ease;
+  }
+
+  a:hover {
+    color: var(--link-hover);
+  }
+
+  a:active {
+    color: var(--link-active);
+  }
+
+  .alert-success {
+    color: var(--color-success);
+    background: var(--color-success-bg);
+  }
+
+  .alert-warning {
+    color: var(--color-warning);
+    background: var(--color-warning-bg);
+  }
+
+  .alert-error {
+    color: var(--color-error);
+    background: var(--color-error-bg);
+  }
+
+  .alert-info {
+    color: var(--color-info);
+    background: var(--color-info-bg);
+  }
+
+  .aviation-input:hover,
+  .aviation-input:focus {
+    border-color: var(--input-border-focus);
+  }
+
+  .aviation-input:focus {
+    box-shadow: 0 0 0 3px var(--input-focus-ring);
+    outline: none;
+  }
+
+  .aviation-input:disabled {
+    background-color: var(--input-disabled);
+    color: var(--interactive-disabled-text);
+  }
+
+  .aviation-input[aria-invalid='true'] {
+    border-color: var(--status-error-border);
+  }
+
+  .aviation-input[aria-invalid='true'] + [role='alert'] {
+    color: var(--status-error);
+  }
+
+  .aviation-link {
+    color: var(--link-default);
+    transition: color 150ms ease;
+  }
+
+  .aviation-link:hover {
+    color: var(--link-hover);
+  }
+
+  .aviation-link:active {
+    color: var(--link-active);
+  }
+
+  .aviation-link:visited {
+    color: var(--link-visited);
+  }
+}
+
+@layer utilities {
+  [class*='bg-[var(--brand-primary)]']:hover {
+    background-color: var(--interactive-primary-hover) !important;
+  }
+
+  [class*='bg-[var(--brand-primary)]']:active {
+    background-color: var(--interactive-primary-active) !important;
+  }
+
+  [class*='bg-[var(--brand-primary)]']:disabled {
+    background-color: var(--interactive-disabled-text) !important;
+  }
+
+  [class*='bg-[var(--brand-luxury)]']:hover {
+    background-color: var(--interactive-luxury-hover) !important;
+  }
+
+  [class*='bg-[var(--brand-luxury)]']:active {
+    background-color: var(--interactive-luxury-active) !important;
+  }
+
+  [class*='bg-[var(--brand-luxury)]']:disabled {
+    background-color: var(--interactive-disabled-bg) !important;
+  }
+
+  [class*='bg-[var(--brand-navy)]']:hover {
+    background-color: var(--background-dark-hover) !important;
+  }
+
+  [class*='bg-[var(--brand-navy)]']:active {
+    background-color: var(--brand-navy-active) !important;
+  }
 }
 
 .no-scrollbar {
@@ -64,18 +556,18 @@
   }
 }
 
-/* Custom scrollbar for beige/brown UI */
+/* Custom scrollbar for the aviation palette */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #E6D5C1;
+  background: var(--color-deep-navy);
 }
 ::-webkit-scrollbar-thumb {
-  background: #A67C52;
+  background: var(--color-warm-gold);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #6B4E3D;
+  background: var(--color-aviation-blue);
 }

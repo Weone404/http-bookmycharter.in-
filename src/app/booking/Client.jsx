@@ -32,8 +32,8 @@ export default function Client({ aircraftOptions }) {
   return (
     <Suspense
       fallback={
-        <div className="min-h-[60vh] flex items-center justify-center bg-[#F3E9D0]">
-          <div className="text-xs uppercase tracking-widest text-[#A67C52] animate-pulse">
+        <div className="min-h-[60vh] flex items-center justify-center bg-[var(--background-subtle)]">
+          <div className="text-xs uppercase tracking-widest text-[var(--brand-luxury)] animate-pulse">
             Loading reservation desk...
           </div>
         </div>
