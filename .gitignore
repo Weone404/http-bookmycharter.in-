@@ -1,0 +1,16 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+.next/
+
+# scratch: safe to delete
+_to_delete/
+.next/
+_bmc*.tgz
+tsconfig.tsbuildinfo
+_quarantine/media/
