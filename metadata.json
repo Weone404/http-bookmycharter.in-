@@ -1,6 +1,0 @@
-{
-  "name": "BookMyChardham Helicopter Charters",
-  "description": "BookMyChardham (bookmychardham.in) — Premier helicopter charter service for Chardham & Kedarnath pilgrimage tours, aerial flower dropping ceremonies, and luxury VIP & emergency charter flights.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

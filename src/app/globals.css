@@ -1,81 +1,162 @@
-@import "tailwindcss" source("../");
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   BOOK MY CHARTER — DESIGN TOKENS
+
+   Three brand colours and tonal variations derived from them. Nothing else.
+   Every surface, border and text colour on the site resolves to one of these.
+   --------------------------------------------------------------------------- */
+
+@theme {
+  /* Midnight Navy — structure, navigation, hero, footer, dark sections. */
+  --color-midnight: #071a2b;
+  --color-midnight-950: #04101c;
+  --color-midnight-900: #071a2b;
+  --color-midnight-800: #0c2b42;
+  --color-midnight-700: #123249;
+  --color-midnight-600: #1b4463;
+
+  /* Aviation Cyan — accent only. Interactive states, active controls, CTA. */
+  --color-cyan-accent: #16b8d4;
+  --color-cyan-bright: #3fd0e8;
+  --color-cyan-deep: #0e8ba1;
+
+  /* Aviation Ivory — editorial surfaces, long-form reading. */
+  --color-ivory: #f5f7f4;
+  --color-ivory-dim: #e7ebe6;
+
+  /* Text on each ground. */
+  --color-ink: #071a2b;
+  --color-ink-muted: #47596a;
+  --color-ink-inverse: #f5f7f4;
+  --color-ink-inverse-muted: #9db0c0;
+
+  /* Fluid type scale. clamp() throughout, so nothing is sized per breakpoint. */
+  --text-display: clamp(2.5rem, 1.2rem + 5.2vw, 5.5rem);
+  --text-h1: clamp(2rem, 1.1rem + 3.6vw, 3.75rem);
+  --text-h2: clamp(1.5rem, 1.05rem + 1.8vw, 2.5rem);
+  --text-h3: clamp(1.25rem, 1.05rem + 0.8vw, 1.625rem);
+  --text-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-micro: 0.75rem;
+
+  /* Spacing rhythm. Sections breathe; that is most of the premium feel. */
+  --spacing-section: clamp(4rem, 2rem + 8vw, 9rem);
+  --spacing-gutter: clamp(1.25rem, 0.5rem + 3vw, 4rem);
+
+  /* Motion. One easing curve sitewide; aviation motion is smooth, not bouncy. */
+  --ease-flight: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --duration-fast: 180ms;
+  --duration-base: 420ms;
+  --duration-slow: 900ms;
+
+  --radius-card: 4px;
+  --radius-control: 2px;
+}
+
+/* ---------------------------------------------------------------------------
+   BASE
+   --------------------------------------------------------------------------- */
 
 :root {
-  /* Beige + Brown Color Palette */
-  --color-light-beige: #F3E9D0;
-  --color-medium-beige: #E6D5C1;
-  --color-tan-brown: #A67C52;
-  --color-dark-brown: #6B4E3D;
+  color-scheme: light;
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif;
+  /* Tabular figures for specs, prices, distances and flight times. */
+  --font-numeric:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
 
-@layer base {
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
+* {
+  min-width: 0;
+}
 
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Visible focus. Never removed, only restyled. */
+:focus-visible {
+  outline: 2px solid var(--color-cyan-accent);
+  outline-offset: 3px;
+}
+
+/* Numbers that line up in tables and spec sheets. */
+.numeric {
+  font-family: var(--font-numeric);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* ---------------------------------------------------------------------------
+   REDUCED MOTION
+
+   Not a decoration toggle: camera transitions, scroll sequences and parallax
+   all collapse to instant state changes, and the site stays fully usable.
+   --------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
   }
-
-  body {
-    font-family: var(--font-jakarta), var(--font-devanagari), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: #F3E9D0;
-    color: #6B4E3D;
-    overflow-x: hidden;
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
-
-  button, a, input, select, textarea {
-    max-width: 100%;
-  }
-
-  input, select, textarea {
-    min-width: 0;
-  }
-
-  img, video {
-    display: block;
-    max-width: 100%;
-  }
-
-  a, button {
-    -webkit-tap-highlight-color: transparent;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+/* Screen-reader-only utility, for skip links and form context. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+.skip-link {
+  position: absolute;
+  left: 50%;
+  top: 0.5rem;
+  translate: -50% -200%;
+  z-index: 100;
+  background: var(--color-midnight);
+  color: var(--color-ink-inverse);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-control);
+  transition: translate var(--duration-fast) var(--ease-flight);
 }
 
-@media (max-width: 640px) {
-  body {
-    font-size: 15px;
-  }
-
-  h1, h2, h3, h4 {
-    overflow-wrap: anywhere;
-  }
-}
-
-/* Custom scrollbar for beige/brown UI */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #E6D5C1;
-}
-::-webkit-scrollbar-thumb {
-  background: #A67C52;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #6B4E3D;
+.skip-link:focus {
+  translate: -50% 0;
 }
