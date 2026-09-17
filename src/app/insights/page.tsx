@@ -1,0 +1,73 @@
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
+import { metadataForRoute } from '@/lib/metadata';
+import { getRoute } from '@/lib/routes';
+import { breadcrumbSchema, graph, webPageSchema } from '@/lib/schema';
+import { INSIGHTS, INSIGHT_CATEGORY_LABEL } from '@/data/insights';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { Section } from '@/components/ui/Section';
+import { PageIntro } from '@/components/content/PageIntro';
+
+const PATH = '/insights' as const;
+
+export const metadata: Metadata = metadataForRoute(PATH);
+
+export default function InsightsPage() {
+  const route = getRoute(PATH);
+  if (!route) throw new Error('Insights route missing from the registry.');
+
+  return (
+    <>
+      <Section ground="ivory" width="wide">
+        <PageIntro
+          path={PATH}
+          title="Aviation insights"
+          summary="Guides to how charter is priced, how aircraft are chosen, and what an empty leg actually is — written to answer the question rather than to rank for it."
+        />
+      </Section>
+
+      <Section ground="ivory" width="wide" className="pt-0">
+        <ul className="grid gap-px border-t border-[var(--color-ink)]/15">
+          {INSIGHTS.map((article) => (
+            <li key={article.slug}>
+              <Link
+                href={article.canonical}
+                className="group grid gap-4 border-b border-[var(--color-ink)]/15 py-8 lg:grid-cols-[0.35fr_1.65fr]"
+              >
+                <div>
+                  <span className="text-[length:var(--text-micro)] uppercase tracking-[0.14em] text-[var(--color-cyan-deep)]">
+                    {INSIGHT_CATEGORY_LABEL[article.category] ?? article.category}
+                  </span>
+                  <time
+                    dateTime={article.published}
+                    className="numeric mt-2 block text-[length:var(--text-small)] text-[var(--color-ink-muted)]"
+                  >
+                    {article.published}
+                  </time>
+                </div>
+                <div className="max-w-[68ch]">
+                  <h2 className="text-[length:var(--text-h3)] font-semibold leading-snug tracking-tight">
+                    {article.title}
+                  </h2>
+                  <p className="mt-3 text-[var(--color-ink-muted)]">{article.summary}</p>
+                  <ArrowRight
+                    className="mt-4 h-4 w-4 text-[var(--color-cyan-deep)] transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <JsonLd
+        json={graph([
+          webPageSchema({ name: route.title, description: route.description, path: PATH }),
+          breadcrumbSchema(PATH),
+        ])}
+      />
+    </>
+  );
+}

@@ -6,13 +6,14 @@
   "type": "module",
   "scripts": {
     "dev": "next dev -p 3001",
-    "build": "npm run airports && next build",
+    "build": "npm run airports && npm run aircraft && next build",
     "start": "next start -p 3001",
-    "lint": "next lint",
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "airports": "node scripts/build-airports.mjs",
-    "verify": "npm run typecheck && npm run lint && npm run build",
-    "indexnow": "node scripts/indexnow.mjs"
+    "verify": "npm run typecheck && npm run lint && node scripts/verify-routes.mjs && npm run build && node scripts/verify-build.mjs",
+    "indexnow": "node scripts/indexnow.mjs",
+    "aircraft": "node scripts/build-aircraft.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.6",

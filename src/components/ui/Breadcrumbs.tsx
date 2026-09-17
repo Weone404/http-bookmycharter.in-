@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import type { Path } from '@/types/common';
-import { breadcrumbTrail } from '@/lib/routes';
+import { breadcrumbTrail, type DynamicCrumb } from '@/lib/routes';
 
 /**
  * Visible breadcrumbs, built from the same registry as the BreadcrumbList
  * schema, so the two can never disagree.
  */
-export function Breadcrumbs({ path }: { path: Path }) {
-  const trail = breadcrumbTrail(path);
+export function Breadcrumbs({ path, dynamic }: { path: Path; dynamic?: DynamicCrumb }) {
+  const trail = breadcrumbTrail(path, dynamic);
   if (trail.length < 2) return null;
 
   return (

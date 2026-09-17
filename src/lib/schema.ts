@@ -1,7 +1,7 @@
 import type { Faq } from '@/types/faq';
 import type { Path } from '@/types/common';
 import { ADDRESS, AREA_SERVED, CONTACT, SITE, SOCIAL, absoluteUrl } from './site';
-import { breadcrumbTrail } from './routes';
+import { breadcrumbTrail, type DynamicCrumb } from './routes';
 import { voice } from './business-model';
 
 /**
@@ -119,8 +119,8 @@ export function serviceSchema({
 }
 
 /** Breadcrumbs, built from the route registry so they match what is rendered. */
-export function breadcrumbSchema(path: Path): JsonLdNode {
-  const trail = breadcrumbTrail(path);
+export function breadcrumbSchema(path: Path, dynamic?: DynamicCrumb): JsonLdNode {
+  const trail = breadcrumbTrail(path, dynamic);
   return {
     '@type': 'BreadcrumbList',
     '@id': `${absoluteUrl(path)}#breadcrumb`,

@@ -77,7 +77,7 @@ export const ROUTES: readonly RouteEntry[] = [
     label: 'Private Charter',
     cluster: 'private-charter',
     nav: 'both',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.9,
     changeFrequency: 'monthly',
@@ -92,7 +92,7 @@ export const ROUTES: readonly RouteEntry[] = [
     cluster: 'private-charter',
     parent: '/private-charter',
     nav: 'footer',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.9,
     changeFrequency: 'monthly',
@@ -107,7 +107,7 @@ export const ROUTES: readonly RouteEntry[] = [
     cluster: 'private-charter',
     parent: '/private-charter',
     nav: 'footer',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.8,
     changeFrequency: 'monthly',
@@ -168,7 +168,7 @@ export const ROUTES: readonly RouteEntry[] = [
     label: 'Helicopter Charter',
     cluster: 'helicopter-charter',
     nav: 'both',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.9,
     changeFrequency: 'monthly',
@@ -183,7 +183,7 @@ export const ROUTES: readonly RouteEntry[] = [
     cluster: 'helicopter-charter',
     parent: '/helicopter-charter',
     nav: 'footer',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.85,
     changeFrequency: 'monthly',
@@ -198,7 +198,7 @@ export const ROUTES: readonly RouteEntry[] = [
     cluster: 'helicopter-charter',
     parent: '/helicopter-charter',
     nav: 'footer',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.8,
     changeFrequency: 'monthly',
@@ -274,7 +274,7 @@ export const ROUTES: readonly RouteEntry[] = [
     label: 'Aircraft',
     cluster: 'aircraft',
     nav: 'both',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.9,
     changeFrequency: 'monthly',
@@ -289,7 +289,7 @@ export const ROUTES: readonly RouteEntry[] = [
     cluster: 'aircraft',
     parent: '/aircraft',
     nav: 'footer',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.8,
     changeFrequency: 'monthly',
@@ -304,7 +304,7 @@ export const ROUTES: readonly RouteEntry[] = [
     cluster: 'aircraft',
     parent: '/aircraft',
     nav: 'footer',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.8,
     changeFrequency: 'monthly',
@@ -319,7 +319,7 @@ export const ROUTES: readonly RouteEntry[] = [
     cluster: 'aircraft',
     parent: '/aircraft',
     nav: 'footer',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.8,
     changeFrequency: 'monthly',
@@ -335,7 +335,7 @@ export const ROUTES: readonly RouteEntry[] = [
     label: 'Services',
     cluster: 'services',
     nav: 'both',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.8,
     changeFrequency: 'monthly',
@@ -350,7 +350,7 @@ export const ROUTES: readonly RouteEntry[] = [
     cluster: 'services',
     parent: '/services',
     nav: 'footer',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.8,
     changeFrequency: 'monthly',
@@ -410,7 +410,7 @@ export const ROUTES: readonly RouteEntry[] = [
     cluster: 'services',
     parent: '/services',
     nav: 'footer',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.75,
     changeFrequency: 'monthly',
@@ -456,7 +456,7 @@ export const ROUTES: readonly RouteEntry[] = [
     label: 'Pricing',
     cluster: 'pricing',
     nav: 'both',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.9,
     changeFrequency: 'monthly',
@@ -470,7 +470,7 @@ export const ROUTES: readonly RouteEntry[] = [
     label: 'Empty Legs',
     cluster: 'empty-leg',
     nav: 'both',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.85,
     changeFrequency: 'weekly',
@@ -484,7 +484,7 @@ export const ROUTES: readonly RouteEntry[] = [
     label: 'How It Works',
     cluster: 'root',
     nav: 'both',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.8,
     changeFrequency: 'monthly',
@@ -500,7 +500,7 @@ export const ROUTES: readonly RouteEntry[] = [
     label: 'Destinations',
     cluster: 'destinations',
     nav: 'both',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.8,
     changeFrequency: 'monthly',
@@ -514,7 +514,7 @@ export const ROUTES: readonly RouteEntry[] = [
     label: 'Routes',
     cluster: 'routes',
     nav: 'footer',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.75,
     changeFrequency: 'monthly',
@@ -530,7 +530,7 @@ export const ROUTES: readonly RouteEntry[] = [
     label: 'Chardham',
     cluster: 'chardham',
     nav: 'both',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.8,
     changeFrequency: 'monthly',
@@ -545,7 +545,7 @@ export const ROUTES: readonly RouteEntry[] = [
     cluster: 'chardham',
     parent: '/chardham',
     nav: 'footer',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.8,
     changeFrequency: 'monthly',
@@ -606,7 +606,7 @@ export const ROUTES: readonly RouteEntry[] = [
     label: 'Insights',
     cluster: 'insights',
     nav: 'both',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.7,
     changeFrequency: 'weekly',
@@ -622,7 +622,7 @@ export const ROUTES: readonly RouteEntry[] = [
     label: 'About',
     cluster: 'company',
     nav: 'footer',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.5,
     changeFrequency: 'yearly',
@@ -635,7 +635,7 @@ export const ROUTES: readonly RouteEntry[] = [
     label: 'Contact',
     cluster: 'company',
     nav: 'footer',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.6,
     changeFrequency: 'yearly',
@@ -664,7 +664,7 @@ export const ROUTES: readonly RouteEntry[] = [
     label: 'Privacy',
     cluster: 'legal',
     nav: 'footer',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.2,
     changeFrequency: 'yearly',
@@ -677,7 +677,7 @@ export const ROUTES: readonly RouteEntry[] = [
     label: 'Terms',
     cluster: 'legal',
     nav: 'footer',
-    status: 'planned',
+    status: 'live',
     index: true,
     priority: 0.2,
     changeFrequency: 'yearly',
@@ -705,14 +705,46 @@ export function childrenOf(path: Path): readonly RouteEntry[] {
   return ROUTES.filter((r) => r.parent === path && r.status === 'live');
 }
 
+/**
+ * A page generated from a dynamic segment has no registry entry of its own —
+ * one aircraft, one route, one article. It supplies its own label and parent so
+ * the trail is still complete, rather than silently collapsing to "Home".
+ */
+export interface DynamicCrumb {
+  readonly path: Path;
+  readonly label: string;
+  readonly parent: Path;
+}
+
 /** Breadcrumb trail from the home page down to `path`, inclusive. */
-export function breadcrumbTrail(path: Path): readonly RouteEntry[] {
+export function breadcrumbTrail(path: Path, dynamic?: DynamicCrumb): readonly RouteEntry[] {
   const trail: RouteEntry[] = [];
+
   let current = BY_PATH.get(path);
+  if (!current && dynamic && dynamic.path === path) {
+    // Synthesised leaf: carries only what a breadcrumb needs.
+    trail.push({
+      path: dynamic.path,
+      title: dynamic.label,
+      description: '',
+      label: dynamic.label,
+      cluster: 'root',
+      parent: dynamic.parent,
+      nav: 'none',
+      status: 'live',
+      index: true,
+      priority: 0.5,
+      changeFrequency: 'monthly',
+      lastModified: TODAY,
+    });
+    current = BY_PATH.get(dynamic.parent);
+  }
+
   while (current) {
     trail.unshift(current);
     current = current.parent ? BY_PATH.get(current.parent) : undefined;
   }
+
   const home = BY_PATH.get('/');
   if (home && trail[0]?.path !== '/') trail.unshift(home);
   return trail;

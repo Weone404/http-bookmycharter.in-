@@ -69,13 +69,31 @@ Server Components by default. The only Client Components are:
 
 Three, against 38 in the old codebase.
 
+## Content layer
+
+Two generated datasets, each carrying its provenance, with an editorial layer on top:
+
+- `scripts/build-airports.mjs` -> `src/data/airports.generated.ts` — 216 Indian aerodromes
+- `scripts/build-aircraft.mjs` -> `src/data/aircraft.generated.ts` — 52 aircraft types with
+  typical figures, ranges preserved as ranges rather than collapsed to a false precision
+
+`src/data/aircraft.ts` joins the generated specs to hand-written narrative and decides which types
+earn their own URL. Eleven do; the other forty-one are rows in the comparison table on their
+category page, which serves a reader choosing between them far better than forty-one templated
+pages would.
+
+Service, pricing, empty-leg, Chardham, destination and insight content each live in their own
+module. No copy is hardcoded in a component.
+
 ## Build status
 
-`npm run airports && next build` compiles clean. `tsc --noEmit` clean. All routes prerender static.
-First Load JS 103 kB shared, 108 kB on the home page — before any 3D, which will load dynamically
-and must not raise this figure for users who never reach the fleet section.
+`npm run verify` runs typecheck, lint, route-registry check, production build and a post-build
+forensic check against the built HTML. All clean: 47 pages, 43 sitemap URLs, First Load JS 103 kB
+shared and 106-109 kB per page — before any 3D, which loads dynamically and must not raise this
+figure for readers who never reach the fleet section.
 
 ## Open
 
-Steps 10–25 of the development order. Every route except `/` and `/request-a-charter` is currently
-`planned`.
+Steps 17-25 of the development order: the 3D engine, analytics wiring, accessibility audit,
+real-device performance measurement and browser QA. Fifteen routes remain `planned` pending the
+business data each needs.
