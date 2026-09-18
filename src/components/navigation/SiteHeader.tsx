@@ -22,12 +22,12 @@ export function SiteHeader() {
           </Link>
 
           <nav aria-label="Primary" className="hidden lg:block">
-            <ul className="flex items-center gap-7">
+            <ul className="flex items-center gap-6 xl:gap-7">
               {items.map((item) => (
                 <li key={item.path}>
                   <Link
                     href={item.path}
-                    className="text-[length:var(--text-small)] tracking-[0.04em] text-[var(--color-ink-inverse-muted)] transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-ink-inverse)]"
+                    className="whitespace-nowrap text-[length:var(--text-small)] tracking-[0.04em] text-[var(--color-ink-inverse-muted)] transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-ink-inverse)]"
                   >
                     {item.label}
                   </Link>
@@ -40,14 +40,14 @@ export function SiteHeader() {
             <a
               href={`tel:${CONTACT.phone}`}
               data-track="call_click"
-              className="hidden sm:inline-flex items-center gap-2 text-[length:var(--text-small)] text-[var(--color-ink-inverse-muted)] hover:text-[var(--color-ink-inverse)]"
+              className="hidden items-center gap-2 whitespace-nowrap text-[length:var(--text-small)] text-[var(--color-ink-inverse-muted)] hover:text-[var(--color-ink-inverse)] sm:inline-flex lg:hidden 2xl:inline-flex"
             >
               <Phone className="h-4 w-4" aria-hidden="true" />
               <span className="numeric">{CONTACT.phoneDisplay}</span>
             </a>
             <Link
               href="/request-a-charter"
-              className="hidden lg:inline-flex items-center rounded-[var(--radius-control)] bg-[var(--color-cyan-accent)] px-5 py-2.5 text-[length:var(--text-small)] font-semibold uppercase tracking-[0.08em] text-[var(--color-midnight)] transition-colors duration-[var(--duration-fast)] hover:bg-[var(--color-cyan-bright)]"
+              className="hidden whitespace-nowrap lg:inline-flex items-center rounded-[var(--radius-control)] bg-[var(--color-cyan-accent)] px-5 py-2.5 text-[length:var(--text-small)] font-semibold uppercase tracking-[0.08em] text-[var(--color-midnight)] transition-colors duration-[var(--duration-fast)] hover:bg-[var(--color-cyan-bright)]"
             >
               Request a Charter
             </Link>

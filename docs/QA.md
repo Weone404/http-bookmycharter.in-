@@ -40,8 +40,65 @@ eslint . ................. clean (0 errors, 0 warnings)
 verify-routes ............ 42 declared · 27 live · 30 page files · consistent
 next build ............... clean, all routes prerendered static
 verify-build ............. clean — 47 pages, 43 sitemap URLs
-First Load JS ............ 103 kB shared, 106-109 kB per page
+First Load JS ............ 103 kB shared · / 109 kB · /aircraft 108 kB
 ```
+
+## Browser verification of the 3D engine
+
+Run against a production build (`next start`) in headless Chromium 1194 with ANGLE/SwiftShader, so
+a real WebGL context exists and the scene path is exercised rather than only the fallback.
+
+**Measured:**
+
+| Check | Result |
+|---|---|
+| Canvases per page | 1 on `/`, 1 on `/aircraft` — never one per card |
+| WebGL context created | yes, on every page and viewport tested |
+| Page errors | 0 |
+| Console errors | 0 |
+| `<h1>` per page | 1 |
+| Primary CTA present and clickable | yes — the hero canvas is `pointer-events: none` |
+| Page scrolls normally | yes, at every viewport |
+| Fleet navigation | two clicks of "Next aircraft" moves H145 → CJ2 → Citation XLS, and the panel text follows |
+| Viewports | 1440×900 and 390×844 |
+| `prefers-reduced-motion: reduce` | page renders, no errors, controls work |
+| Reduced-motion config | `travelArc`, `floatAmplitude` and `parallax` are 0 at all three viewport classes; `settle` 0.18 s |
+| Viewport classing | 320/375/767 mobile · 768/1279 tablet · 1280/1920 desktop |
+| Canvas backing store | matches CSS size at DPR 1; clamped to 1.25/1.5/1.75 by config |
+
+**Not measured, and therefore not claimed:**
+
+- Frame rate on real hardware. The headless figure (6–7 fps) is software rasterisation and bounds
+  the JavaScript side of the loop only. It is not a GPU measurement and must not be quoted as one.
+- Lighthouse, LCP, INP, CLS, TTFB against a deployment.
+- Safari, Firefox.
+- Mac, Windows, Android, iPhone.
+- GPU memory, draw calls, texture memory under a profiler.
+- The GLB loading path — written and typed, never exercised.
+
+## Defects this pass found and fixed
+
+Found by looking at rendered screenshots, not by reading code:
+
+1. **Primary navigation overflowed at 1440px.** Ten items plus a phone number collided —
+   "Aircraft Services Pricing" ran together and the number wrapped onto three lines. Reduced to six
+   primary items, added `whitespace-nowrap`, and the phone now hides between `lg` and `2xl`.
+2. **Cockpit glazing rendered as a black blob.** A full sphere placed where the revolved fuselage
+   had already tapered, with `metalness: 0.9` and `roughness: 0.12` — a mirror. Now a flattened,
+   inset canopy with tinted-glass values.
+3. **The camera crowded the aircraft.** Wings ran off frame and the aircraft sat under the content
+   panel. Pulled back and given a `lookOffset` so it composes to the right of the panel.
+4. **The shadow pad showed its edge.** A fixed `ContactShadows` plane could not cover an 84-unit
+   world once spacing grew. Replaced with a ground plane and a key light anchored to the active
+   stop.
+5. **The mobile panel covered the entire scene.** The aircraft was completely hidden behind it. The
+   panel is now over the canvas from `lg` up and below it on smaller screens.
+6. **The helicopter read as an egg.** One sphere, no visible glazing, tail boom lost behind the
+   cabin. Rebuilt as cabin, nose, windscreen, chin window, high tail boom, fin, stabiliser and
+   coned blades.
+
+Screenshot review is now part of QA for anything visual. Five of these six defects compiled, linted
+and passed every automated gate.
 
 ## The sweep-pattern lesson
 

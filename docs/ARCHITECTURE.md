@@ -61,13 +61,22 @@ dependency and the API route are both gone.
 
 ## Client/server boundary
 
-Server Components by default. The only Client Components are:
+Server Components by default. Client Components, and why each one has to be:
 
 - `navigation/MobileNav.tsx` — the drawer
 - `booking/QuickCharterForm.tsx` — stage-one request
 - `booking/CharterRequestForm.tsx` — full request
+- `components/3d/*` and `components/fleet/FleetShowroom*` — WebGL, the render loop and pointer state
 
-Three, against 38 in the old codebase.
+Against 38 in the old codebase. The 3D layer is additionally behind
+`next/dynamic(..., { ssr: false })`, so it is outside the server response and outside each route's
+initial JavaScript.
+
+## 3D layer
+
+One shared canvas per scene area, geometry authored in code, one camera authority, GSAP restricted
+to HTML choreography. Full detail, dependency reasoning and measured results in
+`docs/3D-ARCHITECTURE.md`.
 
 ## Content layer
 
@@ -94,6 +103,6 @@ figure for readers who never reach the fleet section.
 
 ## Open
 
-Steps 17-25 of the development order: the 3D engine, analytics wiring, accessibility audit,
-real-device performance measurement and browser QA. Fifteen routes remain `planned` pending the
-business data each needs.
+Steps 18-25 of the development order: analytics wiring, accessibility audit, real-device
+performance measurement and cross-browser QA. Fifteen routes remain `planned` pending the business
+data each needs.

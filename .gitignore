@@ -14,3 +14,6 @@ _to_delete/
 _bmc*.tgz
 tsconfig.tsbuildinfo
 _quarantine/media/
+
+# Local source archives used for container-side rendering checks
+bmc-*.tgz

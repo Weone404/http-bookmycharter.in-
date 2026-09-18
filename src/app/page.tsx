@@ -13,6 +13,7 @@ import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { FaqSection } from '@/components/content/FaqSection';
 import { QuickCharterForm } from '@/components/booking/QuickCharterForm';
+import { HeroVisual } from '@/components/3d/HeroVisual';
 
 const PATH = '/' as const;
 
@@ -28,9 +29,13 @@ export default function HomePage() {
           Critical content is plain HTML and paints immediately. The 3D layer
           mounts into the slot behind it later and never blocks this text. */}
       <section className="relative overflow-hidden bg-[var(--color-midnight)] text-[var(--color-ink-inverse)]">
+        {/* The 3D layer sits behind the copy and is pointer-transparent. It
+            carries no information: everything below is server-rendered HTML
+            and is fully usable before, during and without WebGL. */}
+        <HeroVisual />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_20%,rgba(22,184,212,0.18),transparent_60%)]"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(7,26,43,0.94)_0%,rgba(7,26,43,0.72)_46%,rgba(7,26,43,0.15)_100%)]"
         />
         <Container width="wide">
           <div className="relative py-[clamp(4rem,3rem+7vw,8rem)]">

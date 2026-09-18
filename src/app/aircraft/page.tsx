@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/Button';
 import { PageIntro } from '@/components/content/PageIntro';
 import { Prose } from '@/components/content/Prose';
 import { AircraftTable } from '@/components/aircraft/AircraftTable';
+import { FleetShowroomMount } from '@/components/fleet/FleetShowroomMount';
 
 const PATH = '/aircraft' as const;
 
@@ -41,7 +42,14 @@ export default function AircraftHubPage() {
         </div>
       </Section>
 
-      <Section ground="ivory" width="wide" className="pt-0">
+      {/* Fleet showroom. One shared WebGL canvas, lazily mounted. The aircraft
+          names, specifications and links below are server-rendered and are the
+          authoritative layer. */}
+      <section aria-label="Fleet showroom">
+        <FleetShowroomMount />
+      </section>
+
+      <Section ground="ivory" width="wide">
         <div className="grid gap-px border-t border-[var(--color-ink)]/15 sm:grid-cols-2 lg:grid-cols-3">
           {AIRCRAFT_CATEGORY_PAGES.map((category) => {
             const types = aircraftByCategory(category.category);
