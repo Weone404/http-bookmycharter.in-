@@ -39,14 +39,14 @@ export function MobileNav({ items }: { items: readonly RouteEntry[] }) {
         onClick={() => setOpen(true)}
         aria-label="Open menu"
         aria-expanded={open}
-        className="lg:hidden p-2 -mr-2 text-[var(--color-ink-inverse)]"
+        className="p-2 -mr-2 text-[var(--color-ink-inverse)] xl:hidden"
       >
         <Menu className="h-6 w-6" aria-hidden="true" />
       </button>
 
       <div
         hidden={!open}
-        className="fixed inset-0 z-50 bg-[var(--color-midnight)] text-[var(--color-ink-inverse)] lg:hidden"
+        className="fixed inset-0 z-50 bg-[var(--color-midnight)] text-[var(--color-ink-inverse)] xl:hidden"
         role="dialog"
         aria-modal="true"
         aria-label="Site menu"

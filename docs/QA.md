@@ -120,3 +120,94 @@ measurement · 3D frame-rate testing · axe/WCAG audit · production redirect re
 **No Lighthouse or FPS figure is claimed anywhere in this repository**, because none has been
 measured against a production deployment. Build-time bundle figures are reported because they were
 observed.
+
+---
+
+# Step 18 measurements
+
+## Lighthouse
+
+Production build served by `next start`, measured in headless Chromium with ANGLE/SwiftShader.
+**Software rasterisation inflates blocking time**, so treat performance as a lower bound and
+accessibility, best practices and SEO as sound.
+
+| Page | Perf | A11y | Best practices | SEO | LCP | CLS | TBT |
+|---|---|---|---|---|---|---|---|
+| `/` | 79 | 100 | 100 | 100 | 2.4 s | 0 | 780 ms |
+| `/aircraft` | 85 | 100 | 100 | 100 | 1.9 s | 0 | 570 ms |
+| `/pricing` | 99 | 100 | 100 | 100 | 2.0 s | 0 | 70 ms |
+
+### What the first run found, and what changed
+
+The first run scored **home 60, LCP 4.2 s, TBT 1,530 ms** while `/pricing` scored 100 on the same
+build. That difference is the whole diagnosis: the hero's WebGL initialisation was competing with
+the main thread, and Lighthouse named the LCP element as the hero's supporting *paragraph* — plain
+text, delayed by script it does not depend on.
+
+`ssr: false` was not enough, because it defers the download, not the execution. `HeroVisual` now
+waits for `requestIdleCallback` (2.5 s timeout, `setTimeout` fallback) before mounting the canvas
+at all. Home went 60 → **79**, LCP 4.2 → **2.4 s**, TBT 1,530 → **780 ms**.
+
+`/aircraft` moved the other way, 93 → 85, because the showroom now server-renders and hydrates real
+markup instead of shipping an empty shell. That is the cost of having aircraft names and
+specifications in the HTML, and it is worth paying.
+
+Accessibility was 96 on every page. Lighthouse named `--color-cyan-deep` (`#0e8ba1`) at **3.72:1**
+on ivory at 14 px, under the 4.5:1 required for normal text — the design notes claimed this token
+existed *because* the bright accent failed, and it turned out to fail too. Darkened to `#0c7688`,
+measured **4.84:1**. Accessibility is now **100** on all three pages.
+
+## Responsive sweep
+
+Ten widths × four routes (`/`, `/aircraft`, `/pricing`, `/request-a-charter`), checking document
+scroll width against client width, header fit, and CTA presence:
+
+**320, 375, 390, 430, 768, 834, 1024, 1280, 1440, 1920 — zero overflow, zero console errors.**
+
+The first run failed at exactly **1024 px**: the header was 4 px too wide and scrolled the entire
+page on every route. The desktop navigation switched at `lg`; it now switches at `xl`, so 1024–1279
+uses the drawer, and the showroom panel breakpoint was moved with it.
+
+## Keyboard walkthrough
+
+Executed with no mouse input:
+
+| Step | Result |
+|---|---|
+| Focus the showroom | Lands on the container, announced as "Fleet browser" |
+| ArrowRight ×2 | Airbus H145 → Cessna Citation CJ2 → Cessna Citation XLS |
+| End | Global 6000 (last) |
+| Home | Airbus H145 (first) |
+| Six consecutive Tabs | Aircraft link, Request a Charter, Next aircraft, then each aircraft list button — every stop a real control with a visible focus outline |
+
+"Previous aircraft" is correctly absent from the tab order at index 0, where it is disabled.
+
+## Server-rendered markup
+
+Checked against the built HTML, which is how both of these were found:
+
+| Page | Before | After |
+|---|---|---|
+| `/request-a-charter` | 0 labels, 0 inputs — `useSearchParams` forced the form behind Suspense and the server rendered only the fallback | 14 labels, 10 inputs, 3 selects, 1 textarea, disclosure wiring, live region, honeypot, autocomplete, required attributes — and the page is still statically prerendered |
+| `/aircraft` showroom | 0 buttons, no aircraft names — the whole component sat behind `ssr: false` | 11 buttons, aircraft names, specification values, aria labels; heading order h1 → h2 → h3 |
+
+## Charter API
+
+Every protection exercised against a running server:
+
+| Case | Result |
+|---|---|
+| `GET` | 405 |
+| Valid payload, no adapter configured | **503 `unavailable`** — never a false success |
+| Invalid payload | 422 with seven per-field messages |
+| Honeypot filled | 200, nothing delivered |
+| Sixth request in the window | 429 |
+| 20 KB body | 413 |
+| Malformed JSON, fresh client key | 400 |
+| Real delivery via webhook sink | 200 with reference `BMC-…`; the sink logged the full typed payload |
+| Identical request repeated | 409 `duplicate` |
+
+## Still not measured
+
+Safari · Firefox · real-device frame rate · field Core Web Vitals · GPU profiling · a full axe
+audit beyond Lighthouse's subset.

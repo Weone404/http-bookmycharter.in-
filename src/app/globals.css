@@ -19,7 +19,9 @@
   /* Aviation Cyan — accent only. Interactive states, active controls, CTA. */
   --color-cyan-accent: #16b8d4;
   --color-cyan-bright: #3fd0e8;
-  --color-cyan-deep: #0e8ba1;
+  /* 4.84:1 on --color-ivory at body size. The brighter accent measured
+     3.72:1 and failed Lighthouse's contrast audit on every page. */
+  --color-cyan-deep: #0c7688;
 
   /* Aviation Ivory — editorial surfaces, long-form reading. */
   --color-ivory: #f5f7f4;
@@ -95,6 +97,12 @@ canvas {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+/* The header is sticky, so anything scrolled to by id — an in-page anchor, a
+   skip link, a programmatic scroll — has to clear it or it lands underneath. */
+[id] {
+  scroll-margin-top: 6rem;
 }
 
 /* Visible focus. Never removed, only restyled. */

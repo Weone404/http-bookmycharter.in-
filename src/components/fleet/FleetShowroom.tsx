@@ -173,12 +173,12 @@ export function FleetShowroom() {
       aria-roledescription="Fleet browser"
       aria-label="Browse aircraft. Use the previous and next buttons, or the left and right arrow keys."
     >
-      <div className="relative h-[17rem] sm:h-[22rem] lg:h-[clamp(26rem,58vh,40rem)]">
+      <div className="relative h-[17rem] sm:h-[22rem] xl:h-[clamp(26rem,58vh,40rem)]">
         <FleetCanvas activeIndex={index} indexRef={indexRef} config={config} />
 
         {/* Glass panel, over the canvas from lg up only. Restrained: one
             surface, not a page of them. */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden p-[var(--spacing-gutter)] lg:block">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden p-[var(--spacing-gutter)] xl:block">
           <div className="pointer-events-auto max-w-[34rem] rounded-[var(--radius-card)] border border-white/12 bg-[var(--color-midnight-950)]/65 p-6 text-[var(--color-ink-inverse)] backdrop-blur-md sm:p-7">
             <FleetPanel item={item} specs={specs} />
           </div>
@@ -209,7 +209,7 @@ export function FleetShowroom() {
 
       {/* Mobile and tablet: the same panel, in the flow below the scene, so
           the aircraft is never hidden behind it. */}
-      <div className="px-[var(--spacing-gutter)] pb-7 pt-6 text-[var(--color-ink-inverse)] lg:hidden">
+      <div className="px-[var(--spacing-gutter)] pb-7 pt-6 text-[var(--color-ink-inverse)] xl:hidden">
         <FleetPanel item={item} specs={specs} />
       </div>
 

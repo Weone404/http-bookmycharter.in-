@@ -21,7 +21,7 @@ export function SiteHeader() {
             <Wordmark />
           </Link>
 
-          <nav aria-label="Primary" className="hidden lg:block">
+          <nav aria-label="Primary" className="hidden xl:block">
             <ul className="flex items-center gap-6 xl:gap-7">
               {items.map((item) => (
                 <li key={item.path}>
@@ -40,14 +40,14 @@ export function SiteHeader() {
             <a
               href={`tel:${CONTACT.phone}`}
               data-track="call_click"
-              className="hidden items-center gap-2 whitespace-nowrap text-[length:var(--text-small)] text-[var(--color-ink-inverse-muted)] hover:text-[var(--color-ink-inverse)] sm:inline-flex lg:hidden 2xl:inline-flex"
+              className="hidden items-center gap-2 whitespace-nowrap text-[length:var(--text-small)] text-[var(--color-ink-inverse-muted)] hover:text-[var(--color-ink-inverse)] sm:inline-flex xl:hidden 2xl:inline-flex"
             >
               <Phone className="h-4 w-4" aria-hidden="true" />
               <span className="numeric">{CONTACT.phoneDisplay}</span>
             </a>
             <Link
               href="/request-a-charter"
-              className="hidden whitespace-nowrap lg:inline-flex items-center rounded-[var(--radius-control)] bg-[var(--color-cyan-accent)] px-5 py-2.5 text-[length:var(--text-small)] font-semibold uppercase tracking-[0.08em] text-[var(--color-midnight)] transition-colors duration-[var(--duration-fast)] hover:bg-[var(--color-cyan-bright)]"
+              className="hidden whitespace-nowrap xl:inline-flex items-center rounded-[var(--radius-control)] bg-[var(--color-cyan-accent)] px-5 py-2.5 text-[length:var(--text-small)] font-semibold uppercase tracking-[0.08em] text-[var(--color-midnight)] transition-colors duration-[var(--duration-fast)] hover:bg-[var(--color-cyan-bright)]"
             >
               Request a Charter
             </Link>

@@ -33,15 +33,15 @@ tested — it is not a soft pass, and it is not converted to PASS by a clean bui
 | Analytics layer | PASS (built) / UNKNOWN (reporting) | 18 typed events, one provider, one delegated `data-track` listener. Renders no script without `NEXT_PUBLIC_GA_ID`. **No ID exists yet, so nothing has been observed arriving in a dashboard** |
 | 3D rendering | PASS | Headless Chromium with a real WebGL context: one canvas per page, live context, zero page errors, zero console errors, at 1440×900 and 390×844 |
 | Reduced motion | PASS | Config executed directly: `travelArc`, `floatAmplitude` and `parallax` are 0 at all three viewport classes; `settle` 0.18 s. Page renders and controls work under `prefers-reduced-motion: reduce` |
-| Responsive config | PASS | Viewport classing verified at 320/375/767 → mobile, 768/1279 → tablet, 1280/1920 → desktop |
+| Responsive config | PASS | Viewport classing verified at 320/375/767 -> mobile, 768/1279 -> tablet, 1280/1920 -> desktop. Horizontal-overflow sweep across **ten widths** (320, 375, 390, 430, 768, 834, 1024, 1280, 1440, 1920) on four routes: zero overflow, header fits, CTA present, zero console errors |
 | Visual QA — 1440 | PASS | Screenshot-inspected. Six defects found and fixed this way in step 17; five had passed every automated gate |
 | Visual QA — 390 mobile | PASS | Screenshot-inspected. Panel moved below the canvas after the first render showed it covering the whole scene |
-| Visual QA — 1280, 1920 | UNKNOWN | Not yet captured |
-| Tablet QA — 768, 834, 1024 | UNKNOWN | Not yet captured |
-| Keyboard accessibility | PARTIAL | Controls are real buttons with labels, `aria-current` and disabled states; arrow/Home/End handlers are scoped to the showroom; sitewide `:focus-visible` is never removed. **A full no-mouse walkthrough has not been performed** |
-| Contrast audit | UNKNOWN | Palette chosen for contrast (`--color-cyan-deep` exists because the accent fails at body size on ivory) but no automated contrast run |
-| Lighthouse | UNKNOWN | Not measured. No score is claimed anywhere in this repository |
-| Core Web Vitals | UNKNOWN | LCP, INP, CLS, TTFB not measured against a deployment |
+| Visual QA — 1280, 1920 | PASS | Screenshot-inspected. Navigation fits, hero composes clear of the copy and CTAs |
+| Tablet QA — 768, 834, 1024 | PASS | Screenshot-inspected at 834. Overflow swept at all three: clean after raising the desktop nav breakpoint to `xl` |
+| Keyboard accessibility | PASS | No-mouse walkthrough executed: container focusable and announced as "Fleet browser"; ArrowRight x2 H145 -> CJ2 -> Citation XLS; End -> Global 6000; Home -> H145; six consecutive Tab stops all real controls with a visible focus outline |
+| Contrast audit | PASS | Lighthouse accessibility **100** on every page tested. The first run scored 96 and named `--color-cyan-deep` at 3.72:1 on ivory; darkened to `#0c7688`, measured 4.84:1 |
+| Lighthouse | MEASURED | Against a production build in the container. Home 79 / Aircraft 85 / Pricing 99 performance; **accessibility, best practices and SEO 100 on all three**. Home was 60 before the hero canvas was deferred to idle |
+| Core Web Vitals | PARTIAL | Lab figures only: LCP 2.4s home / 1.9s aircraft / 2.0s pricing; **CLS 0 on all three**; TBT 780/570/70ms. Field data needs a deployment; TBT is inflated by software rasterisation |
 | Real-device FPS | UNKNOWN | The 6–7 fps headless figure is software rasterisation and is not a GPU measurement |
 | Safari | UNKNOWN | Not tested |
 | Firefox | UNKNOWN | Not tested |

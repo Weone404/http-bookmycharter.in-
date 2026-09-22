@@ -20,8 +20,11 @@ and text tokens `--color-ink`, `--color-ink-muted`, `--color-ink-inverse`,
 **Cyan is used sparingly.** It marks the primary action, the active state and the accent rule — not
 headings, not borders generally, not decoration. Its scarcity is what makes it read as "act here".
 
-`--color-cyan-deep` exists because `#16B8D4` on ivory does not carry enough contrast for body-size
-text; the deeper tone is used for links and small text on light grounds.
+`--color-cyan-deep` (`#0c7688`) exists because `#16B8D4` on ivory does not carry enough contrast
+for body-size text; the deeper tone is used for links and small text on light grounds. It measures
+**4.84:1** on `--color-ivory`. Its first value, `#0e8ba1`, measured 3.72:1 and failed Lighthouse's
+contrast audit on every page — the token existed for the right reason and was still not dark
+enough. Any replacement must be measured, not eyeballed.
 
 ## Type
 
