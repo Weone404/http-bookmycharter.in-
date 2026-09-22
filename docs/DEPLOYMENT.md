@@ -12,46 +12,87 @@ against a production build; only DNS stands between it and launch.
 **No DNS, registrar or nameserver change has been made.** That is an external irreversible action
 and requires explicit authorisation.
 
-## What has to happen, in order
+## Exact configuration required
 
-1. **Confirm who controls the domain** — registrar account and DNS host (BUSINESS-DATA I1).
-2. **Create the Vercel project** from `github.com/Weone404/http-bookmycharter.in-`, branch
-   `rebuild/book-my-charter`. Framework preset: Next.js. Build command and output are the defaults;
-   `npm run build` already runs the two data generators first.
-3. **Choose the canonical host.** `src/lib/site.ts` currently declares the **apex**,
-   `https://bookmycharter.in`, and `next.config.mjs` sets `trailingSlash: false`. If the canonical
-   host changes to `www`, change `SITE.url` — every canonical, OG tag, JSON-LD `@id` and sitemap
-   entry derives from it.
-4. **Point DNS at Vercel** and let it issue the certificate. HTTPS must work before anything is
-   submitted to a search engine.
-5. **Redirect the non-canonical host** to the canonical one at the platform level.
-6. **Set environment variables** once the values exist (I4–I6): `NEXT_PUBLIC_GA_ID`,
-   `NEXT_PUBLIC_CLARITY_ID`, `NEXT_PUBLIC_GSC_VERIFICATION`, `NEXT_PUBLIC_BING_VERIFICATION`.
-   Each is optional and no-ops when unset.
-7. **Verify the 30 redirects** return 301 to their final target with no chain.
-8. **Submit the sitemap** to Search Console and Bing Webmaster Tools.
+### 1. DNS
 
-## Security headers
+For the apex as canonical host (`SITE.url` is currently the apex):
+
+| Type | Name | Value | Note |
+|---|---|---|---|
+| A | `@` | `76.76.21.21` | Vercel's apex address. Confirm against the value Vercel shows for this project before applying — it is the one authoritative source |
+| CNAME | `www` | `cname.vercel-dns.com` | Then set `www` to redirect to the apex at the platform level |
+
+If `www` becomes the canonical host instead, swap the two and **change `SITE.url` in
+`src/lib/site.ts`** — every canonical, OG tag, JSON-LD `@id` and sitemap entry derives from it.
+
+### 2. Vercel project
+
+- Repository `github.com/Weone404/http-bookmycharter.in-`, branch `rebuild/book-my-charter`
+- Framework preset: Next.js. Build command and output directory are the defaults; `npm run build`
+  runs the two data generators first
+- Node 22
+- Attach both `bookmycharter.in` and `www.bookmycharter.in`, set one as primary, let the other 308
+
+### 3. Environment variables
+
+Server-only. **Never add a `NEXT_PUBLIC_` prefix to either of the first two** — that compiles them
+into the browser bundle.
+
+| Variable | Scope | Purpose |
+|---|---|---|
+| `CHARTER_SUBMISSION_PROVIDER` | server | `webhook` (only implemented value) |
+| `CHARTER_WEBHOOK_URL` | server | Where a charter request is POSTed as JSON. Until set, `/api/charter-request` returns 503 and the form says submission is not connected |
+| `NEXT_PUBLIC_GA_ID` | public | GA4 measurement ID. Unset: no script loads at all |
+| `NEXT_PUBLIC_CLARITY_ID` | public | Microsoft Clarity project ID |
+| `NEXT_PUBLIC_GSC_VERIFICATION` | public | Search Console token only |
+| `NEXT_PUBLIC_BING_VERIFICATION` | public | Bing token only |
+
+### 4. HTTPS
+
+Vercel issues the certificate once DNS resolves. **HTTPS must work before anything is submitted to
+a search engine**, and before the HSTS header below is relied upon.
+
+### 5. Security headers
 
 `vercel.json` sets HSTS with `preload`, `X-Content-Type-Options: nosniff`,
 `Referrer-Policy: strict-origin-when-cross-origin`, `X-Frame-Options: SAMEORIGIN` and a
 `Permissions-Policy` denying camera, microphone and geolocation.
 
-**HSTS `preload` is a one-way commitment** and must not be served until HTTPS is confirmed working
-on the final host, including any subdomain that will ever be used.
+**HSTS `preload` is a one-way commitment.** Do not serve it until HTTPS is confirmed working on the
+final host and on every subdomain that will ever be used.
 
-No Content-Security-Policy is set yet. It should be added once the analytics and form endpoints are
-known, so it can be written tightly rather than permissively.
+No Content-Security-Policy is set yet. It should be added once the analytics and submission
+endpoints are fixed, so it can be written tightly rather than permissively. Note that the 3D layer
+needs no external origin — no CDN, no font host, no HDR environment map — so the eventual policy
+can be strict.
+
+### 6. Rate limiting at the platform
+
+`/api/charter-request` carries an in-process rate limiter. On a serverless platform that means
+**per instance, not global**: it raises the cost of casual abuse and is honest about not being a
+global control. A platform rule (Vercel WAF or equivalent) on that path is the durable answer and
+should be added at launch.
+
+### 7. Post-deploy checks
+
+1. `curl -I https://bookmycharter.in` → 200, valid certificate
+2. `curl -I https://www.bookmycharter.in` → 308 to the canonical host
+3. Spot-check the 30 redirects → 301, single hop, correct target
+4. `https://bookmycharter.in/sitemap.xml` → 43 URLs, canonical origin
+5. `https://bookmycharter.in/robots.txt` → sitemap line present, AI crawlers named
+6. `https://bookmycharter.in/og/default.png` → 200, `image/png`
+7. POST a real charter request and confirm it arrives at the configured destination
+8. Submit the sitemap to Search Console and Bing Webmaster Tools
+9. Run Lighthouse against the deployment and record the numbers in `docs/QA.md`
 
 ## Before the first deploy
 
-- The charter request form does not submit anywhere. Where requests should be delivered is
-  unanswered (I7). The form validates and states plainly that online submission is not live,
-  offering phone and WhatsApp instead. **This must be wired before launch** — a form that silently
-  discards a charter enquiry is worse than no form.
-- `/og/default.png` is referenced by every page's social card and does not exist yet.
-- `public/icons/fleet/` and `public/fleets/` still hold inherited aircraft images of unconfirmed
-  provenance. Nothing renders them, but `public/` serves every file in it whether or not a page
-  links it — "off display" is not "off the site". Resolve provenance (G2) or remove them.
-- `logo.png` / `logo.webp` read "CHARTER BOOKING" rather than a brand name and are unused; the
-  wordmark is drawn in code. Remove them or replace with a real mark.
+- **The charter request destination must be configured** (`docs/BUSINESS-DATA-REQUIRED.md` I7).
+  Without it the API returns 503 and the form tells people to call instead. That is honest, but a
+  live site with an unconnected form loses every enquiry that does not pick up the phone.
+- `assets-unverified/` holds 66 inherited images whose provenance is unconfirmed. They are outside
+  `public/` and are not served. Resolve provenance (G2) or delete them; do not move the folder
+  into `public/` wholesale.
+- Confirm `info@bookmycharter.in` exists (A4). It is published on `/contact`, in the footer and in
+  the Organization schema.

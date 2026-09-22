@@ -6,6 +6,7 @@ import { OG_IMAGE } from '@/lib/metadata';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { SiteHeader } from '@/components/navigation/SiteHeader';
 import { SiteFooter } from '@/components/navigation/SiteFooter';
+import { Analytics } from '@/components/analytics/Analytics';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -47,6 +48,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <SiteFooter />
         {/* One @graph for the whole site identity; pages add their own nodes. */}
         <JsonLd json={graph([organizationSchema(), websiteSchema()])} />
+        {/* Renders nothing without NEXT_PUBLIC_GA_ID. Also installs the one
+            delegated listener that reads every data-track attribute. */}
+        <Analytics />
       </body>
     </html>
   );

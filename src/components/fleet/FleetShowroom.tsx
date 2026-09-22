@@ -1,16 +1,24 @@
 'use client';
 
 import Link from 'next/link';
-import gsap from 'gsap';
 import { useCallback, useEffect, useRef } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { FLEET_SCENE, type FleetSceneItem } from '@/data/fleet-scene';
 import { formatRange } from '@/data/aircraft';
 import { AIRCRAFT_SPEC_SOURCE } from '@/data/aircraft.generated';
-import { AviationCanvas } from '@/components/3d/AviationCanvas';
-import { FleetScene } from '@/components/3d/FleetScene';
+import dynamic from 'next/dynamic';
 import { useFleetCamera } from '@/components/3d/useFleetCamera';
 import { useSceneConfig } from '@/components/3d/useSceneConfig';
+
+/**
+ * Only the WebGL layer is client-only. Everything else in this component —
+ * panel, controls, aircraft list, source note — renders on the server, where a
+ * crawler and a reader without JavaScript can see it.
+ */
+const FleetCanvas = dynamic(() => import('./FleetCanvas'), {
+  ssr: false,
+  loading: () => null,
+});
 
 const CATEGORY_LABEL: Record<string, string> = {
   helicopter: 'Helicopter',
@@ -59,22 +67,40 @@ export function FleetShowroom() {
     const node = rootRef.current;
     if (!node) return;
 
-    const context = gsap.context(() => {
-      if (reducedMotion) {
-        // No motion, but state still has to be correct: reveal immediately.
-        gsap.set('[data-fleet-fade]', { opacity: 1, y: 0 });
-        return;
+    if (reducedMotion) {
+      // Nothing to animate, and no reason to fetch an animation library.
+      for (const element of node.querySelectorAll<HTMLElement>('[data-fleet-fade]')) {
+        element.style.opacity = '1';
+        element.style.transform = 'none';
       }
-      gsap
-        .timeline()
-        .fromTo(
-          '[data-fleet-fade]',
-          { opacity: 0, y: 14 },
-          { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.06 },
-        );
-    }, node);
+      return;
+    }
 
-    return () => context.revert();
+    let context: { revert: () => void } | undefined;
+    let cancelled = false;
+
+    // GSAP is imported here rather than at module scope. Server-rendering the
+    // showroom put it in the route's initial bundle and pushed First Load JS
+    // from 108 kB to 148 kB; loading it at the moment of the first transition
+    // keeps the critical path where it was. GSAP still owns the HTML
+    // choreography — only when it arrives changed.
+    void import('gsap').then(({ default: gsap }) => {
+      if (cancelled) return;
+      context = gsap.context(() => {
+        gsap
+          .timeline()
+          .fromTo(
+            '[data-fleet-fade]',
+            { opacity: 0, y: 14 },
+            { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.06 },
+          );
+      }, node);
+    });
+
+    return () => {
+      cancelled = true;
+      context?.revert();
+    };
   }, [transitionKey, reducedMotion]);
 
   /** Arrow keys when the showroom has focus. Not a global listener. */
@@ -148,19 +174,7 @@ export function FleetShowroom() {
       aria-label="Browse aircraft. Use the previous and next buttons, or the left and right arrow keys."
     >
       <div className="relative h-[17rem] sm:h-[22rem] lg:h-[clamp(26rem,58vh,40rem)]">
-        <AviationCanvas
-          config={config}
-          ariaLabel="Decorative three-dimensional view of the aircraft fleet. Every aircraft and its specifications are listed as text below."
-        >
-          {(pointerRef) => (
-            <FleetScene
-              activeIndex={index}
-              indexRef={indexRef}
-              config={config}
-              pointerRef={pointerRef}
-            />
-          )}
-        </AviationCanvas>
+        <FleetCanvas activeIndex={index} indexRef={indexRef} config={config} />
 
         {/* Glass panel, over the canvas from lg up only. Restrained: one
             surface, not a page of them. */}

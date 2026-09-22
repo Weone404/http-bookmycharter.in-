@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Suspense } from 'react';
 import { MessageCircle, Phone } from 'lucide-react';
 import { metadataForRoute } from '@/lib/metadata';
 import { getRoute } from '@/lib/routes';
@@ -35,9 +34,7 @@ export default function RequestACharterPage() {
             </p>
 
             <div className="mt-10">
-              <Suspense fallback={<p className="text-[var(--color-ink-muted)]">Loading form…</p>}>
-                <CharterRequestForm />
-              </Suspense>
+              <CharterRequestForm />
             </div>
           </div>
 

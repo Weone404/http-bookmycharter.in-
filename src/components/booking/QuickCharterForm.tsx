@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
 import { ArrowRight } from 'lucide-react';
+import { track } from '@/lib/analytics';
 
 /**
  * Stage one of the charter request: four fields.
@@ -25,6 +26,9 @@ export function QuickCharterForm() {
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSubmitting(true);
+    // The funnel starts here, not on /request-a-charter: this is where most
+    // people first commit a route and a date.
+    track('charter_form_started', { path: '/', label: 'hero' });
     const data = new FormData(event.currentTarget);
     const params = new URLSearchParams();
     for (const key of ['from', 'to', 'date', 'passengers'] as const) {

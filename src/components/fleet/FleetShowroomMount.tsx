@@ -1,27 +1,14 @@
-'use client';
-
-import dynamic from 'next/dynamic';
+import { FleetShowroom } from './FleetShowroom';
 
 /**
- * Lazy mount for the showroom.
+ * The showroom renders on the server. Only its WebGL layer is deferred, and
+ * that boundary lives inside FleetShowroom itself.
  *
- * The WebGL runtime is only fetched by readers who reach the aircraft page,
- * and never on the server. The aircraft list, specification tables and links
- * on that page are server-rendered and independent of this.
+ * This file used to wrap the whole showroom in `dynamic(..., { ssr: false })`,
+ * which kept the panel, the controls and every aircraft name out of the server
+ * response entirely. That was found by grepping the built HTML, not by any
+ * automated gate.
  */
-const FleetShowroom = dynamic(
-  () => import('./FleetShowroom').then((m) => ({ default: m.FleetShowroom })),
-  {
-    ssr: false,
-    loading: () => (
-      <div
-        aria-hidden="true"
-        className="h-[clamp(26rem,58vh,40rem)] w-full bg-[var(--color-midnight)]"
-      />
-    ),
-  },
-);
-
 export function FleetShowroomMount() {
   return <FleetShowroom />;
 }

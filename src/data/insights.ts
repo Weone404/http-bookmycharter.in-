@@ -61,7 +61,7 @@ export const INSIGHTS: readonly Insight[] = [
   {
     slug: 'private-jet-vs-commercial-flight',
     category: 'charter-guide',
-    title: 'Private jet vs commercial flight: an honest comparison',
+    title: 'Private jet vs commercial flight',
     summary:
       'A private jet is not meaningfully faster in the air than a commercial aircraft, but it usually produces a much shorter journey by removing connections, early check-in and travel to and from distant hub airports.',
     published: '2026-09-17',
@@ -83,7 +83,7 @@ export const INSIGHTS: readonly Insight[] = [
   {
     slug: 'helicopter-vs-private-jet',
     category: 'helicopter-guide',
-    title: 'Helicopter or private jet: which does your trip need?',
+    title: 'Helicopter or private jet?',
     summary:
       'A helicopter is chosen when the destination has no runway and the sector is short; a jet is chosen when there is a runway and the distance is long enough for speed to matter.',
     published: '2026-09-17',

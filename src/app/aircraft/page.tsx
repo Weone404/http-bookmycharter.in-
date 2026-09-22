@@ -8,6 +8,7 @@ import { AIRCRAFT, PUBLISHED_AIRCRAFT, aircraftByCategory } from '@/data/aircraf
 import { AIRCRAFT_CATEGORY_PAGES } from '@/data/aircraft-categories';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
+import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { PageIntro } from '@/components/content/PageIntro';
 import { Prose } from '@/components/content/Prose';
@@ -45,7 +46,23 @@ export default function AircraftHubPage() {
       {/* Fleet showroom. One shared WebGL canvas, lazily mounted. The aircraft
           names, specifications and links below are server-rendered and are the
           authoritative layer. */}
-      <section aria-label="Fleet showroom">
+      {/* The showroom needs its own <h2>: it now server-renders, and its panel
+          uses <h3> for the aircraft name, which would otherwise be the first
+          heading after the <h1>. Caught by the heading-hierarchy check. */}
+      <section aria-labelledby="showroom-heading" className="bg-[var(--color-midnight)]">
+        <Container width="wide">
+          <div className="flex flex-wrap items-baseline justify-between gap-3 pt-10 text-[var(--color-ink-inverse)]">
+            <h2
+              id="showroom-heading"
+              className="text-[length:var(--text-h3)] font-semibold tracking-tight"
+            >
+              Browse the fleet
+            </h2>
+            <p className="text-[length:var(--text-small)] text-[var(--color-ink-inverse-muted)]">
+              Use the arrows, the aircraft list, or the left and right arrow keys.
+            </p>
+          </div>
+        </Container>
         <FleetShowroomMount />
       </section>
 
