@@ -1,4 +1,5 @@
 import type { Path } from '@/types/common';
+import type { AircraftCategory } from '@/types/aircraft';
 
 /** Content for the home page. No copy lives inside a component. */
 
@@ -7,11 +8,14 @@ export interface CharterCategory {
   readonly href: Path;
   readonly summary: string;
   readonly points: readonly string[];
+  /** Silhouette, set only where one is genuinely accurate for the card. */
+  readonly glyph?: AircraftCategory;
 }
 
 export const CHARTER_CATEGORIES: readonly CharterCategory[] = [
   {
     title: 'Private Charter',
+    glyph: 'private-jet',
     href: '/private-charter',
     summary:
       'A whole aircraft for your route and your schedule — light jets through to larger executive aircraft.',
@@ -23,6 +27,7 @@ export const CHARTER_CATEGORIES: readonly CharterCategory[] = [
   },
   {
     title: 'Helicopter Charter',
+    glyph: 'helicopter',
     href: '/helicopter-charter',
     summary:
       'Point-to-point movement where runways do not reach — city helipads, remote sites and mountain terrain.',
@@ -34,6 +39,7 @@ export const CHARTER_CATEGORIES: readonly CharterCategory[] = [
   },
   {
     title: 'Empty Legs',
+    glyph: 'turboprop',
     href: '/empty-leg-charter',
     summary:
       'Aircraft repositioning without passengers. When the direction and date happen to match yours, the economics change.',

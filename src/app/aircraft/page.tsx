@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/Button';
 import { PageIntro } from '@/components/content/PageIntro';
 import { Prose } from '@/components/content/Prose';
 import { AircraftTable } from '@/components/aircraft/AircraftTable';
+import { AircraftGlyph } from '@/components/ui/AircraftGlyph';
 import { FleetShowroomMount } from '@/components/fleet/FleetShowroomMount';
 
 const PATH = '/aircraft' as const;
@@ -76,6 +77,10 @@ export default function AircraftHubPage() {
                 href={category.canonical}
                 className="group flex flex-col border-b border-[var(--color-ink)]/15 py-7 pr-7"
               >
+                <AircraftGlyph
+                  category={category.category}
+                  className="mb-4 h-8 w-auto text-[var(--color-cyan-deep)]"
+                />
                 <h2 className="text-[length:var(--text-h3)] font-semibold tracking-tight">
                   {category.title}
                 </h2>

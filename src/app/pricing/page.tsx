@@ -1,13 +1,12 @@
 import type { Metadata } from 'next';
-import { ArrowRight } from 'lucide-react';
 import { metadataForRoute } from '@/lib/metadata';
 import { getRoute } from '@/lib/routes';
 import { breadcrumbSchema, faqSchema, graph, webPageSchema } from '@/lib/schema';
 import { COST_COMPONENTS, PRICING_FAQS } from '@/data/pricing';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
-import { Button } from '@/components/ui/Button';
 import { PageIntro } from '@/components/content/PageIntro';
+import { GlanceCard, IntroLayout } from '@/components/content/GlanceCard';
 import { Prose } from '@/components/content/Prose';
 import { FaqSection } from '@/components/content/FaqSection';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
@@ -26,11 +25,28 @@ export default function PricingPage() {
         {/* Answer-first. This paragraph is written to be quoted on its own by a
             search result or an answer engine, and to be the first useful thing a
             reader sees. */}
-        <PageIntro
-          path={PATH}
-          title="What a charter costs, and why"
-          summary="The cost of a private jet or helicopter charter in India depends primarily on aircraft category, total block hours, positioning of the aircraft to your departure point, landing and parking charges, ground handling, crew duty requirements, waiting time, taxes, and any international permits the route requires."
-        />
+        <IntroLayout
+          aside={
+            <GlanceCard
+              heading="What this page covers"
+              stats={[
+                { label: 'Cost components explained', value: COST_COMPONENTS.length },
+                { label: 'Questions answered', value: PRICING_FAQS.length },
+              ]}
+              note="No headline rate is published here, because a rate that omits positioning, handling and ground time is not the price of a trip."
+              primaryLabel="Get a broken-down quote"
+              secondaryHref="/insights/how-private-jet-charter-pricing-works-in-india"
+              secondaryLabel="Read the long version"
+            />
+          }
+          intro={
+            <PageIntro
+              path={PATH}
+              title="What a charter costs, and why"
+              summary="The cost of a private jet or helicopter charter in India depends primarily on aircraft category, total block hours, positioning of the aircraft to your departure point, landing and parking charges, ground handling, crew duty requirements, waiting time, taxes, and any international permits the route requires."
+            />
+          }
+        >
         <div className="mt-10">
           <Prose
             paragraphs={[
@@ -39,15 +55,7 @@ export default function PricingPage() {
             ]}
           />
         </div>
-        <div className="mt-10 flex flex-wrap gap-4">
-          <Button href="/request-a-charter">
-            Request a Charter
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Button>
-          <Button href="/insights/how-private-jet-charter-pricing-works-in-india" variant="secondary">
-            Read the long version
-          </Button>
-        </div>
+        </IntroLayout>
       </Section>
 
       <Section ground="ivory" width="wide" className="pt-0">

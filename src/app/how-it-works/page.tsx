@@ -9,6 +9,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { PageIntro } from '@/components/content/PageIntro';
+import { GlanceCard, IntroLayout } from '@/components/content/GlanceCard';
 import { PointList, Prose } from '@/components/content/Prose';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
 
@@ -23,19 +24,35 @@ export default function HowItWorksPage() {
   return (
     <>
       <Section ground="ivory" width="wide">
-        <PageIntro
-          path={PATH}
-          title="How charter booking works"
-          summary="A charter enquiry becomes a flight in five steps: you describe the trip, suitable aircraft are identified against the real constraints, you receive options with the cost broken down, you choose, and the journey is coordinated."
-        />
-        <div className="mt-10">
+        <IntroLayout
+          aside={
+            <GlanceCard
+              heading="What you need to start"
+              stats={[
+                { label: 'Steps from enquiry to flight', value: HOW_IT_WORKS.length },
+                { label: 'Details needed to begin', value: 3 },
+              ]}
+              note="Route, date and passenger count is enough. Runway length, range, duty limits and permissions are checked for you."
+              primaryLabel="Start an enquiry"
+              secondaryHref="/pricing"
+              secondaryLabel="How pricing works"
+            />
+          }
+          intro={
+            <PageIntro
+              path={PATH}
+              title="How charter booking works"
+              summary="A charter enquiry becomes a flight in five steps: you describe the trip, suitable aircraft are identified against the real constraints, you receive options with the cost broken down, you choose, and the journey is coordinated."
+            />
+          }
+        >
           <Prose
             paragraphs={[
               `${voice().whatWeDo} Charter is planned rather than booked, and the planning is the part that is invisible from outside — which is why the first enquiry feels harder to send than it should.`,
               'Nothing below requires you to know anything about aviation. Route, date and passenger count is enough to begin, and the constraints that matter — runway length, range, duty limits, permissions — are ours to check, not yours to anticipate.',
             ]}
           />
-        </div>
+        </IntroLayout>
       </Section>
 
       <Section ground="ivory" width="wide" className="pt-0">

@@ -15,6 +15,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { PageIntro } from '@/components/content/PageIntro';
+import { GlanceCard, IntroLayout } from '@/components/content/GlanceCard';
 import { PointList, Prose } from '@/components/content/Prose';
 import { FaqSection } from '@/components/content/FaqSection';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
@@ -30,14 +31,32 @@ export default function EmptyLegPage() {
   return (
     <>
       <Section ground="ivory" width="wide">
-        <PageIntro
-          path={PATH}
-          title="Empty leg flights"
-          summary="An empty leg is a charter aircraft repositioning without passengers — flying out to collect a client, or returning to base afterwards — which an operator may sell at a reduced rate because the flight is happening either way."
-        />
-        <div className="mt-10">
+        <IntroLayout
+          aside={
+            <GlanceCard
+              heading="Is this for you?"
+              stats={[
+                { label: 'Conditions that apply', value: EMPTY_LEG_CONDITIONS.length },
+                { label: 'When it suits', value: EMPTY_LEG_SUITS.length },
+                { label: 'When it does not', value: EMPTY_LEG_DOES_NOT_SUIT.length },
+                { label: 'Legs listed now', value: AVAILABLE_EMPTY_LEGS.length },
+              ]}
+              note="Empty legs are not listed as standing inventory, because availability changes faster than any published list."
+              primaryLabel="Tell us your route and dates"
+              secondaryHref="/pricing"
+              secondaryLabel="How pricing works"
+            />
+          }
+          intro={
+            <PageIntro
+              path={PATH}
+              title="Empty leg flights"
+              summary="An empty leg is a charter aircraft repositioning without passengers — flying out to collect a client, or returning to base afterwards — which an operator may sell at a reduced rate because the flight is happening either way."
+            />
+          }
+        >
           <Prose paragraphs={EMPTY_LEG_EXPLAINER} />
-        </div>
+        </IntroLayout>
       </Section>
 
       {/* Availability.

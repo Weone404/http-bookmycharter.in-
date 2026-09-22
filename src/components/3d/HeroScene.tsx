@@ -53,9 +53,9 @@ export function HeroScene({
 
     // Scroll pushes the aircraft back and down as the copy below comes up.
     const depth = scrollRef.current * 2.6;
-    const targetZ = -depth;
-    const targetY = -0.15 + drift - scrollRef.current * 0.8;
-    const targetYaw = -0.62 + pointerRef.current.x * config.parallax * 0.12;
+    const targetZ = config.heroPlacement.position[2] - depth;
+    const targetY = config.heroPlacement.position[1] + drift - scrollRef.current * 0.8;
+    const targetYaw = config.heroPlacement.yaw + pointerRef.current.x * config.parallax * 0.12;
 
     node.position.z += (targetZ - node.position.z) * alpha;
     node.position.y += (targetY - node.position.y) * alpha;
@@ -70,7 +70,16 @@ export function HeroScene({
   return (
     <>
       <SceneEnvironment config={config} centerX={2} />
-      <group ref={aircraft} position={[3.1, -0.15, -1.4]} rotation={[0, -0.62, 0.04]} scale={0.72}>
+      <group
+        ref={aircraft}
+        position={[
+          config.heroPlacement.position[0],
+          config.heroPlacement.position[1],
+          config.heroPlacement.position[2],
+        ]}
+        rotation={[0, config.heroPlacement.yaw, 0.04]}
+        scale={config.heroPlacement.scale}
+      >
         <JetForm materials={materials} />
       </group>
     </>

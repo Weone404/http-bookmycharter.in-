@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/Button';
 import { FaqSection } from '@/components/content/FaqSection';
 import { QuickCharterForm } from '@/components/booking/QuickCharterForm';
 import { HeroVisual } from '@/components/3d/HeroVisual';
+import { AircraftGlyph } from '@/components/ui/AircraftGlyph';
 
 const PATH = '/' as const;
 
@@ -38,7 +39,7 @@ export default function HomePage() {
           className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(7,26,43,0.94)_0%,rgba(7,26,43,0.72)_46%,rgba(7,26,43,0.15)_100%)]"
         />
         <Container width="wide">
-          <div className="relative py-[clamp(4rem,3rem+7vw,8rem)]">
+          <div className="relative py-[clamp(3rem,2rem+4.5vw,5.5rem)]">
             <p className="text-[length:var(--text-micro)] uppercase tracking-[0.2em] text-[var(--color-cyan-accent)]">
               Private aviation · India
             </p>
@@ -97,6 +98,12 @@ export default function HomePage() {
               href={category.href}
               className="group flex flex-col bg-[var(--color-ivory)] p-7 transition-colors duration-[var(--duration-fast)] hover:bg-white"
             >
+              {category.glyph ? (
+                <AircraftGlyph
+                  category={category.glyph}
+                  className="mb-4 h-7 w-auto text-[var(--color-cyan-deep)]"
+                />
+              ) : null}
               <h3 className="text-[length:var(--text-h3)] font-semibold tracking-tight">
                 {category.title}
               </h3>

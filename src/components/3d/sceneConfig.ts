@@ -34,6 +34,18 @@ export interface SceneConfig {
   /** Pointer parallax influence, 0 disables it. */
   readonly parallax: number;
   readonly shadows: boolean;
+  /**
+   * Where the hero aircraft sits, per viewport.
+   *
+   * This was a single hard-coded position tuned at 1440px. On a phone it put
+   * the aircraft off the right edge, so the mobile hero rendered a canvas with
+   * nothing visible in it.
+   */
+  readonly heroPlacement: {
+    readonly position: readonly [number, number, number];
+    readonly scale: number;
+    readonly yaw: number;
+  };
 }
 
 const DESKTOP: SceneConfig = {
@@ -47,6 +59,7 @@ const DESKTOP: SceneConfig = {
   floatAmplitude: 0.07,
   parallax: 0.5,
   shadows: true,
+  heroPlacement: { position: [3.1, -0.15, -1.4], scale: 0.72, yaw: -0.62 },
 };
 
 const TABLET: SceneConfig = {
@@ -60,6 +73,7 @@ const TABLET: SceneConfig = {
   floatAmplitude: 0.05,
   parallax: 0.3,
   shadows: true,
+  heroPlacement: { position: [1.7, -0.5, -2.6], scale: 0.62, yaw: -0.58 },
 };
 
 const MOBILE: SceneConfig = {
@@ -74,6 +88,8 @@ const MOBILE: SceneConfig = {
   // Pointer parallax is meaningless on touch and costs frame time.
   parallax: 0,
   shadows: false,
+  // Centred and low, so it sits behind the copy rather than beside it.
+  heroPlacement: { position: [0.5, -1.5, -4.2], scale: 0.5, yaw: -0.48 },
 };
 
 const BY_CLASS: Record<ViewportClass, SceneConfig> = {

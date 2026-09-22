@@ -5,12 +5,14 @@ import type { AircraftCategory } from '@/types/aircraft';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { PageIntro } from '@/components/content/PageIntro';
+import { GlanceCard, IntroLayout } from '@/components/content/GlanceCard';
 import { PointList, Prose } from '@/components/content/Prose';
 import { FaqSection } from '@/components/content/FaqSection';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { breadcrumbSchema, faqSchema, graph, serviceSchema, webPageSchema } from '@/lib/schema';
 import { aircraftByCategory, formatRange } from '@/data/aircraft';
+import { AircraftGlyph } from '@/components/ui/AircraftGlyph';
 
 /**
  * One template, many service pages — but the CONTENT differs entirely per page,
@@ -38,23 +40,40 @@ const CATEGORY_HREF: Partial<Record<AircraftCategory, string>> = {
 
 export function ServicePageTemplate({ service }: { service: Service }) {
   const path = service.canonical;
+  // Counted from the real fleet data, so the panel cannot claim a type that
+  // is not listed further down the same page.
+  const typeCount = service.suitableCategories.reduce(
+    (total, category) => total + aircraftByCategory(category).length,
+    0,
+  );
 
   return (
     <>
       <Section ground="ivory" width="wide">
-        <PageIntro path={path} title={service.name} summary={service.summary} />
-        <div className="mt-10">
+        {/* Two columns from lg up. The single-column version left the right
+            half of the page empty and opened every service with three dense
+            paragraphs and nothing to look at — which is the "it's all text"
+            problem. The panel is orientation, not decoration: what flies it,
+            how many types, and the action. */}
+        <IntroLayout
+          aside={
+            <GlanceCard
+              categories={service.suitableCategories}
+              categoryLabel={CATEGORY_LABEL}
+              stats={[
+                { label: 'Aircraft types listed', value: typeCount },
+                { label: 'Cost drivers', value: service.pricingFactors.length },
+                { label: 'Steps to fly', value: service.howItWorks.length },
+                { label: 'Questions answered', value: service.faqs.length },
+              ]}
+              secondaryHref="/pricing"
+              secondaryLabel="How pricing works"
+            />
+          }
+          intro={<PageIntro path={path} title={service.name} summary={service.summary} />}
+        >
           <Prose paragraphs={service.definition} />
-        </div>
-        <div className="mt-10 flex flex-wrap gap-4">
-          <Button href="/request-a-charter">
-            Request a Charter
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Button>
-          <Button href="/pricing" variant="secondary">
-            How pricing works
-          </Button>
-        </div>
+        </IntroLayout>
       </Section>
 
       <Section ground="midnight" width="wide">
@@ -106,6 +125,10 @@ export function ServicePageTemplate({ service }: { service: Service }) {
 
             const body = (
               <>
+                <AircraftGlyph
+                  category={category}
+                  className="mb-3 h-7 w-auto text-[var(--color-cyan-deep)]"
+                />
                 <h3 className="text-[length:var(--text-h3)] font-medium">{CATEGORY_LABEL[category]}</h3>
                 {types.length > 0 ? (
                   <p className="mt-2 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
