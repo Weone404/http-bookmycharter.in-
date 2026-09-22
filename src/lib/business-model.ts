@@ -11,7 +11,22 @@
  */
 export type BusinessModel = 'operator' | 'arranger' | 'hybrid' | 'unconfirmed';
 
-export const BUSINESS_MODEL: BusinessModel = 'unconfirmed';
+/**
+ * Answered 2026-09-22: both. Book My Charter operates some aircraft and
+ * arranges the rest.
+ *
+ * `hybrid` is therefore the setting — but note what it does NOT switch on.
+ * `mayClaimOwnInventory` and `mayClaimOwnCertification` stay false, because
+ * "we operate some aircraft" is a statement about the company, while "our
+ * fleet", "our pilots" and an AOC number are externally checkable claims that
+ * need the operating permit number and the aircraft registrations behind them
+ * (docs/BUSINESS-DATA-REQUIRED.md B1a). Until those arrive the site describes
+ * the arranged half, which is true of every flight either way.
+ *
+ * When the documents land, the two flags flip here and an operated-aircraft
+ * voice can be added — still one edit in this file, not a content rewrite.
+ */
+export const BUSINESS_MODEL: BusinessModel = 'hybrid';
 
 /**
  * Phrases that are only true under a specific model. Never hardcode these in a
@@ -46,6 +61,9 @@ const VOICES: Record<BusinessModel, Voice> = {
     mayClaimOwnInventory: false,
     mayClaimOwnCertification: false,
   },
+  // The current setting. Operated and arranged aircraft are both described
+  // the same way for now, because nothing here may imply which is which until
+  // the registrations are verified.
   hybrid: {
     whatWeDo: 'We arrange and coordinate charter solutions based on your route, aircraft requirements and availability.',
     aircraftPossessive: 'aircraft available for charter',
@@ -53,7 +71,7 @@ const VOICES: Record<BusinessModel, Voice> = {
     mayClaimOwnInventory: false,
     mayClaimOwnCertification: false,
   },
-  // Neutral and true under every model. This is the current setting.
+  // Neutral and true under every model.
   unconfirmed: {
     whatWeDo: 'We arrange charter solutions based on your route, aircraft requirements and availability.',
     aircraftPossessive: 'aircraft available for charter',
