@@ -168,3 +168,11 @@ canvas {
 .skip-link:focus {
   translate: -50% 0;
 }
+
+/* The three-dimensional band sits directly above `main`, so the first section
+   no longer needs the full section rhythm above its breadcrumbs — without this
+   every inner page opened with the band, then a large empty ivory gap, then
+   the H1. Adjacent-sibling only: pages without the band are untouched. */
+.page-header-band + main > section:first-of-type {
+  padding-block-start: clamp(2rem, 1rem + 3vw, 3.5rem);
+}

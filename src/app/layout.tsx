@@ -6,6 +6,7 @@ import { OG_IMAGE } from '@/lib/metadata';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { SiteHeader } from '@/components/navigation/SiteHeader';
 import { SiteFooter } from '@/components/navigation/SiteFooter';
+import { PageHeaderBand } from '@/components/3d/PageHeaderBand';
 import { Analytics } from '@/components/analytics/Analytics';
 import './globals.css';
 
@@ -44,6 +45,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           Skip to content
         </a>
         <SiteHeader />
+        {/* Renders nothing on the home page, which has the hero scene. */}
+        <PageHeaderBand />
         <main id="main">{children}</main>
         <SiteFooter />
         {/* One @graph for the whole site identity; pages add their own nodes. */}
