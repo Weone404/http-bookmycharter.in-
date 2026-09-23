@@ -12,6 +12,11 @@ import { AircraftGlyph } from '@/components/ui/AircraftGlyph';
  * viewport empty. Read quickly, that is indistinguishable from every other
  * page — which is the "there's only text inside the other tabs" problem.
  *
+ * A white card on the ivory ground, separated by a hairline. It was midnight
+ * when the rest of the site was, and when the page went light it became the
+ * one remaining dark slab — which is exactly the heaviness this pass exists to
+ * remove.
+ *
  * This is the fix, and it is deliberately not decoration. It carries the three
  * things a reader wants before committing to the prose: what kind of aircraft
  * the page concerns, how much of each thing the page actually contains, and
@@ -50,8 +55,8 @@ export function GlanceCard({
   children?: ReactNode;
 }) {
   return (
-    <div className="rounded-[var(--radius-card)] bg-[var(--color-midnight)] p-7 text-[var(--color-ink-inverse)]">
-      <h2 className="text-[length:var(--text-micro)] uppercase tracking-[0.16em] text-[var(--color-cyan-accent)]">
+    <div className="rounded-[var(--radius-card)] border border-[var(--color-hairline)] bg-[var(--color-surface)] p-7 text-[var(--color-ink)]">
+      <h2 className="text-[length:var(--text-micro)] uppercase tracking-[0.16em] text-[var(--color-cyan-deep)]">
         {heading}
       </h2>
 
@@ -61,7 +66,7 @@ export function GlanceCard({
             <li key={category} className="flex items-center gap-4">
               <AircraftGlyph
                 category={category}
-                className="h-9 w-20 shrink-0 text-[var(--color-cyan-accent)]"
+                className="h-9 w-20 shrink-0 text-[var(--color-cyan-deep)]"
               />
               <span className="font-medium">{categoryLabel?.[category] ?? category}</span>
             </li>
@@ -74,12 +79,12 @@ export function GlanceCard({
       {stats && stats.length > 0 ? (
         <dl
           className={`text-[length:var(--text-small)] ${
-            categories || children ? 'mt-7 border-t border-white/12 pt-5' : 'mt-6'
+            categories || children ? 'mt-7 border-t border-[var(--color-hairline)] pt-5' : 'mt-6'
           }`}
         >
           {stats.map((stat) => (
             <div key={stat.label} className="flex justify-between gap-4 py-1.5">
-              <dt className="text-[var(--color-ink-inverse-muted)]">{stat.label}</dt>
+              <dt className="text-[var(--color-ink-muted)]">{stat.label}</dt>
               <dd className="numeric font-medium">{stat.value}</dd>
             </div>
           ))}
@@ -87,14 +92,14 @@ export function GlanceCard({
       ) : null}
 
       {note ? (
-        <p className="mt-5 text-[length:var(--text-small)] text-[var(--color-ink-inverse-muted)]">
+        <p className="mt-5 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
           {note}
         </p>
       ) : null}
 
       <Link
         href={primaryHref}
-        className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-[var(--radius-control)] bg-[var(--color-cyan-accent)] px-5 py-3.5 text-[length:var(--text-small)] font-semibold uppercase tracking-[0.08em] text-[var(--color-midnight)] hover:bg-[var(--color-cyan-bright)]"
+        className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-midnight)] px-5 py-3.5 text-[length:var(--text-small)] font-semibold tracking-[0.02em] text-[var(--color-ink-inverse)] transition-colors hover:bg-[var(--color-midnight-800)]"
       >
         {primaryLabel}
         <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -103,7 +108,7 @@ export function GlanceCard({
       {secondaryHref && secondaryLabel ? (
         <Link
           href={secondaryHref}
-          className="mt-3 block text-center text-[length:var(--text-small)] text-[var(--color-ink-inverse-muted)] underline underline-offset-4 hover:text-[var(--color-ink-inverse)]"
+          className="mt-3 block text-center text-[length:var(--text-small)] text-[var(--color-ink-muted)] underline underline-offset-4 hover:text-[var(--color-ink)]"
         >
           {secondaryLabel}
         </Link>

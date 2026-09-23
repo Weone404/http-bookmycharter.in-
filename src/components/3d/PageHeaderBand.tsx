@@ -80,14 +80,14 @@ export function PageHeaderBand() {
 
   return (
     <div
-      className="page-header-band relative isolate h-[clamp(96px,13vw,168px)] w-full overflow-hidden bg-[var(--color-midnight)]"
+      className="page-header-band relative isolate h-[clamp(112px,15vw,196px)] w-full overflow-hidden bg-[var(--color-ivory)]"
       aria-hidden="true"
     >
-      <SceneFallback />
+      <SceneFallback tone="light" />
       {mount ? <PageHeaderCanvas form={formForPath(pathname)} /> : null}
-      {/* Fades the band into the section below it so the seam is not a hard
-          edge between two flat colours. */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-[var(--color-midnight)]" />
+      {/* A hairline, not a gradient. Against ivory the band and the section
+          below it are the same colour, so the only thing needed is the edge. */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-[var(--color-hairline)]" />
     </div>
   );
 }

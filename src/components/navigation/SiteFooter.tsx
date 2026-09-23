@@ -24,7 +24,7 @@ export function SiteFooter() {
   const legal = ROUTES.filter((r) => r.cluster === 'legal' && r.status === 'live');
 
   return (
-    <footer className="bg-[var(--color-midnight)] text-[var(--color-ink-inverse-muted)]">
+    <footer className="on-dark bg-[var(--color-midnight)] text-[var(--color-ink-inverse-muted)]">
       <Container width="wide">
         <div className="py-[clamp(3rem,2rem+4vw,5rem)]">
           <div className="grid gap-10 lg:grid-cols-[1.3fr_repeat(4,1fr)]">

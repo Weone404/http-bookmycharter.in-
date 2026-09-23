@@ -4,6 +4,10 @@
  * The inherited logo.webp reads "CHARTER BOOKING" rather than a brand name and
  * cannot be used. This is type plus a single mark, so it stays sharp at any
  * size, costs no image request, and needs no licence.
+ *
+ * The accent resolves through `--wordmark-accent`, which defaults to the deep
+ * cyan because the bright one measures about 2.4:1 on white and fails at this
+ * weight. Dark surfaces add `on-dark` and get the bright accent back.
  */
 export function Wordmark({ className = '' }: { className?: string }) {
   return (
@@ -22,7 +26,7 @@ export function Wordmark({ className = '' }: { className?: string }) {
         <path d="M2 13.6h20" stroke="currentColor" strokeWidth="1.1" opacity="0.35" />
       </svg>
       <span className="font-semibold tracking-[0.02em] leading-none">
-        Book My <span className="text-[var(--color-cyan-accent)]">Charter</span>
+        Book My <span className="text-[var(--wordmark-accent,var(--color-cyan-deep))]">Charter</span>
       </span>
     </span>
   );

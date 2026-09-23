@@ -27,6 +27,16 @@
   --color-ivory: #f5f7f4;
   --color-ivory-dim: #e7ebe6;
 
+  /* White is a surface, not a fourth brand colour. The palette stayed three
+     colours and the page paid for it: an ivory card on an ivory ground has no
+     separation, so every panel that needed to stand apart had to go midnight,
+     and the site ended up armoured in dark chrome. A white card on the ivory
+     ground separates with a hairline instead, which is what lets the dark
+     sections become rare and deliberate again. */
+  --color-surface: #ffffff;
+  --color-hairline: rgba(7, 26, 43, 0.1);
+  --color-hairline-strong: rgba(7, 26, 43, 0.18);
+
   /* Text on each ground. */
   --color-ink: #071a2b;
   --color-ink-muted: #47596a;
@@ -53,8 +63,11 @@
   --duration-base: 420ms;
   --duration-slow: 900ms;
 
-  --radius-card: 4px;
-  --radius-control: 2px;
+  /* 4px read as austere rather than precise. These are still restrained —
+     no pill-shaped everything — but a card now looks like an object. */
+  --radius-card: 12px;
+  --radius-control: 8px;
+  --radius-pill: 999px;
 }
 
 /* ---------------------------------------------------------------------------
@@ -73,6 +86,12 @@
 
 * {
   min-width: 0;
+}
+
+/* Marks a midnight surface. Contrast flips: the bright accent is legible
+   there and the deep one is not, which is the reverse of the light ground. */
+.on-dark {
+  --wordmark-accent: var(--color-cyan-accent);
 }
 
 html {
