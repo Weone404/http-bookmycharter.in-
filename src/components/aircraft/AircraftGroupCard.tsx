@@ -3,7 +3,8 @@ import { ArrowRight } from 'lucide-react';
 import type { Path } from '@/types/common';
 import type { AircraftCategory } from '@/types/aircraft';
 import { aircraftByCategory, categorySpan, formatRange } from '@/data/aircraft';
-import { AircraftGlyph } from '@/components/ui/AircraftGlyph';
+import { SiteImageFill } from '@/components/ui/SiteImageFill';
+import { CATEGORY_IMAGE } from '@/data/category-images';
 
 /**
  * One aircraft group as a spec card: seats, range and cruise speed, as the
@@ -35,40 +36,45 @@ export function AircraftGroupCard({
   return (
     <Link
       href={href}
-      className="group flex h-full flex-col rounded-[var(--radius-card)] border border-[var(--color-hairline)] bg-[var(--color-surface)] p-5 text-[var(--color-ink)] transition-[border-color,box-shadow] duration-[var(--duration-fast)] hover:border-[var(--color-accent)] hover:shadow-[0_10px_30px_-12px_rgba(31,95,214,0.35)] sm:p-6"
+      className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-hairline)] bg-[var(--color-surface)] text-[var(--color-ink)] transition-[border-color,box-shadow] duration-[var(--duration-fast)] hover:border-[var(--color-accent)] hover:shadow-[0_10px_30px_-12px_rgba(31,95,214,0.35)]"
     >
-      <AircraftGlyph
-        category={category}
-        className="h-9 w-auto self-start text-[var(--color-ink)]"
-      />
-      <h3 className="mt-5 text-[length:var(--text-h3)] font-semibold tracking-tight">{title}</h3>
-      <p className="numeric text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
-        {count} types
-      </p>
-      {summary ? (
-        <p className="mt-3 text-[length:var(--text-small)] leading-relaxed text-[var(--color-ink-muted)]">
-          {summary}
-        </p>
-      ) : null}
-      <dl className="mt-5 grid flex-1 grid-cols-3 content-start gap-2 border-t border-[var(--color-hairline)] pt-4">
-        {stats.map((stat) => (
-          <div key={stat.label}>
-            <dt className="text-[length:var(--text-micro)] uppercase tracking-[0.12em] text-[var(--color-ink-muted)]">
-              {stat.label}
-            </dt>
-            <dd className="numeric mt-1 text-[length:var(--text-small)] font-semibold">
-              {stat.value ?? '—'}
-            </dd>
-          </div>
-        ))}
-      </dl>
-      <span className="mt-5 inline-flex items-center gap-1.5 text-[length:var(--text-small)] font-semibold text-[var(--color-accent-strong)]">
-        Compare {title.toLowerCase()}
-        <ArrowRight
-          className="h-4 w-4 transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1"
-          aria-hidden="true"
+      {CATEGORY_IMAGE[category] ? (
+        <SiteImageFill
+          name={CATEGORY_IMAGE[category]}
+          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+          className="aspect-[3/2] transition-transform duration-[var(--duration-base)] ease-[var(--ease-flight)] group-hover:scale-[1.02]"
         />
-      </span>
+      ) : null}
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
+        <h3 className="text-[length:var(--text-h3)] font-semibold tracking-tight">{title}</h3>
+        <p className="numeric text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
+          {count} types
+        </p>
+        {summary ? (
+          <p className="mt-3 text-[length:var(--text-small)] leading-relaxed text-[var(--color-ink-muted)]">
+            {summary}
+          </p>
+        ) : null}
+        <dl className="mt-5 grid flex-1 grid-cols-3 content-start gap-2 border-t border-[var(--color-hairline)] pt-4">
+          {stats.map((stat) => (
+            <div key={stat.label}>
+              <dt className="text-[length:var(--text-micro)] uppercase tracking-[0.12em] text-[var(--color-ink-muted)]">
+                {stat.label}
+              </dt>
+              <dd className="numeric mt-1 text-[length:var(--text-small)] font-semibold">
+                {stat.value ?? '—'}
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <span className="mt-5 inline-flex items-center gap-1.5 text-[length:var(--text-small)] font-semibold text-[var(--color-accent-strong)]">
+          Compare {title.toLowerCase()}
+          <ArrowRight
+            className="h-4 w-4 transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1"
+            aria-hidden="true"
+          />
+        </span>
+      </div>
     </Link>
   );
 }

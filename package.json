@@ -14,7 +14,8 @@
     "verify": "npm run typecheck && npm run lint && node scripts/verify-routes.mjs && npm run build && node scripts/verify-build.mjs",
     "indexnow": "node scripts/indexnow.mjs",
     "aircraft": "node scripts/build-aircraft.mjs",
-    "photos": "node scripts/ingest-aircraft-photos.mjs"
+    "photos": "node scripts/ingest-aircraft-photos.mjs",
+    "images": "node scripts/build-site-images.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.6",

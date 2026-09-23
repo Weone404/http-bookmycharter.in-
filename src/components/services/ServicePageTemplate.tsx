@@ -12,7 +12,8 @@ import { RelatedLinks } from '@/components/content/RelatedLinks';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { breadcrumbSchema, faqSchema, graph, serviceSchema, webPageSchema } from '@/lib/schema';
 import { aircraftByCategory, formatRange } from '@/data/aircraft';
-import { AircraftGlyph } from '@/components/ui/AircraftGlyph';
+import { SiteImageFill } from '@/components/ui/SiteImageFill';
+import { CATEGORY_IMAGE } from '@/data/category-images';
 
 /**
  * One template, many service pages — but the CONTENT differs entirely per page,
@@ -127,10 +128,13 @@ export function ServicePageTemplate({ service }: { service: Service }) {
 
             const body = (
               <>
-                <AircraftGlyph
-                  category={category}
-                  className="mb-3 h-7 w-auto text-[var(--color-accent-strong)]"
-                />
+                {CATEGORY_IMAGE[category] ? (
+                  <SiteImageFill
+                    name={CATEGORY_IMAGE[category]}
+                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                    className="mb-4 aspect-[3/2] rounded-[var(--radius-control)]"
+                  />
+                ) : null}
                 <h3 className="text-[length:var(--text-h3)] font-medium">
                   {CATEGORY_LABEL[category]}
                 </h3>

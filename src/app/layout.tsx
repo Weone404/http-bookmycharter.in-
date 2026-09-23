@@ -6,7 +6,7 @@ import { OG_IMAGE } from '@/lib/metadata';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { SiteHeader } from '@/components/navigation/SiteHeader';
 import { SiteFooter } from '@/components/navigation/SiteFooter';
-import { PageHeaderBand } from '@/components/3d/PageHeaderBand';
+import { PageBand } from '@/components/navigation/PageBand';
 import { Analytics } from '@/components/analytics/Analytics';
 import { MobileActionBar } from '@/components/navigation/MobileActionBar';
 import './globals.css';
@@ -47,7 +47,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </a>
         <SiteHeader />
         {/* Renders nothing on the home page, which has the hero scene. */}
-        <PageHeaderBand />
+        <PageBand />
         <main id="main">{children}</main>
         <SiteFooter />
         <MobileActionBar />

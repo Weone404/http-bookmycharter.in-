@@ -114,6 +114,10 @@ export function SiteFooter() {
               pilgrimage. Concealing the relationship would serve nobody.
             */}
             <p className="mt-4 text-[length:var(--text-micro)] leading-relaxed">
+              Aircraft pictured in page banners and cards are illustrations, not aircraft offered
+              for charter. Photographs of specific aircraft types are credited where shown.
+            </p>
+            <p className="mt-2 text-[length:var(--text-micro)] leading-relaxed">
               For {SISTER_SITE.purpose}, see{' '}
               <a
                 href={SISTER_SITE.url}

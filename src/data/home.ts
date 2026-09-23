@@ -1,5 +1,6 @@
 import type { Path } from '@/types/common';
 import type { AircraftCategory } from '@/types/aircraft';
+import type { SiteImageName } from '@/data/site-images.generated';
 
 /** Content for the home page. No copy lives inside a component. */
 
@@ -157,38 +158,38 @@ export interface HomeService {
   readonly title: string;
   readonly href: Path;
   readonly summary: string;
-  readonly icon: 'private-jet' | 'helicopter' | 'mountain' | 'empty-leg' | 'corporate';
+  readonly image: SiteImageName;
 }
 
 export const HOME_SERVICES: readonly HomeService[] = [
   {
     title: 'Private Jets',
     href: '/private-charter/private-jet-charter',
-    icon: 'private-jet',
+    image: 'service-private-jets',
     summary: 'A whole jet for your route, your schedule and your party.',
   },
   {
     title: 'Helicopters',
     href: '/helicopter-charter',
-    icon: 'helicopter',
+    image: 'service-helicopters',
     summary: 'Point-to-point where runways do not reach: helipads, sites and hills.',
   },
   {
     title: 'Char Dham & Kedarnath',
     href: '/chardham',
-    icon: 'mountain',
+    image: 'service-himalaya',
     summary: 'A whole helicopter for the Char Dham circuit or Kedarnath.',
   },
   {
     title: 'Empty Legs',
     href: '/empty-leg-charter',
-    icon: 'empty-leg',
+    image: 'service-empty-legs',
     summary: 'Repositioning flights: how they work and when one is worth waiting for.',
   },
   {
     title: 'Corporate',
     href: '/services/corporate-charter',
-    icon: 'corporate',
+    image: 'service-corporate',
     summary: 'Executive teams, multi-city days and recurring business travel.',
   },
 ];

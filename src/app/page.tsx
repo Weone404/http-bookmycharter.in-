@@ -1,24 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import {
-  ArrowLeftRight,
-  ArrowRight,
-  Briefcase,
-  MessageCircle,
-  Mountain,
-  Phone,
-} from 'lucide-react';
+import { ArrowRight, MessageCircle, Phone } from 'lucide-react';
 import { metadataForRoute } from '@/lib/metadata';
 import { breadcrumbSchema, faqSchema, graph, webPageSchema } from '@/lib/schema';
 import { getRoute } from '@/lib/routes';
 import { CONTACT, whatsappLink } from '@/lib/site';
-import {
-  HOME_AIRCRAFT_GROUPS,
-  HOME_SERVICES,
-  HOW_IT_WORKS,
-  PRICING_FACTORS,
-  type HomeService,
-} from '@/data/home';
+import { HOME_AIRCRAFT_GROUPS, HOME_SERVICES, HOW_IT_WORKS, PRICING_FACTORS } from '@/data/home';
 import { AircraftGroupCard } from '@/components/aircraft/AircraftGroupCard';
 import { HOME_FAQS } from '@/data/faqs';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -27,23 +14,12 @@ import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { FaqSection } from '@/components/content/FaqSection';
 import { QuickCharterForm } from '@/components/booking/QuickCharterForm';
-import { HeroVisual } from '@/components/3d/HeroVisual';
-import { AircraftGlyph } from '@/components/ui/AircraftGlyph';
+import { HeroImage } from '@/components/home/HeroImage';
+import { SiteImageFill } from '@/components/ui/SiteImageFill';
 
 const PATH = '/' as const;
 
 export const metadata: Metadata = metadataForRoute(PATH);
-
-function ServiceIcon({ icon }: { icon: HomeService['icon'] }) {
-  const className = 'h-7 w-auto text-[var(--color-accent)]';
-  if (icon === 'private-jet' || icon === 'helicopter') {
-    return <AircraftGlyph category={icon} className={className} />;
-  }
-  const Icon = icon === 'mountain' ? Mountain : icon === 'empty-leg' ? ArrowLeftRight : Briefcase;
-  return (
-    <Icon className="h-7 w-7 text-[var(--color-accent)]" strokeWidth={1.6} aria-hidden="true" />
-  );
-}
 
 const WHATSAPP_MESSAGE = 'Hello, I would like to enquire about a charter.';
 
@@ -62,10 +38,15 @@ export default function HomePage() {
           design. Only the background layers are clipped, in the wrapper. */}
       <section className="on-dark relative bg-[var(--color-midnight)] text-[var(--color-ink-inverse)]">
         <div className="absolute inset-0 overflow-hidden">
-          <HeroVisual />
+          <HeroImage />
+          {/* Below lg the text spans the full width over the aircraft, so the
+              scrim is even and strong enough for text anywhere on it. From lg
+              the text sits left: dark there, clear on the right where the
+              aircraft is. Measured: worst-case text contrast over the image
+              at 390, 768, 1440 and 1920 px wide. */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(11,23,38,0.95)_0%,rgba(11,23,38,0.75)_48%,rgba(11,23,38,0.2)_100%)]"
+            className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(11,23,38,0.74)_0%,rgba(11,23,38,0.8)_45%,rgba(11,23,38,0.92)_100%)] lg:bg-[linear-gradient(to_right,rgba(11,23,38,0.95)_0%,rgba(11,23,38,0.8)_42%,rgba(11,23,38,0.15)_100%)]"
           />
         </div>
         <Container width="wide">
@@ -73,7 +54,7 @@ export default function HomePage() {
             <h1 className="max-w-[20ch] text-[length:var(--text-h1)] font-semibold leading-[1.05] tracking-[-0.02em]">
               Private jet &amp; helicopter charter across India
             </h1>
-            <p className="mt-4 max-w-[54ch] text-[length:var(--text-lead)] text-[var(--color-ink-inverse-muted)]">
+            <p className="mt-4 max-w-[54ch] text-[length:var(--text-lead)] text-[var(--color-ink-inverse)]/85">
               Tell us the route, date and passengers. You get aircraft options with the cost broken
               down before you commit to anything.
             </p>
@@ -145,17 +126,23 @@ export default function HomePage() {
             >
               <Link
                 href={service.href}
-                className="group flex h-full flex-col rounded-[var(--radius-card)] border border-[var(--color-hairline)] bg-[var(--color-surface)] p-4 transition-[border-color,box-shadow] sm:p-5 duration-[var(--duration-fast)] hover:border-[var(--color-accent)] hover:shadow-[0_10px_30px_-12px_rgba(31,95,214,0.35)]"
+                className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-hairline)] bg-[var(--color-surface)] transition-[border-color,box-shadow] duration-[var(--duration-fast)] hover:border-[var(--color-accent)] hover:shadow-[0_10px_30px_-12px_rgba(31,95,214,0.35)]"
               >
-                <ServiceIcon icon={service.icon} />
-                <h3 className="mt-4 text-[1.125rem] font-semibold leading-snug">{service.title}</h3>
-                <p className="mt-1.5 flex-1 text-[length:var(--text-small)] leading-relaxed text-[var(--color-ink-muted)]">
-                  {service.summary}
-                </p>
-                <ArrowRight
-                  className="mt-4 h-4 w-4 text-[var(--color-accent)] transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1"
-                  aria-hidden="true"
+                <SiteImageFill
+                  name={service.image}
+                  sizes="(min-width: 1024px) 20vw, (min-width: 640px) 33vw, 50vw"
+                  className="aspect-[3/2] transition-transform duration-[var(--duration-base)] ease-[var(--ease-flight)] group-hover:scale-[1.03]"
                 />
+                <div className="flex flex-1 flex-col p-4 sm:p-5">
+                  <h3 className="text-[1.125rem] font-semibold leading-snug">{service.title}</h3>
+                  <p className="mt-1.5 flex-1 text-[length:var(--text-small)] leading-relaxed text-[var(--color-ink-muted)]">
+                    {service.summary}
+                  </p>
+                  <ArrowRight
+                    className="mt-4 h-4 w-4 text-[var(--color-accent)] transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
+                </div>
               </Link>
             </li>
           ))}

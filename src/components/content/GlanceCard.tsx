@@ -2,7 +2,8 @@ import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import type { AircraftCategory } from '@/types/aircraft';
-import { AircraftGlyph } from '@/components/ui/AircraftGlyph';
+import { SiteImageFill } from '@/components/ui/SiteImageFill';
+import { CATEGORY_IMAGE } from '@/data/category-images';
 
 /**
  * The orientation rail that sits beside a page's opening paragraphs.
@@ -64,10 +65,13 @@ export function GlanceCard({
         <ul className="mt-6 space-y-5">
           {categories.map((category) => (
             <li key={category} className="flex items-center gap-4">
-              <AircraftGlyph
-                category={category}
-                className="h-9 w-20 shrink-0 text-[var(--color-accent-strong)]"
-              />
+              {CATEGORY_IMAGE[category] ? (
+                <SiteImageFill
+                  name={CATEGORY_IMAGE[category]}
+                  sizes="96px"
+                  className="aspect-[3/2] w-24 shrink-0 rounded-[var(--radius-control)]"
+                />
+              ) : null}
               <span className="font-medium">{categoryLabel?.[category] ?? category}</span>
             </li>
           ))}
