@@ -61,8 +61,15 @@
   --text-micro: 0.75rem;
 
   /* Spacing rhythm. Sections breathe; that is most of the premium feel. */
-  --spacing-section: clamp(4rem, 2rem + 8vw, 9rem);
-  --spacing-gutter: clamp(1.25rem, 0.5rem + 3vw, 4rem);
+  /* Tighter than before (was 4rem–9rem): the long empty bands between
+     sections read as padding rather than as calm. */
+  --spacing-section: clamp(3.5rem, 2rem + 5vw, 7rem);
+  /* 16px on a phone, 48px at most. Every horizontal edge on the site comes
+     from this one value inside .site-frame. */
+  --spacing-gutter: clamp(1rem, 0.25rem + 3vw, 3rem);
+  /* The site's content frame. Header, every section and the footer share it,
+     so all of them start at the same left edge at every width. */
+  --site-max: 96rem;
 
   /* Motion. One easing curve sitewide; aviation motion is smooth, not bouncy. */
   --ease-flight: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -151,6 +158,19 @@ canvas {
 }
 
 /* Numbers that line up in tables and spec sheets. */
+/* The one horizontal frame. Previously the header and "wide" sections used a
+   110rem frame and the rest an 82rem frame, each centred on its own — so on a
+   laptop the FAQ, reading-width sections and several inner pages started
+   60–300px further right than the header above them: the "extra space on the
+   left". Now there is one frame; narrower content is narrowed inside it and
+   stays left-aligned to the same edge. */
+.site-frame {
+  width: 100%;
+  max-width: var(--site-max);
+  margin-inline: auto;
+  padding-inline: var(--spacing-gutter);
+}
+
 .numeric {
   font-family: var(--font-numeric);
   font-variant-numeric: tabular-nums;

@@ -57,7 +57,7 @@ export function MobileActionBar() {
           data-track="call_click"
           className="inline-flex items-center justify-center gap-1.5 rounded-[var(--radius-pill)] border border-[var(--color-hairline-strong)] py-2.5 text-sm font-semibold text-[var(--color-ink)]"
         >
-          <Phone className="h-4 w-4" aria-hidden="true" />
+          <Phone className="hidden h-4 w-4 min-[360px]:block" aria-hidden="true" />
           Call
         </a>
         <a
@@ -67,14 +67,14 @@ export function MobileActionBar() {
           rel="noopener"
           className="inline-flex items-center justify-center gap-1.5 rounded-[var(--radius-pill)] border border-[var(--color-hairline-strong)] py-2.5 text-sm font-semibold text-[var(--color-ink)]"
         >
-          <MessageCircle className="h-4 w-4" aria-hidden="true" />
+          <MessageCircle className="hidden h-4 w-4 min-[360px]:block" aria-hidden="true" />
           WhatsApp
         </a>
         <Link
           href="/request-a-charter"
           className="inline-flex items-center justify-center gap-1.5 rounded-[var(--radius-pill)] bg-[var(--color-accent)] py-2.5 text-sm font-semibold text-[var(--color-on-accent)]"
         >
-          <Send className="h-4 w-4" aria-hidden="true" />
+          <Send className="hidden h-4 w-4 min-[360px]:block" aria-hidden="true" />
           Request
         </Link>
       </nav>

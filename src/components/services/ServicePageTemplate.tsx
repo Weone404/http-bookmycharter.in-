@@ -76,7 +76,7 @@ export function ServicePageTemplate({ service }: { service: Service }) {
         </IntroLayout>
       </Section>
 
-      <Section ground="midnight" width="wide">
+      <Section ground="surface" width="wide">
         <div className="grid gap-12 lg:grid-cols-2">
           <PointList heading="Who it is for" points={service.whoItIsFor} />
           <PointList heading="When to use it" points={service.whenToUseIt} />
@@ -93,7 +93,9 @@ export function ServicePageTemplate({ service }: { service: Service }) {
               <span className="numeric text-[length:var(--text-small)] font-semibold text-[var(--color-accent-strong)]">
                 {String(index + 1).padStart(2, '0')}
               </span>
-              <h3 className="mt-3 text-[length:var(--text-h3)] font-medium leading-snug">{step.title}</h3>
+              <h3 className="mt-3 text-[length:var(--text-h3)] font-medium leading-snug">
+                {step.title}
+              </h3>
               <p className="mt-2 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
                 {step.description}
               </p>
@@ -129,7 +131,9 @@ export function ServicePageTemplate({ service }: { service: Service }) {
                   category={category}
                   className="mb-3 h-7 w-auto text-[var(--color-accent-strong)]"
                 />
-                <h3 className="text-[length:var(--text-h3)] font-medium">{CATEGORY_LABEL[category]}</h3>
+                <h3 className="text-[length:var(--text-h3)] font-medium">
+                  {CATEGORY_LABEL[category]}
+                </h3>
                 {types.length > 0 ? (
                   <p className="mt-2 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
                     {types.length} types
@@ -162,18 +166,20 @@ export function ServicePageTemplate({ service }: { service: Service }) {
         </p>
       </Section>
 
-      <Section ground="midnight" width="wide">
+      {/* White, not midnight: three dark bands on one page made every service
+          page read as heavy. The final call to action keeps the one dark band. */}
+      <Section ground="surface" width="wide">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <PointList heading="What to know before you book" points={service.considerations} />
           <div>
             <h2 className="text-[length:var(--text-h3)] font-semibold tracking-tight">
               What drives the cost
             </h2>
-            <dl className="mt-5 divide-y divide-white/10 border-t border-white/10">
+            <dl className="mt-5 divide-y divide-[var(--color-hairline)] border-t border-[var(--color-hairline)]">
               {service.pricingFactors.map((item) => (
                 <div key={item.factor} className="py-4">
                   <dt className="font-medium">{item.factor}</dt>
-                  <dd className="mt-1 text-[length:var(--text-small)] text-[var(--color-ink-inverse-muted)]">
+                  <dd className="mt-1 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
                     {item.explanation}
                   </dd>
                 </div>

@@ -178,7 +178,7 @@ export function FleetShowroom() {
 
         {/* Glass panel, over the canvas from lg up only. Restrained: one
             surface, not a page of them. */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden p-[var(--spacing-gutter)] xl:block">
+        <div className="site-frame pointer-events-none absolute inset-x-0 bottom-0 hidden pb-[var(--spacing-gutter)] xl:block">
           <div className="pointer-events-auto max-w-[34rem] rounded-[var(--radius-card)] border border-white/12 bg-[var(--color-midnight-950)]/65 p-6 text-[var(--color-ink-inverse)] backdrop-blur-md sm:p-7">
             <FleetPanel item={item} specs={specs} />
           </div>
@@ -209,36 +209,38 @@ export function FleetShowroom() {
 
       {/* Mobile and tablet: the same panel, in the flow below the scene, so
           the aircraft is never hidden behind it. */}
-      <div className="px-[var(--spacing-gutter)] pb-7 pt-6 text-[var(--color-ink-inverse)] xl:hidden">
+      <div className="site-frame pb-7 pt-6 text-[var(--color-ink-inverse)] xl:hidden">
         <FleetPanel item={item} specs={specs} />
       </div>
 
       {/* The aircraft list. This is the authoritative text layer: it is in the
           server-rendered HTML, it is crawlable, and it works with WebGL off. */}
-      <div className="border-t border-white/10 px-[var(--spacing-gutter)] py-5">
-        <ul className="flex flex-wrap gap-x-6 gap-y-3" aria-label="Aircraft in this showroom">
-          {FLEET_SCENE.map((entry, entryIndex) => (
-            <li key={entry.slug}>
-              <button
-                type="button"
-                onClick={() => goTo(entryIndex)}
-                aria-current={entryIndex === index ? 'true' : undefined}
-                className={`text-[length:var(--text-small)] transition-colors ${
-                  entryIndex === index
-                    ? 'font-medium text-[var(--color-accent)]'
-                    : 'text-[var(--color-ink-inverse-muted)] hover:text-[var(--color-ink-inverse)]'
-                }`}
-              >
-                {entry.name}
-              </button>
-            </li>
-          ))}
-        </ul>
-        <p className="mt-4 text-[length:var(--text-micro)] text-[var(--color-ink-inverse-muted)]">
-          Figures are typical for each type and vary with variant, options, weight, altitude and
-          temperature. Source: {AIRCRAFT_SPEC_SOURCE.document}. The three-dimensional shapes are
-          representative of each aircraft class and are not scale models of individual types.
-        </p>
+      <div className="border-t border-white/10">
+        <div className="site-frame py-5">
+          <ul className="flex flex-wrap gap-x-6 gap-y-3" aria-label="Aircraft in this showroom">
+            {FLEET_SCENE.map((entry, entryIndex) => (
+              <li key={entry.slug}>
+                <button
+                  type="button"
+                  onClick={() => goTo(entryIndex)}
+                  aria-current={entryIndex === index ? 'true' : undefined}
+                  className={`text-[length:var(--text-small)] transition-colors ${
+                    entryIndex === index
+                      ? 'font-medium text-[var(--color-accent)]'
+                      : 'text-[var(--color-ink-inverse-muted)] hover:text-[var(--color-ink-inverse)]'
+                  }`}
+                >
+                  {entry.name}
+                </button>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 text-[length:var(--text-micro)] text-[var(--color-ink-inverse-muted)]">
+            Figures are typical for each type and vary with variant, options, weight, altitude and
+            temperature. Source: {AIRCRAFT_SPEC_SOURCE.document}. The three-dimensional shapes are
+            representative of each aircraft class and are not scale models of individual types.
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -266,46 +268,52 @@ function FleetPanel({
 }) {
   return (
     <>
-          <p
-            data-fleet-fade
-            className="text-[length:var(--text-micro)] uppercase tracking-[0.18em] text-[var(--color-accent)]"
-          >
-            {CATEGORY_LABEL[item.category] ?? item.category}
-          </p>
-          <h3 data-fleet-fade className="mt-2 text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-            {item.name}
-          </h3>
-          <p data-fleet-fade className="mt-3 text-[length:var(--text-small)] text-[var(--color-ink-inverse-muted)]">
-            {item.aircraft.curated?.summary}
-          </p>
+      <p
+        data-fleet-fade
+        className="text-[length:var(--text-micro)] uppercase tracking-[0.18em] text-[var(--color-accent)]"
+      >
+        {CATEGORY_LABEL[item.category] ?? item.category}
+      </p>
+      <h3
+        data-fleet-fade
+        className="mt-2 text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight"
+      >
+        {item.name}
+      </h3>
+      <p
+        data-fleet-fade
+        className="mt-3 text-[length:var(--text-small)] text-[var(--color-ink-inverse-muted)]"
+      >
+        {item.aircraft.curated?.summary}
+      </p>
 
-          {specs.length > 0 ? (
-            <dl data-fleet-fade className="mt-5 flex flex-wrap gap-x-8 gap-y-3">
-              {specs.map((spec) => (
-                <div key={spec.label}>
-                  <dt className="text-[length:var(--text-micro)] uppercase tracking-[0.14em] text-[var(--color-ink-inverse-muted)]">
-                    {spec.label}
-                  </dt>
-                  <dd className="numeric mt-1 font-medium">{spec.value}</dd>
-                </div>
-              ))}
-            </dl>
-          ) : null}
+      {specs.length > 0 ? (
+        <dl data-fleet-fade className="mt-5 flex flex-wrap gap-x-8 gap-y-3">
+          {specs.map((spec) => (
+            <div key={spec.label}>
+              <dt className="text-[length:var(--text-micro)] uppercase tracking-[0.14em] text-[var(--color-ink-inverse-muted)]">
+                {spec.label}
+              </dt>
+              <dd className="numeric mt-1 font-medium">{spec.value}</dd>
+            </div>
+          ))}
+        </dl>
+      ) : null}
 
-          <div data-fleet-fade className="mt-6 flex flex-wrap items-center gap-4">
-            <Link
-              href={item.aircraft.href}
-              className="text-[length:var(--text-small)] font-medium text-[var(--color-accent)] underline underline-offset-4"
-            >
-              About the {item.name}
-            </Link>
-            <Link
-              href="/request-a-charter"
-              className="inline-flex items-center gap-2 rounded-[var(--radius-control)] bg-[var(--color-accent)] px-5 py-2.5 text-[length:var(--text-small)] font-semibold uppercase tracking-[0.08em] text-[var(--color-on-accent)]"
-            >
-              Request a Charter
-            </Link>
-          </div>
+      <div data-fleet-fade className="mt-6 flex flex-wrap items-center gap-4">
+        <Link
+          href={item.aircraft.href}
+          className="text-[length:var(--text-small)] font-medium text-[var(--color-accent)] underline underline-offset-4"
+        >
+          About the {item.name}
+        </Link>
+        <Link
+          href="/request-a-charter"
+          className="inline-flex items-center gap-2 rounded-[var(--radius-control)] bg-[var(--color-accent)] px-5 py-2.5 text-[length:var(--text-small)] font-semibold uppercase tracking-[0.08em] text-[var(--color-on-accent)]"
+        >
+          Request a Charter
+        </Link>
+      </div>
     </>
   );
 }

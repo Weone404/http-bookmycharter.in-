@@ -55,7 +55,7 @@ export function GlanceCard({
   children?: ReactNode;
 }) {
   return (
-    <div className="rounded-[var(--radius-card)] border border-[var(--color-hairline)] bg-[var(--color-surface)] p-7 text-[var(--color-ink)]">
+    <div className="rounded-[var(--radius-card)] border border-[var(--color-hairline)] bg-[var(--color-surface)] p-5 text-[var(--color-ink)] sm:p-7">
       <h2 className="text-[length:var(--text-micro)] uppercase tracking-[0.16em] text-[var(--color-accent-strong)]">
         {heading}
       </h2>
@@ -92,9 +92,7 @@ export function GlanceCard({
       ) : null}
 
       {note ? (
-        <p className="mt-5 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
-          {note}
-        </p>
+        <p className="mt-5 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">{note}</p>
       ) : null}
 
       <Link

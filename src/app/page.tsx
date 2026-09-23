@@ -19,7 +19,7 @@ import {
   PRICING_FACTORS,
   type HomeService,
 } from '@/data/home';
-import { aircraftByCategory, categorySpan, formatRange } from '@/data/aircraft';
+import { AircraftGroupCard } from '@/components/aircraft/AircraftGroupCard';
 import { HOME_FAQS } from '@/data/faqs';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
@@ -96,7 +96,7 @@ export default function HomePage() {
               </ul>
             </div>
 
-            <div className="mt-8 rounded-[var(--radius-card)] border border-white/10 bg-[var(--color-midnight-950)]/70 p-5 backdrop-blur-sm sm:p-6">
+            <div className="mt-8 rounded-[var(--radius-card)] border border-white/10 bg-[var(--color-midnight-950)]/70 p-4 backdrop-blur-sm sm:p-6">
               <h2 className="text-[length:var(--text-micro)] font-semibold uppercase tracking-[0.16em] text-[var(--color-ink-inverse-muted)]">
                 Start a charter request
               </h2>
@@ -145,7 +145,7 @@ export default function HomePage() {
             >
               <Link
                 href={service.href}
-                className="group flex h-full flex-col rounded-[var(--radius-card)] border border-[var(--color-hairline)] bg-[var(--color-surface)] p-5 transition-[border-color,box-shadow] duration-[var(--duration-fast)] hover:border-[var(--color-accent)] hover:shadow-[0_10px_30px_-12px_rgba(31,95,214,0.35)]"
+                className="group flex h-full flex-col rounded-[var(--radius-card)] border border-[var(--color-hairline)] bg-[var(--color-surface)] p-4 transition-[border-color,box-shadow] sm:p-5 duration-[var(--duration-fast)] hover:border-[var(--color-accent)] hover:shadow-[0_10px_30px_-12px_rgba(31,95,214,0.35)]"
               >
                 <ServiceIcon icon={service.icon} />
                 <h3 className="mt-4 text-[1.125rem] font-semibold leading-snug">{service.title}</h3>
@@ -187,56 +187,11 @@ export default function HomePage() {
         </div>
 
         <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {HOME_AIRCRAFT_GROUPS.map((group) => {
-            const count = aircraftByCategory(group.category).length;
-            if (count === 0) return null;
-            const stats = [
-              { label: 'Seats', value: formatRange(categorySpan(group.category, 'passengers')) },
-              { label: 'Range', value: formatRange(categorySpan(group.category, 'rangeNm'), 'nm') },
-              {
-                label: 'Cruise',
-                value: formatRange(categorySpan(group.category, 'cruiseKts'), 'kts'),
-              },
-            ];
-            return (
-              <li key={group.category}>
-                <Link
-                  href={group.href}
-                  className="group flex h-full flex-col rounded-[var(--radius-card)] border border-[var(--color-hairline)] bg-[var(--color-surface)] p-6 transition-[border-color,box-shadow] duration-[var(--duration-fast)] hover:border-[var(--color-accent)] hover:shadow-[0_10px_30px_-12px_rgba(31,95,214,0.35)]"
-                >
-                  <AircraftGlyph
-                    category={group.category}
-                    className="h-9 w-auto self-start text-[var(--color-ink)]"
-                  />
-                  <h3 className="mt-5 text-[length:var(--text-h3)] font-semibold tracking-tight">
-                    {group.title}
-                  </h3>
-                  <p className="numeric text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
-                    {count} types
-                  </p>
-                  <dl className="mt-5 grid flex-1 grid-cols-3 gap-2 border-t border-[var(--color-hairline)] pt-4">
-                    {stats.map((stat) => (
-                      <div key={stat.label}>
-                        <dt className="text-[length:var(--text-micro)] uppercase tracking-[0.12em] text-[var(--color-ink-muted)]">
-                          {stat.label}
-                        </dt>
-                        <dd className="numeric mt-1 text-[length:var(--text-small)] font-semibold">
-                          {stat.value ?? '—'}
-                        </dd>
-                      </div>
-                    ))}
-                  </dl>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-[length:var(--text-small)] font-semibold text-[var(--color-accent-strong)]">
-                    Compare {group.title.toLowerCase()}
-                    <ArrowRight
-                      className="h-4 w-4 transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1"
-                      aria-hidden="true"
-                    />
-                  </span>
-                </Link>
-              </li>
-            );
-          })}
+          {HOME_AIRCRAFT_GROUPS.map((group) => (
+            <li key={group.category}>
+              <AircraftGroupCard title={group.title} category={group.category} href={group.href} />
+            </li>
+          ))}
         </ul>
         <p className="mt-4 text-[length:var(--text-micro)] text-[var(--color-ink-muted)]">
           Spans across the types listed in each group. Typical figures; they vary with variant,
@@ -269,7 +224,7 @@ export default function HomePage() {
           {HOW_IT_WORKS.map((step) => (
             <li
               key={step.step}
-              className="rounded-[var(--radius-card)] border border-[var(--color-hairline)] bg-[var(--color-ivory)] p-5"
+              className="rounded-[var(--radius-card)] border border-[var(--color-hairline)] bg-[var(--color-ivory)] p-4 sm:p-5"
             >
               <span className="numeric inline-flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-accent)] text-[length:var(--text-small)] font-semibold text-[var(--color-on-accent)]">
                 {Number(step.step)}

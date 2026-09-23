@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { metadataForRoute } from '@/lib/metadata';
 import { getRoute } from '@/lib/routes';
@@ -12,8 +11,8 @@ import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { PageIntro } from '@/components/content/PageIntro';
 import { Prose } from '@/components/content/Prose';
+import { AircraftGroupCard } from '@/components/aircraft/AircraftGroupCard';
 import { AircraftTable } from '@/components/aircraft/AircraftTable';
-import { AircraftGlyph } from '@/components/ui/AircraftGlyph';
 import { FleetShowroomMount } from '@/components/fleet/FleetShowroomMount';
 
 const PATH = '/aircraft' as const;
@@ -68,36 +67,21 @@ export default function AircraftHubPage() {
       </section>
 
       <Section ground="ivory" width="wide">
-        <div className="grid gap-px border-t border-[var(--color-ink)]/15 sm:grid-cols-2 lg:grid-cols-3">
-          {AIRCRAFT_CATEGORY_PAGES.map((category) => {
-            const types = aircraftByCategory(category.category);
-            return (
-              <Link
-                key={category.slug}
+        <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
+          Compare by group
+        </h2>
+        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {AIRCRAFT_CATEGORY_PAGES.map((category) => (
+            <li key={category.slug}>
+              <AircraftGroupCard
+                title={category.title.replace(/ for Charter$/, '')}
+                category={category.category}
                 href={category.canonical}
-                className="group flex flex-col border-b border-[var(--color-ink)]/15 py-7 pr-7"
-              >
-                <AircraftGlyph
-                  category={category.category}
-                  className="mb-4 h-8 w-auto text-[var(--color-accent-strong)]"
-                />
-                <h2 className="text-[length:var(--text-h3)] font-semibold tracking-tight">
-                  {category.title}
-                </h2>
-                <p className="numeric mt-1 text-[length:var(--text-small)] text-[var(--color-accent-strong)]">
-                  {types.length} types
-                </p>
-                <p className="mt-3 flex-1 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
-                  {category.summary}
-                </p>
-                <ArrowRight
-                  className="mt-5 h-4 w-4 text-[var(--color-accent-strong)] transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1"
-                  aria-hidden="true"
-                />
-              </Link>
-            );
-          })}
-        </div>
+                summary={category.summary}
+              />
+            </li>
+          ))}
+        </ul>
       </Section>
 
       {airliners.length > 0 ? (
@@ -106,9 +90,9 @@ export default function AircraftHubPage() {
             Regional aircraft for large groups
           </h2>
           <p className="mt-4 max-w-[68ch] text-[var(--color-ink-inverse-muted)]">
-            Above roughly twenty passengers the conversation moves from business aircraft to regional
-            airliners. These carry delegations, event parties and corporate offsites in one movement,
-            and need substantially more lead time than a business jet.
+            Above roughly twenty passengers the conversation moves from business aircraft to
+            regional airliners. These carry delegations, event parties and corporate offsites in one
+            movement, and need substantially more lead time than a business jet.
           </p>
           <div className="mt-8">
             <AircraftTable aircraft={airliners} />
