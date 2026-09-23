@@ -5,6 +5,9 @@ import { ArrowRight, Check, Phone, TriangleAlert } from 'lucide-react';
 import type { CharterRequestErrors, SubmissionState } from '@/types/charter-request';
 import { CONTACT, whatsappLink } from '@/lib/site';
 import { track } from '@/lib/analytics';
+import { AIRPORT_COUNT } from '@/lib/airport-search';
+import { AirportField } from './AirportField';
+import { PassengerField } from './PassengerField';
 
 /**
  * The full charter request.
@@ -48,6 +51,7 @@ function FieldError({ message, id }: { message: string | undefined; id: string }
 
 export function CharterRequestForm() {
   const [showDetails, setShowDetails] = useState(false);
+  const [prefill, setPrefill] = useState<{ from: string; to: string; passengers: number } | null>(null);
   const [state, setState] = useState<SubmissionState>({ status: 'idle' });
   const [errors, setErrors] = useState<CharterRequestErrors>({});
   const [unavailable, setUnavailable] = useState(false);
@@ -76,17 +80,28 @@ export function CharterRequestForm() {
     const form = formRef.current;
     if (!form) return;
     const query = new URLSearchParams(window.location.search);
+
+    // Plain inputs can be written to directly.
     for (const [param, field] of [
-      ['from', 'from'],
-      ['to', 'to'],
       ['date', 'date'],
-      ['passengers', 'passengers'],
+      ['time', 'time'],
     ] as const) {
       const value = query.get(param);
       if (!value) continue;
       const input = form.elements.namedItem(field);
       if (input instanceof HTMLInputElement) input.value = value;
     }
+
+    // The airport and passenger fields hold their own React state, so writing
+    // to the DOM node would be overwritten on the next render. They take the
+    // prefill as a prop and are keyed on it, which remounts them once with the
+    // carried-over value — the honest way to seed a controlled component,
+    // rather than reaching past React into the input it owns.
+    setPrefill({
+      from: query.get('from') ?? '',
+      to: query.get('to') ?? '',
+      passengers: Number.parseInt(query.get('passengers') ?? '', 10) || 2,
+    });
   }, []);
 
   /** Fired once, on the first real interaction rather than on mount. */
@@ -112,6 +127,7 @@ export function CharterRequestForm() {
       from: data.get('from'),
       to: data.get('to'),
       departureDate: data.get('date'),
+      departureTime: data.get('time') || undefined,
       passengers: data.get('passengers'),
       name: data.get('name'),
       phone: data.get('phone'),
@@ -212,30 +228,26 @@ export function CharterRequestForm() {
         <legend className="sr-only">Trip</legend>
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
-            <label htmlFor="from" className={LABEL}>
-              From
-            </label>
-            <input
+            <AirportField
+              key={`from-${prefill?.from ?? ''}`}
               id="from"
               name="from"
-              required
-              aria-invalid={errors.from ? true : undefined}
-              aria-describedby={errors.from ? 'err-from' : undefined}
-              className={`${FIELD} ${errors.from ? FIELD_ERROR : ''}`}
+              label="From"
+              placeholder="City, airport or code"
+              tone="light"
+              defaultValue={prefill?.from ?? ''}
             />
             <FieldError id="err-from" message={errors.from} />
           </div>
           <div>
-            <label htmlFor="to" className={LABEL}>
-              To
-            </label>
-            <input
+            <AirportField
+              key={`to-${prefill?.to ?? ''}`}
               id="to"
               name="to"
-              required
-              aria-invalid={errors.to ? true : undefined}
-              aria-describedby={errors.to ? 'err-to' : undefined}
-              className={`${FIELD} ${errors.to ? FIELD_ERROR : ''}`}
+              label="To"
+              placeholder="City, airport or code"
+              tone="light"
+              defaultValue={prefill?.to ?? ''}
             />
             <FieldError id="err-to" message={errors.to} />
           </div>
@@ -255,23 +267,33 @@ export function CharterRequestForm() {
             <FieldError id="err-date" message={errors.departureDate} />
           </div>
           <div>
-            <label htmlFor="passengers" className={LABEL}>
-              Passengers
+            <label htmlFor="time" className={LABEL}>
+              Departure time <span className="text-[var(--color-ink-muted)]">(optional)</span>
             </label>
             <input
+              id="time"
+              name="time"
+              type="time"
+              aria-invalid={errors.departureTime ? true : undefined}
+              aria-describedby={errors.departureTime ? 'err-time' : undefined}
+              className={`${FIELD} numeric ${errors.departureTime ? FIELD_ERROR : ''}`}
+            />
+            <FieldError id="err-time" message={errors.departureTime} />
+          </div>
+          <div>
+            <PassengerField
+              key={`pax-${prefill?.passengers ?? 2}`}
               id="passengers"
               name="passengers"
-              type="number"
-              min={1}
-              max={200}
-              required
-              defaultValue="2"
-              aria-invalid={errors.passengers ? true : undefined}
-              aria-describedby={errors.passengers ? 'err-pax' : undefined}
-              className={`${FIELD} numeric ${errors.passengers ? FIELD_ERROR : ''}`}
+              tone="light"
+              defaultValue={prefill?.passengers ?? 2}
             />
             <FieldError id="err-pax" message={errors.passengers} />
           </div>
+          <p className="text-[length:var(--text-micro)] text-[var(--color-ink-muted)] sm:col-span-2">
+            {AIRPORT_COUNT} operational Indian aerodromes are listed. Helipads and private
+            airstrips can be typed in directly.
+          </p>
         </div>
       </fieldset>
 

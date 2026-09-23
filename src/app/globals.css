@@ -195,3 +195,17 @@ canvas {
 .page-header-band + main > section:first-of-type {
   padding-block-start: clamp(2rem, 1rem + 3vw, 3.5rem);
 }
+
+/* The native number spinner is a 16px hit target that appears on hover and
+   disappears on touch. The passenger field has real buttons instead, so the
+   spinner is only a second, worse control sitting on top of them. */
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.no-spinner {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}

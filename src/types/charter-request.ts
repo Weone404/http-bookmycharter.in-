@@ -26,6 +26,17 @@ export type CharterPurpose =
   | 'other';
 
 export interface CharterRequestDetails {
+  /**
+   * Local departure time at the origin, `HH:MM`, 24-hour.
+   *
+   * Optional, and separate from the date rather than folded into an ISO
+   * timestamp. Charter has no timetable — the aircraft leaves when the
+   * customer wants it to — and the hour is what decides crew duty, slot
+   * availability and whether the destination can take a night arrival. But
+   * someone who has not decided yet should not be blocked at the first field,
+   * so it is collected and never demanded.
+   */
+  readonly departureTime?: string;
   readonly tripType?: TripType;
   readonly returnDate?: IsoDate;
   readonly aircraftPreference?: AircraftCategory;
