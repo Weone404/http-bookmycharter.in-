@@ -90,6 +90,11 @@
 
 :root {
   color-scheme: light;
+  /* Distance from the viewport's left edge to the content frame's left edge:
+     how far a full-bleed element must reach out, and pad back in. */
+  --frame-left: calc(max(0px, (100vw - var(--site-max)) / 2) + var(--spacing-gutter));
+  --hero-overlap: 7rem;
+  --hero-pad-bottom: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
     'Noto Sans', sans-serif;
@@ -122,6 +127,9 @@
 }
 
 html {
+  /* 100vw includes a classic scrollbar's width; clip (not hidden) so the
+     full-bleed hero cannot cause sideways scroll and sticky still works. */
+  overflow-x: clip;
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
 }
@@ -228,12 +236,36 @@ canvas {
   translate: -50% 0;
 }
 
-/* The three-dimensional band sits directly above `main`, so the first section
-   no longer needs the full section rhythm above its breadcrumbs — without this
-   every inner page opened with the band, then a large empty ivory gap, then
-   the H1. Adjacent-sibling only: pages without the band are untouched. */
-.page-header-band + main > section:first-of-type {
-  padding-block-start: clamp(2rem, 1rem + 3vw, 3.5rem);
+/* Page hero (PageIntro). A page whose first section opens with the hero drops
+   that section's top padding, so the hero meets the navigation. */
+main > section:first-of-type:has(.page-hero) {
+  padding-block-start: 0;
+}
+
+/* Inside the hero, any text that asks for "ink" gets the light equivalent
+   (e.g. the published date on an article), so nothing dark lands on the
+   picture. */
+.page-hero {
+  --color-ink: var(--color-ink-inverse);
+  --color-ink-muted: #c6d0dc;
+}
+
+/* Breadcrumbs are dimmed on light pages; over a picture they need full
+   strength to stay above 4.5:1 (measured over every hero at 390 and 1440). */
+.page-hero nav[aria-label='Breadcrumb'] ol {
+  opacity: 1;
+  color: rgb(244 246 249 / 0.9);
+}
+
+/* The at-a-glance card overlaps the bottom of the hero on wide screens; the
+   hero leaves room for it only where a card follows (IntroLayout). */
+.intro-with-aside .page-hero {
+  --hero-pad-bottom: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+}
+@media (min-width: 64rem) {
+  .intro-with-aside .page-hero {
+    --hero-pad-bottom: calc(clamp(2.5rem, 1.5rem + 3vw, 4.5rem) + var(--hero-overlap));
+  }
 }
 
 /* The native number spinner is a 16px hit target that appears on hover and

@@ -2,8 +2,6 @@ import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import type { AircraftCategory } from '@/types/aircraft';
-import { SiteImageFill } from '@/components/ui/SiteImageFill';
-import { CATEGORY_IMAGE } from '@/data/category-images';
 
 /**
  * The orientation rail that sits beside a page's opening paragraphs.
@@ -62,17 +60,13 @@ export function GlanceCard({
       </h2>
 
       {categories && categories.length > 0 ? (
-        <ul className="mt-6 space-y-5">
+        <ul className="mt-5 flex flex-wrap gap-2">
           {categories.map((category) => (
-            <li key={category} className="flex items-center gap-4">
-              {CATEGORY_IMAGE[category] ? (
-                <SiteImageFill
-                  name={CATEGORY_IMAGE[category]}
-                  sizes="96px"
-                  className="aspect-[3/2] w-24 shrink-0 rounded-[var(--radius-control)]"
-                />
-              ) : null}
-              <span className="font-medium">{categoryLabel?.[category] ?? category}</span>
+            <li
+              key={category}
+              className="rounded-[var(--radius-pill)] bg-[var(--color-ivory)] px-3.5 py-1.5 text-[length:var(--text-small)] font-medium"
+            >
+              {categoryLabel?.[category] ?? category}
             </li>
           ))}
         </ul>
@@ -147,10 +141,14 @@ export function IntroLayout({
   // From `lg` up, explicit row and column placement puts the prose back under
   // the heading and lets the rail span both rows on the right. No duplicated
   // markup, and nothing is hidden at any width.
+  // The intro (the full-width hero) spans the row; on wide screens the card
+  // is pulled up to overlap the hero's lower edge, and the hero leaves room
+  // for it (.intro-with-aside in globals.css). On phones the order is hero,
+  // card, prose, with no overlap.
   return (
-    <div className="lg:grid lg:grid-cols-[1.35fr_0.65fr] lg:gap-x-12">
-      <div className="lg:col-start-1 lg:row-start-1">{intro}</div>
-      <div className="mt-8 lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:mt-0 lg:pt-14">
+    <div className="intro-with-aside lg:grid lg:grid-cols-[1.35fr_0.65fr] lg:gap-x-12">
+      <div className="lg:col-span-2 lg:row-start-1">{intro}</div>
+      <div className="relative z-10 mt-8 lg:col-start-2 lg:row-start-2 lg:-mt-[var(--hero-overlap)]">
         {aside}
       </div>
       <div className="mt-10 lg:col-start-1 lg:row-start-2">{children}</div>

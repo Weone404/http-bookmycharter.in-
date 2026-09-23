@@ -4,6 +4,7 @@ import { aircraftByCategory } from '@/data/aircraft';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { PageIntro } from '@/components/content/PageIntro';
+import { heroImageForCategory } from '@/lib/page-images';
 import { PointList, Prose } from '@/components/content/Prose';
 import { FaqSection } from '@/components/content/FaqSection';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
@@ -17,7 +18,12 @@ export function AircraftCategoryTemplate({ page }: { page: AircraftCategoryPage 
   return (
     <>
       <Section ground="ivory" width="wide">
-        <PageIntro path={page.canonical} title={page.title} summary={page.summary} />
+        <PageIntro
+          path={page.canonical}
+          title={page.title}
+          summary={page.summary}
+          image={heroImageForCategory(page.category)}
+        />
         <div className="mt-10">
           <Prose paragraphs={page.intro} />
         </div>

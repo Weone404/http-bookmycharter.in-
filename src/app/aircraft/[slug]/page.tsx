@@ -15,6 +15,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { PageIntro } from '@/components/content/PageIntro';
+import { heroImageForCategory } from '@/lib/page-images';
 import { PointList, Prose } from '@/components/content/Prose';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
 import { AircraftTable } from '@/components/aircraft/AircraftTable';
@@ -84,6 +85,7 @@ export default async function AircraftDetailPage({
           {...(curated.manufacturer ? { eyebrow: curated.manufacturer } : {})}
           title={aircraft.name}
           summary={curated.summary}
+          image={heroImageForCategory(aircraft.category)}
         />
         {/* Renders nothing until a credited Commons photo of this exact type is confirmed. */}
         <AircraftPhoto
