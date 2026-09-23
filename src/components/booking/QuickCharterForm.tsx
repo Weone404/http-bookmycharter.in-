@@ -2,11 +2,13 @@
 
 import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
-import { ArrowRight, CalendarDays, Clock } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { track } from '@/lib/analytics';
 import { AIRPORT_COUNT } from '@/lib/airport-search';
 import { AirportField } from './AirportField';
 import { PassengerField } from './PassengerField';
+import { DateField } from './DateField';
+import { TimeField } from './TimeField';
 
 /**
  * Stage one of the charter request.
@@ -26,16 +28,23 @@ import { PassengerField } from './PassengerField';
  * required, because someone who has not decided should not be blocked at the
  * first field.
  */
-const LABEL = 'block text-[length:var(--text-micro)] uppercase tracking-[0.14em] text-[var(--color-ink-inverse-muted)]';
-const FIELD =
-  'w-full bg-transparent border-b border-white/25 py-3 pr-2 pl-6 text-[var(--color-ink-inverse)] placeholder:text-[var(--color-ink-inverse-muted)] focus:border-[var(--color-cyan-accent)] focus:outline-none';
-
 export function QuickCharterForm() {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
+  const [date, setDate] = useState('');
+  const [dateError, setDateError] = useState<string | undefined>(undefined);
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    // The date is a button plus a hidden input now, and hidden inputs take no
+    // part in native validation — so the one required check the browser used
+    // to do is done here, with a message next to the field instead of a
+    // browser bubble.
+    if (!date) {
+      setDateError('Choose a departure date.');
+      document.getElementById('date')?.focus();
+      return;
+    }
     setSubmitting(true);
     // The funnel starts here, not on /request-a-charter: this is where most
     // people first commit a route and a date.
@@ -59,31 +68,18 @@ export function QuickCharterForm() {
       <AirportField id="from" name="from" label="From" placeholder="City, airport or code" />
       <AirportField id="to" name="to" label="To" placeholder="City, airport or code" />
 
-      <div>
-        <label htmlFor="date" className={LABEL}>
-          Departure
-        </label>
-        <div className="relative">
-          <CalendarDays
-            className="pointer-events-none absolute top-1/2 left-0 h-4 w-4 -translate-y-1/2 text-[var(--color-ink-inverse-muted)]"
-            aria-hidden="true"
-          />
-          <input id="date" name="date" type="date" required className={`${FIELD} numeric`} />
-        </div>
-      </div>
-
-      <div>
-        <label htmlFor="time" className={LABEL}>
-          Time
-        </label>
-        <div className="relative">
-          <Clock
-            className="pointer-events-none absolute top-1/2 left-0 h-4 w-4 -translate-y-1/2 text-[var(--color-ink-inverse-muted)]"
-            aria-hidden="true"
-          />
-          <input id="time" name="time" type="time" className={`${FIELD} numeric`} />
-        </div>
-      </div>
+      <DateField
+        id="date"
+        name="date"
+        label="Departure"
+        error={dateError}
+        errorPlacement="overlay"
+        onChange={(next) => {
+          setDate(next);
+          if (next) setDateError(undefined);
+        }}
+      />
+      <TimeField id="time" name="time" date={date} />
 
       <PassengerField id="passengers" name="passengers" />
 
@@ -97,9 +93,8 @@ export function QuickCharterForm() {
       </button>
 
       <p className="text-[length:var(--text-micro)] text-[var(--color-ink-inverse-muted)] sm:col-span-2 xl:col-span-6">
-        {AIRPORT_COUNT} operational Indian aerodromes are listed. Helipads and private airstrips
-        are not on that list and can be typed in directly — we will confirm the landing point with
-        you.
+        {AIRPORT_COUNT} operational Indian aerodromes are listed. Helipads and private airstrips are
+        not on that list and can be typed in directly — we will confirm the landing point with you.
       </p>
     </form>
   );

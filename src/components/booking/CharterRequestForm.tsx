@@ -8,6 +8,8 @@ import { track } from '@/lib/analytics';
 import { AIRPORT_COUNT } from '@/lib/airport-search';
 import { AirportField } from './AirportField';
 import { PassengerField } from './PassengerField';
+import { DateField } from './DateField';
+import { TimeField } from './TimeField';
 
 /**
  * The full charter request.
@@ -51,7 +53,16 @@ function FieldError({ message, id }: { message: string | undefined; id: string }
 
 export function CharterRequestForm() {
   const [showDetails, setShowDetails] = useState(false);
-  const [prefill, setPrefill] = useState<{ from: string; to: string; passengers: number } | null>(null);
+  const [prefill, setPrefill] = useState<{
+    from: string;
+    to: string;
+    passengers: number;
+    date: string;
+    time: string;
+  } | null>(null);
+  // Tracked so the time list can disable slots already gone today, and so the
+  // return date cannot be set before the departure.
+  const [departure, setDeparture] = useState('');
   const [state, setState] = useState<SubmissionState>({ status: 'idle' });
   const [errors, setErrors] = useState<CharterRequestErrors>({});
   const [unavailable, setUnavailable] = useState(false);
@@ -81,17 +92,6 @@ export function CharterRequestForm() {
     if (!form) return;
     const query = new URLSearchParams(window.location.search);
 
-    // Plain inputs can be written to directly.
-    for (const [param, field] of [
-      ['date', 'date'],
-      ['time', 'time'],
-    ] as const) {
-      const value = query.get(param);
-      if (!value) continue;
-      const input = form.elements.namedItem(field);
-      if (input instanceof HTMLInputElement) input.value = value;
-    }
-
     // The airport and passenger fields hold their own React state, so writing
     // to the DOM node would be overwritten on the next render. They take the
     // prefill as a prop and are keyed on it, which remounts them once with the
@@ -101,7 +101,10 @@ export function CharterRequestForm() {
       from: query.get('from') ?? '',
       to: query.get('to') ?? '',
       passengers: Number.parseInt(query.get('passengers') ?? '', 10) || 2,
+      date: query.get('date') ?? '',
+      time: query.get('time') ?? '',
     });
+    setDeparture(query.get('date') ?? '');
   }, []);
 
   /** Fired once, on the first real interaction rather than on mount. */
@@ -223,7 +226,13 @@ export function CharterRequestForm() {
   const busy = state.status === 'submitting';
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} onInput={onFirstInput} className="max-w-[46rem]" noValidate>
+    <form
+      ref={formRef}
+      onSubmit={onSubmit}
+      onInput={onFirstInput}
+      className="max-w-[46rem]"
+      noValidate
+    >
       <fieldset className="border-0 p-0" disabled={busy}>
         <legend className="sr-only">Trip</legend>
         <div className="grid gap-5 sm:grid-cols-2">
@@ -251,35 +260,26 @@ export function CharterRequestForm() {
             />
             <FieldError id="err-to" message={errors.to} />
           </div>
-          <div>
-            <label htmlFor="date" className={LABEL}>
-              Departure date
-            </label>
-            <input
-              id="date"
-              name="date"
-              type="date"
-              required
-              aria-invalid={errors.departureDate ? true : undefined}
-              aria-describedby={errors.departureDate ? 'err-date' : undefined}
-              className={`${FIELD} numeric ${errors.departureDate ? FIELD_ERROR : ''}`}
-            />
-            <FieldError id="err-date" message={errors.departureDate} />
-          </div>
-          <div>
-            <label htmlFor="time" className={LABEL}>
-              Departure time <span className="text-[var(--color-ink-muted)]">(optional)</span>
-            </label>
-            <input
-              id="time"
-              name="time"
-              type="time"
-              aria-invalid={errors.departureTime ? true : undefined}
-              aria-describedby={errors.departureTime ? 'err-time' : undefined}
-              className={`${FIELD} numeric ${errors.departureTime ? FIELD_ERROR : ''}`}
-            />
-            <FieldError id="err-time" message={errors.departureTime} />
-          </div>
+          <DateField
+            key={`date-${prefill?.date ?? ''}`}
+            id="date"
+            name="date"
+            label="Departure date"
+            tone="light"
+            defaultValue={prefill?.date ?? ''}
+            error={errors.departureDate}
+            onChange={setDeparture}
+          />
+          <TimeField
+            key={`time-${prefill?.time ?? ''}`}
+            id="time"
+            name="time"
+            label="Departure time (optional)"
+            tone="light"
+            defaultValue={prefill?.time ?? ''}
+            date={departure}
+            error={errors.departureTime}
+          />
           <div>
             <PassengerField
               key={`pax-${prefill?.passengers ?? 2}`}
@@ -291,8 +291,8 @@ export function CharterRequestForm() {
             <FieldError id="err-pax" message={errors.passengers} />
           </div>
           <p className="text-[length:var(--text-micro)] text-[var(--color-ink-muted)] sm:col-span-2">
-            {AIRPORT_COUNT} operational Indian aerodromes are listed. Helipads and private
-            airstrips can be typed in directly.
+            {AIRPORT_COUNT} operational Indian aerodromes are listed. Helipads and private airstrips
+            can be typed in directly.
           </p>
         </div>
       </fieldset>
@@ -307,7 +307,12 @@ export function CharterRequestForm() {
         {showDetails ? 'Hide trip details' : 'Add trip details (optional)'}
       </button>
 
-      <fieldset id="trip-details" hidden={!showDetails} className="mt-6 border-0 p-0" disabled={busy}>
+      <fieldset
+        id="trip-details"
+        hidden={!showDetails}
+        className="mt-6 border-0 p-0"
+        disabled={busy}
+      >
         <legend className="sr-only">Trip details</legend>
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
@@ -321,24 +326,26 @@ export function CharterRequestForm() {
             </select>
           </div>
           <div>
-            <label htmlFor="returnDate" className={LABEL}>
-              Return date
-            </label>
-            <input
+            <DateField
               id="returnDate"
               name="returnDate"
-              type="date"
-              aria-invalid={errors.returnDate ? true : undefined}
-              aria-describedby={errors.returnDate ? 'err-return' : undefined}
-              className={`${FIELD} numeric ${errors.returnDate ? FIELD_ERROR : ''}`}
+              label="Return date"
+              placeholder="No return"
+              tone="light"
+              {...(departure ? { min: departure } : {})}
+              error={errors.returnDate}
             />
-            <FieldError id="err-return" message={errors.returnDate} />
           </div>
           <div>
             <label htmlFor="aircraftPreference" className={LABEL}>
               Aircraft preference
             </label>
-            <select id="aircraftPreference" name="aircraftPreference" className={FIELD} defaultValue="">
+            <select
+              id="aircraftPreference"
+              name="aircraftPreference"
+              className={FIELD}
+              defaultValue=""
+            >
               <option value="">No preference</option>
               <option value="private-jet">Private jet</option>
               <option value="helicopter">Helicopter</option>
@@ -439,7 +446,10 @@ export function CharterRequestForm() {
 
       {/* Honeypot. Hidden from people, irresistible to bots. Not `display:none`
           — some bots skip those — and excluded from the tab order. */}
-      <div aria-hidden="true" className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden"
+      >
         <label htmlFor="website">Website</label>
         <input id="website" name="website" tabIndex={-1} autoComplete="off" />
       </div>
@@ -457,7 +467,10 @@ export function CharterRequestForm() {
         {state.status === 'error' ? (
           <div className="max-w-[44rem] border-l-2 border-[#b3261e] pl-4">
             <p className="flex items-start gap-2.5 text-[length:var(--text-small)]">
-              <TriangleAlert className="mt-0.5 h-4 w-4 shrink-0 text-[#b3261e]" aria-hidden="true" />
+              <TriangleAlert
+                className="mt-0.5 h-4 w-4 shrink-0 text-[#b3261e]"
+                aria-hidden="true"
+              />
               <span>{state.message}</span>
             </p>
             {unavailable ? (
