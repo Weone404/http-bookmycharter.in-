@@ -527,7 +527,7 @@ export const ROUTES: readonly RouteEntry[] = [
     title: 'Char Dham by Private Helicopter Charter',
     description:
       'Chartering a whole helicopter for Char Dham: aircraft, routing, positioning and the operating limits of Himalayan helipads.',
-    label: 'Chardham',
+    label: 'Char Dham',
     cluster: 'chardham',
     nav: 'footer',
     status: 'live',

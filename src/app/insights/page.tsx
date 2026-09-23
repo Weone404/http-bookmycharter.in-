@@ -8,6 +8,7 @@ import { INSIGHTS, INSIGHT_CATEGORY_LABEL } from '@/data/insights';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
 import { PageIntro } from '@/components/content/PageIntro';
+import { GlanceCard, IntroLayout } from '@/components/content/GlanceCard';
 
 const PATH = '/insights' as const;
 
@@ -20,11 +21,27 @@ export default function InsightsPage() {
   return (
     <>
       <Section ground="ivory" width="wide">
-        <PageIntro
-          path={PATH}
-          title="Aviation insights"
-          summary="Guides to how charter is priced, how aircraft are chosen, and what an empty leg actually is — written to answer the question rather than to rank for it."
-        />
+        <IntroLayout
+          intro={
+            <PageIntro
+              path={PATH}
+              title="Aviation insights"
+              summary="Guides to how charter is priced, how aircraft are chosen, and what an empty leg actually is — written to answer the question rather than to rank for it."
+            />
+          }
+          aside={
+            <GlanceCard
+              stats={[
+                { label: 'Guides published', value: INSIGHTS.length },
+                { label: 'Topics', value: new Set(INSIGHTS.map((i) => i.category)).size },
+              ]}
+              secondaryHref="/pricing"
+              secondaryLabel="How pricing works"
+            />
+          }
+        >
+          {null}
+        </IntroLayout>
       </Section>
 
       <Section ground="ivory" width="wide" className="pt-0">

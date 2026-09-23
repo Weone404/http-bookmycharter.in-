@@ -7,6 +7,7 @@ import { INSIGHTS, INSIGHT_CATEGORY_LABEL, insightBySlug } from '@/data/insights
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
 import { PageIntro } from '@/components/content/PageIntro';
+import { GlanceCard, IntroLayout } from '@/components/content/GlanceCard';
 import { Prose } from '@/components/content/Prose';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
 
@@ -24,7 +25,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = insightBySlug(slug);
   if (!article) return {};
-  return pageMetadata({ title: article.title, description: article.summary, path: article.canonical });
+  return pageMetadata({
+    title: article.title,
+    description: article.summary,
+    path: article.canonical,
+  });
 }
 
 export default async function InsightPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -51,32 +56,57 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
     publisher: { '@id': `${absoluteUrl('/')}#organization` },
   };
 
+  // Computed from the article itself, at a conventional 200 words a minute,
+  // so the figure cannot drift from the text it describes.
+  const words = article.body.join(' ').split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.round(words / 200));
+  const firstSupport = article.supports[0];
+
   return (
     <>
       <Section ground="ivory" width="wide">
-        <PageIntro
-          path={article.canonical}
-          dynamic={{ path: article.canonical, label: article.title, parent: '/insights' }}
-          eyebrow={INSIGHT_CATEGORY_LABEL[article.category] ?? article.category}
-          title={article.title}
-          summary={article.summary}
+        <IntroLayout
+          aside={
+            <GlanceCard
+              heading="In this guide"
+              stats={[
+                { label: 'Reading time', value: `${minutes} min` },
+                { label: 'Related pages', value: article.supports.length },
+              ]}
+              {...(firstSupport
+                ? { secondaryHref: firstSupport.href, secondaryLabel: firstSupport.label }
+                : {})}
+            />
+          }
+          intro={
+            <PageIntro
+              path={article.canonical}
+              dynamic={{ path: article.canonical, label: article.title, parent: '/insights' }}
+              eyebrow={INSIGHT_CATEGORY_LABEL[article.category] ?? article.category}
+              title={article.title}
+              summary={article.summary}
+            >
+              <p className="mt-6 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
+                Published{' '}
+                <time dateTime={article.published} className="numeric">
+                  {article.published}
+                </time>
+                {article.updated ? (
+                  <>
+                    {' · Updated '}
+                    <time dateTime={article.updated} className="numeric">
+                      {article.updated}
+                    </time>
+                  </>
+                ) : null}
+              </p>
+            </PageIntro>
+          }
         >
-          <p className="mt-6 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
-            Published <time dateTime={article.published} className="numeric">{article.published}</time>
-            {article.updated ? (
-              <>
-                {' · Updated '}
-                <time dateTime={article.updated} className="numeric">{article.updated}</time>
-              </>
-            ) : null}
-          </p>
-        </PageIntro>
-      </Section>
-
-      <Section ground="ivory" width="wide" className="pt-0">
-        <article>
-          <Prose paragraphs={article.body} />
-        </article>
+          <article>
+            <Prose paragraphs={article.body} />
+          </article>
+        </IntroLayout>
       </Section>
 
       <Section ground="ivory" width="wide" className="pt-0">
@@ -85,7 +115,11 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
 
       <JsonLd
         json={graph([
-          webPageSchema({ name: article.title, description: article.summary, path: article.canonical }),
+          webPageSchema({
+            name: article.title,
+            description: article.summary,
+            path: article.canonical,
+          }),
           articleSchema,
           breadcrumbSchema(article.canonical, {
             path: article.canonical,

@@ -9,6 +9,7 @@ import { DESTINATION_PAGES } from '@/data/destinations';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
 import { PageIntro } from '@/components/content/PageIntro';
+import { GlanceCard, IntroLayout } from '@/components/content/GlanceCard';
 import { Prose } from '@/components/content/Prose';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
 
@@ -25,19 +26,34 @@ export default function DestinationsPage() {
   return (
     <>
       <Section ground="ivory" width="wide">
-        <PageIntro
-          path={PATH}
-          title="Charter destinations and airport access"
-          summary="Where a charter can go is decided by the aerodrome at the far end — its runway, its facilities and its operating hours — long before it is decided by the aircraft, which is why destination planning starts with the field and not the fleet."
-        />
-        <div className="mt-10">
+        <IntroLayout
+          intro={
+            <PageIntro
+              path={PATH}
+              title="Charter destinations and airport access"
+              summary="Where a charter can go is decided by the aerodrome at the far end — its runway, its facilities and its operating hours — long before it is decided by the aircraft, which is why destination planning starts with the field and not the fleet."
+            />
+          }
+          aside={
+            <GlanceCard
+              stats={[
+                { label: 'Aerodromes recorded', value: AIRPORTS.length },
+                { label: 'Operational with a code', value: CHARTER_AIRPORTS.length },
+                { label: 'States and union territories', value: states.length },
+                { label: 'Destination guides', value: DESTINATION_PAGES.length },
+              ]}
+              secondaryHref="/routes"
+              secondaryLabel="See charter routes"
+            />
+          }
+        >
           <Prose
             paragraphs={[
               `India has a great many more aerodromes than it has airports with scheduled service. ${AIRPORTS.length} are recorded in the reference below across ${states.length} states and union territories, of which ${CHARTER_AIRPORTS.length} are recorded as operational with an assigned code. The gap between that number and the handful of airports most travellers know is the whole argument for charter.`,
               'A destination page is published here only when there is something specific and true to say about chartering to or from it. Cities where the operating facts are not yet confirmed are deliberately absent rather than filled with a template — a page that swaps the city name into the same paragraphs helps nobody and is exactly what the previous version of this site did.',
             ]}
           />
-        </div>
+        </IntroLayout>
       </Section>
 
       <Section ground="ivory" width="wide" className="pt-0">
@@ -80,7 +96,10 @@ export default function DestinationsPage() {
               'For helicopters: a site rather than a runway, with an approach path and a permission',
             ].map((item) => (
               <li key={item} className="flex gap-3.5">
-                <span aria-hidden="true" className="mt-[0.7em] h-px w-4 shrink-0 bg-[var(--color-accent)]" />
+                <span
+                  aria-hidden="true"
+                  className="mt-[0.7em] h-px w-4 shrink-0 bg-[var(--color-accent)]"
+                />
                 <span>{item}</span>
               </li>
             ))}
@@ -102,9 +121,21 @@ export default function DestinationsPage() {
         <RelatedLinks
           links={[
             { label: 'Charter Routes', href: '/routes', description: 'How a city pair is planned' },
-            { label: 'Aircraft & Fleet', href: '/aircraft', description: 'What can use which field' },
-            { label: 'Aircraft Charter', href: '/private-charter/aircraft-charter', description: 'Turboprops for short runways' },
-            { label: 'Charter Pricing', href: '/pricing', description: 'How airport charges enter the quote' },
+            {
+              label: 'Aircraft & Fleet',
+              href: '/aircraft',
+              description: 'What can use which field',
+            },
+            {
+              label: 'Aircraft Charter',
+              href: '/private-charter/aircraft-charter',
+              description: 'Turboprops for short runways',
+            },
+            {
+              label: 'Charter Pricing',
+              href: '/pricing',
+              description: 'How airport charges enter the quote',
+            },
           ]}
         />
       </Section>

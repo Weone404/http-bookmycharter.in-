@@ -49,6 +49,31 @@ export function AviationCanvas({
   const [capable, setCapable] = useState<boolean | null>(null);
   const [contextLost, setContextLost] = useState(false);
   const pointerRef = useRef({ x: 0, y: 0 });
+  const wrapper = useRef<HTMLDivElement>(null);
+  // Render only while the canvas is on screen and the tab is visible. The
+  // scenes animate continuously, so without this the home hero kept drawing
+  // every frame after it had scrolled away, and every inner page's header
+  // band did the same underneath the whole article — GPU and battery spent on
+  // pixels nobody could see.
+  const [onScreen, setOnScreen] = useState(true);
+  const [tabVisible, setTabVisible] = useState(true);
+
+  useEffect(() => {
+    const node = wrapper.current;
+    if (!node || typeof IntersectionObserver === 'undefined') return;
+    const observer = new IntersectionObserver(([entry]) =>
+      setOnScreen(entry?.isIntersecting ?? true),
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [capable]);
+
+  useEffect(() => {
+    const update = () => setTabVisible(document.visibilityState !== 'hidden');
+    update();
+    document.addEventListener('visibilitychange', update);
+    return () => document.removeEventListener('visibilitychange', update);
+  }, []);
 
   useEffect(() => {
     setCapable(supportsWebGl());
@@ -89,6 +114,7 @@ export function AviationCanvas({
 
   return (
     <div
+      ref={wrapper}
       className={`absolute inset-0 ${pointerSource === 'window' ? 'pointer-events-none' : ''}`}
       {...(pointerSource === 'element' ? { onPointerMove, onPointerLeave } : {})}
     >
@@ -99,6 +125,7 @@ export function AviationCanvas({
       {capable === true ? (
         <>
           <Canvas
+            frameloop={onScreen && tabVisible ? 'always' : 'never'}
             // Clamped, not device-native. On a 3x display an unclamped canvas
             // renders nine times the pixels for a difference nobody sees.
             dpr={[1, config.maxDpr]}

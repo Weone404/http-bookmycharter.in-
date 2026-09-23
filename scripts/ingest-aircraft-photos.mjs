@@ -49,7 +49,11 @@ const OUT_DIR = join(ROOT, 'public/aircraft');
 const OUT_TS = join(ROOT, 'src/data/aircraft-photos.generated.ts');
 const FLEET_TS = join(ROOT, 'src/data/aircraft.generated.ts');
 
-const MIN_WIDTH = 1000;
+// 800, not 1000 (owner's decision, Sep 2026): many Commons originals that came
+// from JetPhotos top out near 960px. The page never upscales — AircraftPhoto
+// caps the figure at the file's own width — so a smaller original shows
+// smaller, not softer.
+const MIN_WIDTH = 800;
 const OUT_WIDTH = 1600;
 const IMAGE_EXT = new Set(['.jpg', '.jpeg', '.png', '.webp', '.tif', '.tiff']);
 

@@ -52,7 +52,8 @@ export function AircraftPhoto({
   if (!photo) return null;
 
   return (
-    <figure className={`m-0 ${className}`}>
+    // Capped at the file's own width so a smaller original is never stretched.
+    <figure className={`m-0 ${className}`} style={{ maxWidth: photo.width }}>
       <Image
         src={photo.src}
         width={photo.width}

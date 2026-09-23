@@ -9,6 +9,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { PageIntro } from '@/components/content/PageIntro';
+import { GlanceCard, IntroLayout } from '@/components/content/GlanceCard';
 import { PointList, Prose } from '@/components/content/Prose';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
 
@@ -35,19 +36,52 @@ export default function AboutPage() {
   return (
     <>
       <Section ground="ivory" width="wide">
-        <PageIntro
-          path={PATH}
-          title="About Book My Charter"
-          summary="Book My Charter arranges private jet, helicopter and aircraft charter across India, and publishes how charter works and what it costs so that the decision can be made before anyone is asked to commit."
-        />
-        <div className="mt-10">
+        <IntroLayout
+          intro={
+            <PageIntro
+              path={PATH}
+              title="About Book My Charter"
+              summary="Book My Charter arranges private jet, helicopter and aircraft charter across India, and publishes how charter works and what it costs so that the decision can be made before anyone is asked to commit."
+            />
+          }
+          aside={
+            <GlanceCard
+              heading="Get in touch"
+              secondaryHref="/contact"
+              secondaryLabel="All contact options"
+            >
+              <address className="mt-5 not-italic text-[length:var(--text-small)] leading-relaxed text-[var(--color-ink-muted)]">
+                {ADDRESS.street}
+                <br />
+                {ADDRESS.locality}
+                <br />
+                {ADDRESS.region} {ADDRESS.postalCode}, India
+              </address>
+              <div className="mt-4 flex flex-col gap-1.5 text-[length:var(--text-small)] font-medium">
+                <a
+                  href={`tel:${CONTACT.phone}`}
+                  data-track="call_click"
+                  className="numeric hover:text-[var(--color-accent-strong)]"
+                >
+                  {CONTACT.phoneDisplay}
+                </a>
+                <a
+                  href={`mailto:${CONTACT.email}`}
+                  className="hover:text-[var(--color-accent-strong)]"
+                >
+                  {CONTACT.email}
+                </a>
+              </div>
+            </GlanceCard>
+          }
+        >
           <Prose
             paragraphs={[
               `${voice().whatWeDo} The work is planning rather than selling: establishing what can actually operate a given trip, what it will genuinely cost once positioning and ground time are counted, and what would have to change if the first answer does not fit.`,
               'Most of this website is explanation rather than promotion. That is deliberate. Charter is unfamiliar to most people who need it, the pricing looks arbitrary until you know what builds it, and the industry has a habit of quoting incomplete numbers. Someone who understands positioning and block time can read any quote, including ours, and tell whether it is complete.',
             ]}
           />
-        </div>
+        </IntroLayout>
       </Section>
 
       <Section ground="midnight" width="wide">
@@ -63,9 +97,10 @@ export default function AboutPage() {
               source behind it, or it does not go on the page.
             </p>
             <p className="mt-4 text-[var(--color-ink-inverse-muted)]">
-              That is why you will not find a fleet count, a passenger total or a certification badge
-              here. It is not modesty. It is that we have not published anything we cannot produce a
-              document for, and we would rather have a plainer page than an unverifiable one.
+              That is why you will not find a fleet count, a passenger total or a certification
+              badge here. It is not modesty. It is that we have not published anything we cannot
+              produce a document for, and we would rather have a plainer page than an unverifiable
+              one.
             </p>
           </div>
           <PointList
@@ -84,7 +119,9 @@ export default function AboutPage() {
       <Section ground="ivory" width="wide">
         <div className="grid gap-12 lg:grid-cols-2">
           <div>
-            <h2 className="text-[length:var(--text-h3)] font-semibold tracking-tight">Where we are</h2>
+            <h2 className="text-[length:var(--text-h3)] font-semibold tracking-tight">
+              Where we are
+            </h2>
             <address className="mt-5 not-italic leading-relaxed text-[var(--color-ink-muted)]">
               {ADDRESS.street}
               <br />
@@ -93,7 +130,11 @@ export default function AboutPage() {
               {ADDRESS.region} {ADDRESS.postalCode}, India
             </address>
             <p className="mt-4">
-              <a href={`tel:${CONTACT.phone}`} data-track="call_click" className="numeric font-medium">
+              <a
+                href={`tel:${CONTACT.phone}`}
+                data-track="call_click"
+                className="numeric font-medium"
+              >
                 {CONTACT.phoneDisplay}
               </a>
             </p>
@@ -123,10 +164,22 @@ export default function AboutPage() {
       <Section ground="ivory" width="wide" className="pt-0">
         <RelatedLinks
           links={[
-            { label: 'How It Works', href: '/how-it-works', description: 'From enquiry to departure' },
-            { label: 'Charter Pricing', href: '/pricing', description: 'What a trip costs, and why' },
+            {
+              label: 'How It Works',
+              href: '/how-it-works',
+              description: 'From enquiry to departure',
+            },
+            {
+              label: 'Charter Pricing',
+              href: '/pricing',
+              description: 'What a trip costs, and why',
+            },
             { label: 'Contact', href: '/contact', description: 'Phone, WhatsApp and email' },
-            { label: 'Aviation Insights', href: '/insights', description: 'Guides to how charter works' },
+            {
+              label: 'Aviation Insights',
+              href: '/insights',
+              description: 'Guides to how charter works',
+            },
           ]}
         />
       </Section>

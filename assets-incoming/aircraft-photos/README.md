@@ -29,4 +29,4 @@ as `todo` — the site shows no photo rather than a sibling variant's.
     npm run photos
 
 It refuses to write anything if a confirmed row has no file, no author, a licence
-outside the list above, or a source under 1000 px wide, and prints exactly which.
+outside the list above, or a source under 800 px wide, and prints exactly which.
