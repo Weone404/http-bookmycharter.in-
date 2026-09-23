@@ -17,3 +17,8 @@ _quarantine/media/
 
 # Local source archives used for container-side rendering checks
 bmc-*.tgz
+
+# Aircraft photo originals (large; the processed copies in public/aircraft are committed)
+assets-incoming/aircraft-photos/*
+!assets-incoming/aircraft-photos/credits.csv
+!assets-incoming/aircraft-photos/README.md

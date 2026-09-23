@@ -123,7 +123,8 @@ for (const [file, html] of pages) {
       if (!href.startsWith(CANONICAL_ORIGIN)) note(`${url}: canonical points at ${href}`);
       else {
         const canonicalPath = href.slice(CANONICAL_ORIGIN.length) || '/';
-        if (canonicalPath !== url) note(`${url}: canonical is ${canonicalPath}, not self-referencing`);
+        if (canonicalPath !== url)
+          note(`${url}: canonical is ${canonicalPath}, not self-referencing`);
       }
       if (href.startsWith('http://')) note(`${url}: canonical uses http://`);
       if (href.length > 1 && href.endsWith('/')) note(`${url}: canonical has a trailing slash`);
@@ -215,7 +216,9 @@ try {
     if (loc.includes('?')) note(`sitemap entry carries a query string: ${loc}`);
     const p = loc.replace(CANONICAL_ORIGIN, '') || '/';
     if (!built.has(p)) note(`sitemap lists ${p} with no built page`);
-    const html = pages.get(p === '/' ? path.join(APP, 'index.html') : path.join(APP, `${p.slice(1)}.html`));
+    const html = pages.get(
+      p === '/' ? path.join(APP, 'index.html') : path.join(APP, `${p.slice(1)}.html`),
+    );
     if (html && /<meta name="robots" content="[^"]*noindex/i.test(html)) {
       note(`sitemap lists ${p} but the page is noindex`);
     }
@@ -260,6 +263,45 @@ for (const file of servedAll) {
   const { size } = await stat(file);
   if (size > 1_500_000) {
     note(`${file}: ${(size / 1_048_576).toFixed(1)}MB served asset (over 1.5MB)`);
+  }
+}
+
+// 18. Photo provenance. Every aircraft photo served must have a confirmed
+// record (author, allowed licence, Commons file page), and every page that
+// shows one must also show its credit. scripts/ingest-aircraft-photos.mjs is
+// the only way a photo gets in; this catches one copied in by hand.
+{
+  const source = await readFile('src/data/aircraft-photos.generated.ts', 'utf8');
+  const literal = /AIRCRAFT_PHOTOS[^=]*=\s*(\{[\s\S]*\});\s*$/.exec(source);
+  if (!literal) {
+    note('src/data/aircraft-photos.generated.ts: cannot read AIRCRAFT_PHOTOS');
+  } else {
+    const records = Object.values(JSON.parse(literal[1]));
+    const bySrc = new Map(records.map((r) => [r.src, r]));
+    for (const r of records) {
+      if (!r.author || !r.licence || !r.licenceUrl)
+        note(`${r.slug}: photo record without author or licence`);
+      if (!/^https:\/\/commons\.wikimedia\.org\/wiki\/File:/.test(r.sourceUrl ?? '')) {
+        note(`${r.slug}: photo record without a Commons file page`);
+      }
+      const onDisk = await stat(path.join(PUBLIC, r.src)).catch(() => null);
+      if (!onDisk) note(`${r.slug}: photo record points at missing ${r.src}`);
+    }
+    const photoDir = path.join(PUBLIC, 'aircraft');
+    const served = await walk(photoDir, () => true).catch(() => []);
+    for (const file of served) {
+      const src = '/' + path.relative(PUBLIC, file).split(path.sep).join('/');
+      if (!bySrc.has(src)) note(`${file}: aircraft photo with no confirmed credit record`);
+    }
+    for (const file of htmlFiles) {
+      const html = await readFile(file, 'utf8');
+      for (const r of records) {
+        const shown = html.includes(r.src) || html.includes(encodeURIComponent(r.src));
+        if (shown && !html.includes('via Wikimedia Commons')) {
+          note(`${file}: shows ${r.src} without its credit`);
+        }
+      }
+    }
   }
 }
 

@@ -5,7 +5,12 @@ import type { Path } from '@/types/common';
 import { pageMetadata } from '@/lib/metadata';
 import { breadcrumbSchema, graph, webPageSchema } from '@/lib/schema';
 import { AIRCRAFT_SPEC_SOURCE } from '@/data/aircraft.generated';
-import { PUBLISHED_AIRCRAFT, aircraftByCategory, aircraftBySlug, formatRange } from '@/data/aircraft';
+import {
+  PUBLISHED_AIRCRAFT,
+  aircraftByCategory,
+  aircraftBySlug,
+  formatRange,
+} from '@/data/aircraft';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
@@ -13,6 +18,7 @@ import { PageIntro } from '@/components/content/PageIntro';
 import { PointList, Prose } from '@/components/content/Prose';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
 import { AircraftTable } from '@/components/aircraft/AircraftTable';
+import { AircraftPhoto } from '@/components/aircraft/AircraftPhoto';
 
 /**
  * Only aircraft marked `publish` get a URL. Every other type is a row in the
@@ -79,6 +85,14 @@ export default async function AircraftDetailPage({
           title={aircraft.name}
           summary={curated.summary}
         />
+        {/* Renders nothing until a credited Commons photo of this exact type is confirmed. */}
+        <AircraftPhoto
+          slug={aircraft.slug}
+          name={aircraft.name}
+          priority
+          sizes="(min-width: 1280px) 72rem, 100vw"
+          className="mt-10 max-w-5xl"
+        />
         <div className="mt-10">
           <Prose paragraphs={curated.narrative ?? []} />
         </div>
@@ -138,9 +152,21 @@ export default async function AircraftDetailPage({
         <RelatedLinks
           links={[
             { label: hub.label, href: hub.href, description: 'All types in this category' },
-            { label: 'Charter Pricing', href: '/pricing', description: 'What drives the cost of a trip' },
-            { label: 'How It Works', href: '/how-it-works', description: 'From enquiry to departure' },
-            { label: 'Request a Charter', href: '/request-a-charter', description: 'Route, date, passengers' },
+            {
+              label: 'Charter Pricing',
+              href: '/pricing',
+              description: 'What drives the cost of a trip',
+            },
+            {
+              label: 'How It Works',
+              href: '/how-it-works',
+              description: 'From enquiry to departure',
+            },
+            {
+              label: 'Request a Charter',
+              href: '/request-a-charter',
+              description: 'Route, date, passengers',
+            },
           ]}
         />
       </Section>
@@ -152,7 +178,11 @@ export default async function AircraftDetailPage({
             description: curated.summary,
             path: aircraft.href,
           }),
-          breadcrumbSchema(aircraft.href, { path: aircraft.href, label: aircraft.name, parent: hub.href }),
+          breadcrumbSchema(aircraft.href, {
+            path: aircraft.href,
+            label: aircraft.name,
+            parent: hub.href,
+          }),
         ])}
       />
     </>
