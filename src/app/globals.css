@@ -84,8 +84,18 @@
     ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
 
-* {
-  min-width: 0;
+/* Inside @layer base, not unlayered. Under cascade layers an unlayered rule
+   beats every layered one regardless of specificity, and Tailwind v4 puts all
+   utilities in @layer utilities — so while this sat unlayered, every
+   `min-w-*` class on the site computed to 0. The airport list could not be
+   widened, and the aerodrome and aircraft tables, which rely on min-w to
+   scroll sideways on a phone, were squashed instead. A reset belongs in base;
+   the deliberate overrides further down (the focus ring, the header-band
+   padding) stay unlayered because they are meant to win. */
+@layer base {
+  * {
+    min-width: 0;
+  }
 }
 
 /* Marks a midnight surface. Contrast flips: the bright accent is legible

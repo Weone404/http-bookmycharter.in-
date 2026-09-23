@@ -29,15 +29,22 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- HERO
           Critical content is plain HTML and paints immediately. The 3D layer
           mounts into the slot behind it later and never blocks this text. */}
-      <section className="relative overflow-hidden bg-[var(--color-midnight)] text-[var(--color-ink-inverse)]">
-        {/* The 3D layer sits behind the copy and is pointer-transparent. It
-            carries no information: everything below is server-rendered HTML
-            and is fully usable before, during and without WebGL. */}
-        <HeroVisual />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(7,26,43,0.94)_0%,rgba(7,26,43,0.72)_46%,rgba(7,26,43,0.15)_100%)]"
-        />
+      {/* No overflow-hidden on the section itself. It used to clip here, and
+          that silently cut the airport list in half: the list is an absolute
+          popover inside the charter form, and it extends below the hero's
+          bottom edge by design. Only the background layers ever needed
+          clipping, so only they are clipped — in the wrapper below. */}
+      <section className="relative bg-[var(--color-midnight)] text-[var(--color-ink-inverse)]">
+        <div className="absolute inset-0 overflow-hidden">
+          {/* The 3D layer sits behind the copy and is pointer-transparent. It
+              carries no information: everything below is server-rendered HTML
+              and is fully usable before, during and without WebGL. */}
+          <HeroVisual />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(7,26,43,0.94)_0%,rgba(7,26,43,0.72)_46%,rgba(7,26,43,0.15)_100%)]"
+          />
+        </div>
         <Container width="wide">
           <div className="relative py-[clamp(3rem,2rem+4.5vw,5.5rem)]">
             <p className="text-[length:var(--text-micro)] uppercase tracking-[0.2em] text-[var(--color-cyan-accent)]">
