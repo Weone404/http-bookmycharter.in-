@@ -5,26 +5,24 @@ raw values.
 
 ## Colour
 
-Three brand colours and tonal variations derived from them. Nothing else.
+White + Ink + Sky (September 2026). One accent colour; everything else is ink on white or cool grey.
 
-| Token | Value | Use |
-|---|---|---|
-| `--color-midnight` | `#071A2B` | Navigation, hero, footer, dark sections, structural surfaces |
-| `--color-cyan-accent` | `#16B8D4` | Accents, interactive states, active controls, the primary CTA |
-| `--color-ivory` | `#F5F7F4` | Content sections, editorial surfaces, long-form reading |
+| Token | Light ground | Inside `.on-dark` | Role |
+| --- | --- | --- | --- |
+| `--color-surface` | `#FFFFFF` | — | Cards, header, clean sections |
+| `--color-ivory` | `#F4F6F9` | — | Alternate light ground (name kept; it is a cool grey now) |
+| `--color-ink` / `--color-midnight` | `#0B1726` | — | Text; the one dark ground (hero, footer, at most one band a page) |
+| `--color-ink-muted` | `#526273` | — | Secondary text |
+| `--color-accent` | `#1F5FD6` | `#8AB4FF` | Primary action, links, icons |
+| `--color-accent-strong` | `#1A4FB5` | `#B3CEFF` | Hover, small link text |
+| `--color-on-accent` | `#FFFFFF` | `#0B1726` | Text on an accent fill |
 
-Derived: `--color-midnight-950/900/800/700/600`, `--color-cyan-bright/deep`, `--color-ivory-dim`,
-and text tokens `--color-ink`, `--color-ink-muted`, `--color-ink-inverse`,
-`--color-ink-inverse-muted`.
+**Use the role, never a hex.** `.on-dark` swaps the accent roles to a lighter sky, because `#1F5FD6`
+on ink is about 3:1. Any dark surface carries `on-dark` (the `midnight` Section ground adds it), so a
+primary button or link is legible on either ground without a second variant.
 
-**Cyan is used sparingly.** It marks the primary action, the active state and the accent rule — not
-headings, not borders generally, not decoration. Its scarcity is what makes it read as "act here".
-
-`--color-cyan-deep` (`#0c7688`) exists because `#16B8D4` on ivory does not carry enough contrast
-for body-size text; the deeper tone is used for links and small text on light grounds. It measures
-**4.84:1** on `--color-ivory`. Its first value, `#0e8ba1`, measured 3.72:1 and failed Lighthouse's
-contrast audit on every page — the token existed for the right reason and was still not dark
-enough. Any replacement must be measured, not eyeballed.
+**Sky is the only saturated colour.** It marks what can be clicked. Nothing decorative uses it at
+full strength.
 
 ## Type
 

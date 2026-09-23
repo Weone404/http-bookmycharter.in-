@@ -35,7 +35,7 @@ function renderDark() {
   return (
     <div
       aria-hidden="true"
-      className="absolute inset-0 overflow-hidden bg-[var(--color-midnight)]"
+      className="on-dark absolute inset-0 overflow-hidden bg-[var(--color-midnight)]"
     >
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_65%_35%,rgba(22,184,212,0.16),transparent_62%)]" />
       {/* A horizon line and an altitude grid: enough to read as an aviation
@@ -45,7 +45,7 @@ function renderDark() {
         className="absolute inset-x-0 bottom-0 h-[38%] opacity-[0.07]"
         style={{
           backgroundImage:
-            'linear-gradient(to right, #f5f7f4 1px, transparent 1px), linear-gradient(to top, #f5f7f4 1px, transparent 1px)',
+            'linear-gradient(to right, #f4f6f9 1px, transparent 1px), linear-gradient(to top, #f4f6f9 1px, transparent 1px)',
           backgroundSize: '4rem 4rem',
         }}
       />

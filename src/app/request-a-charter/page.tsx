@@ -50,7 +50,7 @@ export default function RequestACharterPage() {
                   data-track="call_click"
                   className="inline-flex items-center gap-2.5 font-medium"
                 >
-                  <Phone className="h-4 w-4 text-[var(--color-cyan-deep)]" aria-hidden="true" />
+                  <Phone className="h-4 w-4 text-[var(--color-accent-strong)]" aria-hidden="true" />
                   <span className="numeric">{CONTACT.phoneDisplay}</span>
                 </a>
                 <a
@@ -58,7 +58,7 @@ export default function RequestACharterPage() {
                   data-track="whatsapp_click"
                   className="inline-flex items-center gap-2.5 font-medium"
                 >
-                  <MessageCircle className="h-4 w-4 text-[var(--color-cyan-deep)]" aria-hidden="true" />
+                  <MessageCircle className="h-4 w-4 text-[var(--color-accent-strong)]" aria-hidden="true" />
                   WhatsApp
                 </a>
               </div>
@@ -69,7 +69,7 @@ export default function RequestACharterPage() {
               <ol className="mt-5 space-y-4 text-[length:var(--text-small)]">
                 {HOW_IT_WORKS.map((step) => (
                   <li key={step.step} className="flex gap-4">
-                    <span className="numeric shrink-0 font-semibold text-[var(--color-cyan-deep)]">
+                    <span className="numeric shrink-0 font-semibold text-[var(--color-accent-strong)]">
                       {step.step}
                     </span>
                     <span className="text-[var(--color-ink-muted)]">{step.title}</span>

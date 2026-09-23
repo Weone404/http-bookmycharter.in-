@@ -56,7 +56,7 @@ export function GlanceCard({
 }) {
   return (
     <div className="rounded-[var(--radius-card)] border border-[var(--color-hairline)] bg-[var(--color-surface)] p-7 text-[var(--color-ink)]">
-      <h2 className="text-[length:var(--text-micro)] uppercase tracking-[0.16em] text-[var(--color-cyan-deep)]">
+      <h2 className="text-[length:var(--text-micro)] uppercase tracking-[0.16em] text-[var(--color-accent-strong)]">
         {heading}
       </h2>
 
@@ -66,7 +66,7 @@ export function GlanceCard({
             <li key={category} className="flex items-center gap-4">
               <AircraftGlyph
                 category={category}
-                className="h-9 w-20 shrink-0 text-[var(--color-cyan-deep)]"
+                className="h-9 w-20 shrink-0 text-[var(--color-accent-strong)]"
               />
               <span className="font-medium">{categoryLabel?.[category] ?? category}</span>
             </li>
@@ -99,7 +99,7 @@ export function GlanceCard({
 
       <Link
         href={primaryHref}
-        className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-midnight)] px-5 py-3.5 text-[length:var(--text-small)] font-semibold tracking-[0.02em] text-[var(--color-ink-inverse)] transition-colors hover:bg-[var(--color-midnight-800)]"
+        className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 py-3.5 text-[length:var(--text-small)] font-semibold tracking-[0.02em] text-[var(--color-on-accent)] transition-colors hover:bg-[var(--color-accent-strong)]"
       >
         {primaryLabel}
         <ArrowRight className="h-4 w-4" aria-hidden="true" />

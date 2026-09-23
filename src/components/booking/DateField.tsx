@@ -170,10 +170,10 @@ export function DateField({
   const triggerClass = dark
     ? `w-full border-b bg-transparent py-3 pr-2 pl-6 text-left ${
         error ? 'border-[#ff8a80]' : 'border-white/25'
-      } focus:border-[var(--color-cyan-accent)] focus:outline-none`
+      } focus:border-[var(--color-accent)] focus:outline-none`
     : `w-full rounded-[var(--radius-control)] border bg-[var(--color-surface)] py-3 pr-3 pl-9 text-left ${
         error ? 'border-[#b3261e]' : 'border-[var(--color-hairline-strong)]'
-      } focus:border-[var(--color-cyan-deep)] focus:outline-none`;
+      } focus:border-[var(--color-accent-strong)] focus:outline-none`;
 
   return (
     <div ref={container} className="relative">
@@ -314,7 +314,7 @@ export function DateField({
                               : past
                                 ? 'cursor-not-allowed text-[var(--color-ink-muted)]/35'
                                 : 'text-[var(--color-ink)] hover:bg-[var(--color-ivory-dim)]'
-                          } ${isToday && !selected ? 'ring-1 ring-[var(--color-cyan-deep)] ring-inset' : ''}`}
+                          } ${isToday && !selected ? 'ring-1 ring-[var(--color-accent-strong)] ring-inset' : ''}`}
                         >
                           {cell.day}
                         </button>
@@ -339,7 +339,7 @@ export function DateField({
                     type="button"
                     disabled={disabled}
                     onClick={() => choose(option.day)}
-                    className="rounded-[var(--radius-pill)] border border-[var(--color-hairline-strong)] px-3.5 py-1.5 text-[length:var(--text-small)] text-[var(--color-ink)] transition-colors hover:border-[var(--color-cyan-deep)] disabled:opacity-35"
+                    className="rounded-[var(--radius-pill)] border border-[var(--color-hairline-strong)] px-3.5 py-1.5 text-[length:var(--text-small)] text-[var(--color-ink)] transition-colors hover:border-[var(--color-accent-strong)] disabled:opacity-35"
                   >
                     {option.label}
                   </button>

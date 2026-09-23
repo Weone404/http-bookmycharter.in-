@@ -69,7 +69,7 @@ export default function EmptyLegPage() {
           Current availability
         </h2>
         {AVAILABLE_EMPTY_LEGS.length === 0 ? (
-          <div className="mt-6 max-w-[68ch] border-l-2 border-[var(--color-cyan-accent)] pl-5">
+          <div className="mt-6 max-w-[68ch] border-l-2 border-[var(--color-accent)] pl-5">
             <p>
               We do not publish a standing list of empty legs, because a list is out of date almost
               as soon as it is written — availability is created by other people&rsquo;s bookings and

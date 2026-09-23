@@ -64,7 +64,14 @@ export function usePopover({
       const rect = node.getBoundingClientRect();
       const vv = window.visualViewport;
       const top = vv ? vv.offsetTop : 0;
-      const bottom = vv ? vv.offsetTop + vv.height : window.innerHeight;
+      // The mobile action bar is fixed to the bottom of the screen and
+      // publishes its height here; a popover that opened into it would be
+      // half hidden behind it, the same failure as the clipped airport list.
+      const reserved =
+        Number.parseFloat(
+          getComputedStyle(document.documentElement).getPropertyValue('--bottom-reserved'),
+        ) || 0;
+      const bottom = (vv ? vv.offsetTop + vv.height : window.innerHeight) - reserved;
       const below = bottom - rect.bottom - EDGE_GAP;
       const above = rect.top - top - EDGE_GAP;
       // What the popover actually needs, measured from its content rather

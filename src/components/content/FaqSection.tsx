@@ -29,7 +29,7 @@ export function FaqSection({
               <span>{faq.question}</span>
               <span
                 aria-hidden="true"
-                className="mt-1 shrink-0 text-[var(--color-cyan-accent)] transition-transform duration-[var(--duration-fast)] group-open:rotate-45"
+                className="mt-1 shrink-0 text-[var(--color-accent)] transition-transform duration-[var(--duration-fast)] group-open:rotate-45"
               >
                 +
               </span>

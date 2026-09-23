@@ -8,40 +8,47 @@
    --------------------------------------------------------------------------- */
 
 @theme {
-  /* Midnight Navy — structure, navigation, hero, footer, dark sections. */
-  --color-midnight: #071a2b;
-  --color-midnight-950: #04101c;
-  --color-midnight-900: #071a2b;
-  --color-midnight-800: #0c2b42;
-  --color-midnight-700: #123249;
-  --color-midnight-600: #1b4463;
+  /* WHITE + INK + SKY.
 
-  /* Aviation Cyan — accent only. Interactive states, active controls, CTA. */
-  --color-cyan-accent: #16b8d4;
-  --color-cyan-bright: #3fd0e8;
-  /* 4.84:1 on --color-ivory at body size. The brighter accent measured
-     3.72:1 and failed Lighthouse's contrast audit on every page. */
-  --color-cyan-deep: #0c7688;
+     White and a cool light grey carry the pages; ink is the text and the one
+     dark register (hero, footer, at most one band per page); a single sky blue
+     is the only saturated colour, reserved for actions and links. The earlier
+     navy-and-cyan palette put two strong colours on every screen and made the
+     site read as a control panel rather than a travel service.
 
-  /* Aviation Ivory — editorial surfaces, long-form reading. */
-  --color-ivory: #f5f7f4;
-  --color-ivory-dim: #e7ebe6;
+     Token names are kept stable (midnight = the ink ground, ivory = the light
+     ground) so the change is a palette swap, not a rewrite of every page. */
 
-  /* White is a surface, not a fourth brand colour. The palette stayed three
-     colours and the page paid for it: an ivory card on an ivory ground has no
-     separation, so every panel that needed to stand apart had to go midnight,
-     and the site ended up armoured in dark chrome. A white card on the ivory
-     ground separates with a hairline instead, which is what lets the dark
-     sections become rare and deliberate again. */
+  /* Ink — text, and the dark ground. */
+  --color-midnight: #0b1726;
+  --color-midnight-950: #060e18;
+  --color-midnight-900: #0b1726;
+  --color-midnight-800: #13243a;
+  --color-midnight-700: #1b3049;
+  --color-midnight-600: #26405f;
+
+  /* Sky — the one accent. On light grounds: #1f5fd6 is 5.5:1 on white and
+     #1a4fb5 is 7.3:1, so both pass as text. On dark grounds the same roles
+     swap to a lighter sky (see .on-dark), because #1f5fd6 on ink is only
+     about 3:1. Components use the role, never a hex, and get the right one. */
+  --color-accent: #1f5fd6;
+  --color-accent-strong: #1a4fb5;
+  /* Text or icon sitting on an accent-filled surface. */
+  --color-on-accent: #ffffff;
+
+  /* Light grounds. `ivory` is now a cool grey, not a warm cream. */
+  --color-ivory: #f4f6f9;
+  --color-ivory-dim: #e6eaf0;
+
   --color-surface: #ffffff;
-  --color-hairline: rgba(7, 26, 43, 0.1);
-  --color-hairline-strong: rgba(7, 26, 43, 0.18);
+  --color-hairline: rgba(11, 23, 38, 0.1);
+  --color-hairline-strong: rgba(11, 23, 38, 0.18);
 
   /* Text on each ground. */
-  --color-ink: #071a2b;
-  --color-ink-muted: #47596a;
-  --color-ink-inverse: #f5f7f4;
-  --color-ink-inverse-muted: #9db0c0;
+  --color-ink: #0b1726;
+  --color-ink-muted: #526273;
+  --color-ink-inverse: #f4f6f9;
+  --color-ink-inverse-muted: #a9b6c6;
 
   /* Fluid type scale. clamp() throughout, so nothing is sized per breakpoint. */
   --text-display: clamp(2.5rem, 1.2rem + 5.2vw, 5.5rem);
@@ -80,8 +87,7 @@
     ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
     'Noto Sans', sans-serif;
   /* Tabular figures for specs, prices, distances and flight times. */
-  --font-numeric:
-    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-numeric: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* Inside @layer base, not unlayered. Under cascade layers an unlayered rule
@@ -98,10 +104,14 @@
   }
 }
 
-/* Marks a midnight surface. Contrast flips: the bright accent is legible
-   there and the deep one is not, which is the reverse of the light ground. */
+/* Marks an ink surface. The accent roles swap to a lighter sky there, and
+   text on an accent fill becomes ink, so a primary button, a link or a step
+   number stays legible on either ground without a second variant. */
 .on-dark {
-  --wordmark-accent: var(--color-cyan-accent);
+  --color-accent: #8ab4ff;
+  --color-accent-strong: #b3ceff;
+  --color-on-accent: #0b1726;
+  --wordmark-accent: var(--color-accent);
 }
 
 html {
@@ -136,7 +146,7 @@ canvas {
 
 /* Visible focus. Never removed, only restyled. */
 :focus-visible {
-  outline: 2px solid var(--color-cyan-accent);
+  outline: 2px solid var(--color-accent);
   outline-offset: 3px;
 }
 

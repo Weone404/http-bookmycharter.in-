@@ -12,7 +12,7 @@ import { RelatedLinks } from '@/components/content/RelatedLinks';
 export default function NotFound() {
   return (
     <Section ground="midnight" width="wide">
-      <p className="text-[length:var(--text-micro)] uppercase tracking-[0.2em] text-[var(--color-cyan-accent)]">
+      <p className="text-[length:var(--text-micro)] uppercase tracking-[0.2em] text-[var(--color-accent)]">
         Error 404
       </p>
       <h1 className="mt-5 max-w-[16ch] text-[length:var(--text-h1)] font-semibold leading-[1.05] tracking-[-0.02em]">

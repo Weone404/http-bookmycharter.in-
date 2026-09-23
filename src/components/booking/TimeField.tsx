@@ -166,10 +166,10 @@ export function TimeField({
   const triggerClass = dark
     ? `w-full border-b bg-transparent py-3 pr-2 pl-6 text-left ${
         error ? 'border-[#ff8a80]' : 'border-white/25'
-      } focus:border-[var(--color-cyan-accent)] focus:outline-none`
+      } focus:border-[var(--color-accent)] focus:outline-none`
     : `w-full rounded-[var(--radius-control)] border bg-[var(--color-surface)] py-3 pr-3 pl-9 text-left ${
         error ? 'border-[#b3261e]' : 'border-[var(--color-hairline-strong)]'
-      } focus:border-[var(--color-cyan-deep)] focus:outline-none`;
+      } focus:border-[var(--color-accent-strong)] focus:outline-none`;
 
   const shown = value === FLEXIBLE ? 'Flexible' : formatSlot(value);
 
@@ -261,7 +261,7 @@ export function TimeField({
                   <span>{slot === FLEXIBLE ? 'Flexible — decide later' : formatSlot(slot)}</span>
                   {selected ? (
                     <span
-                      className="h-1.5 w-1.5 rounded-full bg-[var(--color-cyan-deep)]"
+                      className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent-strong)]"
                       aria-hidden="true"
                     />
                   ) : null}

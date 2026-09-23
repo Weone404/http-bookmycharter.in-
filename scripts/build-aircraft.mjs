@@ -39,6 +39,20 @@ function slugify(value) {
     .replace(/^-+|-+$/g, '');
 }
 
+/**
+ * Cruise speed in knots. "Cruise Mach 0.78 (~450–460 kts)" used to parse as
+ * 0.78 kts, because the first number on the line was taken whatever its unit.
+ * A knots figure is used when the line states one; a Mach-only line gives
+ * null, since converting Mach to knots needs an altitude the sheet does not
+ * give, and a guessed figure is worse than a dash.
+ */
+function parseSpeed(raw) {
+  const kts = /(\d[\d,]*(?:\s*[–—-]\s*\d[\d,]*)?)\s*kts/i.exec(raw);
+  if (kts) return parseRange(kts[1]);
+  if (/mach/i.test(raw)) return null;
+  return parseRange(raw.replace(/cruise/i, ''));
+}
+
 /** "5–7" -> {min:5,max:7} · "340" -> {min:340,max:340} · unparseable -> null */
 function parseRange(raw) {
   if (!raw) return null;
@@ -89,7 +103,7 @@ for (const line of md.split('\n')) {
   if (key === 'description') current.sourceDescription = value;
   else if (key === 'seats') current.specs.passengers = parseRange(value);
   else if (key === 'range') current.specs.rangeNm = parseRange(value);
-  else if (key === 'speed') current.specs.cruiseKts = parseRange(value.replace(/cruise/i, ''));
+  else if (key === 'speed') current.specs.cruiseKts = parseSpeed(value);
   else if (key === 'luggage') current.specs.baggageNote = value;
   else if (key === 'pilots') current.specs.crew = parseRange(value);
   else if (key === 'flight attendant') current.specs.cabinCrew = /^yes/i.test(value);

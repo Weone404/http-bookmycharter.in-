@@ -1,46 +1,41 @@
 import Link from 'next/link';
 import { Phone } from 'lucide-react';
-import { primaryNav } from '@/lib/routes';
 import { CONTACT } from '@/lib/site';
+import { DRAWER_GROUPS, HEADER_SERVICES, MORE_GROUPS } from '@/lib/navigation';
 import { Container } from '@/components/ui/Container';
 import { Wordmark } from '@/components/ui/Wordmark';
+import { HeaderLinks } from './HeaderLinks';
+import { MoreMenu } from './MoreMenu';
 import { MobileNav } from './MobileNav';
 
 /**
- * Server Component. Only the drawer below is client-side, so the navigation is
- * in the initial HTML and costs almost nothing to hydrate.
+ * The header leads with the five services people come for — private jets,
+ * helicopters, Char Dham, empty legs and corporate — instead of the site's
+ * own filing categories. Everything else is one click behind "More", so any
+ * page is reachable from any page in two clicks at most.
  *
- * Light, not midnight. A solid dark bar across the top of every page is the
- * single heaviest thing on the site and it was there on all forty-seven of
- * them; it made every page announce itself before saying anything. White with
- * a hairline underneath gives the navigation to the reader without taking the
- * page's first 72 pixels for decoration, and it leaves the cyan CTA as the
- * only saturated thing in the bar — which is the whole point of having one
- * accent colour.
+ * Server Component; only the active-link marker, the "More" panel and the
+ * mobile drawer run on the client.
  */
 export function SiteHeader() {
-  const items = primaryNav();
-
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--color-hairline)] bg-[var(--color-surface)]/88 text-[var(--color-ink)] backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-[var(--color-hairline)] bg-[var(--color-surface)]/92 text-[var(--color-ink)] backdrop-blur-md">
       <Container width="wide">
         <div className="flex h-[4.5rem] items-center justify-between gap-6">
-          <Link href="/" className="text-[length:var(--text-h3)] shrink-0" aria-label="Book My Charter, home">
+          <Link
+            href="/"
+            className="shrink-0 text-[length:var(--text-h3)]"
+            aria-label="Book My Charter, home"
+          >
             <Wordmark />
           </Link>
 
           <nav aria-label="Primary" className="hidden xl:block">
-            <ul className="flex items-center gap-6 xl:gap-7">
-              {items.map((item) => (
-                <li key={item.path}>
-                  <Link
-                    href={item.path}
-                    className="whitespace-nowrap text-[length:var(--text-small)] text-[var(--color-ink-muted)] transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-ink)]"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+            <ul className="flex items-center gap-1">
+              <HeaderLinks links={HEADER_SERVICES} />
+              <li>
+                <MoreMenu groups={MORE_GROUPS} />
+              </li>
             </ul>
           </nav>
 
@@ -48,18 +43,18 @@ export function SiteHeader() {
             <a
               href={`tel:${CONTACT.phone}`}
               data-track="call_click"
-              className="hidden items-center gap-2 whitespace-nowrap text-[length:var(--text-small)] text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] sm:inline-flex xl:hidden 2xl:inline-flex"
+              className="hidden items-center gap-2 whitespace-nowrap text-[length:var(--text-small)] font-medium text-[var(--color-ink)] hover:text-[var(--color-accent)] sm:inline-flex xl:hidden 2xl:inline-flex"
             >
-              <Phone className="h-4 w-4" aria-hidden="true" />
+              <Phone className="h-4 w-4 text-[var(--color-accent)]" aria-hidden="true" />
               <span className="numeric">{CONTACT.phoneDisplay}</span>
             </a>
             <Link
               href="/request-a-charter"
-              className="hidden whitespace-nowrap xl:inline-flex items-center rounded-[var(--radius-pill)] bg-[var(--color-midnight)] px-5 py-2.5 text-[length:var(--text-small)] font-semibold tracking-[0.02em] text-[var(--color-ink-inverse)] transition-colors duration-[var(--duration-fast)] hover:bg-[var(--color-midnight-800)]"
+              className="hidden items-center whitespace-nowrap rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 py-2.5 text-[length:var(--text-small)] font-semibold text-[var(--color-on-accent)] transition-colors duration-[var(--duration-fast)] hover:bg-[var(--color-accent-strong)] xl:inline-flex"
             >
               Request a Charter
             </Link>
-            <MobileNav items={items} />
+            <MobileNav groups={DRAWER_GROUPS} />
           </div>
         </div>
       </Container>

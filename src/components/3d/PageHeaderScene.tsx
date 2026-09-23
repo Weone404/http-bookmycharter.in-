@@ -51,14 +51,14 @@ export function PageHeaderScene({
       {/* The canvas is opaque, so this has to match the fallback behind it or
           the seam shows. Ivory, not midnight: the band sits directly under a
           white navigation bar now. */}
-      <color attach="background" args={['#f5f7f4']} />
+      <color attach="background" args={['#f4f6f9']} />
       {/* Lighting inverted for the light ground. On midnight the aircraft was
           read by its highlights; on ivory it is read by its shadowed side, so
           the key is softer, the ambient is much higher, and a low cyan bounce
           stands in for light coming back off the sweep. */}
       <ambientLight intensity={1.15} />
       <directionalLight position={[5, 7, 6]} intensity={2.1} />
-      <directionalLight position={[-6, -2, -4]} intensity={0.5} color="#16B8D4" />
+      <directionalLight position={[-6, -2, -4]} intensity={0.5} color="#8AB4FF" />
       <group ref={group} position={[2.6, -0.3, 0]} rotation={[0.08, -0.75, 0]} scale={1.15}>
         {form === 'helicopter' ? <HelicopterForm materials={materials} /> : null}
         {form === 'turboprop' ? <TurbopropForm materials={materials} /> : null}

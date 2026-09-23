@@ -32,18 +32,18 @@ export function GET() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          background: '#071A2B',
+          background: '#0B1726',
           padding: '72px',
           fontFamily: 'sans-serif',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
           <svg width="44" height="44" viewBox="0 0 24 24" fill="none">
-            <path d="M2 13.6l20-9.1-4.4 9.1 4.4 9.1-20-9.1z" fill="#F5F7F4" opacity="0.9" />
+            <path d="M2 13.6l20-9.1-4.4 9.1 4.4 9.1-20-9.1z" fill="#F4F6F9" opacity="0.9" />
           </svg>
-          <div style={{ display: 'flex', gap: '10px', fontSize: 40, fontWeight: 600, color: '#F5F7F4' }}>
+          <div style={{ display: 'flex', gap: '10px', fontSize: 40, fontWeight: 600, color: '#F4F6F9' }}>
             <span>Book My</span>
-            <span style={{ color: '#16B8D4' }}>Charter</span>
+            <span style={{ color: '#8AB4FF' }}>Charter</span>
           </div>
         </div>
 
@@ -52,7 +52,7 @@ export function GET() {
             style={{
               fontSize: 78,
               fontWeight: 600,
-              color: '#F5F7F4',
+              color: '#F4F6F9',
               lineHeight: 1.02,
               letterSpacing: '-0.02em',
               maxWidth: '900px',
@@ -66,7 +66,7 @@ export function GET() {
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <div style={{ width: '120px', height: '3px', background: '#16B8D4' }} />
+          <div style={{ width: '120px', height: '3px', background: '#8AB4FF' }} />
           <div style={{ fontSize: 24, color: '#9DB0C0', letterSpacing: '0.08em' }}>
             {SITE.url.replace('https://', '')}
           </div>

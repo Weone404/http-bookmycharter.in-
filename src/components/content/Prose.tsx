@@ -32,7 +32,7 @@ export function PointList({
       <ul className="mt-5 max-w-[68ch] space-y-3">
         {points.map((point) => (
           <li key={point} className="flex gap-3.5">
-            <span aria-hidden="true" className="mt-[0.7em] h-px w-4 shrink-0 bg-[var(--color-cyan-accent)]" />
+            <span aria-hidden="true" className="mt-[0.7em] h-px w-4 shrink-0 bg-[var(--color-accent)]" />
             <span>{point}</span>
           </li>
         ))}

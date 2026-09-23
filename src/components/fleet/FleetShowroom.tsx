@@ -161,7 +161,7 @@ export function FleetShowroom() {
   return (
     <div
       ref={rootRef}
-      className="relative isolate overflow-hidden bg-[var(--color-midnight)]"
+      className="on-dark relative isolate overflow-hidden bg-[var(--color-midnight)]"
       onKeyDown={onKeyDown}
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
@@ -191,7 +191,7 @@ export function FleetShowroom() {
             onClick={previous}
             disabled={index === 0}
             aria-label="Previous aircraft"
-            className="rounded-[var(--radius-control)] border border-white/20 bg-[var(--color-midnight-950)]/60 p-3 text-[var(--color-ink-inverse)] backdrop-blur-sm transition-colors hover:border-[var(--color-cyan-accent)] disabled:opacity-35"
+            className="rounded-[var(--radius-control)] border border-white/20 bg-[var(--color-midnight-950)]/60 p-3 text-[var(--color-ink-inverse)] backdrop-blur-sm transition-colors hover:border-[var(--color-accent)] disabled:opacity-35"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
           </button>
@@ -200,7 +200,7 @@ export function FleetShowroom() {
             onClick={next}
             disabled={index === FLEET_SCENE.length - 1}
             aria-label="Next aircraft"
-            className="rounded-[var(--radius-control)] border border-white/20 bg-[var(--color-midnight-950)]/60 p-3 text-[var(--color-ink-inverse)] backdrop-blur-sm transition-colors hover:border-[var(--color-cyan-accent)] disabled:opacity-35"
+            className="rounded-[var(--radius-control)] border border-white/20 bg-[var(--color-midnight-950)]/60 p-3 text-[var(--color-ink-inverse)] backdrop-blur-sm transition-colors hover:border-[var(--color-accent)] disabled:opacity-35"
           >
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </button>
@@ -225,7 +225,7 @@ export function FleetShowroom() {
                 aria-current={entryIndex === index ? 'true' : undefined}
                 className={`text-[length:var(--text-small)] transition-colors ${
                   entryIndex === index
-                    ? 'font-medium text-[var(--color-cyan-accent)]'
+                    ? 'font-medium text-[var(--color-accent)]'
                     : 'text-[var(--color-ink-inverse-muted)] hover:text-[var(--color-ink-inverse)]'
                 }`}
               >
@@ -268,7 +268,7 @@ function FleetPanel({
     <>
           <p
             data-fleet-fade
-            className="text-[length:var(--text-micro)] uppercase tracking-[0.18em] text-[var(--color-cyan-accent)]"
+            className="text-[length:var(--text-micro)] uppercase tracking-[0.18em] text-[var(--color-accent)]"
           >
             {CATEGORY_LABEL[item.category] ?? item.category}
           </p>
@@ -295,13 +295,13 @@ function FleetPanel({
           <div data-fleet-fade className="mt-6 flex flex-wrap items-center gap-4">
             <Link
               href={item.aircraft.href}
-              className="text-[length:var(--text-small)] font-medium text-[var(--color-cyan-accent)] underline underline-offset-4"
+              className="text-[length:var(--text-small)] font-medium text-[var(--color-accent)] underline underline-offset-4"
             >
               About the {item.name}
             </Link>
             <Link
               href="/request-a-charter"
-              className="inline-flex items-center gap-2 rounded-[var(--radius-control)] bg-[var(--color-cyan-accent)] px-5 py-2.5 text-[length:var(--text-small)] font-semibold uppercase tracking-[0.08em] text-[var(--color-midnight)]"
+              className="inline-flex items-center gap-2 rounded-[var(--radius-control)] bg-[var(--color-accent)] px-5 py-2.5 text-[length:var(--text-small)] font-semibold uppercase tracking-[0.08em] text-[var(--color-on-accent)]"
             >
               Request a Charter
             </Link>

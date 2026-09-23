@@ -90,7 +90,7 @@ export function ServicePageTemplate({ service }: { service: Service }) {
         <ol className="mt-8 grid gap-px border-t border-[var(--color-ink)]/15 sm:grid-cols-2 lg:grid-cols-4">
           {service.howItWorks.map((step, index) => (
             <li key={step.title} className="border-b border-[var(--color-ink)]/15 py-6 pr-6">
-              <span className="numeric text-[length:var(--text-small)] font-semibold text-[var(--color-cyan-deep)]">
+              <span className="numeric text-[length:var(--text-small)] font-semibold text-[var(--color-accent-strong)]">
                 {String(index + 1).padStart(2, '0')}
               </span>
               <h3 className="mt-3 text-[length:var(--text-h3)] font-medium leading-snug">{step.title}</h3>
@@ -127,7 +127,7 @@ export function ServicePageTemplate({ service }: { service: Service }) {
               <>
                 <AircraftGlyph
                   category={category}
-                  className="mb-3 h-7 w-auto text-[var(--color-cyan-deep)]"
+                  className="mb-3 h-7 w-auto text-[var(--color-accent-strong)]"
                 />
                 <h3 className="text-[length:var(--text-h3)] font-medium">{CATEGORY_LABEL[category]}</h3>
                 {types.length > 0 ? (
@@ -145,7 +145,7 @@ export function ServicePageTemplate({ service }: { service: Service }) {
                   <Link href={href} className="group block">
                     {body}
                     <ArrowRight
-                      className="mt-4 h-4 w-4 text-[var(--color-cyan-deep)] transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1"
+                      className="mt-4 h-4 w-4 text-[var(--color-accent-strong)] transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1"
                       aria-hidden="true"
                     />
                   </Link>

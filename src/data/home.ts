@@ -144,7 +144,65 @@ export const PRICING_FACTORS: readonly PricingFactorContent[] = [
   },
   {
     factor: 'Taxes and statutory charges',
-    explanation:
-      'Applied on top of the operating cost and varying with the nature of the flight.',
+    explanation: 'Applied on top of the operating cost and varying with the nature of the flight.',
   },
+];
+
+/**
+ * The five services on the home page, directly under the hero, in the same
+ * order as the header. Each is one click to its page. Copy is a plain
+ * restatement of what that page covers — no claims the page does not make.
+ */
+export interface HomeService {
+  readonly title: string;
+  readonly href: Path;
+  readonly summary: string;
+  readonly icon: 'private-jet' | 'helicopter' | 'mountain' | 'empty-leg' | 'corporate';
+}
+
+export const HOME_SERVICES: readonly HomeService[] = [
+  {
+    title: 'Private Jets',
+    href: '/private-charter/private-jet-charter',
+    icon: 'private-jet',
+    summary: 'A whole jet for your route, your schedule and your party.',
+  },
+  {
+    title: 'Helicopters',
+    href: '/helicopter-charter',
+    icon: 'helicopter',
+    summary: 'Point-to-point where runways do not reach: helipads, sites and hills.',
+  },
+  {
+    title: 'Char Dham & Kedarnath',
+    href: '/chardham',
+    icon: 'mountain',
+    summary: 'A whole helicopter for the Char Dham circuit or Kedarnath.',
+  },
+  {
+    title: 'Empty Legs',
+    href: '/empty-leg-charter',
+    icon: 'empty-leg',
+    summary: 'Repositioning flights: how they work and when one is worth waiting for.',
+  },
+  {
+    title: 'Corporate',
+    href: '/services/corporate-charter',
+    icon: 'corporate',
+    summary: 'Executive teams, multi-city days and recurring business travel.',
+  },
+];
+
+/** Aircraft groups shown as spec cards on the home page. */
+export interface HomeAircraftGroup {
+  readonly title: string;
+  readonly category: AircraftCategory;
+  readonly href: Path;
+}
+
+export const HOME_AIRCRAFT_GROUPS: readonly HomeAircraftGroup[] = [
+  { title: 'Helicopters', category: 'helicopter', href: '/aircraft/helicopters' },
+  { title: 'Turboprops', category: 'turboprop', href: '/aircraft/turboprops' },
+  { title: 'Private Jets', category: 'private-jet', href: '/aircraft/private-jets' },
+  { title: 'Regional Aircraft', category: 'executive-airliner', href: '/aircraft' },
 ];

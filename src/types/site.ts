@@ -42,10 +42,10 @@ export interface PublishedPrice {
 
 /** The three-colour brand system. Nothing outside this palette. */
 export interface BrandPalette {
-  /** #071A2B — navigation, hero, footer, dark structure. */
+  /** #0B1726 (ink) — text, hero, footer, dark structure. */
   readonly midnight: string;
-  /** #16B8D4 — accents, interactive states, CTA emphasis. Used sparingly. */
+  /** #1F5FD6 (sky) — accents, interactive states, CTA emphasis. Used sparingly. */
   readonly cyan: string;
-  /** #F5F7F4 — content sections, editorial surfaces, long-form reading. */
+  /** #F4F6F9 — content sections, editorial surfaces, long-form reading. */
   readonly ivory: string;
 }

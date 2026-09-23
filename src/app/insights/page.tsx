@@ -36,7 +36,7 @@ export default function InsightsPage() {
                 className="group grid gap-4 border-b border-[var(--color-ink)]/15 py-8 lg:grid-cols-[0.35fr_1.65fr]"
               >
                 <div>
-                  <span className="text-[length:var(--text-micro)] uppercase tracking-[0.14em] text-[var(--color-cyan-deep)]">
+                  <span className="text-[length:var(--text-micro)] uppercase tracking-[0.14em] text-[var(--color-accent-strong)]">
                     {INSIGHT_CATEGORY_LABEL[article.category] ?? article.category}
                   </span>
                   <time
@@ -52,7 +52,7 @@ export default function InsightsPage() {
                   </h2>
                   <p className="mt-3 text-[var(--color-ink-muted)]">{article.summary}</p>
                   <ArrowRight
-                    className="mt-4 h-4 w-4 text-[var(--color-cyan-deep)] transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1"
+                    className="mt-4 h-4 w-4 text-[var(--color-accent-strong)] transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1"
                     aria-hidden="true"
                   />
                 </div>

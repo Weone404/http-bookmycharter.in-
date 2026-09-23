@@ -34,8 +34,8 @@ export function PassengerField({
   const clamp = (next: number) => Math.min(max, Math.max(1, next));
 
   const button = dark
-    ? 'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/25 text-[var(--color-ink-inverse)] transition-colors hover:border-[var(--color-cyan-accent)] disabled:opacity-35'
-    : 'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--color-hairline-strong)] text-[var(--color-ink)] transition-colors hover:border-[var(--color-cyan-deep)] disabled:opacity-35';
+    ? 'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/25 text-[var(--color-ink-inverse)] transition-colors hover:border-[var(--color-accent)] disabled:opacity-35'
+    : 'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--color-hairline-strong)] text-[var(--color-ink)] transition-colors hover:border-[var(--color-accent-strong)] disabled:opacity-35';
 
   return (
     <div>

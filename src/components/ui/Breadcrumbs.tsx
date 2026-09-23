@@ -21,7 +21,7 @@ export function Breadcrumbs({ path, dynamic }: { path: Path; dynamic?: DynamicCr
                 <span aria-current="page">{route.label}</span>
               ) : (
                 <>
-                  <Link href={route.path} className="hover:text-[var(--color-cyan-accent)]">
+                  <Link href={route.path} className="hover:text-[var(--color-accent)]">
                     {route.label}
                   </Link>
                   <span aria-hidden="true">/</span>

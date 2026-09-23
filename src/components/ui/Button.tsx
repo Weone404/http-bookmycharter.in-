@@ -9,10 +9,10 @@ const BASE =
 const VARIANTS: Record<Variant, string> = {
   // Cyan is used sparingly and this is where it earns its place.
   primary:
-    'bg-[var(--color-cyan-accent)] text-[var(--color-midnight)] hover:bg-[var(--color-cyan-bright)] font-semibold',
+    'bg-[var(--color-accent)] text-[var(--color-on-accent)] hover:bg-[var(--color-accent-strong)] font-semibold',
   secondary:
-    'border border-current/30 text-current hover:border-[var(--color-cyan-accent)] hover:text-[var(--color-cyan-accent)]',
-  ghost: 'text-current hover:text-[var(--color-cyan-accent)] px-0',
+    'border border-current/30 text-current hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]',
+  ghost: 'text-current hover:text-[var(--color-accent)] px-0',
 };
 
 export function Button({

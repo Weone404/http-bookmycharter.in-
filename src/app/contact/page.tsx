@@ -29,7 +29,7 @@ export default function ContactPage() {
 
         <div className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           <div>
-            <Phone className="h-5 w-5 text-[var(--color-cyan-deep)]" aria-hidden="true" />
+            <Phone className="h-5 w-5 text-[var(--color-accent-strong)]" aria-hidden="true" />
             <h2 className="mt-4 text-[length:var(--text-h3)] font-semibold tracking-tight">Phone</h2>
             <p className="mt-2">
               <a href={`tel:${CONTACT.phone}`} data-track="call_click" className="numeric font-medium">
@@ -42,7 +42,7 @@ export default function ContactPage() {
           </div>
 
           <div>
-            <MessageCircle className="h-5 w-5 text-[var(--color-cyan-deep)]" aria-hidden="true" />
+            <MessageCircle className="h-5 w-5 text-[var(--color-accent-strong)]" aria-hidden="true" />
             <h2 className="mt-4 text-[length:var(--text-h3)] font-semibold tracking-tight">WhatsApp</h2>
             <p className="mt-2">
               <a
@@ -59,7 +59,7 @@ export default function ContactPage() {
           </div>
 
           <div>
-            <Mail className="h-5 w-5 text-[var(--color-cyan-deep)]" aria-hidden="true" />
+            <Mail className="h-5 w-5 text-[var(--color-accent-strong)]" aria-hidden="true" />
             <h2 className="mt-4 text-[length:var(--text-h3)] font-semibold tracking-tight">Email</h2>
             <p className="mt-2">
               <a href={`mailto:${CONTACT.email}`} className="font-medium">
@@ -73,7 +73,7 @@ export default function ContactPage() {
         </div>
 
         <div className="mt-12 border-t border-[var(--color-ink)]/15 pt-8">
-          <MapPin className="h-5 w-5 text-[var(--color-cyan-deep)]" aria-hidden="true" />
+          <MapPin className="h-5 w-5 text-[var(--color-accent-strong)]" aria-hidden="true" />
           <h2 className="mt-4 text-[length:var(--text-h3)] font-semibold tracking-tight">Office</h2>
           <address className="mt-3 not-italic leading-relaxed text-[var(--color-ink-muted)]">
             {ADDRESS.street}

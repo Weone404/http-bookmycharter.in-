@@ -26,7 +26,7 @@ export function Wordmark({ className = '' }: { className?: string }) {
         <path d="M2 13.6h20" stroke="currentColor" strokeWidth="1.1" opacity="0.35" />
       </svg>
       <span className="font-semibold tracking-[0.02em] leading-none">
-        Book My <span className="text-[var(--wordmark-accent,var(--color-cyan-deep))]">Charter</span>
+        Book My <span className="text-[var(--wordmark-accent,var(--color-accent-strong))]">Charter</span>
       </span>
     </span>
   );

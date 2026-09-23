@@ -1280,8 +1280,8 @@ export const GENERATED_AIRCRAFT: readonly GeneratedAircraft[] = [
         "max": 3000
       },
       "cruiseKts": {
-        "min": 0.78,
-        "max": 0.78
+        "min": 450,
+        "max": 460
       },
       "crew": {
         "min": 2,
@@ -1305,10 +1305,7 @@ export const GENERATED_AIRCRAFT: readonly GeneratedAircraft[] = [
         "min": 2900,
         "max": 3500
       },
-      "cruiseKts": {
-        "min": 0.78,
-        "max": 0.78
-      },
+      "cruiseKts": null,
       "crew": {
         "min": 2,
         "max": 2

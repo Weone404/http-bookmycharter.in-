@@ -32,7 +32,7 @@ export function RelatedLinks({
                 <span className="text-[length:var(--text-small)] opacity-70">{link.description}</span>
               ) : null}
               <ArrowRight
-                className="h-4 w-4 text-[var(--color-cyan-deep)] transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1"
+                className="h-4 w-4 text-[var(--color-accent-strong)] transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1"
                 aria-hidden="true"
               />
             </Link>

@@ -52,9 +52,9 @@ export const AREA_SERVED: readonly string[] = ['India'];
 
 /** The three-colour system. Nothing outside these and tonal variations. */
 export const BRAND: BrandPalette = {
-  midnight: '#071A2B',
-  cyan: '#16B8D4',
-  ivory: '#F5F7F4',
+  midnight: '#0B1726',
+  cyan: '#1F5FD6',
+  ivory: '#F4F6F9',
 };
 
 /**

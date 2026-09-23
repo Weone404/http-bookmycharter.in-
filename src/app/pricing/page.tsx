@@ -67,7 +67,7 @@ export default function PricingPage() {
             <article key={component.name} className="border-t border-[var(--color-ink)]/15 pt-6">
               <div className="grid gap-6 lg:grid-cols-[0.55fr_1.45fr]">
                 <div>
-                  <span className="numeric text-[length:var(--text-small)] font-semibold text-[var(--color-cyan-deep)]">
+                  <span className="numeric text-[length:var(--text-small)] font-semibold text-[var(--color-accent-strong)]">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                   <h3 className="mt-2 text-[length:var(--text-h3)] font-semibold tracking-tight">
@@ -82,13 +82,13 @@ export default function PricingPage() {
                   <ul className="mt-3 space-y-2 text-[length:var(--text-small)]">
                     {component.whatMovesIt.map((item) => (
                       <li key={item} className="flex gap-3">
-                        <span aria-hidden="true" className="mt-[0.7em] h-px w-3.5 shrink-0 bg-[var(--color-cyan-accent)]" />
+                        <span aria-hidden="true" className="mt-[0.7em] h-px w-3.5 shrink-0 bg-[var(--color-accent)]" />
                         <span className="text-[var(--color-ink-muted)]">{item}</span>
                       </li>
                     ))}
                   </ul>
                   {component.typicalSurprise ? (
-                    <p className="mt-5 border-l-2 border-[var(--color-cyan-accent)] pl-4 text-[length:var(--text-small)]">
+                    <p className="mt-5 border-l-2 border-[var(--color-accent)] pl-4 text-[length:var(--text-small)]">
                       {component.typicalSurprise}
                     </p>
                   ) : null}
@@ -114,7 +114,7 @@ export default function PricingPage() {
               'Compare the complete figures. A lower incomplete quote is not a cheaper trip.',
             ].map((step, index) => (
               <li key={step} className="flex gap-5">
-                <span className="numeric shrink-0 font-semibold text-[var(--color-cyan-accent)]">
+                <span className="numeric shrink-0 font-semibold text-[var(--color-accent)]">
                   {String(index + 1).padStart(2, '0')}
                 </span>
                 <span className="text-[var(--color-ink-inverse-muted)]">{step}</span>

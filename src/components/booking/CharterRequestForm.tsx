@@ -30,7 +30,7 @@ import { TimeField } from './TimeField';
 const LABEL =
   'block text-[length:var(--text-micro)] uppercase tracking-[0.14em] text-[var(--color-ink-muted)]';
 const FIELD =
-  'mt-2 w-full rounded-[var(--radius-control)] border border-[var(--color-ink)]/20 bg-white px-3.5 py-3 focus:border-[var(--color-cyan-deep)] focus:outline-none';
+  'mt-2 w-full rounded-[var(--radius-control)] border border-[var(--color-ink)]/20 bg-white px-3.5 py-3 focus:border-[var(--color-accent-strong)] focus:outline-none';
 const FIELD_ERROR = 'border-[#b3261e]';
 
 interface ApiResponse {
@@ -200,9 +200,9 @@ export function CharterRequestForm() {
       <div
         ref={resultRef}
         tabIndex={-1}
-        className="max-w-[46rem] rounded-[var(--radius-card)] border border-[var(--color-cyan-deep)]/30 bg-white p-7"
+        className="max-w-[46rem] rounded-[var(--radius-card)] border border-[var(--color-accent-strong)]/30 bg-white p-7"
       >
-        <Check className="h-6 w-6 text-[var(--color-cyan-deep)]" aria-hidden="true" />
+        <Check className="h-6 w-6 text-[var(--color-accent-strong)]" aria-hidden="true" />
         <h2 className="mt-4 text-[length:var(--text-h3)] font-semibold tracking-tight">
           Request received
         </h2>
@@ -302,7 +302,7 @@ export function CharterRequestForm() {
         onClick={toggleDetails}
         aria-expanded={showDetails}
         aria-controls="trip-details"
-        className="mt-6 text-[length:var(--text-small)] font-medium text-[var(--color-cyan-deep)] underline underline-offset-4"
+        className="mt-6 text-[length:var(--text-small)] font-medium text-[var(--color-accent-strong)] underline underline-offset-4"
       >
         {showDetails ? 'Hide trip details' : 'Add trip details (optional)'}
       </button>
@@ -457,7 +457,7 @@ export function CharterRequestForm() {
       <button
         type="submit"
         disabled={busy}
-        className="mt-8 inline-flex items-center gap-2 rounded-[var(--radius-control)] bg-[var(--color-cyan-accent)] px-7 py-3.5 text-[length:var(--text-small)] font-semibold uppercase tracking-[0.08em] text-[var(--color-midnight)] hover:bg-[var(--color-cyan-bright)] disabled:opacity-60"
+        className="mt-8 inline-flex items-center gap-2 rounded-[var(--radius-control)] bg-[var(--color-accent)] px-7 py-3.5 text-[length:var(--text-small)] font-semibold uppercase tracking-[0.08em] text-[var(--color-on-accent)] hover:bg-[var(--color-accent-strong)] disabled:opacity-60"
       >
         {busy ? 'Sending…' : 'Send charter request'}
         {busy ? null : <ArrowRight className="h-4 w-4" aria-hidden="true" />}
@@ -480,7 +480,7 @@ export function CharterRequestForm() {
                   data-track="call_click"
                   className="inline-flex items-center gap-2 font-medium"
                 >
-                  <Phone className="h-4 w-4 text-[var(--color-cyan-deep)]" aria-hidden="true" />
+                  <Phone className="h-4 w-4 text-[var(--color-accent-strong)]" aria-hidden="true" />
                   <span className="numeric">{CONTACT.phoneDisplay}</span>
                 </a>
                 <a

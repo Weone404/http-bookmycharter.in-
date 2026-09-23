@@ -86,7 +86,7 @@ export function QuickCharterForm() {
       <button
         type="submit"
         disabled={submitting}
-        className="inline-flex items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-cyan-accent)] px-7 py-3.5 text-[length:var(--text-small)] font-semibold tracking-[0.02em] text-[var(--color-midnight)] transition-colors duration-[var(--duration-fast)] hover:bg-[var(--color-cyan-bright)] disabled:opacity-60 sm:col-span-2 xl:col-span-1"
+        className="inline-flex items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-7 py-3.5 text-[length:var(--text-small)] font-semibold tracking-[0.02em] text-[var(--color-on-accent)] transition-colors duration-[var(--duration-fast)] hover:bg-[var(--color-accent-strong)] disabled:opacity-60 sm:col-span-2 xl:col-span-1"
       >
         {submitting ? 'Opening…' : 'Continue'}
         <ArrowRight className="h-4 w-4" aria-hidden="true" />

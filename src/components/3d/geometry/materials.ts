@@ -23,7 +23,7 @@ export interface AviationMaterials {
 }
 
 const MIDNIGHT = '#0c2b42';
-const CYAN = '#16b8d4';
+const CYAN = '#3d7bf0';
 
 export function useAviationMaterials(): AviationMaterials {
   return useMemo(() => {

@@ -22,6 +22,8 @@ import { supportsWebGl } from './webgl';
  * Suspense boundary. Scene content is passed in.
  */
 interface AviationCanvasProps {
+  /** Ground the canvas sits on, for the fallback and the loading overlay. */
+  tone?: 'dark' | 'light';
   readonly config: SceneConfig;
   readonly ariaLabel: string;
   /**
@@ -41,6 +43,7 @@ export function AviationCanvas({
   config,
   ariaLabel,
   pointerSource = 'element',
+  tone = 'dark',
   children,
 }: AviationCanvasProps) {
   const [capable, setCapable] = useState<boolean | null>(null);
@@ -82,18 +85,16 @@ export function AviationCanvas({
     pointerRef.current.y = 0;
   }, []);
 
-  if (capable === false || contextLost) return <SceneFallback />;
+  if (capable === false || contextLost) return <SceneFallback tone={tone} />;
 
   return (
     <div
       className={`absolute inset-0 ${pointerSource === 'window' ? 'pointer-events-none' : ''}`}
-      {...(pointerSource === 'element'
-        ? { onPointerMove, onPointerLeave }
-        : {})}
+      {...(pointerSource === 'element' ? { onPointerMove, onPointerLeave } : {})}
     >
       {/* The fallback stays behind the canvas so there is never a blank frame
           between mount and first paint. */}
-      <SceneFallback />
+      <SceneFallback tone={tone} />
 
       {capable === true ? (
         <>
@@ -131,7 +132,7 @@ export function AviationCanvas({
           >
             <Suspense fallback={null}>{children(pointerRef)}</Suspense>
           </Canvas>
-          <SceneLoader />
+          <SceneLoader tone={tone} />
         </>
       ) : null}
 

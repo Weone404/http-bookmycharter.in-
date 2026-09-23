@@ -245,7 +245,10 @@ export const CURATED: readonly CuratedAircraft[] = [
       'Full parties who need to work or rest en route',
       'Trips where cabin comfort is the deciding factor',
     ],
-    limitations: ['Materially higher cost than a midsize jet', 'More demanding runway requirements'],
+    limitations: [
+      'Materially higher cost than a midsize jet',
+      'More demanding runway requirements',
+    ],
   },
   {
     slug: 'global-6000',
@@ -309,4 +312,24 @@ export function formatRange(
   if (!range) return null;
   const value = range.min === range.max ? `${range.min}` : `${range.min}–${range.max}`;
   return unit ? `${value} ${unit}` : value;
+}
+
+/**
+ * The span of a spec across every type in a category: lowest minimum to
+ * highest maximum, ignoring types where the figure is unknown. Null when no
+ * type in the category has the figure, so a card shows nothing rather than a
+ * guess.
+ */
+export function categorySpan(
+  category: AircraftCategory,
+  spec: 'passengers' | 'rangeNm' | 'cruiseKts',
+): { readonly min: number; readonly max: number } | null {
+  const ranges = aircraftByCategory(category)
+    .map((a) => a.specs[spec])
+    .filter((r): r is { readonly min: number; readonly max: number } => r !== null);
+  if (ranges.length === 0) return null;
+  return {
+    min: Math.min(...ranges.map((r) => r.min)),
+    max: Math.max(...ranges.map((r) => r.max)),
+  };
 }

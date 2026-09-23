@@ -59,7 +59,7 @@ export default function HowItWorksPage() {
         <ol className="space-y-0 divide-y divide-[var(--color-ink)]/15 border-t border-[var(--color-ink)]/15">
           {HOW_IT_WORKS.map((step) => (
             <li key={step.step} className="grid gap-4 py-8 lg:grid-cols-[0.3fr_1.7fr]">
-              <span className="numeric text-[length:var(--text-h2)] font-semibold leading-none text-[var(--color-cyan-deep)]">
+              <span className="numeric text-[length:var(--text-h2)] font-semibold leading-none text-[var(--color-accent-strong)]">
                 {step.step}
               </span>
               <div className="max-w-[66ch]">

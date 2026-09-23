@@ -9,7 +9,7 @@ const GROUND: Record<Ground, string> = {
      another band of the same ivory — the alternation that replaces most of
      what used to be midnight. */
   surface: 'bg-[var(--color-surface)] text-[var(--color-ink)]',
-  midnight: 'bg-[var(--color-midnight)] text-[var(--color-ink-inverse)]',
+  midnight: 'on-dark bg-[var(--color-midnight)] text-[var(--color-ink-inverse)]',
   transparent: '',
 };
 

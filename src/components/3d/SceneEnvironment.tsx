@@ -27,9 +27,9 @@ export function SceneEnvironment({
   return (
     <>
       {/* Matches --color-midnight so the canvas blends into the section. */}
-      <color attach="background" args={['#071a2b']} />
+      <color attach="background" args={['#0b1726']} />
       {/* Depth cue that also hides the end of the world without a wall. */}
-      <fog attach="fog" args={['#071a2b', 12, 42]} />
+      <fog attach="fog" args={['#0b1726', 12, 42]} />
 
       <ambientLight intensity={0.55} color="#c8d8e4" />
 
@@ -61,7 +61,7 @@ export function SceneEnvironment({
 
       {/* Rim light in the brand accent. This is where the scene gets its
           aviation-at-dusk quality, at the cost of one non-shadowing light. */}
-      <directionalLight position={[centerX - 8, 3, -7]} intensity={0.85} color="#16b8d4" />
+      <directionalLight position={[centerX - 8, 3, -7]} intensity={0.85} color="#8ab4ff" />
     </>
   );
 }

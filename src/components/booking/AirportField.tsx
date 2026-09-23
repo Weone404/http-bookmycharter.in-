@@ -101,8 +101,8 @@ export function AirportField({
 
   const dark = tone === 'dark';
   const field = dark
-    ? 'w-full bg-transparent border-b border-white/25 py-3 pr-2 pl-6 text-[var(--color-ink-inverse)] placeholder:text-[var(--color-ink-inverse-muted)] focus:border-[var(--color-cyan-accent)] focus:outline-none'
-    : 'w-full rounded-[var(--radius-control)] border border-[var(--color-hairline-strong)] bg-[var(--color-surface)] py-3 pr-3 pl-9 text-[var(--color-ink)] placeholder:text-[var(--color-ink-muted)] focus:border-[var(--color-cyan-deep)] focus:outline-none';
+    ? 'w-full bg-transparent border-b border-white/25 py-3 pr-2 pl-6 text-[var(--color-ink-inverse)] placeholder:text-[var(--color-ink-inverse-muted)] focus:border-[var(--color-accent)] focus:outline-none'
+    : 'w-full rounded-[var(--radius-control)] border border-[var(--color-hairline-strong)] bg-[var(--color-surface)] py-3 pr-3 pl-9 text-[var(--color-ink)] placeholder:text-[var(--color-ink-muted)] focus:border-[var(--color-accent-strong)] focus:outline-none';
 
   return (
     <div ref={wrapper} className="relative">
@@ -186,7 +186,7 @@ export function AirportField({
                     <span className="block text-[length:var(--text-small)] font-medium text-[var(--color-ink)]">
                       {option.city}
                       {option.iata ? (
-                        <span className="numeric ml-1.5 text-[var(--color-cyan-deep)]">
+                        <span className="numeric ml-1.5 text-[var(--color-accent-strong)]">
                           {option.iata}
                         </span>
                       ) : null}

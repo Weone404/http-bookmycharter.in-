@@ -17,6 +17,7 @@ export default function PageHeaderCanvas({ form }: { readonly form: HeaderForm }
     <AviationCanvas
       config={config}
       pointerSource="window"
+      tone="light"
       ariaLabel="Decorative three-dimensional aircraft. It carries no information; everything on this page is text."
     >
       {() => <PageHeaderScene config={config} form={form} />}

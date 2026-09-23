@@ -58,7 +58,7 @@ export default function DestinationsPage() {
                 {destination.summary}
               </p>
               <ArrowRight
-                className="mt-5 h-4 w-4 text-[var(--color-cyan-deep)] transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1"
+                className="mt-5 h-4 w-4 text-[var(--color-accent-strong)] transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1"
                 aria-hidden="true"
               />
             </Link>
@@ -80,7 +80,7 @@ export default function DestinationsPage() {
               'For helicopters: a site rather than a runway, with an approach path and a permission',
             ].map((item) => (
               <li key={item} className="flex gap-3.5">
-                <span aria-hidden="true" className="mt-[0.7em] h-px w-4 shrink-0 bg-[var(--color-cyan-accent)]" />
+                <span aria-hidden="true" className="mt-[0.7em] h-px w-4 shrink-0 bg-[var(--color-accent)]" />
                 <span>{item}</span>
               </li>
             ))}

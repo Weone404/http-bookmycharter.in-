@@ -50,7 +50,7 @@ export default function AircraftHubPage() {
       {/* The showroom needs its own <h2>: it now server-renders, and its panel
           uses <h3> for the aircraft name, which would otherwise be the first
           heading after the <h1>. Caught by the heading-hierarchy check. */}
-      <section aria-labelledby="showroom-heading" className="bg-[var(--color-midnight)]">
+      <section aria-labelledby="showroom-heading" className="on-dark bg-[var(--color-midnight)]">
         <Container width="wide">
           <div className="flex flex-wrap items-baseline justify-between gap-3 pt-10 text-[var(--color-ink-inverse)]">
             <h2
@@ -79,19 +79,19 @@ export default function AircraftHubPage() {
               >
                 <AircraftGlyph
                   category={category.category}
-                  className="mb-4 h-8 w-auto text-[var(--color-cyan-deep)]"
+                  className="mb-4 h-8 w-auto text-[var(--color-accent-strong)]"
                 />
                 <h2 className="text-[length:var(--text-h3)] font-semibold tracking-tight">
                   {category.title}
                 </h2>
-                <p className="numeric mt-1 text-[length:var(--text-small)] text-[var(--color-cyan-deep)]">
+                <p className="numeric mt-1 text-[length:var(--text-small)] text-[var(--color-accent-strong)]">
                   {types.length} types
                 </p>
                 <p className="mt-3 flex-1 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
                   {category.summary}
                 </p>
                 <ArrowRight
-                  className="mt-5 h-4 w-4 text-[var(--color-cyan-deep)] transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1"
+                  className="mt-5 h-4 w-4 text-[var(--color-accent-strong)] transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1"
                   aria-hidden="true"
                 />
               </Link>

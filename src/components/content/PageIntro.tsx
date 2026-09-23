@@ -30,7 +30,7 @@ export function PageIntro({
     <div className="max-w-[72ch]">
       <Breadcrumbs path={path} {...(dynamic ? { dynamic } : {})} />
       {eyebrow ? (
-        <p className="mt-8 text-[length:var(--text-micro)] uppercase tracking-[0.2em] text-[var(--color-cyan-deep)]">
+        <p className="mt-8 text-[length:var(--text-micro)] uppercase tracking-[0.2em] text-[var(--color-accent-strong)]">
           {eyebrow}
         </p>
       ) : null}

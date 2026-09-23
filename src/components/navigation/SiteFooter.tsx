@@ -15,7 +15,10 @@ const COLUMNS: { heading: string; clusters: RouteCluster[] }[] = [
   { heading: 'Private Charter', clusters: ['private-charter'] },
   { heading: 'Helicopter Charter', clusters: ['helicopter-charter'] },
   { heading: 'Aircraft & Services', clusters: ['aircraft', 'services'] },
-  { heading: 'Plan & Explore', clusters: ['pricing', 'empty-leg', 'destinations', 'routes', 'chardham', 'insights'] },
+  {
+    heading: 'Plan & Explore',
+    clusters: ['pricing', 'empty-leg', 'destinations', 'routes', 'chardham', 'insights'],
+  },
 ];
 
 export function SiteFooter() {
@@ -24,12 +27,15 @@ export function SiteFooter() {
   const legal = ROUTES.filter((r) => r.cluster === 'legal' && r.status === 'live');
 
   return (
-    <footer className="on-dark bg-[var(--color-midnight)] text-[var(--color-ink-inverse-muted)]">
+    <footer className="on-dark bg-[var(--color-midnight)] pb-[calc(4.25rem+env(safe-area-inset-bottom))] text-[var(--color-ink-inverse-muted)] xl:pb-0">
       <Container width="wide">
         <div className="py-[clamp(3rem,2rem+4vw,5rem)]">
           <div className="grid gap-10 lg:grid-cols-[1.3fr_repeat(4,1fr)]">
             <div className="max-w-sm">
-              <Link href="/" className="text-[length:var(--text-h3)] text-[var(--color-ink-inverse)]">
+              <Link
+                href="/"
+                className="text-[length:var(--text-h3)] text-[var(--color-ink-inverse)]"
+              >
                 <Wordmark />
               </Link>
               <p className="mt-4 text-[length:var(--text-small)] leading-relaxed">
@@ -52,7 +58,10 @@ export function SiteFooter() {
                 >
                   {CONTACT.phoneDisplay}
                 </a>
-                <a href={`mailto:${CONTACT.email}`} className="hover:text-[var(--color-ink-inverse)]">
+                <a
+                  href={`mailto:${CONTACT.email}`}
+                  className="hover:text-[var(--color-ink-inverse)]"
+                >
                   {CONTACT.email}
                 </a>
               </div>
@@ -60,7 +69,8 @@ export function SiteFooter() {
 
             {COLUMNS.map((column) => {
               const links = ROUTES.filter(
-                (r) => column.clusters.includes(r.cluster) && r.status === 'live' && r.nav !== 'none',
+                (r) =>
+                  column.clusters.includes(r.cluster) && r.status === 'live' && r.nav !== 'none',
               );
               if (links.length === 0) return null;
               return (

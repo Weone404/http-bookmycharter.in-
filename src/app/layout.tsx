@@ -8,6 +8,7 @@ import { SiteHeader } from '@/components/navigation/SiteHeader';
 import { SiteFooter } from '@/components/navigation/SiteFooter';
 import { PageHeaderBand } from '@/components/3d/PageHeaderBand';
 import { Analytics } from '@/components/analytics/Analytics';
+import { MobileActionBar } from '@/components/navigation/MobileActionBar';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#071A2B',
+  themeColor: '#FFFFFF',
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <PageHeaderBand />
         <main id="main">{children}</main>
         <SiteFooter />
+        <MobileActionBar />
         {/* One @graph for the whole site identity; pages add their own nodes. */}
         <JsonLd json={graph([organizationSchema(), websiteSchema()])} />
         {/* Renders nothing without NEXT_PUBLIC_GA_ID. Also installs the one

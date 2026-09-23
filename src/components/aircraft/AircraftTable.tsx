@@ -73,7 +73,7 @@ export function AircraftTable({ aircraft }: { aircraft: readonly ResolvedAircraf
                       {item.published ? (
                         <Link
                           href={item.href}
-                          className="text-[var(--color-cyan-deep)] underline underline-offset-4"
+                          className="text-[var(--color-accent-strong)] underline underline-offset-4"
                         >
                           {item.name}
                         </Link>
