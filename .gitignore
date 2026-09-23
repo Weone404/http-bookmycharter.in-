@@ -22,3 +22,6 @@ bmc-*.tgz
 assets-incoming/aircraft-photos/*
 !assets-incoming/aircraft-photos/credits.csv
 !assets-incoming/aircraft-photos/README.md
+
+# AI-generated image originals (processed copies are committed under public/)
+assets-incoming/images/*
