@@ -108,12 +108,27 @@ function crmAdapter(url: string): SubmissionAdapter {
             receivedAt: new Date().toISOString(),
             ...request,
           }),
-          signal: AbortSignal.timeout(8000),
+          // The CRM runs on Render, whose free tier sleeps when idle and can
+          // take 20-30s to wake. 8s turned a cold start into a failed enquiry.
+          signal: AbortSignal.timeout(28000),
         });
         if (!response.ok) {
           return { ok: false, error: `CRM returned ${response.status}` };
         }
-        return { ok: true, reference: `BMC-${Date.now().toString(36).toUpperCase()}` };
+        // Use the CRM's own reference (BMC-XXXXXXXX, derived from the lead id)
+        // so the number the customer is shown is the one the team can find.
+        // A repeat of the same trip comes back as status "duplicate" with the
+        // original lead's reference, which is still a successful delivery.
+        let reference: string | undefined;
+        try {
+          const body = (await response.json()) as { reference?: unknown };
+          if (typeof body.reference === 'string' && /^BMC-[A-Z0-9]{8}$/.test(body.reference)) {
+            reference = body.reference;
+          }
+        } catch {
+          // A 2xx with no JSON body still means the CRM accepted it.
+        }
+        return { ok: true, reference: reference ?? `BMC-${Date.now().toString(36).toUpperCase()}` };
       } catch {
         // Never echoed to the client: it can carry the endpoint URL or a token.
         return { ok: false, error: 'Delivery failed' };

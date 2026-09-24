@@ -24,6 +24,8 @@ import {
  */
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+/** Leaves room for the CRM (Render free tier) to wake from sleep: see crmAdapter. */
+export const maxDuration = 30;
 
 const RATE_WINDOW_MS = 10 * 60 * 1000;
 const RATE_MAX = 5;
