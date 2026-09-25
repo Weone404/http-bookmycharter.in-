@@ -34,7 +34,7 @@ export function ChardhamTemplate({ page }: { page: ChardhamPage }) {
                   label: 'Helicopter types listed',
                   value: aircraftByCategory('helicopter').length,
                 },
-                { label: 'Operating constraints explained', value: page.constraints.length },
+                { label: 'Flying limits explained', value: page.constraints.length },
                 { label: 'Questions answered', value: page.faqs.length },
               ]}
               secondaryHref="/aircraft/helicopters"
@@ -53,17 +53,17 @@ export function ChardhamTemplate({ page }: { page: ChardhamPage }) {
       </Section>
 
       <Section ground="midnight" width="wide">
-        <PointList heading="What constrains this operation" points={page.constraints} />
+        <PointList heading="What limits a mountain helicopter charter" points={page.constraints} />
         {/* The pilgrimage side of the journey belongs to the sister property.
             Pointing there is more useful than reproducing it badly here, and it
             keeps the two entities doing different jobs. */}
         <p className="mt-10 max-w-[68ch] text-[length:var(--text-small)] text-[var(--color-ink-inverse-muted)]">
-          This page covers chartering the aircraft. For the pilgrimage itself — seat-based services,
-          packages, darshan arrangements and travel information —{' '}
+          This page covers chartering a whole helicopter. For the pilgrimage itself, including
+          shared seats, packages, darshan arrangements and travel information, see{' '}
           <a href={SISTER_SITE.url} className="underline underline-offset-2">
             {SISTER_SITE.name}
-          </a>{' '}
-          handles that side.
+          </a>
+          .
         </p>
       </Section>
 

@@ -43,9 +43,22 @@ export function organizationSchema(): JsonLdNode {
       addressCountry: ADDRESS.country,
     },
     ...(ADDRESS.geo
-      ? { geo: { '@type': 'GeoCoordinates', latitude: ADDRESS.geo.lat, longitude: ADDRESS.geo.lng } }
+      ? {
+          geo: { '@type': 'GeoCoordinates', latitude: ADDRESS.geo.lat, longitude: ADDRESS.geo.lng },
+        }
       : {}),
     areaServed: AREA_SERVED.map((name) => ({ '@type': 'Place', name })),
+    // Topics, not credentials: what the site explains and arranges.
+    knowsAbout: [
+      'Private jet charter',
+      'Helicopter charter',
+      'Aircraft charter',
+      'Helicopter rental',
+      'Corporate charter',
+      'Empty leg flights',
+      'Char Dham helicopter charter',
+      'Helicopter flower dropping',
+    ],
     availableLanguage: SITE.languages,
     contactPoint: {
       '@type': 'ContactPoint',

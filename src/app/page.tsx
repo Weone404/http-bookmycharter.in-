@@ -52,11 +52,11 @@ export default function HomePage() {
         <Container width="wide">
           <div className="relative pb-10 pt-[clamp(2.5rem,1.5rem+4vw,4.5rem)]">
             <h1 className="max-w-[20ch] text-[length:var(--text-h1)] font-semibold leading-[1.05] tracking-[-0.02em]">
-              Private jet &amp; helicopter charter across India
+              Private Jet &amp; Helicopter Charter in India
             </h1>
             <p className="mt-4 max-w-[54ch] text-[length:var(--text-lead)] text-[var(--color-ink-inverse)]/85">
-              Tell us the route, date and passengers. You get aircraft options with the cost broken
-              down before you commit to anything.
+              Book My Charter arranges private jet, helicopter and aircraft charter across India,
+              planned around your route, date and group size, with a quote you can request below.
             </p>
 
             {/* Below the desktop breakpoint the header has no service links,
@@ -79,7 +79,7 @@ export default function HomePage() {
 
             <div className="mt-8 rounded-[var(--radius-card)] border border-white/10 bg-[var(--color-midnight-950)]/70 p-4 backdrop-blur-sm sm:p-6">
               <h2 className="text-[length:var(--text-micro)] font-semibold uppercase tracking-[0.16em] text-[var(--color-ink-inverse-muted)]">
-                Start a charter request
+                Request a charter quote
               </h2>
               <div className="mt-5">
                 <QuickCharterForm />
@@ -116,7 +116,7 @@ export default function HomePage() {
           the same order as the header. */}
       <Section ground="surface" width="wide" className="py-[clamp(2.5rem,1.5rem+3vw,4rem)]!">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-          What would you like to book?
+          What would you like to charter?
         </h2>
         <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           {HOME_SERVICES.map((service, index) => (
@@ -157,11 +157,11 @@ export default function HomePage() {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-[60ch]">
             <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-              Choose by aircraft
+              Which aircraft suits your trip?
             </h2>
             <p className="mt-3 text-[var(--color-ink-muted)]">
-              The airfield, the distance and the size of your party decide the aircraft, in that
-              order.
+              Three things decide the aircraft, in this order: where you land, how far you fly and
+              how many people are travelling.
             </p>
           </div>
           <Link
@@ -181,8 +181,8 @@ export default function HomePage() {
           ))}
         </ul>
         <p className="mt-4 text-[length:var(--text-micro)] text-[var(--color-ink-muted)]">
-          Spans across the types listed in each group. Typical figures; they vary with variant,
-          load, altitude and temperature.
+          Ranges cover the types listed in each group. These are typical figures. They vary with the
+          model, load, altitude and temperature.
         </p>
       </Section>
 
@@ -191,18 +191,18 @@ export default function HomePage() {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-[60ch]">
             <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-              How a charter is arranged
+              How to book a charter in 5 steps
             </h2>
             <p className="mt-3 text-[var(--color-ink-muted)]">
-              Five steps, none of them hidden. Knowing what happens after you send an enquiry is
-              most of what makes the first one easy to send.
+              Booking a private jet or helicopter takes five clear steps. Here is what happens after
+              you send an enquiry.
             </p>
           </div>
           <Link
             href="/how-it-works"
             className="inline-flex items-center gap-1.5 text-[length:var(--text-small)] font-semibold text-[var(--color-accent-strong)] hover:underline"
           >
-            The full process
+            How booking works
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </div>
@@ -229,19 +229,17 @@ export default function HomePage() {
       <Section ground="ivory" width="wide" id="pricing">
         <div className="max-w-[65ch]">
           <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-            What a charter actually costs
+            How much does a private jet charter cost?
           </h2>
           {/* Answer-first: this paragraph is written to be quotable on its own. */}
           <p className="mt-5 text-[length:var(--text-lead)]">
-            The cost of a private jet or helicopter charter in India depends primarily on aircraft
-            category, total flight hours, positioning of the aircraft to your departure point,
-            landing and parking charges, ground handling, crew requirements, waiting time, taxes and
-            any additional services requested.
+            Private jet and helicopter charter cost in India depends on the aircraft type, flight
+            hours, positioning, landing and parking, ground handling, crew, waiting time and taxes.
           </p>
           <p className="mt-4 text-[var(--color-ink-muted)]">
-            We publish the method rather than a headline figure, because a &ldquo;from&rdquo; price
-            that ignores positioning and handling is not a price — it is a number chosen to win a
-            search result. Here is every component that goes into a real quote.
+            We explain how a price is built instead of showing a headline figure. A
+            &ldquo;from&rdquo; price that leaves out positioning and handling is not a real price.
+            Here is every part of a charter quote. Any extra services you request are added on top.
           </p>
         </div>
 
@@ -260,7 +258,7 @@ export default function HomePage() {
 
         <div className="mt-10">
           <Button href="/pricing" variant="secondary">
-            Charter pricing in full
+            See charter pricing
           </Button>
         </div>
       </Section>
@@ -275,11 +273,11 @@ export default function HomePage() {
         <div className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
           <div className="max-w-[46ch]">
             <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-              Tell us where you need to go.
+              Ready to book a private jet or helicopter?
             </h2>
             <p className="mt-4 text-[var(--color-ink-inverse-muted)]">
-              Route, date and passenger count is enough to start. You will get aircraft options with
-              the cost broken down, not a single figure with no explanation behind it.
+              Your route, date and number of passengers is enough to start. You get aircraft options
+              with the cost broken down, not one unexplained figure.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">

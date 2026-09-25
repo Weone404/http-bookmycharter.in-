@@ -16,7 +16,7 @@ const COLUMNS: { heading: string; clusters: RouteCluster[] }[] = [
   { heading: 'Helicopter Charter', clusters: ['helicopter-charter'] },
   { heading: 'Aircraft & Services', clusters: ['aircraft', 'services'] },
   {
-    heading: 'Plan & Explore',
+    heading: 'Plan Your Charter',
     clusters: ['pricing', 'empty-leg', 'destinations', 'routes', 'chardham', 'insights'],
   },
 ];
@@ -114,8 +114,8 @@ export function SiteFooter() {
               pilgrimage. Concealing the relationship would serve nobody.
             */}
             <p className="mt-4 text-[length:var(--text-micro)] leading-relaxed">
-              Aircraft pictured in page banners and cards are illustrations, not aircraft offered
-              for charter. Photographs of specific aircraft types are credited where shown.
+              Aircraft shown in page banners and cards are illustrations, not aircraft offered for
+              charter. Photos of specific aircraft types are credited where shown.
             </p>
             <p className="mt-2 text-[length:var(--text-micro)] leading-relaxed">
               For {SISTER_SITE.purpose}, see{' '}

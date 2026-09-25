@@ -41,14 +41,14 @@ export default function AboutPage() {
             <PageIntro
               path={PATH}
               title="About Book My Charter"
-              summary="Book My Charter arranges private jet, helicopter and aircraft charter across India, and publishes how charter works and what it costs so that the decision can be made before anyone is asked to commit."
+              summary="Book My Charter is a private jet and helicopter charter service based in Dwarka, Delhi, that arranges charter flights across India. We explain how charter works and what it costs, so you can decide before you commit."
             />
           }
           aside={
             <GlanceCard
               heading="Get in touch"
               secondaryHref="/contact"
-              secondaryLabel="All contact options"
+              secondaryLabel="Contact Book My Charter"
             >
               <address className="mt-5 not-italic text-[length:var(--text-small)] leading-relaxed text-[var(--color-ink-muted)]">
                 {ADDRESS.street}
@@ -77,8 +77,8 @@ export default function AboutPage() {
         >
           <Prose
             paragraphs={[
-              `${voice().whatWeDo} The work is planning rather than selling: establishing what can actually operate a given trip, what it will genuinely cost once positioning and ground time are counted, and what would have to change if the first answer does not fit.`,
-              'Most of this website is explanation rather than promotion. That is deliberate. Charter is unfamiliar to most people who need it, the pricing looks arbitrary until you know what builds it, and the industry has a habit of quoting incomplete numbers. Someone who understands positioning and block time can read any quote, including ours, and tell whether it is complete.',
+              `${voice().whatWeDo} Our job is planning, not selling. We work out which aircraft can fly your trip and what it will really cost once positioning and ground time are counted. If the first answer does not fit, we show you what would need to change.`,
+              'Most of this website explains rather than sells, and that is on purpose. Charter is new to most people who need it. Prices look random until you know what goes into them, and many quotes leave things out. Once you understand positioning (flying the aircraft to you) and block time (engine start to engine stop), you can check whether any quote is complete, including ours.',
             ]}
           />
         </IntroLayout>
@@ -88,29 +88,28 @@ export default function AboutPage() {
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="max-w-[66ch]">
             <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-              How we handle claims
+              What we do and do not claim
             </h2>
             <p className="mt-5 text-[var(--color-ink-inverse-muted)]">
-              Aviation websites are full of numbers nobody can check — passengers carried, years in
-              operation, safety records, certifications. We hold ourselves to a rule that is easy to
-              state and inconvenient to follow: anything a reader could verify has to have a dated
-              source behind it, or it does not go on the page.
+              We only publish facts we can back up with a dated source. Many aviation websites show
+              numbers nobody can check, such as passengers carried, years in operation, safety
+              records and certifications. If a reader could check it, we need a dated source for it,
+              or it stays off the page.
             </p>
             <p className="mt-4 text-[var(--color-ink-inverse-muted)]">
-              That is why you will not find a fleet count, a passenger total or a certification
-              badge here. It is not modesty. It is that we have not published anything we cannot
-              produce a document for, and we would rather have a plainer page than an unverifiable
-              one.
+              That is why you will not see a fleet count, a passenger total or a certification badge
+              here. We have not published anything we cannot back up with a document. We would
+              rather have a plainer page than one you cannot verify.
             </p>
           </div>
           <PointList
-            heading="What that means in practice"
+            heading="What this means for you"
             points={[
-              'Aircraft specifications are shown as typical for the type, not as tail-specific',
-              'No price is published that has not been verified',
-              'No availability is shown as live unless it is',
-              'No testimonial or rating appears until it can be attributed',
-              'Where a fact is unknown, the page omits it rather than estimating',
+              'Aircraft specifications are typical for the type, not for one specific aircraft',
+              'Prices are only published once verified',
+              'Availability is never shown as live unless it is',
+              'Testimonials and ratings only appear once they can be attributed',
+              'Unknown facts are left out, not guessed',
             ]}
           />
         </div>
@@ -120,7 +119,7 @@ export default function AboutPage() {
         <div className="grid gap-12 lg:grid-cols-2">
           <div>
             <h2 className="text-[length:var(--text-h3)] font-semibold tracking-tight">
-              Where we are
+              Our office in Delhi
             </h2>
             <address className="mt-5 not-italic leading-relaxed text-[var(--color-ink-muted)]">
               {ADDRESS.street}
@@ -141,15 +140,15 @@ export default function AboutPage() {
           </div>
           <div>
             <h2 className="text-[length:var(--text-h3)] font-semibold tracking-tight">
-              The pilgrimage side
+              Char Dham pilgrimage flights
             </h2>
             <p className="mt-5 text-[var(--color-ink-muted)]">
-              Char Dham and Kedarnath pilgrimage services — seat-based flights, packages and travel
-              information — are handled by{' '}
+              Char Dham and Kedarnath pilgrimage services, including seat-based flights, packages
+              and travel information, are handled by{' '}
               <a href={SISTER_SITE.url} className="underline underline-offset-2">
                 {SISTER_SITE.name}
               </a>
-              . This site covers chartering the aircraft; that one covers the yatra.
+              . This site covers chartering a whole aircraft. That site covers the yatra.
             </p>
           </div>
         </div>
@@ -167,18 +166,18 @@ export default function AboutPage() {
             {
               label: 'How It Works',
               href: '/how-it-works',
-              description: 'From enquiry to departure',
+              description: 'How to book a charter',
             },
             {
               label: 'Charter Pricing',
               href: '/pricing',
-              description: 'What a trip costs, and why',
+              description: 'What a charter costs, and why',
             },
             { label: 'Contact', href: '/contact', description: 'Phone, WhatsApp and email' },
             {
               label: 'Aviation Insights',
               href: '/insights',
-              description: 'Guides to how charter works',
+              description: 'Private aviation guides',
             },
           ]}
         />

@@ -14,30 +14,30 @@ import type { EmptyLeg } from '@/types/charter-request';
 export const AVAILABLE_EMPTY_LEGS: readonly EmptyLeg[] = [];
 
 export const EMPTY_LEG_EXPLAINER: readonly string[] = [
-  'An empty leg is a charter flight operating without passengers. Every charter can create one: an aircraft based in one city and chartered from another must fly to the passenger empty, and after the trip it usually flies home empty too. Those sectors are already paid for by the operator whether or not anybody is on board.',
-  'That is why they can be sold cheaply. The aircraft, the crew and the fuel are committed, so a passenger on that sector is revenue against a cost the operator has already accepted. It is not a discount in the retail sense — it is the arithmetic of a flight that was going to happen anyway.',
-  'The trade is control. An empty leg’s route, date and departure window are set by the trip that created it, so you fit yourself to an existing flight rather than commissioning one. That is the exact opposite of what charter normally offers, and it is the whole reason the price is different.',
+  'An empty leg (a one-way repositioning flight) is a charter flight with no passengers on board. Any charter can create one. If an aircraft is based in one city and hired from another, it must fly empty to reach the passenger. After the trip, it usually flies home empty too. The operator pays for those flights whether anyone is on board or not.',
+  'That is why empty leg flights in India can be sold cheaply. The aircraft, the crew and the fuel are already committed. So a passenger on that flight is income against a cost the operator has already accepted. It is not a shop-style discount. It is simply the maths of a flight that was going to happen anyway.',
+  'The trade-off is control. The route, date and departure window are set by the trip that created the empty leg. You fit yourself to an existing flight instead of ordering your own. That is the opposite of what charter normally offers, and it is why the price is different.',
 ];
 
 export const EMPTY_LEG_CONDITIONS: readonly string[] = [
-  'Availability is created by someone else’s charter, so it appears at short notice rather than on a schedule.',
-  'If the original trip moves, changes route or cancels, the empty leg moves, changes or disappears with it.',
-  'Routes and dates are fixed. Flexibility sits with you, not with the aircraft.',
-  'Departure windows are often narrow and set by the operator, not the passenger.',
-  'The aircraft is the same aircraft with the same crew that would have flown the paid sector — it is not a lower class of service.',
+  'Empty legs come from someone else’s charter, so they appear at short notice, not on a schedule.',
+  'If the original trip moves, changes route or is cancelled, the empty leg moves, changes or disappears with it.',
+  'Routes and dates are fixed. You have to be flexible, because the aircraft is not.',
+  'Departure windows are often narrow and set by the operator, not by the passenger.',
+  'It is the same aircraft with the same crew that would have flown the paid trip. It is not a lower class of service.',
 ];
 
 export const EMPTY_LEG_SUITS: readonly string[] = [
   'Travellers with a destination in mind but no fixed date',
-  'Anyone who can depart at a day or two’s notice',
-  'Trips where the journey not happening is an inconvenience rather than a failure',
-  'People already flexible about which airport they use',
+  'Anyone who can leave at a day or two’s notice',
+  'Trips where not flying would be an inconvenience, not a failure',
+  'People who are flexible about which airport they use',
 ];
 
 export const EMPTY_LEG_DOES_NOT_SUIT: readonly string[] = [
-  'Fixed meetings, ceremonies or connections',
+  'Fixed meetings, ceremonies or connecting flights',
   'Anyone who needs certainty weeks in advance',
-  'Itineraries with more than one leg that must connect',
+  'Trips with more than one leg that must connect',
   'Travel where a cancellation would be costly',
 ];
 
@@ -45,29 +45,29 @@ export const EMPTY_LEG_FAQS: readonly Faq[] = [
   {
     question: 'What is an empty leg flight?',
     answer:
-      'An empty leg is a charter aircraft repositioning without passengers — flying to collect a client, or returning to base afterwards — which an operator may sell at a reduced rate because the flight is happening regardless.',
+      'An empty leg flight is a charter aircraft flying without passengers, either to collect a client or to return to base afterwards, which an operator may sell at a lower rate because it is flying anyway.',
   },
   {
-    question: 'Why are empty legs cheaper?',
+    question: 'Why are empty leg flights cheaper?',
     answer:
-      'Because the operator has already committed the aircraft, the crew and the fuel to that sector, so any revenue on it offsets a cost that exists either way.',
+      'Empty leg flights are cheaper because the operator has already committed the aircraft, the crew and the fuel, so any fare on that flight offsets a cost that exists either way.',
   },
   {
-    question: 'How reliable is an empty leg?',
+    question: 'How reliable is an empty leg flight?',
     answer:
-      'It depends entirely on the charter that created it: if that trip is rescheduled or cancelled, the empty leg changes or disappears, and it only becomes firm when the operator confirms it.',
+      'An empty leg is only as reliable as the charter that created it: if that trip is moved or cancelled, the empty leg changes or disappears, and it is firm only once the operator confirms it.',
   },
   {
-    question: 'How do I find an empty leg?',
+    question: 'How do I find empty leg flights in India?',
     answer:
-      'Tell us your preferred direction and the window you could travel in, and we will match it against repositioning flights as they come up rather than asking you to watch a list.',
+      'Tell us the direction you want to fly and the window you could travel in, and we will match it against repositioning flights as they come up, so you do not have to watch a list.',
     elaboration: [
-      'Because availability is created by other people’s bookings, it appears at short notice. A standing request with a flexible window catches far more than checking a page occasionally.',
+      'Empty legs are created by other people’s bookings, so they appear at short notice. A standing request with a flexible window catches far more than checking a page now and then.',
     ],
   },
   {
     question: 'Can I change the route or date of an empty leg?',
     answer:
-      'Not usually — the route and date belong to the original trip, and a meaningful change turns it back into a normal charter with normal pricing.',
+      'Usually not, because the route and date belong to the original trip, and a real change turns it back into a normal charter with normal pricing.',
   },
 ];

@@ -11,7 +11,7 @@ export default function TermsPage() {
   return (
     <LegalPage
       path={PATH}
-      title="Terms of use"
+      title="Terms of Use"
       summary="These terms cover the use of this website and the charter request service offered through it."
       updated="2026-09-17"
       sections={[

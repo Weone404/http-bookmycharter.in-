@@ -17,7 +17,7 @@ export default function PrivacyPage() {
   return (
     <LegalPage
       path={PATH}
-      title="Privacy policy"
+      title="Privacy Policy"
       summary="This page explains what information Book My Charter collects through this website, why, and what happens to it."
       updated="2026-09-17"
       sections={[

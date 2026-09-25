@@ -30,14 +30,15 @@ export default function AircraftHubPage() {
       <Section ground="ivory" width="wide">
         <PageIntro
           path={PATH}
-          title="Aircraft available for charter"
-          summary="Charter aircraft fall into four working groups — helicopters, turboprops, private jets and regional aircraft — and the right group is decided by the airfield, the sector length and the size of the party, in that order."
+          title="Charter Aircraft in India"
+          summary="Charter aircraft in India fall into four groups: helicopters, turboprops, private jets and regional airliners. The right one depends on the airfield, the trip length and the group size, in that order."
         />
         <div className="mt-10">
           <Prose
             paragraphs={[
-              'Most people start by choosing an aircraft and then discover it cannot use the destination. It is faster the other way round. Runway length and site access remove options first, sector length decides whether speed is worth paying for, and passenger and baggage load sets the floor on cabin size. What is left is usually a choice between two or three types rather than fifty.',
-              `${AIRCRAFT.length} types are catalogued here with their typical figures. ${PUBLISHED_AIRCRAFT.length} of them have pages of their own, where there is something type-specific worth explaining; the rest are best compared in the tables on each category page.`,
+              'In plain terms, a helicopter lands at a helipad or site with no runway. A turboprop is a propeller plane that suits short runways and flights under about an hour. A private jet is faster on longer trips. Jets range from light jets for four to six people, where you cannot stand up inside, to large-cabin jets for long flights.',
+              'Start with the destination, not the aircraft. Many people pick an aircraft first, then find it cannot use the destination. Runway length and site access rule out options first. Trip length decides whether speed is worth paying for. Passenger and baggage load sets the smallest cabin you can use. What is left is usually two or three types, not fifty.',
+              `${AIRCRAFT.length} types are listed here with typical figures for each type. ${PUBLISHED_AIRCRAFT.length} of them have their own page, where there is something specific worth explaining. Compare the rest in the tables on each category page.`,
             ]}
           />
         </div>
@@ -56,10 +57,10 @@ export default function AircraftHubPage() {
               id="showroom-heading"
               className="text-[length:var(--text-h3)] font-semibold tracking-tight"
             >
-              Browse the fleet
+              Browse aircraft types
             </h2>
             <p className="text-[length:var(--text-small)] text-[var(--color-ink-inverse-muted)]">
-              Use the arrows, the aircraft list, or the left and right arrow keys.
+              Use the arrows, the aircraft list, or your left and right arrow keys.
             </p>
           </div>
         </Container>
@@ -68,7 +69,7 @@ export default function AircraftHubPage() {
 
       <Section ground="ivory" width="wide">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-          Compare by group
+          Compare private jets, helicopters and turboprops
         </h2>
         <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {AIRCRAFT_CATEGORY_PAGES.map((category) => (
@@ -90,9 +91,9 @@ export default function AircraftHubPage() {
             Regional aircraft for large groups
           </h2>
           <p className="mt-4 max-w-[68ch] text-[var(--color-ink-inverse-muted)]">
-            Above roughly twenty passengers the conversation moves from business aircraft to
-            regional airliners. These carry delegations, event parties and corporate offsites in one
-            movement, and need substantially more lead time than a business jet.
+            Above roughly twenty passengers, you move from business aircraft to regional airliners.
+            These carry delegations, event groups and corporate offsites in one trip. They need much
+            more notice than a business jet.
           </p>
           <div className="mt-8">
             <AircraftTable aircraft={airliners} />
@@ -103,7 +104,7 @@ export default function AircraftHubPage() {
       <Section ground="ivory" width="wide">
         <div className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
           <h2 className="max-w-[44ch] text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-            Not sure which aircraft fits? Describe the trip instead.
+            Not sure which aircraft you need? Describe your trip instead.
           </h2>
           <Button href="/request-a-charter">
             Request a Charter

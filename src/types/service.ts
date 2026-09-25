@@ -24,6 +24,14 @@ export interface Service {
   readonly slug: Slug;
   readonly cluster: ServiceCluster;
   readonly name: string;
+  /**
+   * The search phrase this page answers, lowercase ("private jet charter").
+   * Section headings are built from it ("How private jet charter works"), so
+   * the page's topic appears in its h2s without anyone hand-writing them.
+   */
+  readonly keyword?: string;
+  /** The visible h1, when it should differ from `name` (e.g. adds "in India"). */
+  readonly headline?: string;
   /** Answer-first: what this is, in one quotable sentence. */
   readonly summary: string;
   readonly definition: readonly string[];

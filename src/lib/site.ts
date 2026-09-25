@@ -15,7 +15,7 @@ export const SITE: SiteIdentity = {
   url: 'https://bookmycharter.in',
   logo: 'https://bookmycharter.in/logo.svg',
   description:
-    'Private jet, helicopter and aircraft charter across India. Understand what a charter costs, which aircraft suits your route, and request a quote for your trip.',
+    'Book My Charter arranges private jet, helicopter and aircraft charter across India. Compare aircraft, see what a charter costs, and request a quote for your trip.',
   locale: 'en_IN',
   languages: ['English', 'Hindi'],
 };

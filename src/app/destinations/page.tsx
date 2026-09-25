@@ -30,14 +30,14 @@ export default function DestinationsPage() {
           intro={
             <PageIntro
               path={PATH}
-              title="Charter destinations and airport access"
-              summary="Where a charter can go is decided by the aerodrome at the far end — its runway, its facilities and its operating hours — long before it is decided by the aircraft, which is why destination planning starts with the field and not the fleet."
+              title="Private Jet Charter Destinations in India"
+              summary="Private jet charter destinations in India depend on the airfield at the far end: its runway, its facilities and its opening hours. So trip planning starts with the airfield, not the aircraft."
             />
           }
           aside={
             <GlanceCard
               stats={[
-                { label: 'Aerodromes recorded', value: AIRPORTS.length },
+                { label: 'Airfields recorded', value: AIRPORTS.length },
                 { label: 'Operational with a code', value: CHARTER_AIRPORTS.length },
                 { label: 'States and union territories', value: states.length },
                 { label: 'Destination guides', value: DESTINATION_PAGES.length },
@@ -49,8 +49,8 @@ export default function DestinationsPage() {
         >
           <Prose
             paragraphs={[
-              `India has a great many more aerodromes than it has airports with scheduled service. ${AIRPORTS.length} are recorded in the reference below across ${states.length} states and union territories, of which ${CHARTER_AIRPORTS.length} are recorded as operational with an assigned code. The gap between that number and the handful of airports most travellers know is the whole argument for charter.`,
-              'A destination page is published here only when there is something specific and true to say about chartering to or from it. Cities where the operating facts are not yet confirmed are deliberately absent rather than filled with a template — a page that swaps the city name into the same paragraphs helps nobody and is exactly what the previous version of this site did.',
+              `India has far more aerodromes (airfields) than airports with scheduled flights. ${AIRPORTS.length} are recorded in the reference below, across ${states.length} states and union territories. Of these, ${CHARTER_AIRPORTS.length} are recorded as operational with an assigned code. Most travellers know only a handful of airports. That gap is the main reason to charter.`,
+              'A city guide is published here only when there is something specific and true to say about chartering to or from it. Cities whose operating facts are not yet confirmed are left out on purpose. A page that just swaps in a new city name helps nobody, and that is what the previous version of this site did.',
             ]}
           />
         </IntroLayout>
@@ -58,7 +58,7 @@ export default function DestinationsPage() {
 
       <Section ground="ivory" width="wide" className="pt-0">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-          Destination guides
+          City charter guides
         </h2>
         <div className="mt-8 grid gap-px border-t border-[var(--color-ink)]/15 sm:grid-cols-2 lg:grid-cols-3">
           {DESTINATION_PAGES.map((destination) => (
@@ -84,16 +84,16 @@ export default function DestinationsPage() {
 
       <Section ground="midnight" width="wide">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-          What decides whether a destination is reachable
+          What decides whether you can fly to a destination
         </h2>
         <div className="mt-8 grid gap-10 lg:grid-cols-2">
           <ul className="space-y-4 text-[var(--color-ink-inverse-muted)]">
             {[
-              'Runway length and surface — the first filter, and the one that removes the most options',
-              'Available approach aids, which decide what is possible in poor visibility',
-              'Operating hours, and whether the field is licensed for night operations',
+              'Runway length and surface: the first check, and the one that rules out the most aircraft',
+              'Approach aids (equipment that guides landings), which decide what is possible in poor visibility',
+              'Opening hours, and whether the airfield is licensed for night flights',
               'Ground handling, fuel and parking, which not every airfield has',
-              'For helicopters: a site rather than a runway, with an approach path and a permission',
+              'For helicopters: a landing site rather than a runway, with an approach path and permission',
             ].map((item) => (
               <li key={item} className="flex gap-3.5">
                 <span
@@ -106,12 +106,12 @@ export default function DestinationsPage() {
           </ul>
           <div className="text-[var(--color-ink-inverse-muted)]">
             <p>
-              These are checked for both ends of a trip before an aircraft is proposed. It is
-              routine work, and it is the reason a charter enquiry produces options rather than an
-              instant price.
+              All of these are checked at both ends of a trip before an aircraft is suggested. This
+              is routine work. It is why a charter enquiry gives you options rather than an instant
+              price.
             </p>
             <p className="mt-4">
-              Source for the facility reference: {AIRPORT_SOURCE.document}, {AIRPORT_SOURCE.dated}.
+              Source for the airfield data: {AIRPORT_SOURCE.document}, {AIRPORT_SOURCE.dated}.
             </p>
           </div>
         </div>
@@ -124,7 +124,7 @@ export default function DestinationsPage() {
             {
               label: 'Aircraft & Fleet',
               href: '/aircraft',
-              description: 'What can use which field',
+              description: 'Which aircraft can use which airfield',
             },
             {
               label: 'Aircraft Charter',

@@ -23,27 +23,38 @@ export default function ContactPage() {
       <Section ground="ivory" width="wide">
         <PageIntro
           path={PATH}
-          title="Contact"
-          summary="Call or message with the route, the date and the number of passengers, and we can usually tell you within a short time what is realistic and what it is likely to involve."
+          title="Contact Book My Charter"
+          summary="To make a charter enquiry, call, WhatsApp or email Book My Charter with your route, date and number of passengers. We will tell you what is realistic and what it involves."
         />
 
         <div className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           <div>
             <Phone className="h-5 w-5 text-[var(--color-accent-strong)]" aria-hidden="true" />
-            <h2 className="mt-4 text-[length:var(--text-h3)] font-semibold tracking-tight">Phone</h2>
+            <h2 className="mt-4 text-[length:var(--text-h3)] font-semibold tracking-tight">
+              Phone
+            </h2>
             <p className="mt-2">
-              <a href={`tel:${CONTACT.phone}`} data-track="call_click" className="numeric font-medium">
+              <a
+                href={`tel:${CONTACT.phone}`}
+                data-track="call_click"
+                className="numeric font-medium"
+              >
                 {CONTACT.phoneDisplay}
               </a>
             </p>
             <p className="mt-2 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
-              Complicated itineraries are faster to explain than to type.
+              Best for complex trips. They are quicker to explain than to type.
             </p>
           </div>
 
           <div>
-            <MessageCircle className="h-5 w-5 text-[var(--color-accent-strong)]" aria-hidden="true" />
-            <h2 className="mt-4 text-[length:var(--text-h3)] font-semibold tracking-tight">WhatsApp</h2>
+            <MessageCircle
+              className="h-5 w-5 text-[var(--color-accent-strong)]"
+              aria-hidden="true"
+            />
+            <h2 className="mt-4 text-[length:var(--text-h3)] font-semibold tracking-tight">
+              WhatsApp
+            </h2>
             <p className="mt-2">
               <a
                 href={whatsappLink('Hello, I would like to ask about a charter.')}
@@ -54,13 +65,15 @@ export default function ContactPage() {
               </a>
             </p>
             <p className="mt-2 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
-              Useful for sending dates and details in writing.
+              Best for sending dates and trip details in writing.
             </p>
           </div>
 
           <div>
             <Mail className="h-5 w-5 text-[var(--color-accent-strong)]" aria-hidden="true" />
-            <h2 className="mt-4 text-[length:var(--text-h3)] font-semibold tracking-tight">Email</h2>
+            <h2 className="mt-4 text-[length:var(--text-h3)] font-semibold tracking-tight">
+              Email
+            </h2>
             <p className="mt-2">
               <a href={`mailto:${CONTACT.email}`} className="font-medium">
                 {CONTACT.email}
@@ -85,17 +98,29 @@ export default function ContactPage() {
         </div>
 
         <div className="mt-10">
-          <Button href="/request-a-charter">Send a charter request instead</Button>
+          <Button href="/request-a-charter">Or send a charter request online</Button>
         </div>
       </Section>
 
       <Section ground="ivory" width="wide" className="pt-0">
         <RelatedLinks
           links={[
-            { label: 'Request a Charter', href: '/request-a-charter', description: 'Route, date, passengers' },
-            { label: 'How It Works', href: '/how-it-works', description: 'What happens after you enquire' },
-            { label: 'Charter Pricing', href: '/pricing', description: 'What to ask when comparing quotes' },
-            { label: 'About', href: '/about', description: 'How we handle claims' },
+            {
+              label: 'Request a Charter',
+              href: '/request-a-charter',
+              description: 'Route, date and passengers',
+            },
+            {
+              label: 'How It Works',
+              href: '/how-it-works',
+              description: 'What happens after you enquire',
+            },
+            {
+              label: 'Charter Pricing',
+              href: '/pricing',
+              description: 'What goes into a charter quote',
+            },
+            { label: 'About', href: '/about', description: 'Who we are' },
           ]}
         />
       </Section>

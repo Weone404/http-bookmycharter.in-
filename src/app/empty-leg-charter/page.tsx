@@ -34,14 +34,14 @@ export default function EmptyLegPage() {
         <IntroLayout
           aside={
             <GlanceCard
-              heading="Is this for you?"
+              heading="Is an empty leg right for you?"
               stats={[
                 { label: 'Conditions that apply', value: EMPTY_LEG_CONDITIONS.length },
                 { label: 'When it suits', value: EMPTY_LEG_SUITS.length },
                 { label: 'When it does not', value: EMPTY_LEG_DOES_NOT_SUIT.length },
-                { label: 'Legs listed now', value: AVAILABLE_EMPTY_LEGS.length },
+                { label: 'Empty legs listed now', value: AVAILABLE_EMPTY_LEGS.length },
               ]}
-              note="Empty legs are not listed as standing inventory, because availability changes faster than any published list."
+              note="We do not list empty legs as standing inventory, because availability changes faster than any published list."
               primaryLabel="Tell us your route and dates"
               secondaryHref="/pricing"
               secondaryLabel="How pricing works"
@@ -50,8 +50,8 @@ export default function EmptyLegPage() {
           intro={
             <PageIntro
               path={PATH}
-              title="Empty leg flights"
-              summary="An empty leg is a charter aircraft repositioning without passengers — flying out to collect a client, or returning to base afterwards — which an operator may sell at a reduced rate because the flight is happening either way."
+              title="Empty Leg Flights in India"
+              summary="Empty leg flights in India are charter aircraft flying without passengers, out to collect a client or back to base afterwards, which an operator may sell for less because it flies anyway."
             />
           }
         >
@@ -66,17 +66,17 @@ export default function EmptyLegPage() {
           this section becomes the live table with no template change. */}
       <Section ground="midnight" width="wide" id="availability">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-          Current availability
+          Empty leg availability
         </h2>
         {AVAILABLE_EMPTY_LEGS.length === 0 ? (
           <div className="mt-6 max-w-[68ch] border-l-2 border-[var(--color-accent)] pl-5">
             <p>
-              We do not publish a standing list of empty legs, because a list is out of date almost
-              as soon as it is written — availability is created by other people&rsquo;s bookings and
-              disappears when those bookings change.
+              We do not publish a standing list of empty legs. A list goes out of date almost as
+              soon as it is written, because empty legs come from other people&rsquo;s bookings and
+              disappear when those bookings change.
             </p>
             <p className="mt-4 text-[var(--color-ink-inverse-muted)]">
-              Tell us the direction you want to travel and the window you could move in, and we will
+              Tell us the direction you want to travel and the window you could fly in. We will
               match it against repositioning flights as they come up. A standing request with a
               flexible window catches far more than checking a page.
             </p>
@@ -92,28 +92,44 @@ export default function EmptyLegPage() {
 
       <Section ground="ivory" width="wide">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-          How empty-leg availability behaves
+          How empty leg flights work
         </h2>
         <div className="mt-8">
-          <PointList heading="What governs it" points={EMPTY_LEG_CONDITIONS} />
+          <PointList heading="What decides availability" points={EMPTY_LEG_CONDITIONS} />
         </div>
         <div className="mt-12 grid gap-12 lg:grid-cols-2">
-          <PointList heading="Who they suit" points={EMPTY_LEG_SUITS} />
-          <PointList heading="Who they do not suit" points={EMPTY_LEG_DOES_NOT_SUIT} />
+          <PointList heading="Who empty legs suit" points={EMPTY_LEG_SUITS} />
+          <PointList heading="Who empty legs do not suit" points={EMPTY_LEG_DOES_NOT_SUIT} />
         </div>
       </Section>
 
       <Section ground="ivory" width="default" className="pt-0">
-        <FaqSection faqs={EMPTY_LEG_FAQS} heading="Empty leg questions" />
+        <FaqSection faqs={EMPTY_LEG_FAQS} heading="Empty leg flights: common questions" />
       </Section>
 
       <Section ground="ivory" width="wide" className="pt-0">
         <RelatedLinks
           links={[
-            { label: 'What is an empty leg?', href: '/insights/what-is-an-empty-leg-flight', description: 'The longer explanation' },
-            { label: 'Charter Pricing', href: '/pricing', description: 'Why positioning costs what it does' },
-            { label: 'Private Charter', href: '/private-charter', description: 'When you need your own schedule' },
-            { label: 'Aircraft & Fleet', href: '/aircraft', description: 'Types and capacity' },
+            {
+              label: 'What is an empty leg?',
+              href: '/insights/what-is-an-empty-leg-flight',
+              description: 'The full explanation',
+            },
+            {
+              label: 'Charter Pricing',
+              href: '/pricing',
+              description: 'Why positioning adds to the cost',
+            },
+            {
+              label: 'Private Charter',
+              href: '/private-charter',
+              description: 'When you need your own schedule',
+            },
+            {
+              label: 'Aircraft & Fleet',
+              href: '/aircraft',
+              description: 'Aircraft types and seats',
+            },
           ]}
         />
       </Section>

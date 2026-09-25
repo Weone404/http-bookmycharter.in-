@@ -20,17 +20,22 @@ const ROUTE_FAQS: readonly Faq[] = [
   {
     question: 'Is a charter route the same as an airline route?',
     answer:
-      'No. An airline route is a scheduled service between two airports; a charter route is simply a city pair somebody wants to fly, and it exists only when a trip is arranged.',
+      'No. An airline route is a scheduled service, while a charter route is any city pair you want to fly and exists only when a trip is booked.',
   },
   {
-    question: 'Why is a one-way route not half the price of a return?',
+    question: 'Why does a one-way charter cost more than half a return?',
     answer:
-      'Because the aircraft still has to reach your departure point and usually has to return to base afterwards, so a one-way trip often involves the same number of flown sectors with passengers on only one of them.',
+      'A one-way charter costs more than half a return because the aircraft must still fly to you and usually back to base, so you pay for flights with no passengers.',
   },
   {
-    question: 'Does the same route always cost the same?',
+    question: 'Does the same charter route always cost the same?',
     answer:
-      'No — the aircraft category, where that aircraft happens to be based, the airports chosen at each end and the ground time all change the figure for an identical city pair.',
+      'No. The aircraft category, where that aircraft is based, the airports used at each end and the ground time all change the price for the same city pair.',
+  },
+  {
+    question: 'Why don’t you publish flight times for charter routes in India?',
+    answer:
+      'We publish a route’s distance and typical flight time only once verified, because people plan their day around a flight time and an estimate could mislead them.',
   },
 ];
 
@@ -43,15 +48,16 @@ export default function RoutesPage() {
       <Section ground="ivory" width="wide">
         <PageIntro
           path={PATH}
-          title="Charter routes"
-          summary="A charter route is a city pair rather than a scheduled service, so what governs it is the airport at each end, the aircraft that can use both, and where that aircraft happens to be before your trip starts."
+          title="Charter Routes in India"
+          summary="Charter routes in India are city pairs, not scheduled services. Each one depends on the airport at each end, which aircraft can use both, and where that aircraft is before your trip."
         />
         <div className="mt-10">
           <Prose
             paragraphs={[
-              'Airlines publish routes because they fly them repeatedly to a timetable. Charter has no timetable, so a "route" is just a pair of places somebody wants to connect. That sounds like a technicality, and it is not: it is why charter can serve a city pair no airline touches, and why the same pair can cost very different amounts on two different days.',
-              'Three things decide a route. First, the aerodrome at each end — runway, facilities and hours, which between them select the aircraft. Second, the distance, which decides whether a turboprop or a jet is the sensible answer. Third, positioning: where the aircraft is before your trip begins, and where it must be afterwards.',
-              'Individual route pages are published here only where the distance and typical flight time have been verified for the pair. Publishing a figure that was estimated would be worse than publishing nothing, because a flight time is the kind of number people plan a day around.',
+              'A charter route is any two places you want to connect. Airlines publish routes because they fly them again and again to a timetable. Charter has no timetable.',
+              'That matters for two reasons. Charter can serve a city pair no airline flies. And the same city pair can cost very different amounts on two different days.',
+              'Three things decide a charter route. First, the aerodrome (airport or airfield) at each end: its runway, facilities and hours decide which aircraft can use it. Second, the distance, which decides whether a turboprop or a jet makes sense. Third, positioning (flying the aircraft to your city): where the aircraft is before your trip, and where it must go afterwards.',
+              'We publish a page for a city pair only once its distance and typical flight time are verified. An estimated figure would be worse than none, because people plan their day around a flight time.',
             ]}
           />
         </div>
@@ -66,40 +72,52 @@ export default function RoutesPage() {
       <Section ground="midnight" width="wide">
         <div className="grid gap-12 lg:grid-cols-2">
           <PointList
-            heading="What a route page needs before it is published"
+            heading="What we check before publishing a route page"
             points={[
               'Verified distance for the city pair',
               'Verified typical flight time by aircraft category',
               'The aerodromes actually used at each end',
-              'The charter considerations specific to that pair',
-              'Whether a one-way makes operational sense on it',
+              'Charter points specific to that city pair',
+              'Whether a one-way flight makes practical sense on it',
             ]}
           />
           <PointList
-            heading="What changes the cost of the same route"
+            heading="What changes the cost of one route"
             points={[
-              'Aircraft category — the largest single factor',
+              'Aircraft category, the largest single factor',
               'Which airport is used at each end',
               'Where the aircraft is based before the trip',
               'One-way versus return',
               'Ground time at the far end',
-              'Time of day, and whether the day exceeds crew duty limits',
+              'Time of day, and whether the day runs past crew duty limits',
             ]}
           />
         </div>
       </Section>
 
       <Section ground="ivory" width="default">
-        <FaqSection faqs={ROUTE_FAQS} heading="Route questions" />
+        <FaqSection faqs={ROUTE_FAQS} heading="Charter routes: common questions" />
       </Section>
 
       <Section ground="ivory" width="wide" className="pt-0">
         <RelatedLinks
           links={[
             { label: 'Destinations', href: '/destinations', description: 'Airport access by city' },
-            { label: 'Charter Pricing', href: '/pricing', description: 'How a quote is built' },
-            { label: 'Positioning explained', href: '/insights/how-aircraft-positioning-affects-charter-pricing', description: 'Why the same route varies' },
-            { label: 'Aircraft & Fleet', href: '/aircraft', description: 'What can fly which sector' },
+            {
+              label: 'Charter Pricing',
+              href: '/pricing',
+              description: 'How a charter quote is built',
+            },
+            {
+              label: 'Positioning explained',
+              href: '/insights/how-aircraft-positioning-affects-charter-pricing',
+              description: 'Why the same route can cost more or less',
+            },
+            {
+              label: 'Aircraft & Fleet',
+              href: '/aircraft',
+              description: 'Which aircraft suits which flight',
+            },
           ]}
         />
       </Section>

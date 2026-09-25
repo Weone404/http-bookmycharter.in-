@@ -48,14 +48,16 @@ interface Voice {
 
 const VOICES: Record<BusinessModel, Voice> = {
   operator: {
-    whatWeDo: 'We operate charter flights planned around your route, schedule and passenger requirements.',
+    whatWeDo:
+      'We operate charter flights planned around your route, schedule and passenger requirements.',
     aircraftPossessive: 'our aircraft',
     flownBy: 'flown by our crew',
     mayClaimOwnInventory: true,
     mayClaimOwnCertification: true,
   },
   arranger: {
-    whatWeDo: 'We arrange charter solutions based on your route, aircraft requirements and availability.',
+    whatWeDo:
+      'We arrange charter solutions based on your route, aircraft requirements and availability.',
     aircraftPossessive: 'aircraft available through our operator partners',
     flownBy: 'flown by DGCA-certified operators',
     mayClaimOwnInventory: false,
@@ -65,7 +67,8 @@ const VOICES: Record<BusinessModel, Voice> = {
   // the same way for now, because nothing here may imply which is which until
   // the registrations are verified.
   hybrid: {
-    whatWeDo: 'We arrange and coordinate charter solutions based on your route, aircraft requirements and availability.',
+    whatWeDo:
+      'We arrange and coordinate charter solutions based on your route, aircraft requirements and availability.',
     aircraftPossessive: 'aircraft available for charter',
     flownBy: 'flown by DGCA-certified operators',
     mayClaimOwnInventory: false,
@@ -73,7 +76,8 @@ const VOICES: Record<BusinessModel, Voice> = {
   },
   // Neutral and true under every model.
   unconfirmed: {
-    whatWeDo: 'We arrange charter solutions based on your route, aircraft requirements and availability.',
+    whatWeDo:
+      'We arrange charter solutions based on your route, aircraft requirements and availability.',
     aircraftPossessive: 'aircraft available for charter',
     flownBy: 'flown by DGCA-certified operators',
     mayClaimOwnInventory: false,

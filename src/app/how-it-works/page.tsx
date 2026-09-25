@@ -32,8 +32,8 @@ export default function HowItWorksPage() {
                 { label: 'Steps from enquiry to flight', value: HOW_IT_WORKS.length },
                 { label: 'Details needed to begin', value: 3 },
               ]}
-              note="Route, date and passenger count is enough. Runway length, range, duty limits and permissions are checked for you."
-              primaryLabel="Start an enquiry"
+              note="Your route, date and number of passengers is enough. We check runway length, range, crew duty limits and permissions for you."
+              primaryLabel="Request a charter quote"
               secondaryHref="/pricing"
               secondaryLabel="How pricing works"
             />
@@ -41,15 +41,15 @@ export default function HowItWorksPage() {
           intro={
             <PageIntro
               path={PATH}
-              title="How charter booking works"
-              summary="A charter enquiry becomes a flight in five steps: you describe the trip, suitable aircraft are identified against the real constraints, you receive options with the cost broken down, you choose, and the journey is coordinated."
+              title="How to Book a Private Jet or Helicopter"
+              summary="You can book a private jet or helicopter in India in five steps: share your trip, we find aircraft that fit, you get a charter quote with the cost broken down, you choose, and we coordinate the journey."
             />
           }
         >
           <Prose
             paragraphs={[
-              `${voice().whatWeDo} Charter is planned rather than booked, and the planning is the part that is invisible from outside — which is why the first enquiry feels harder to send than it should.`,
-              'Nothing below requires you to know anything about aviation. Route, date and passenger count is enough to begin, and the constraints that matter — runway length, range, duty limits, permissions — are ours to check, not yours to anticipate.',
+              `${voice().whatWeDo} A charter is planned, not just booked. Most of that planning happens out of sight, which is why a first enquiry can feel harder to send than it is.`,
+              'You do not need to know anything about aviation. Your route, date and number of passengers is enough to begin. We check the things that matter, such as runway length, range, crew duty limits and permissions.',
             ]}
           />
         </IntroLayout>
@@ -63,7 +63,9 @@ export default function HowItWorksPage() {
                 {step.step}
               </span>
               <div className="max-w-[66ch]">
-                <h2 className="text-[length:var(--text-h3)] font-semibold tracking-tight">{step.title}</h2>
+                <h2 className="text-[length:var(--text-h3)] font-semibold tracking-tight">
+                  {step.title}
+                </h2>
                 <p className="mt-3 text-[var(--color-ink-muted)]">{step.description}</p>
               </div>
             </li>
@@ -74,23 +76,23 @@ export default function HowItWorksPage() {
       <Section ground="midnight" width="wide">
         <div className="grid gap-12 lg:grid-cols-2">
           <PointList
-            heading="What we check that you do not have to"
+            heading="What we check for you"
             points={[
-              'Whether both aerodromes can take the aircraft, and at the times you need',
-              'Whether the aircraft has the range and the field performance for the sector',
-              'Whether the day fits inside crew duty limits',
-              'Whether passengers and baggage fit the aircraft in the conditions expected',
-              'What permissions the route or the landing site requires, and how long they take',
+              'Airports: whether both ends can take the aircraft at the times you need',
+              'Range and runway: whether the aircraft can fly the distance and use both runways',
+              'Crew duty: whether your day fits inside crew duty limits',
+              'Weight: whether passengers and baggage fit the aircraft in the expected conditions',
+              'Permissions: what the route or landing site needs, and how long approval takes',
             ]}
           />
           <PointList
             heading="What we need from you"
             points={[
-              'Where you are going, and from where',
-              'The date, and how firm it is',
-              'How many people are travelling',
-              'Anything that cannot move — a meeting, a ceremony, a connection',
-              'Baggage or equipment beyond normal luggage',
+              'Route: where you are flying from and to',
+              'Date: when you want to fly, and how firm that is',
+              'Passengers: how many people are travelling',
+              'Fixed times: anything that cannot move, like a meeting, ceremony or connection',
+              'Baggage: any equipment or luggage beyond the normal',
             ]}
           />
         </div>
@@ -105,10 +107,26 @@ export default function HowItWorksPage() {
       <Section ground="ivory" width="wide">
         <RelatedLinks
           links={[
-            { label: 'Charter Pricing', href: '/pricing', description: 'What the quote is made of' },
-            { label: 'Private Charter', href: '/private-charter', description: 'Whole-aircraft hire' },
-            { label: 'Helicopter Charter', href: '/helicopter-charter', description: 'Site-based operations' },
-            { label: 'Aircraft & Fleet', href: '/aircraft', description: 'Choosing the right type' },
+            {
+              label: 'Charter Pricing',
+              href: '/pricing',
+              description: 'What goes into a charter quote',
+            },
+            {
+              label: 'Private Charter',
+              href: '/private-charter',
+              description: 'Hire a whole aircraft',
+            },
+            {
+              label: 'Helicopter Charter',
+              href: '/helicopter-charter',
+              description: 'Book a helicopter in India',
+            },
+            {
+              label: 'Aircraft & Fleet',
+              href: '/aircraft',
+              description: 'Choose the right aircraft',
+            },
           ]}
         />
       </Section>

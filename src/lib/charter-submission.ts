@@ -64,7 +64,6 @@ function webhookAdapter(url: string): SubmissionAdapter {
   };
 }
 
-
 /**
  * The CRM adapter.
  *

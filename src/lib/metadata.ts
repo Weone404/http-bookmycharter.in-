@@ -30,7 +30,13 @@ interface MetadataInput {
  * image has to be restated on every page or og:image silently disappears.
  * Every route builds its metadata through here for exactly that reason.
  */
-export function pageMetadata({ title, description, path, index = true, image }: MetadataInput): Metadata {
+export function pageMetadata({
+  title,
+  description,
+  path,
+  index = true,
+  image,
+}: MetadataInput): Metadata {
   const card = image ?? OG_IMAGE;
   return {
     title: { absolute: `${title} | ${SITE.name}` },

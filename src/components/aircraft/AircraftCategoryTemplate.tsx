@@ -31,7 +31,7 @@ export function AircraftCategoryTemplate({ page }: { page: AircraftCategoryPage 
 
       <Section ground="ivory" width="wide" className="pt-0">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-          Types and typical figures
+          Compare types: typical seats, range and speed
         </h2>
         <div className="mt-8">
           <AircraftTable aircraft={types} />

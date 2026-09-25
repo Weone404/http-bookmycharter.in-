@@ -28,37 +28,55 @@ export const AIRCRAFT_CATEGORY_PAGES: readonly AircraftCategoryPage[] = [
     category: 'private-jet',
     title: 'Private Jets for Charter',
     summary:
-      'Private jets are graded by cabin class — light, midsize, large-cabin and ultra-long-range — and the class you need is decided by sector length and passenger count, not by preference.',
+      'Private jets for charter come in four sizes, from light jets for four to six people on short trips to ultra-long-range jets that fly between continents. The right size depends on how far you fly and how many people travel.',
     intro: [
-      'The step between one cabin class and the next is the largest single cost decision in jet charter. It is larger than the difference between two aircraft within a class, larger than routing, and larger than almost anything else you can change. Choosing the class correctly is therefore most of the work.',
-      'Light jets carry four to six people on sectors of roughly one to three hours. The cabin is not tall enough to stand in, and baggage volume runs out before weight does. For a small party on a regional sector, this is the efficient answer.',
-      'Midsize jets add standing height and range. This is where a working flight becomes genuinely workable — documents open, a conversation, people moving about — and it is the most heavily chartered class worldwide for exactly that reason.',
-      'Large-cabin and ultra-long-range jets exist for sectors long enough that passengers will properly work or sleep, and for trips where a fuel stop would undo the point of chartering at all. On a domestic Indian sector they are capability nobody uses.',
+      'Moving up one jet size is the biggest cost decision in jet charter. It matters more than the choice between two jets of the same size. It also matters more than routing, and more than almost anything else you can change. So choosing the right size is most of the work.',
+      'A light jet carries four to six people on flights of roughly one to three hours. You cannot stand up inside, and baggage space runs out before the weight limit does. For a small group on a regional flight, a light jet is the efficient choice.',
+      'A midsize jet adds standing height and more range. This is where you can truly work on board: documents open, a conversation, people moving about. That is why it is the most chartered jet size worldwide.',
+      'Large-cabin and ultra-long-range jets are for flights long enough that passengers will properly work or sleep. They also suit trips where a fuel stop would defeat the point of chartering. On a domestic flight within India, their extra capability goes unused.',
     ],
     choosing: {
-      heading: 'How to choose the class',
+      heading: 'How to choose the right jet size',
       points: [
-        'Under two hours with four to six people: a light jet, or a turboprop if the airfield is short',
-        'Two to four hours with six to eight: a midsize jet with a stand-up cabin',
-        'Long sectors where people must work or rest: large-cabin',
-        'Intercontinental without a fuel stop: ultra-long-range',
-        'Check the runway at both ends before settling on any of it',
+        'Under two hours, four to six people: a light jet, or a turboprop if the runway is short',
+        'Two to four hours, six to eight people: a midsize jet you can stand up in',
+        'Long flights where people must work or rest: a large-cabin jet',
+        'Between continents without a fuel stop: an ultra-long-range jet',
+        'Runways at both ends: check them before you settle on any jet',
       ],
     },
     faqs: [
       {
         question: 'What is the difference between a light jet and a midsize jet?',
-        answer: 'A light jet carries four to six people on shorter sectors in a cabin you cannot stand up in; a midsize jet adds standing height, more range and more baggage volume, at a meaningfully higher hourly cost.',
+        answer:
+          'A light jet carries four to six people on shorter flights in a cabin you cannot stand up in, while a midsize jet adds standing height, more range and more baggage space at a noticeably higher hourly cost.',
       },
       {
-        question: 'Does a bigger jet always cost more?',
-        answer: 'Per hour, generally yes — but a faster aircraft completes the sector in less time, so on a long trip the comparison is between hourly rate and hours flown rather than rate alone.',
+        question: 'Does a bigger private jet always cost more to charter?',
+        answer:
+          'Per hour, usually yes, but a faster jet finishes the trip in fewer hours, so on a long trip you should compare the hourly rate multiplied by the hours flown, not the rate alone.',
+      },
+      {
+        question: 'How do I choose between private jets for charter?',
+        answer:
+          'Choose by trip length and group size: a light jet for four to six people under two hours, a midsize jet for six to eight people on two to four hours, and a large-cabin jet for long flights.',
+        elaboration: [
+          'Check the runway at both ends first. If the airfield is short, a turboprop may be the only aircraft that can land there.',
+        ],
       },
     ],
     related: [
-      { label: 'Private Jet Charter', href: '/private-charter/private-jet-charter', description: 'How jet charter works' },
-      { label: 'Turboprops', href: '/aircraft/turboprops', description: 'When a jet is the wrong answer' },
-      { label: 'Charter Pricing', href: '/pricing', description: 'What drives the number' },
+      {
+        label: 'Private Jet Charter',
+        href: '/private-charter/private-jet-charter',
+        description: 'How private jet charter works',
+      },
+      {
+        label: 'Turboprops',
+        href: '/aircraft/turboprops',
+        description: 'When a jet is the wrong choice',
+      },
+      { label: 'Charter Pricing', href: '/pricing', description: 'What sets the price of a trip' },
     ],
     canonical: '/aircraft/private-jets',
   },
@@ -67,36 +85,55 @@ export const AIRCRAFT_CATEGORY_PAGES: readonly AircraftCategoryPage[] = [
     category: 'helicopter',
     title: 'Helicopters for Charter',
     summary:
-      'Helicopter selection is driven by the landing site and the air it will be flying in — altitude, temperature, obstacles and site size matter more than cabin preference.',
+      'Helicopters for charter are chosen by the landing site and the air around it. Height, temperature, obstacles and site size matter more than the cabin.',
     intro: [
-      'For aeroplanes, the airport decides a great deal. For helicopters, the site decides almost everything, and the air above it decides the rest. Density altitude — the combination of elevation and temperature — reduces rotor lift and engine power together, so the same helicopter that lifts a full load from Delhi at dawn may not lift it from a Himalayan helipad at midday.',
-      'The single-versus-twin distinction is the next filter. Twins widen what is permissible over water, over built-up areas and at night, and they carry more. Singles are cheaper to operate and, in certain high-altitude designs, better at exactly the mountain work that twins struggle with.',
-      'Cabin size is the last consideration rather than the first, and it is worth being honest about baggage early: light helicopters have very little space for it, and discovering that at the helipad is a poor time to find out.',
+      'For planes, the airport decides a lot. For helicopters, the landing site decides almost everything, and the air above it decides the rest. Pilots call this density altitude (how thin the air is, from height and heat together). Thin air cuts rotor lift and engine power at the same time. So a helicopter that lifts a full load from Delhi at dawn may not lift it from a Himalayan helipad at midday.',
+      'The next choice is one engine or two. A twin-engine helicopter may fly in more places: over water, over built-up areas and at night. Twins also carry more. Single-engine helicopters are cheaper to run. Some high-altitude single-engine designs are also better at the mountain work that twins find hard.',
+      'Cabin size comes last, not first. Be honest about baggage early. Light helicopters have very little space for it, and the helipad is a bad place to find that out.',
     ],
     choosing: {
-      heading: 'How to choose',
+      heading: 'How to choose a helicopter',
       points: [
-        'High-altitude or hot-and-high sites: a type designed for that, not the most comfortable one',
-        'Over cities, over water or at night: a twin, subject to the approval the operation needs',
-        'Larger parties or equipment: a medium twin with a flat-floor cabin',
-        'Cost-sensitive daylight transfers between easy sites: a light single',
-        'State your baggage honestly — it constrains light helicopters more than passenger count does',
+        'High-altitude or hot-and-high sites: a type built for them, not the most comfortable one',
+        'Over cities, over water or at night: a twin, subject to the approval the flight needs',
+        'Larger groups or equipment: a medium twin with a flat-floor cabin',
+        'Budget daytime hops between easy sites: a light single-engine helicopter',
+        'Baggage: state it honestly, as it limits light helicopters more than passenger numbers do',
       ],
     },
     faqs: [
       {
-        question: 'Why does altitude change which helicopter can be used?',
-        answer: 'Thinner air at altitude reduces both the lift the rotor produces and the power the engine makes, and high temperature reduces both further, so the load a helicopter can lift falls as elevation and temperature rise.',
+        question: 'Why does altitude change which helicopter I can charter?',
+        answer:
+          'Thinner air at height cuts both the lift from the rotor and the power from the engine, and heat cuts both further, so a helicopter can lift less as elevation and temperature rise.',
       },
       {
-        question: 'Is a twin-engine helicopter safer than a single?',
-        answer: 'A second engine adds redundancy and widens where the aircraft may legally operate — over built-up areas, over water and at night — but the operating rules, not a general claim, are what differ.',
+        question: 'Is a twin-engine helicopter safer than a single-engine one?',
+        answer:
+          'A second engine adds a backup and widens where the helicopter may legally fly, such as over built-up areas, over water and at night, but what differs is the operating rules, not a general safety claim.',
+      },
+      {
+        question: 'Which helicopters for charter suit mountain flying?',
+        answer:
+          'For mountain flying, choose a helicopter designed for high altitude and heat, because some single-engine designs such as the Airbus H125 are better at mountain work than many twins.',
       },
     ],
     related: [
-      { label: 'Helicopter Charter', href: '/helicopter-charter', description: 'How rotary charter works' },
-      { label: 'Private Helicopter Charter', href: '/helicopter-charter/private-helicopter-charter', description: 'Point-to-point hire' },
-      { label: 'Char Dham by Helicopter', href: '/chardham', description: 'High-altitude Himalayan operations' },
+      {
+        label: 'Helicopter Charter',
+        href: '/helicopter-charter',
+        description: 'How helicopter charter works',
+      },
+      {
+        label: 'Private Helicopter Charter',
+        href: '/helicopter-charter/private-helicopter-charter',
+        description: 'Point-to-point helicopter hire',
+      },
+      {
+        label: 'Char Dham by Helicopter',
+        href: '/chardham',
+        description: 'High-altitude Himalayan flights',
+      },
     ],
     canonical: '/aircraft/helicopters',
   },
@@ -105,36 +142,55 @@ export const AIRCRAFT_CATEGORY_PAGES: readonly AircraftCategoryPage[] = [
     category: 'turboprop',
     title: 'Turboprops for Charter',
     summary:
-      'Turboprops are the right aircraft for short sectors and short runways, which describes a large proportion of charter flying within India.',
+      'Turboprop charter is the right choice for short flights and short runways, which covers a large share of charter flying within India.',
     intro: [
-      'A jet is inefficient on a short trip. On a 250-mile sector it spends most of the flight climbing and descending and barely reaches the cruise where its efficiency lives. A turboprop, designed to work at lower altitudes and shorter distances, often arrives within a few minutes of the jet for considerably less money.',
-      'Runways are the other half of the argument, and in India it is frequently the decisive half. Plants, project sites and district airfields commonly have runway lengths, surfaces or approach facilities that exclude jets outright. A turboprop is not the compromise choice at these destinations — it is the only aircraft that can land.',
-      'The trade is speed and cabin. Above roughly two hours the jet’s advantage compounds into real time saved, and turboprops fly lower, which means more exposure to weather en route.',
+      'A jet wastes much of its speed on a short trip. On a 250-mile flight, it spends most of the time climbing and descending. It barely reaches the cruise where it is efficient. A turboprop (a propeller plane with turbine engines) is built for lower heights and shorter distances. It often lands within a few minutes of the jet, for considerably less money.',
+      'Runways are the other reason, and in India they often decide it. Plants, project sites and district airfields often have runway lengths, surfaces or approach aids that rule jets out completely. At these places a turboprop is not the compromise. It is the only aircraft that can land.',
+      'The trade-off is speed and cabin size. Above roughly two hours, the jet’s speed saves real time. Turboprops also fly lower, so they meet more weather along the way.',
     ],
     choosing: {
-      heading: 'When a turboprop is the better answer',
+      heading: 'When turboprop charter is the better choice',
       points: [
-        'Sectors under roughly an hour, where jet economics do not work',
-        'Airfields with short or unpaved runways, or limited approach aids',
-        'Destinations with restricted facilities where a jet cannot be handled',
-        'Trips combining passengers with equipment or awkward loads',
-        'Cost-sensitive regional travel where arrival time barely differs',
+        'Flights under roughly an hour, where a jet does not pay off',
+        'Airfields with short or unpaved runways, or few approach aids',
+        'Destinations with limited facilities that cannot handle a jet',
+        'Trips that carry equipment or awkward loads with passengers',
+        'Budget regional travel where arrival time barely changes',
       ],
     },
     faqs: [
       {
         question: 'Is a turboprop slower than a jet?',
-        answer: 'Yes in cruise, but on sectors under about an hour the difference in arrival time is small, because so much of a short flight is spent climbing and descending rather than cruising.',
+        answer:
+          'Yes in cruise, but on flights under about an hour you arrive only a little later, because most of a short flight is spent climbing and descending rather than cruising.',
       },
       {
-        question: 'Are turboprops less comfortable?',
-        answer: 'Cabins in this class are smaller than a comparable jet’s, but modern turboprops are pressurised and quiet enough for normal conversation; the more noticeable difference is cabin height and width.',
+        question: 'Are turboprops less comfortable than private jets?',
+        answer:
+          'Turboprop cabins are smaller than a similar jet’s, but modern turboprops are pressurised and quiet enough for normal conversation, so the main difference you notice is cabin height and width.',
+      },
+      {
+        question: 'When is turboprop charter cheaper than a jet?',
+        answer:
+          'Turboprop charter is often cheaper on flights under about an hour, because on a short trip a turboprop arrives within a few minutes of a jet for considerably less money.',
       },
     ],
     related: [
-      { label: 'Aircraft Charter', href: '/private-charter/aircraft-charter', description: 'Choosing across categories' },
-      { label: 'Private Jets', href: '/aircraft/private-jets', description: 'When speed over distance wins' },
-      { label: 'Charter Pricing', href: '/pricing', description: 'Comparing categories on cost' },
+      {
+        label: 'Aircraft Charter',
+        href: '/private-charter/aircraft-charter',
+        description: 'Choosing the right type of aircraft',
+      },
+      {
+        label: 'Private Jets',
+        href: '/aircraft/private-jets',
+        description: 'When speed over distance wins',
+      },
+      {
+        label: 'Charter Pricing',
+        href: '/pricing',
+        description: 'Comparing aircraft types on cost',
+      },
     ],
     canonical: '/aircraft/turboprops',
   },

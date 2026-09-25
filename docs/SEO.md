@@ -82,3 +82,14 @@ built page.
 
 30 legacy paths, all single-hop, verified free of chains. The twelve duplicate programmatic pages
 collapse to five destinations.
+
+## Copy rules (2026-09 rewrite)
+
+Plain words first, the technical term second and explained on first use ("block time (engine start
+to engine stop)"). One primary phrase per page, used in the title, the h1 or summary, one FAQ and a
+section heading — never stuffed. Titles stay within 60 characters including ` | Book My Charter`;
+descriptions 120–158 characters. Service pages build their h2s from `Service.keyword`
+("How private jet charter works"), and `Service.headline` sets the h1.
+
+`/llms.txt` is generated from the route registry, insights, aircraft and home FAQs, so AI answer
+engines get a plain-text map that cannot say anything the pages do not.

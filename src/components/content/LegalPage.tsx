@@ -26,7 +26,7 @@ export function LegalPage({
     <>
       <Section ground="ivory" width="default">
         <PageIntro path={path} title={title} summary={summary}>
-          <p className="mt-6 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
+          <p className="mt-6 text-[length:var(--text-small)] text-[var(--color-ink)]">
             Last updated <time dateTime={updated} className="numeric">{updated}</time>
           </p>
         </PageIntro>

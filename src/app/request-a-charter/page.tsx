@@ -26,11 +26,11 @@ export default function RequestACharterPage() {
         <div className="mt-8 grid gap-14 lg:grid-cols-[1.4fr_0.8fr]">
           <div>
             <h1 className="text-[length:var(--text-h1)] font-semibold leading-[1.05] tracking-[-0.02em]">
-              Request a charter
+              Request a Charter Quote
             </h1>
             <p className="mt-5 max-w-[60ch] text-[length:var(--text-lead)] text-[var(--color-ink-muted)]">
-              Route, date and passenger count is enough to start. Everything else is optional and
-              can follow once we are talking.
+              To request a private jet or helicopter charter quote, share your route, date and
+              number of passengers. Everything else is optional and can follow later.
             </p>
 
             <div className="mt-10">
@@ -40,9 +40,11 @@ export default function RequestACharterPage() {
 
           <aside className="lg:pt-4">
             <div className="border-t border-[var(--color-ink)]/15 pt-6">
-              <h2 className="text-[length:var(--text-h3)] font-medium">Rather speak to someone</h2>
+              <h2 className="text-[length:var(--text-h3)] font-medium">
+                Prefer to talk to someone?
+              </h2>
               <p className="mt-3 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
-                Complicated trips are often faster to explain than to type.
+                Complex trips are often quicker to explain than to type.
               </p>
               <div className="mt-5 flex flex-col gap-3">
                 <a
@@ -58,7 +60,10 @@ export default function RequestACharterPage() {
                   data-track="whatsapp_click"
                   className="inline-flex items-center gap-2.5 font-medium"
                 >
-                  <MessageCircle className="h-4 w-4 text-[var(--color-accent-strong)]" aria-hidden="true" />
+                  <MessageCircle
+                    className="h-4 w-4 text-[var(--color-accent-strong)]"
+                    aria-hidden="true"
+                  />
                   WhatsApp
                 </a>
               </div>

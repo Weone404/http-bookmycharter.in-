@@ -57,7 +57,7 @@ export const ROUTES: readonly RouteEntry[] = [
     path: '/',
     title: 'Private Jet & Helicopter Charter in India',
     description:
-      'Private aviation planned around your route, schedule and passengers. Compare aircraft, understand what a charter costs, and request a quote.',
+      'Book a private jet or helicopter charter anywhere in India. Compare aircraft, see what drives the cost, and get a charter quote for your route and date.',
     label: 'Home',
     cluster: 'root',
     nav: 'none',
@@ -71,9 +71,9 @@ export const ROUTES: readonly RouteEntry[] = [
   // ---------------------------------------------------------------- private charter
   {
     path: '/private-charter',
-    title: 'Private Charter India',
+    title: 'Private Charter Flights in India',
     description:
-      'Charter a private jet, turboprop or executive aircraft anywhere in India. How private charter works, which aircraft suits your trip, and what drives the cost.',
+      'Private charter means hiring a whole aircraft for your trip. See how it works in India, which aircraft fits your group, and what a charter flight costs.',
     label: 'Private Charter',
     cluster: 'private-charter',
     nav: 'both',
@@ -85,9 +85,9 @@ export const ROUTES: readonly RouteEntry[] = [
   },
   {
     path: '/private-charter/private-jet-charter',
-    title: 'Private Jet Charter India',
+    title: 'Private Jet Charter & Hire in India',
     description:
-      'Private jet charter across India: how it works, which jet category suits your route and passenger count, what affects the price, and how to request a quote.',
+      'Hire a private jet in India. Light, midsize or large jet: which one suits your route and group, what the price depends on, and how to book in a few steps.',
     label: 'Private Jet Charter',
     cluster: 'private-charter',
     parent: '/private-charter',
@@ -100,9 +100,9 @@ export const ROUTES: readonly RouteEntry[] = [
   },
   {
     path: '/private-charter/aircraft-charter',
-    title: 'Aircraft Charter Services India',
+    title: 'Aircraft Charter Flights in India',
     description:
-      'Aircraft charter for business, leisure and group travel in India. Choosing between jets, turboprops and larger aircraft, and how a charter is arranged.',
+      'Charter a jet, turboprop or larger aircraft in India for business, family or group travel. Learn which aircraft fits your trip and how booking works.',
     label: 'Aircraft Charter',
     cluster: 'private-charter',
     parent: '/private-charter',
@@ -162,9 +162,9 @@ export const ROUTES: readonly RouteEntry[] = [
   // ------------------------------------------------------------- helicopter charter
   {
     path: '/helicopter-charter',
-    title: 'Helicopter Charter India',
+    title: 'Helicopter Charter & Booking in India',
     description:
-      'Helicopter charter across India for point-to-point transfers, corporate movement, events and aerial work. How it works and what it costs.',
+      'Book a helicopter charter in India for city transfers, business trips, weddings, events and hill travel. How it works, what it costs, and what to check.',
     label: 'Helicopter Charter',
     cluster: 'helicopter-charter',
     nav: 'both',
@@ -176,9 +176,9 @@ export const ROUTES: readonly RouteEntry[] = [
   },
   {
     path: '/helicopter-charter/private-helicopter-charter',
-    title: 'Private Helicopter Charter India',
+    title: 'Private Helicopter Charter in India',
     description:
-      'Charter a private helicopter in India for point-to-point travel, including helipad access, typical mission profiles and pricing factors.',
+      'Book a private helicopter in India for point-to-point travel. Helipad rules, landing permissions, weather limits and what shapes the price, in plain words.',
     label: 'Private Helicopter Charter',
     cluster: 'helicopter-charter',
     parent: '/helicopter-charter',
@@ -191,9 +191,9 @@ export const ROUTES: readonly RouteEntry[] = [
   },
   {
     path: '/helicopter-charter/helicopter-rental',
-    title: 'Helicopter Rental India',
+    title: 'Helicopter Rental in India: Hourly Hire',
     description:
-      'Helicopter rental by the hour or by the mission in India: how rental differs from a point-to-point charter, and what is included.',
+      'Rent a helicopter in India by the hour or by the day. How helicopter rental differs from a one-way charter, what the hire includes, and what it costs.',
     label: 'Helicopter Rental',
     cluster: 'helicopter-charter',
     parent: '/helicopter-charter',
@@ -268,9 +268,9 @@ export const ROUTES: readonly RouteEntry[] = [
   // ---------------------------------------------------------------------- aircraft
   {
     path: '/aircraft',
-    title: 'Aircraft & Fleet',
+    title: 'Charter Aircraft in India: Types & Specs',
     description:
-      'Browse aircraft available for charter in India — private jets, helicopters and turboprops — with capacity, range and the missions each suits.',
+      'Compare private jets, helicopters and turboprops for charter in India. Seats, range and speed for each aircraft type, and the trips each one suits best.',
     label: 'Aircraft',
     cluster: 'aircraft',
     nav: 'both',
@@ -282,9 +282,9 @@ export const ROUTES: readonly RouteEntry[] = [
   },
   {
     path: '/aircraft/private-jets',
-    title: 'Private Jets for Charter',
+    title: 'Private Jets for Charter: Seats & Range',
     description:
-      'Private jet categories available for charter in India, from light jets to long-range aircraft, and how to match one to your route.',
+      'Light, midsize and large private jets for charter in India. Compare seats, range and cruise speed, and find the right jet for your route and group size.',
     label: 'Private Jets',
     cluster: 'aircraft',
     parent: '/aircraft',
@@ -297,9 +297,9 @@ export const ROUTES: readonly RouteEntry[] = [
   },
   {
     path: '/aircraft/helicopters',
-    title: 'Helicopters for Charter',
+    title: 'Helicopters for Charter: Seats & Range',
     description:
-      'Helicopter types available for charter in India, with seating, typical missions and the terrain each is suited to.',
+      'Single-engine and twin-engine helicopters for charter in India. Compare seats, range and speed, and see which helicopter suits city, hill or mountain trips.',
     label: 'Helicopters',
     cluster: 'aircraft',
     parent: '/aircraft',
@@ -312,9 +312,9 @@ export const ROUTES: readonly RouteEntry[] = [
   },
   {
     path: '/aircraft/turboprops',
-    title: 'Turboprops for Charter',
+    title: 'Turboprops for Charter: Seats & Range',
     description:
-      'Turboprop aircraft available for charter in India, and why they suit short runways and regional sectors.',
+      'Turboprop charter in India for short runways and regional routes. Compare seats and range, and see when a turboprop costs less than a jet for your trip.',
     label: 'Turboprops',
     cluster: 'aircraft',
     parent: '/aircraft',
@@ -329,9 +329,9 @@ export const ROUTES: readonly RouteEntry[] = [
   // ---------------------------------------------------------------------- services
   {
     path: '/services',
-    title: 'Charter Services',
+    title: 'Air Charter Services in India',
     description:
-      'Charter services for corporate travel, weddings, medical transfers, film and aerial work, events and luxury travel logistics.',
+      'Air charter services in India for corporate travel, events and helicopter flower dropping. See what each service involves and how to plan it simply.',
     label: 'Services',
     cluster: 'services',
     nav: 'footer',
@@ -343,9 +343,9 @@ export const ROUTES: readonly RouteEntry[] = [
   },
   {
     path: '/services/corporate-charter',
-    title: 'Corporate Charter India',
+    title: 'Corporate Jet & Helicopter Charter India',
     description:
-      'Corporate air charter for executive teams and recurring business travel in India, including multi-city days and cost control.',
+      'Corporate charter in India for executive teams: multi-city days, site visits and regular business travel by private jet or helicopter, with costs explained.',
     label: 'Corporate Charter',
     cluster: 'services',
     parent: '/services',
@@ -403,9 +403,9 @@ export const ROUTES: readonly RouteEntry[] = [
   },
   {
     path: '/services/aerial-flower-dropping',
-    title: 'Helicopter Flower Dropping',
+    title: 'Helicopter Flower Dropping (Pushpa Varsha)',
     description:
-      'Aerial flower showering by helicopter for weddings, temple events and public ceremonies, including permissions, timing and safety limits.',
+      'Helicopter flower dropping for weddings, temple events and ceremonies in India. Permissions, timing, safety limits and cost factors, explained simply.',
     label: 'Aerial Flower Dropping',
     cluster: 'services',
     parent: '/services',
@@ -450,9 +450,9 @@ export const ROUTES: readonly RouteEntry[] = [
   // ------------------------------------------------------- pricing, empty legs, how
   {
     path: '/pricing',
-    title: 'Charter Pricing Explained',
+    title: 'Private Jet Charter Cost in India',
     description:
-      'What a private jet or helicopter charter costs in India, and every component that builds the number: aircraft, flight time, positioning, handling, crew and taxes.',
+      'How much does a private jet or helicopter charter cost in India? See each part of the price: aircraft, billed hours, positioning, airport fees, crew, taxes.',
     label: 'Pricing',
     cluster: 'pricing',
     nav: 'both',
@@ -464,9 +464,9 @@ export const ROUTES: readonly RouteEntry[] = [
   },
   {
     path: '/empty-leg-charter',
-    title: 'Empty Leg Flights India',
+    title: 'Empty Leg Flights India: How They Work',
     description:
-      'What an empty leg is, why empty legs exist, how availability actually works, and when a repositioning flight is worth waiting for.',
+      'Empty leg flights are one-way private jet trips flown to reposition an aircraft. Learn how empty legs work in India, when they save money and their limits.',
     label: 'Empty Legs',
     cluster: 'empty-leg',
     nav: 'footer',
@@ -478,9 +478,9 @@ export const ROUTES: readonly RouteEntry[] = [
   },
   {
     path: '/how-it-works',
-    title: 'How Charter Booking Works',
+    title: 'How to Book a Private Jet or Helicopter',
     description:
-      'From enquiry to departure: how a charter request becomes aircraft options, a confirmed price and a coordinated flight.',
+      'How to book a private jet or helicopter charter in India, step by step: share your trip, compare aircraft options, confirm and fly on your schedule.',
     label: 'How It Works',
     cluster: 'company',
     nav: 'footer',
@@ -494,9 +494,9 @@ export const ROUTES: readonly RouteEntry[] = [
   // ------------------------------------------------------- destinations and routes
   {
     path: '/destinations',
-    title: 'Charter Destinations in India',
+    title: 'Private Jet Charter Destinations in India',
     description:
-      'Airport and helipad access hubs for charter across India, with the aircraft, routes and missions each city supports.',
+      'Private jet and helicopter charter destinations across India. Airports and helipads by city, and the aircraft and trips each place supports.',
     label: 'Destinations',
     cluster: 'destinations',
     nav: 'both',
@@ -508,9 +508,9 @@ export const ROUTES: readonly RouteEntry[] = [
   },
   {
     path: '/routes',
-    title: 'Charter Routes',
+    title: 'Private Charter Routes in India',
     description:
-      'Commercially common charter city pairs in India, with suitable aircraft, airports and the factors that move the price.',
+      'Popular private charter routes in India and how a city pair is planned: which aircraft fits, which airports work, and what moves the charter price.',
     label: 'Routes',
     cluster: 'routes',
     nav: 'footer',
@@ -524,9 +524,9 @@ export const ROUTES: readonly RouteEntry[] = [
   // ---------------------------------------------------------------------- chardham
   {
     path: '/chardham',
-    title: 'Char Dham by Private Helicopter Charter',
+    title: 'Private Char Dham Helicopter Charter',
     description:
-      'Chartering a whole helicopter for Char Dham: aircraft, routing, positioning and the operating limits of Himalayan helipads.',
+      'Char Dham helicopter charter with a whole private helicopter. Himalayan helipads, weather and altitude limits, positioning and routing, explained simply.',
     label: 'Char Dham',
     cluster: 'chardham',
     nav: 'footer',
@@ -538,9 +538,9 @@ export const ROUTES: readonly RouteEntry[] = [
   },
   {
     path: '/chardham/kedarnath-helicopter',
-    title: 'Kedarnath Helicopter Charter',
+    title: 'Private Kedarnath Helicopter Charter',
     description:
-      'Private helicopter charter to Kedarnath: the helipads used, altitude and weather limits, and how a private charter differs from a shuttle seat.',
+      'Private helicopter charter to Kedarnath: the helipads used, weather and altitude limits, and how a private charter differs from a shuttle seat.',
     label: 'Kedarnath Helicopter',
     cluster: 'chardham',
     parent: '/chardham',
@@ -600,9 +600,9 @@ export const ROUTES: readonly RouteEntry[] = [
   // ---------------------------------------------------------------------- insights
   {
     path: '/insights',
-    title: 'Aviation Insights',
+    title: 'Private Jet & Helicopter Charter Guides',
     description:
-      'Guides to charter pricing, aircraft selection, empty legs and how private aviation works in India.',
+      'Simple guides to private jet and helicopter charter in India: charter cost, empty legs, choosing an aircraft, and private jet vs commercial flights.',
     label: 'Insights',
     cluster: 'insights',
     nav: 'both',
@@ -616,9 +616,9 @@ export const ROUTES: readonly RouteEntry[] = [
   // ----------------------------------------------------------- company, legal, CTA
   {
     path: '/about',
-    title: 'About Book My Charter',
+    title: 'About Us: Charter Company in Delhi',
     description:
-      'Who Book My Charter is, how charter is arranged, and how we describe what we can and cannot verify.',
+      'Book My Charter is a private jet and helicopter charter service in Dwarka, Delhi, arranging charter flights across India. How we work and what we claim.',
     label: 'About',
     cluster: 'company',
     nav: 'footer',
@@ -630,8 +630,9 @@ export const ROUTES: readonly RouteEntry[] = [
   },
   {
     path: '/contact',
-    title: 'Contact',
-    description: 'Speak to Book My Charter about a charter requirement, by phone, WhatsApp or email.',
+    title: 'Contact Us: Call, WhatsApp or Email',
+    description:
+      'Contact Book My Charter for a private jet or helicopter charter in India. Call, WhatsApp or email us with your route, date and number of passengers.',
     label: 'Contact',
     cluster: 'company',
     nav: 'footer',
@@ -643,9 +644,9 @@ export const ROUTES: readonly RouteEntry[] = [
   },
   {
     path: '/request-a-charter',
-    title: 'Request a Charter',
+    title: 'Request a Charter Quote',
     description:
-      'Tell us your route, date and passenger count and receive suitable aircraft options with pricing.',
+      'Request a private jet or helicopter charter quote. Share your route, date and passengers, and get suitable aircraft options with a clear price breakdown.',
     label: 'Request a Charter',
     cluster: 'conversion',
     nav: 'none',
@@ -660,7 +661,8 @@ export const ROUTES: readonly RouteEntry[] = [
   {
     path: '/privacy',
     title: 'Privacy Policy',
-    description: 'How Book My Charter handles the information you submit with a charter request.',
+    description:
+      'How Book My Charter collects, uses and protects the details you share in a private jet or helicopter charter request, and who can see them.',
     label: 'Privacy',
     cluster: 'legal',
     nav: 'footer',
@@ -673,7 +675,8 @@ export const ROUTES: readonly RouteEntry[] = [
   {
     path: '/terms',
     title: 'Terms of Use',
-    description: 'The terms on which this website and its charter request service are provided.',
+    description:
+      'The terms of use for the Book My Charter website and its charter request service: what the site is, how to read its information, and aircraft availability.',
     label: 'Terms',
     cluster: 'legal',
     nav: 'footer',

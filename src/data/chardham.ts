@@ -30,103 +30,135 @@ export interface ChardhamPage {
 
 export const CHARDHAM_HUB: ChardhamPage = {
   path: '/chardham',
-  title: 'Char Dham by private helicopter charter',
+  title: 'Char Dham Helicopter Charter',
   summary:
-    'Chartering a whole helicopter for Char Dham means the aircraft and its schedule are yours, which is a different product from a shuttle seat and is constrained almost entirely by altitude, weather and the helipads themselves.',
+    'A Char Dham helicopter charter means you hire the whole helicopter and its schedule, not a shuttle seat, and the flying is limited mainly by altitude, weather and the helipads.',
   body: [
-    'There are two ways to reach the Garhwal shrines by air, and they are not variations of one thing. A shuttle seat is a place on a rotation that runs to its own timetable, fills with other passengers and departs when it is ready. A private charter is the aircraft: it departs when your party is ready, it flies your itinerary, and it waits if your day runs long. This page is about the second.',
-    'What makes the flying difficult is the air rather than the distance. As elevation rises and the day warms, the air thins — and thinner air reduces both the lift the rotor generates and the power the engine produces, at the same time. The practical result is that a helicopter which lifts a full load comfortably at dawn from a valley floor may not lift the same load from a mountain helipad in the afternoon. This is why mountain flying favours early departures, why payload is discussed carefully before the day, and why the aircraft type chosen for this terrain is often not the most comfortable one available.',
-    'The second constraint is the sites. Himalayan helipads are small, surrounded by terrain, and weather-exposed in a way airports are not. Cloud can close a site and clear it again within the hour, and a valley that is flyable at nine may not be at eleven. Any itinerary built on the assumption that every leg will operate on schedule is a plan with no margin in it.',
-    'For a chartered aircraft, those constraints have a particular consequence: your schedule is genuinely yours, but the mountain still has a vote. A charter buys freedom from other passengers’ timings, not freedom from weather. The realistic version of the plan includes what happens if a leg cannot fly — a later window, a night in the valley, or a road alternative — and it is worth agreeing that before the trip rather than during it.',
+    'There are two ways to fly to the Garhwal shrines, and they are different products. A shuttle seat is one place on a helicopter that runs to its own timetable. It carries other passengers and leaves when it is ready. A private helicopter charter gives you the whole aircraft. It leaves when your group is ready, flies your route and waits if your day runs long. If you are planning a Char Dham yatra by helicopter for your own group, this page is about the second option.',
+    'The hard part of the flying is the air, not the distance. Air gets thinner as height and temperature rise. Pilots call this density altitude (thin air at height). Thin air cuts the lift from the rotor and the power from the engine at the same time. So a helicopter that lifts a full load easily at dawn from a valley floor may not lift the same load from a mountain helipad in the afternoon. That is why mountain flights leave early, and why payload (the weight of passengers and bags) is agreed carefully before the day. It is also why the helicopter chosen for this terrain is often not the most comfortable one available.',
+    'The second limit is the helipads. Himalayan helipads are small, ringed by mountains and more exposed to weather than airports. Cloud can close a helipad and clear again within the hour. A valley that is flyable at nine may not be flyable at eleven. A plan that assumes every leg will fly on time has no margin in it.',
+    'With a Char Dham helicopter charter, your schedule really is yours, but the mountain still has a say. A charter frees you from other passengers’ timings. It does not free you from the weather. A realistic plan says what happens if a leg cannot fly: a later window, a night in the valley or a road alternative. Agree that before the trip, not during it.',
   ],
   constraints: [
-    'Density altitude — elevation combined with temperature — reduces what a helicopter can lift, and it worsens through the day',
-    'Early departures are the norm in mountain operations, for the air rather than for the schedule',
-    'Passenger and baggage weights matter far more here than at sea level and are confirmed before the flight',
-    'Weather closes and reopens Himalayan sites within short windows',
-    'The commander and the operator decide whether a leg can fly — that decision is not commercial',
-    'The shrines are seasonal, and dates for opening and closing are announced by the temple authorities rather than by any operator',
+    'Density altitude (thin air from height and heat) cuts what a helicopter can lift, and it gets worse through the day',
+    'Early departures are normal in the mountains, because the morning air is better, not because of the schedule',
+    'Passenger and baggage weights matter far more here than at sea level, and are confirmed before the flight',
+    'Weather closes and reopens Himalayan helipads within short windows',
+    'The commander and the operator decide whether a leg can fly, and that decision is not a commercial one',
+    'The shrines are seasonal, and opening and closing dates are announced by the temple authorities, not by any operator',
   ],
   faqs: [
     {
       question: 'What is the difference between a Char Dham helicopter charter and a shuttle seat?',
       answer:
-        'A charter is the whole aircraft flying your itinerary on your schedule; a shuttle seat is one place on a rotation that runs to its own timetable with other passengers.',
+        'A Char Dham helicopter charter gives you the whole helicopter flying your route on your schedule, while a shuttle seat is one place on a helicopter that runs to its own timetable with other passengers.',
       elaboration: [
-        'Charter costs more and removes the dependency on other passengers and on a rotation filling. For a family or a small group travelling together, the per-person gap is narrower than it first appears.',
+        'A charter costs more. In return, you do not depend on other passengers or on a shuttle filling up. For a family or small group travelling together, the gap per person is smaller than it first looks.',
       ],
     },
     {
-      question: 'Why do mountain helicopter flights depart so early?',
+      question: 'Why do helicopter flights in the mountains leave so early?',
       answer:
-        'Because air density falls as the day warms, and thinner air reduces both rotor lift and engine power, so the same aircraft can carry more safely in the cool of the morning than in the afternoon.',
+        'They leave early because the air thins as the day warms, and thinner air cuts both rotor lift and engine power, so the same helicopter can safely carry more in the cool of the morning.',
     },
     {
-      question: 'What happens if weather stops a leg of the itinerary?',
+      question: 'What happens if bad weather stops a leg of my Char Dham trip?',
       answer:
-        'The flight does not operate until the commander judges it can, and in mountain terrain a site can close and reopen within the hour — so a realistic plan includes an alternative rather than assuming every leg will fly on schedule.',
+        'The helicopter does not fly until the commander judges it can, and because a mountain helipad can close and reopen within the hour, a good plan includes an alternative instead of assuming every leg will fly on time.',
     },
     {
-      question: 'Which helicopter is used for Himalayan operations?',
+      question: 'Which helicopter is used for Char Dham and other Himalayan flights?',
       answer:
-        'Types selected for high-altitude and hot-and-high performance, because retaining power and lift margin at elevation matters more on these routes than cabin comfort does.',
+        'Operators favour helicopter types chosen for strong high-altitude and hot-and-high performance (keeping power and lift in thin, warm air), because that margin matters more on these routes than cabin comfort.',
     },
   ],
   related: [
-    { label: 'Kedarnath Helicopter Charter', href: '/chardham/kedarnath-helicopter', description: 'The specific constraints of that site' },
-    { label: 'Helicopter Charter', href: '/helicopter-charter', description: 'How rotary charter works generally' },
-    { label: 'Helicopters for Charter', href: '/aircraft/helicopters', description: 'Types suited to high altitude' },
-    { label: 'Charter Pricing', href: '/pricing', description: 'What drives the cost of a charter' },
+    {
+      label: 'Kedarnath Helicopter Charter',
+      href: '/chardham/kedarnath-helicopter',
+      description: 'What makes the Kedarnath helipad different',
+    },
+    {
+      label: 'Helicopter Charter',
+      href: '/helicopter-charter',
+      description: 'How helicopter charter works in India',
+    },
+    {
+      label: 'Helicopters for Charter',
+      href: '/aircraft/helicopters',
+      description: 'Types suited to high altitude',
+    },
+    {
+      label: 'Charter Pricing',
+      href: '/pricing',
+      description: 'What drives the cost of a charter',
+    },
   ],
 };
 
 export const KEDARNATH_PAGE: ChardhamPage = {
   path: '/chardham/kedarnath-helicopter',
-  title: 'Kedarnath helicopter charter',
+  title: 'Kedarnath Helicopter Charter',
   summary:
-    'A Kedarnath helicopter charter is a short, high-altitude sector into a confined mountain site, and almost everything about how it is planned follows from those two facts rather than from the distance flown.',
+    'A Kedarnath helicopter charter is a short, high-altitude flight into a tight mountain helipad, and those two facts shape the planning far more than the distance flown.',
   body: [
-    'The flying time is short. That is the first thing people misjudge about this route: the sector itself is brief, and the cost and the difficulty are not driven by distance at all. They are driven by where the aircraft is going and what the air is doing when it gets there.',
-    'Kedarnath sits high, in a valley ringed by terrain, and the approach into it is not a long straight final over flat ground. That geometry limits which aircraft can operate there sensibly, how much they can carry, and how much margin the crew has if conditions change during the approach. It is the reason operators favour types with strong hot-and-high performance and the reason payload is discussed precisely rather than approximately.',
-    'Departures for this sector are typically flown from helipads in the valley below rather than from a major airport, and a charter itinerary usually begins with getting the party and the aircraft to that valley. Where the aircraft is based, and whether it has to reposition from a city, is frequently a larger part of the cost than the mountain leg itself.',
-    'For a private charter specifically, the aircraft is committed to your party for the day — including the time it spends on the ground while you are at the shrine. That waiting is part of what you are paying for, and it is the main reason a charter costs what it does relative to a seat on a rotation.',
-    'Weather governs everything. A morning that looks clear in the valley can be unflyable at the site, and the reverse happens too. The realistic plan for this route has an alternative in it.',
+    'The flight itself is short. This is the first thing people get wrong about the route. Distance does not drive the cost or the difficulty. What drives them is where the helicopter is going and what the air is doing when it gets there.',
+    'Kedarnath sits high in a valley ringed by mountains. The approach is not a long, straight descent over flat ground. That limits which helicopters can fly there sensibly, how much they can carry, and how much margin the crew has if conditions change on the approach. It is why operators favour types with strong hot-and-high performance (power in thin, warm air). It is also why payload is worked out precisely, not roughly.',
+    'Flights to Kedarnath usually leave from helipads in the valley below, not from a major airport. So a charter usually starts by getting your group and the helicopter to that valley. Where the helicopter is based matters too. Positioning (flying it from a city base to the valley) is often a bigger part of the cost than the mountain flight itself.',
+    'With a private helicopter to Kedarnath, the aircraft is yours for the day. That includes the time it waits on the ground while you are at the shrine. You pay for that waiting time, and it is the main reason a Kedarnath helicopter charter costs more than a seat on a shuttle.',
+    'Weather decides everything. A morning that looks clear in the valley can be unflyable at the helipad, and the reverse happens too. A realistic plan for this route includes an alternative.',
   ],
   constraints: [
-    'A confined, high-altitude site with terrain on the approach',
-    'Payload is limited by density altitude and confirmed against actual passenger weights',
-    'Ground waiting while the party is at the shrine is part of the chartered day',
-    'Positioning the aircraft to the valley is often the larger cost, not the mountain sector',
-    'Weather can close the site at short notice and reopen it as quickly',
-    'Access, timings and any temple-side arrangements are governed by the authorities responsible for them, not by an operator',
+    'A small, high-altitude helipad with mountains on the approach',
+    'Payload is limited by density altitude (thin air at height) and checked against actual passenger weights',
+    'Waiting on the ground while you are at the shrine is part of the chartered day',
+    'Positioning the helicopter to the valley often costs more than the mountain flight',
+    'Weather can close the helipad at short notice and reopen it just as quickly',
+    'Access, timings and any temple-side arrangements are set by the authorities responsible, not by an operator',
   ],
   faqs: [
     {
       question: 'How long is the helicopter flight to Kedarnath?',
       answer:
-        'The mountain sector itself is short — the journey is dominated by getting to the valley departure point and by the time the aircraft spends on the ground, not by the flying.',
+        'The flight to Kedarnath is short, and most of the trip goes on reaching the valley helipad and on the helicopter’s time on the ground, not on the flying.',
     },
     {
-      question: 'Can a helicopter charter to Kedarnath be booked for a single day?',
+      question: 'Can I book a Kedarnath helicopter charter for one day?',
       answer:
-        'A same-day charter is the usual shape of the trip, with the aircraft waiting while the party is at the shrine, and that waiting time is part of the chartered day.',
+        'Yes, a same-day trip is the usual plan, with the helicopter waiting while you are at the shrine, and that waiting time is part of the chartered day.',
     },
     {
-      question: 'Why is payload discussed before a Kedarnath flight?',
+      question: 'Why is weight checked before a Kedarnath helicopter flight?',
       answer:
-        'Because thin air at altitude reduces what the helicopter can lift, so actual passenger and baggage weights determine what the aircraft can safely carry that day rather than a nominal seat count.',
+        'Thin air at altitude reduces what a helicopter can lift, so the actual weight of passengers and bags, not the number of seats, decides what it can safely carry that day.',
     },
     {
-      question: 'What happens if the weather closes in?',
+      question: 'What happens if the weather closes in at Kedarnath?',
       answer:
-        'The flight waits until the commander judges conditions acceptable, and if the window does not open the leg does not operate — which is why a plan with an alternative is better than one without.',
+        'The helicopter waits until the commander judges conditions acceptable, and if the window does not open the flight does not go, which is why a plan with an alternative is better than one without.',
     },
   ],
   related: [
-    { label: 'Char Dham by Helicopter Charter', href: '/chardham', description: 'The wider Garhwal picture' },
-    { label: 'Private Helicopter Charter', href: '/helicopter-charter/private-helicopter-charter', description: 'Whole-aircraft point-to-point hire' },
-    { label: 'Helicopters for Charter', href: '/aircraft/helicopters', description: 'High-altitude types' },
-    { label: 'Request a Charter', href: '/request-a-charter', description: 'Dates, party size and departure point' },
+    {
+      label: 'Char Dham Helicopter Charter',
+      href: '/chardham',
+      description: 'Flying the wider Garhwal region',
+    },
+    {
+      label: 'Private Helicopter Charter',
+      href: '/helicopter-charter/private-helicopter-charter',
+      description: 'Hire a whole helicopter point to point',
+    },
+    {
+      label: 'Helicopters for Charter',
+      href: '/aircraft/helicopters',
+      description: 'High-altitude types',
+    },
+    {
+      label: 'Request a Charter',
+      href: '/request-a-charter',
+      description: 'Dates, group size and departure point',
+    },
   ],
 };
 

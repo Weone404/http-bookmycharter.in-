@@ -8,77 +8,149 @@ export const HELICOPTER_SERVICES: readonly Service[] = [
     slug: 'helicopter-charter',
     cluster: 'helicopter-charter',
     name: 'Helicopter Charter',
+    keyword: 'helicopter charter',
+    headline: 'Helicopter Charter in India',
     summary:
-      'Helicopter charter moves people point to point without needing a runway, which makes it the right tool where the destination has no airport and the wrong one where it does.',
+      'Helicopter charter flies you point to point without a runway, so it suits executives, wedding and event guests, and hill travellers going where there is no airport.',
     definition: [
-      'A helicopter earns its cost by removing the ground leg. If the place you are going has a runway and a road, an aeroplane and a car will usually be cheaper. If it has neither — a plant, a project site, a hill town, a venue, a ridge — the helicopter is not the premium option, it is the only one.',
-      'What replaces the airport is the site, and sites have their own requirements: an approach and departure path clear of obstacles, a firm and dust-free surface, permission from whoever controls the land, and crowd control if people will be nearby. A field is not a helipad until someone has established those things.',
-      'The second difference is time on the ground. A helicopter that waits four hours at a site is four hours unavailable to anyone else, so missions with long waits are usually quoted on total aircraft time rather than flying time alone. Trips built around a meeting or a ceremony are priced very differently from straight point-to-point transfers.',
+      'A helicopter earns its cost by removing the road journey. If your destination has a runway and a road, a plane and a car will usually cost less. If it has neither, the helicopter is not the luxury option. It is the only one. Think of a plant, a project site, a hill town, a venue or a ridge.',
+      'Instead of an airport, a helicopter uses a landing site, and each site has its own needs. It needs a path in and out that is clear of obstacles. It needs a firm, dust-free surface and permission from whoever controls the land. If people will be nearby, it needs crowd control. A field is not a helipad until someone has confirmed all of this.',
+      'The second difference is waiting time on the ground. A helicopter that waits four hours at a site cannot be used by anyone else for those four hours. So trips with long waits are usually priced on total aircraft time, not flying time alone. A trip built around a meeting or a ceremony is priced very differently from a simple point-to-point transfer.',
     ],
     whoItIsFor: [
-      'Executives visiting sites that scheduled aviation does not reach',
-      'Event and wedding parties arriving where a road journey would take hours',
-      'Travellers into hill and mountain destinations',
+      'Executives visiting sites that airline flights do not reach',
+      'Wedding and event guests arriving where the road would take hours',
+      'Travellers heading into hill and mountain destinations',
       'Survey, inspection, filming and other aerial work',
-      'Anyone whose journey is short in distance but long by road',
+      'Anyone whose trip is short in distance but long by road',
     ],
     whenToUseIt: [
-      'When the destination has no runway and a poor road',
-      'When a same-day return by road is impossible but by air is routine',
-      'When the landing point matters more than the airport',
-      'When the mission is the flying itself — survey, filming, inspection',
+      'When your destination has no runway and a poor road',
+      'When a same-day return is impossible by road but routine by air',
+      'When where you land matters more than which airport is nearest',
+      'When the flying is the job itself, such as survey, filming or inspection',
     ],
     howItWorks: [
-      { title: 'Establish both landing sites', description: 'Not just the destination. Approach paths, surface, obstacles, ownership and permission all have to be real before a date is fixed.' },
-      { title: 'Match the helicopter to the terrain', description: 'Altitude, temperature and site size decide the type. A high helipad on a warm afternoon is a different problem from the same site at dawn.' },
-      { title: 'Plan the ground time', description: 'How long the aircraft waits changes the quote more than most people expect.' },
-      { title: 'Build in the weather', description: 'Visibility and cloud base close sites quickly, particularly in hills. A realistic alternative beats an optimistic plan.' },
+      {
+        title: 'Confirm both landing sites',
+        description:
+          'Before you book a helicopter, check the departure site as well as the destination. The approach path, surface, obstacles, ownership and permission must all be confirmed before a date is fixed.',
+      },
+      {
+        title: 'Match the helicopter to the terrain',
+        description:
+          'Altitude, temperature and site size decide the helicopter type. A high helipad on a warm afternoon is a different problem from the same site at dawn.',
+      },
+      {
+        title: 'Plan the ground time',
+        description:
+          'How long the helicopter waits changes the quote more than most people expect.',
+      },
+      {
+        title: 'Plan for the weather',
+        description:
+          'Poor visibility and low cloud close sites quickly, especially in the hills. A realistic backup plan beats an optimistic one.',
+      },
     ],
     suitableCategories: ['helicopter'],
-    missions: ['corporate', 'vvip', 'wedding', 'regional', 'film-and-aerial', 'pilgrimage', 'medical'],
+    missions: [
+      'corporate',
+      'vvip',
+      'wedding',
+      'regional',
+      'film-and-aerial',
+      'pilgrimage',
+      'medical',
+    ],
     considerations: [
-      'A landing site is not a helipad until someone has confirmed the approach, the surface and the permission.',
-      'Density altitude — altitude combined with temperature — reduces both lift and engine power, and reduces what the aircraft can carry.',
-      'Ground waiting time is charged, because the aircraft is committed to you while it waits.',
-      'Weather closes helicopter sites faster than it closes airports, especially in hills.',
-      'Night operations are constrained and depend on the site, the aircraft and the approval.',
+      'Landing sites must be checked. A site is not a helipad until someone has confirmed the approach, the surface and the permission.',
+      'Density altitude (thin air at height, made thinner by heat) reduces lift and engine power, so the helicopter can carry less.',
+      'Ground waiting time is charged, because the helicopter is committed to you while it waits.',
+      'Weather closes helicopter sites faster than it closes airports, especially in the hills.',
+      'Night flights are limited and depend on the site, the helicopter and the approval.',
     ],
     pricingFactors: [
-      { factor: 'Helicopter type', explanation: 'A single-engine light helicopter and a twin differ substantially in hourly cost, and the terrain often decides which is permissible.' },
-      { factor: 'Flight time', explanation: 'Charged on total aircraft time, which includes repositioning between sites during the day.' },
-      { factor: 'Positioning', explanation: 'Helicopters are based at fewer points than aircraft, so getting one to a remote start can be a significant share of the cost.' },
-      { factor: 'Ground waiting', explanation: 'Time held at a site, usually the largest single variable on event and meeting missions.' },
-      { factor: 'Site charges and permissions', explanation: 'Helipad fees where they apply, and any approvals the site requires.' },
-      { factor: 'Crew requirements', explanation: 'Some missions and some aircraft require two pilots, which changes the cost base.' },
+      {
+        factor: 'Helicopter type',
+        explanation:
+          'A single-engine light helicopter and a twin-engine helicopter differ a lot in hourly cost. The terrain often decides which one is allowed.',
+      },
+      {
+        factor: 'Flight time',
+        explanation:
+          'Charged on total aircraft time, including moving between sites during the day.',
+      },
+      {
+        factor: 'Positioning',
+        explanation:
+          'Helicopters are based in fewer places than planes. Getting one to a remote start point can be a large share of the cost.',
+      },
+      {
+        factor: 'Ground waiting',
+        explanation:
+          'Time the helicopter is held at a site. This is usually the biggest variable for events and meetings.',
+      },
+      {
+        factor: 'Site charges and permissions',
+        explanation: 'Helipad fees where they apply, plus any approvals the site needs.',
+      },
+      {
+        factor: 'Crew requirements',
+        explanation: 'Some trips and some helicopters need two pilots, which raises the base cost.',
+      },
     ],
     faqs: [
       {
-        question: 'How much does a helicopter charter cost in India?',
-        answer: 'Helicopter charter is normally priced on total aircraft time, with the rate depending on helicopter type, plus positioning to your start point, landing and helipad charges, crew requirements, ground waiting time and taxes.',
+        question: 'How much does helicopter charter cost in India?',
+        answer:
+          'Helicopter charter in India is usually priced on total aircraft time, at a rate set by the helicopter type, plus positioning, landing and helipad charges, crew needs, ground waiting time and taxes.',
         elaboration: [
-          'Waiting time deserves particular attention. A four-hour ceremony with the aircraft held on site costs far more than the flying minutes suggest, because the aircraft is committed for the whole period.',
+          'Waiting time needs special attention. If the helicopter waits on site through a four-hour ceremony, it costs far more than the flying minutes suggest. That is because the aircraft is committed to you for the whole time.',
         ],
       },
       {
         question: 'Can a helicopter land anywhere?',
-        answer: 'No. A landing site needs clear approach and departure paths, a firm surface that will not throw debris, control of the surrounding area, and permission from whoever owns or governs the land.',
+        answer:
+          'No, a helicopter needs a landing site with a clear path in and out, a firm surface that will not throw up debris, control of the area around it, and permission from whoever owns or manages the land.',
         elaboration: [
-          'Confirming a site is a normal part of planning, and it is better done weeks ahead than on the morning.',
+          'Checking the site is a normal part of planning. It is better done weeks ahead than on the morning of the flight.',
         ],
       },
       {
-        question: 'What happens if the weather turns?',
-        answer: 'The commander and the operator decide whether the flight can proceed, and in hill terrain a site can close and reopen within the hour.',
+        question: 'What happens if the weather is bad on the day of my helicopter flight?',
+        answer:
+          'The commander (the pilot in charge) and the operator decide whether the flight can go, and in the hills a site can close and reopen within the hour.',
         elaboration: [
-          'Any itinerary into mountains should be planned with an alternative — a later slot, a different site, or a road leg — rather than on the assumption that the weather will cooperate.',
+          'Plan any mountain trip with a backup, such as a later slot, a different site or a road journey. Do not assume the weather will cooperate.',
         ],
+      },
+      {
+        question: 'When should I book a helicopter instead of a plane?',
+        answer:
+          'Book a helicopter when your destination has no runway and a poor road, because where there is a runway and a road, a plane and a car will usually cost less.',
       },
     ],
     related: [
-      { label: 'Private Helicopter Charter', href: '/helicopter-charter/private-helicopter-charter', description: 'Point-to-point whole-aircraft hire' },
-      { label: 'Helicopter Rental', href: '/helicopter-charter/helicopter-rental', description: 'Hourly hire for missions with ground time' },
-      { label: 'Helicopters for Charter', href: '/aircraft/helicopters', description: 'Types, seating and terrain suitability' },
-      { label: 'Char Dham by Helicopter', href: '/chardham', description: 'Whole-aircraft charter into Himalayan helipads' },
+      {
+        label: 'Private Helicopter Charter',
+        href: '/helicopter-charter/private-helicopter-charter',
+        description: 'Hire a whole helicopter for one point-to-point trip',
+      },
+      {
+        label: 'Helicopter Rental',
+        href: '/helicopter-charter/helicopter-rental',
+        description: 'Hourly hire for trips with waiting time',
+      },
+      {
+        label: 'Helicopters for Charter',
+        href: '/aircraft/helicopters',
+        description: 'Helicopter types, seats and terrain suitability',
+      },
+      {
+        label: 'Char Dham by Helicopter',
+        href: '/chardham',
+        description: 'Whole-helicopter charter to Himalayan helipads',
+      },
       { label: 'Charter Pricing', href: '/pricing', description: 'How the cost is built' },
     ],
     canonical: '/helicopter-charter',
@@ -87,65 +159,124 @@ export const HELICOPTER_SERVICES: readonly Service[] = [
     slug: 'private-helicopter-charter',
     cluster: 'helicopter-charter',
     name: 'Private Helicopter Charter',
+    keyword: 'private helicopter charter',
+    headline: 'Private Helicopter Charter in India',
     summary:
-      'Private helicopter charter is whole-aircraft hire for a specific point-to-point journey, where the aircraft goes where you go and carries nobody else.',
+      'Private helicopter charter means hiring a whole helicopter for one point-to-point trip, so executives, families and small groups fly on their own schedule with nobody else on board.',
     definition: [
-      'The distinction that matters here is against shuttle or seat-based helicopter services. On a shuttle, you buy a seat on a rotation that runs to its own schedule with other passengers. On a private charter, the aircraft is yours: it departs when you are ready, it goes where your itinerary says, and it waits if your day runs long.',
-      'That difference shows up most clearly on routes where both exist. A shuttle seat is cheaper and less flexible; a private charter costs more and removes the dependency on other people’s timings and on the rotation filling.',
-      'For a single point-to-point transfer, the cost drivers are simple: the flying time, getting the aircraft to your start point, and the charges at each end. It is the cleanest form of helicopter charter to price.',
+      'The key difference is between a private charter and a shuttle, or seat-based, helicopter service. On a shuttle, you buy one seat on a rotation that runs to its own timetable, with other passengers. On a private charter, the helicopter is yours. It leaves when you are ready, goes where your plan says, and waits if your day runs long.',
+      'This matters most on routes where both options exist. A shuttle seat costs less but is less flexible. A private helicopter booking costs more, but you no longer depend on other people’s timings or on the rotation filling up.',
+      'For one point-to-point transfer, the cost is simple to work out. You pay for the flying time, for bringing the helicopter to your start point, and for the charges at each end. It is the simplest kind of helicopter charter to price.',
     ],
     whoItIsFor: [
-      'Executives making a single site visit and returning the same day',
-      'Families and small groups travelling together to one destination',
+      'Executives making one site visit and returning the same day',
+      'Families and small groups travelling together to one place',
       'Travellers who need to control their own departure time',
       'Anyone who would otherwise face a long road transfer at either end',
     ],
     whenToUseIt: [
-      'A defined A-to-B journey, with or without a same-day return',
-      'When a shuttle exists but its timings do not fit',
-      'When the party wants the aircraft to itself',
-      'When the return time is uncertain and the aircraft must wait',
+      'A set A-to-B trip, with or without a same-day return',
+      'When a shuttle runs on your route but its timings do not suit you',
+      'When your group wants the helicopter to itself',
+      'When your return time is uncertain and the helicopter must wait',
     ],
     howItWorks: [
-      { title: 'Fix both ends', description: 'Departure and arrival sites, confirmed as usable rather than assumed.' },
-      { title: 'Set the day', description: 'Departure time, expected ground time and return, so the quote reflects the real day.' },
-      { title: 'Select the type', description: 'Passenger count, baggage, terrain and altitude narrow it quickly.' },
-      { title: 'Confirm access', description: 'Any permissions the sites require, arranged before the date rather than on it.' },
+      {
+        title: 'Fix both ends',
+        description: 'Confirm that the departure and arrival sites are usable. Do not assume it.',
+      },
+      {
+        title: 'Plan the day',
+        description:
+          'Share your departure time, expected ground time and return, so the quote matches your real day.',
+      },
+      {
+        title: 'Choose the helicopter',
+        description: 'Passenger count, baggage, terrain and altitude narrow the choice quickly.',
+      },
+      {
+        title: 'Confirm access',
+        description: 'Arrange any permissions the sites need before the date, not on the day.',
+      },
     ],
     suitableCategories: ['helicopter'],
     missions: ['corporate', 'vvip', 'leisure', 'regional'],
     considerations: [
-      'Baggage space in a light helicopter is genuinely small — it is worth stating what you are carrying early.',
-      'A same-day return means the aircraft waits, and waiting is charged.',
-      'Passenger weights matter more in helicopters than in aircraft, particularly at altitude.',
-      'Two sites means two sets of permissions, not one.',
+      'Baggage space in a light helicopter is very small, so say early what you are carrying.',
+      'Same-day returns mean the helicopter waits, and waiting is charged.',
+      'Passenger weights matter more in a helicopter than in a plane, especially at altitude.',
+      'Two sites mean two sets of permissions, one for each helipad or landing site.',
     ],
     pricingFactors: [
-      { factor: 'Flight time', explanation: 'Total aircraft time for the journey, both directions where applicable.' },
-      { factor: 'Positioning', explanation: 'Bringing the helicopter to your departure point from wherever it is based.' },
-      { factor: 'Ground waiting', explanation: 'Charged where the aircraft holds for a same-day return.' },
-      { factor: 'Helicopter type', explanation: 'Single or twin, and the cabin size the party requires.' },
-      { factor: 'Site charges', explanation: 'Landing and helipad fees where they apply at either end.' },
+      {
+        factor: 'Flight time',
+        explanation: 'Total aircraft time for the trip, in both directions where needed.',
+      },
+      {
+        factor: 'Positioning',
+        explanation: 'Bringing the helicopter to your departure point from wherever it is based.',
+      },
+      {
+        factor: 'Ground waiting',
+        explanation: 'Charged when the helicopter waits for a same-day return.',
+      },
+      {
+        factor: 'Helicopter type',
+        explanation: 'Single-engine or twin-engine, and the cabin size your group needs.',
+      },
+      {
+        factor: 'Site charges',
+        explanation: 'Landing and helipad fees where they apply, at either end.',
+      },
     ],
     faqs: [
       {
         question: 'What is the difference between a private helicopter charter and a shuttle seat?',
-        answer: 'A private charter is the whole aircraft on your schedule; a shuttle seat is one place on a rotation that runs to its own timetable with other passengers.',
+        answer:
+          'A private helicopter charter gives you the whole helicopter on your schedule, while a shuttle seat is one place on a rotation that runs to its own timetable with other passengers.',
       },
       {
-        question: 'Can the helicopter wait for us and bring us back?',
-        answer: 'Yes, and that waiting time is part of the quote, because the aircraft is committed to your trip for the whole period it is held.',
+        question: 'Can the helicopter wait and bring us back the same day?',
+        answer:
+          'Yes, the helicopter can wait for your return, and that waiting time is part of the quote because the aircraft is committed to your trip for the whole time it is held.',
       },
       {
         question: 'How many people can a private helicopter carry?',
-        answer: 'Typically four to seven in a light helicopter and up to ten or twelve in larger twins, but the real limit is set by passenger weights, baggage, altitude and temperature on the day.',
+        answer:
+          'A light helicopter typically carries four to seven people and a larger twin up to ten or twelve, but the real limit is set by passenger weights, baggage, altitude and temperature on the day.',
+      },
+      {
+        question: 'Is a private helicopter charter more expensive than a shuttle?',
+        answer:
+          'Yes, a private helicopter charter costs more than a shuttle seat, but you control the timing and do not depend on other passengers or on the rotation filling up.',
+      },
+      {
+        question: 'How is a private helicopter charter priced?',
+        answer:
+          'A private helicopter charter is priced on flight time, positioning the helicopter to your start point, any ground waiting, the helicopter type, and landing and helipad fees at each end.',
       },
     ],
     related: [
-      { label: 'Helicopter Charter', href: '/helicopter-charter', description: 'How rotary charter works' },
-      { label: 'Helicopter Rental', href: '/helicopter-charter/helicopter-rental', description: 'Hourly hire for longer missions' },
-      { label: 'Helicopters for Charter', href: '/aircraft/helicopters', description: 'Types and capacity' },
-      { label: 'Request a Charter', href: '/request-a-charter', description: 'Start with route, date and passengers' },
+      {
+        label: 'Helicopter Charter',
+        href: '/helicopter-charter',
+        description: 'How helicopter charter works',
+      },
+      {
+        label: 'Helicopter Rental',
+        href: '/helicopter-charter/helicopter-rental',
+        description: 'Hourly hire for longer jobs',
+      },
+      {
+        label: 'Helicopters for Charter',
+        href: '/aircraft/helicopters',
+        description: 'Helicopter types and seating',
+      },
+      {
+        label: 'Request a Charter',
+        href: '/request-a-charter',
+        description: 'Start with your route, date and passengers',
+      },
     ],
     canonical: '/helicopter-charter/private-helicopter-charter',
     parent: '/helicopter-charter',
@@ -154,65 +285,125 @@ export const HELICOPTER_SERVICES: readonly Service[] = [
     slug: 'helicopter-rental',
     cluster: 'helicopter-charter',
     name: 'Helicopter Rental',
+    keyword: 'helicopter rental',
+    headline: 'Helicopter Rental in India',
     summary:
-      'Helicopter rental means hiring the aircraft and crew for a block of time rather than for a single journey, which suits missions where the flying is not a straight line.',
+      'Helicopter rental means hiring a helicopter and crew for a block of time, not one journey, which suits filming, surveys, events and multi-site days where plans change.',
     definition: [
-      'Rental and charter describe the same underlying arrangement — an aircraft with its crew, hired by one party — but they are priced around different shapes of day. A point-to-point charter is quoted for a journey. A rental is quoted for a period of aircraft availability, within which the itinerary can be more fluid.',
-      'That distinction matters for surveys, filming, inspections, multi-site days and events: missions where the aircraft lands, waits, repositions, lands again, and where the flight plan is not fully known at the time of booking.',
-      'The aircraft is committed to you for the whole block whether it is flying or standing, which is exactly why this arrangement exists and why it is priced the way it is.',
+      'Helicopter rental and charter are the same basic deal: a helicopter with its crew, hired by one party. The difference is how the day is priced. A point-to-point charter is quoted for one journey. A rental is quoted for a block of time when the helicopter is on hire to you, and your plan can change within it.',
+      'This suits surveys, filming, inspections, events and days with several sites. On these jobs the helicopter lands, waits, moves, and lands again. The full flight plan is often not known when you book. Hourly helicopter hire is built for that kind of day.',
+      'The helicopter is committed to you for the whole block, whether it is flying or standing still. That is exactly why rental exists, and why it is priced the way it is.',
     ],
     whoItIsFor: [
-      'Production teams filming across several locations',
-      'Survey and inspection work along a corridor or across a region',
-      'Corporate days covering several sites',
-      'Event organisers needing an aircraft on standby',
+      'Film crews shooting across several locations',
+      'Survey and inspection teams covering a corridor or a region',
+      'Companies planning a day across several sites',
+      'Event organisers who need a helicopter on standby',
     ],
     whenToUseIt: [
-      'When the itinerary will change during the day',
-      'When the aircraft must be available rather than merely scheduled',
-      'When the mission involves repeated landings and repositioning',
-      'When ground time will exceed flying time',
+      'When your plan will change during the day',
+      'When the helicopter must be available, not just booked for set times',
+      'When the job involves repeated landings and moves between sites',
+      'When waiting time will be longer than flying time',
     ],
     howItWorks: [
-      { title: 'Define the block', description: 'How many hours of availability, over which days, from which base.' },
-      { title: 'Establish the operating area', description: 'Where the aircraft will fly and land, and any approvals that area requires.' },
-      { title: 'Confirm the configuration', description: 'Doors off for filming, equipment mounts, seating — each has its own implications.' },
-      { title: 'Agree the terms', description: 'What the block includes, what extends it, and what happens if weather takes a day out.' },
+      {
+        title: 'Define the block',
+        description:
+          'Decide how many hours of availability you need, on which days, and from which base.',
+      },
+      {
+        title: 'Set the operating area',
+        description: 'Where the helicopter will fly and land, and any approvals that area needs.',
+      },
+      {
+        title: 'Confirm the setup',
+        description:
+          'Doors off for filming, equipment mounts and seating. Each one has its own requirements.',
+      },
+      {
+        title: 'Agree the terms',
+        description:
+          'What the block includes, what extends it, and what happens if weather takes out a day.',
+      },
     ],
     suitableCategories: ['helicopter'],
     missions: ['film-and-aerial', 'corporate', 'regional'],
     considerations: [
-      'Specialist configurations — doors off, camera mounts, survey equipment — need arranging well ahead.',
-      'Some operating areas and activities need specific approvals, and those take time.',
-      'Weather can take a full day out of a multi-day block; the schedule should allow for it.',
-      'Crew duty limits apply to the block as they do to any flight.',
+      'Special setups, such as doors off, camera mounts or survey equipment, need arranging well ahead.',
+      'Some areas and activities need specific approvals, and these take time.',
+      'Weather can take out a full day of a multi-day block, so leave room in the schedule.',
+      'Crew duty limits (legal limits on crew working hours) apply to a rental block, as they do to any flight.',
     ],
     pricingFactors: [
-      { factor: 'Block duration', explanation: 'Hours of aircraft availability, which is the basis of the whole arrangement.' },
-      { factor: 'Helicopter type', explanation: 'Mission configuration often dictates the type before preference does.' },
-      { factor: 'Positioning to the area', explanation: 'Getting the aircraft to the operating area and back at the end of the block.' },
-      { factor: 'Special configuration', explanation: 'Doors-off operation, mounts and equipment fitting carry their own cost and lead time.' },
-      { factor: 'Crew and overnights', explanation: 'A multi-day block away from base includes crew accommodation and duty planning.' },
+      {
+        factor: 'Block duration',
+        explanation:
+          'The hours the helicopter is available to you. This is the basis of the whole rental.',
+      },
+      {
+        factor: 'Helicopter type',
+        explanation: 'The job’s setup often decides the helicopter type before preference does.',
+      },
+      {
+        factor: 'Positioning to the area',
+        explanation:
+          'Flying the helicopter to your operating area, and back at the end of the block.',
+      },
+      {
+        factor: 'Special configuration',
+        explanation: 'Doors-off flying, mounts and equipment fitting each add cost and lead time.',
+      },
+      {
+        factor: 'Crew and overnights',
+        explanation:
+          'A multi-day block away from base includes crew accommodation and duty planning.',
+      },
     ],
     faqs: [
       {
         question: 'What is the difference between helicopter rental and helicopter charter?',
-        answer: 'They are the same arrangement priced differently: charter is quoted for a defined journey, rental for a block of aircraft availability within which the itinerary can change.',
+        answer:
+          'Helicopter rental and helicopter charter are the same arrangement priced differently: charter is quoted for one set journey, and rental for a block of time in which your plans can change.',
       },
       {
         question: 'Can I rent a helicopter for filming with the doors off?',
-        answer: 'Doors-off filming is a recognised operation but it requires the right aircraft, crew briefing, harnesses and approvals, and must be arranged in advance rather than requested on the day.',
+        answer:
+          'Doors-off filming is a recognised type of helicopter operation, but it needs the right helicopter, a crew briefing, harnesses and approvals, all arranged in advance rather than on the day.',
       },
       {
-        question: 'What happens if weather stops a day of a multi-day block?',
-        answer: 'How lost days are treated is agreed as part of the rental terms before the block starts, which is why those terms are worth reading carefully for weather-exposed work.',
+        question: 'What happens if bad weather cancels a day of my helicopter rental?',
+        answer:
+          'How lost days are handled is agreed in the rental terms before the block starts, so read those terms carefully for any weather-exposed work.',
+      },
+      {
+        question: 'Can I hire a helicopter for a day?',
+        answer:
+          'Yes, helicopter rental lets you hire a helicopter for a block of hours on the days you choose, and it stays committed to you whether it is flying or waiting.',
+      },
+      {
+        question: 'How is helicopter rental priced?',
+        answer:
+          'Helicopter rental is priced mainly on block duration (the hours the helicopter is available to you), plus the helicopter type, positioning to your area, any special setup, and crew overnights on multi-day jobs.',
       },
     ],
     related: [
-      { label: 'Helicopter Charter', href: '/helicopter-charter', description: 'Point-to-point rotary charter' },
-      { label: 'Private Helicopter Charter', href: '/helicopter-charter/private-helicopter-charter', description: 'Single-journey whole-aircraft hire' },
-      { label: 'Helicopters for Charter', href: '/aircraft/helicopters', description: 'Types and mission suitability' },
-      { label: 'Charter Pricing', href: '/pricing', description: 'Cost components in full' },
+      {
+        label: 'Helicopter Charter',
+        href: '/helicopter-charter',
+        description: 'Point-to-point helicopter charter',
+      },
+      {
+        label: 'Private Helicopter Charter',
+        href: '/helicopter-charter/private-helicopter-charter',
+        description: 'Hire a whole helicopter for one trip',
+      },
+      {
+        label: 'Helicopters for Charter',
+        href: '/aircraft/helicopters',
+        description: 'Helicopter types and the jobs they suit',
+      },
+      { label: 'Charter Pricing', href: '/pricing', description: 'Every cost, explained in full' },
     ],
     canonical: '/helicopter-charter/helicopter-rental',
     parent: '/helicopter-charter',

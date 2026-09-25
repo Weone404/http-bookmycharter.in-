@@ -43,7 +43,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ ci
         <PageIntro
           path={page.canonical}
           dynamic={{ path: page.canonical, label: page.city, parent: '/destinations' }}
-          eyebrow="Destination"
+          eyebrow="Charter destination"
           title={page.title}
           summary={page.summary}
         />
@@ -60,7 +60,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ ci
 
       <Section ground="ivory" width="wide" className="pt-0">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-          Recorded aerodromes
+          Airports and airfields on record
         </h2>
         <div className="mt-8">
           <AerodromeTable aerodromes={aerodromes} />
@@ -68,7 +68,10 @@ export default async function DestinationPage({ params }: { params: Promise<{ ci
       </Section>
 
       <Section ground="midnight" width="wide">
-        <PointList heading={`Chartering from ${page.city}`} points={page.charterNotes} />
+        <PointList
+          heading={`What to know before you charter from ${page.city}`}
+          points={page.charterNotes}
+        />
       </Section>
 
       <Section ground="ivory" width="default">

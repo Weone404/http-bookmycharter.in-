@@ -110,7 +110,7 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
       </Section>
 
       <Section ground="ivory" width="wide" className="pt-0">
-        <RelatedLinks links={article.supports} heading="Where this applies" />
+        <RelatedLinks links={article.supports} heading="Related charter pages" />
       </Section>
 
       <JsonLd

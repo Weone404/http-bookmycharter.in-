@@ -25,8 +25,8 @@ export default function InsightsPage() {
           intro={
             <PageIntro
               path={PATH}
-              title="Aviation insights"
-              summary="Guides to how charter is priced, how aircraft are chosen, and what an empty leg actually is — written to answer the question rather than to rank for it."
+              title="Private Aviation Guides for India"
+              summary="These private aviation guides for India answer the questions people ask before they charter: how pricing works, how to choose an aircraft, and what an empty leg is."
             />
           }
           aside={
@@ -36,7 +36,7 @@ export default function InsightsPage() {
                 { label: 'Topics', value: new Set(INSIGHTS.map((i) => i.category)).size },
               ]}
               secondaryHref="/pricing"
-              secondaryLabel="How pricing works"
+              secondaryLabel="See how charter pricing works"
             />
           }
         >

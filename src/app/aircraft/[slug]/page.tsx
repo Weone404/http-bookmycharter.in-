@@ -48,9 +48,15 @@ export async function generateMetadata({
   const { slug } = await params;
   const aircraft = aircraftBySlug(slug);
   if (!aircraft?.curated) return {};
+  // Built only from the spec figures we hold; falls back to the summary when either is missing.
+  const seats = formatRange(aircraft.specs.passengers);
+  const range = formatRange(aircraft.specs.rangeNm, 'nm');
   return pageMetadata({
-    title: `${aircraft.name} Charter`,
-    description: aircraft.curated.summary,
+    title: `${aircraft.name} Charter in India`,
+    description:
+      seats && range
+        ? `Charter the ${aircraft.name} in India: ${seats} seats and ${range} range, typical for the type. See what it suits best and when to pick another aircraft.`
+        : aircraft.curated.summary,
     path: aircraft.href,
   });
 }
@@ -110,7 +116,7 @@ export default async function AircraftDetailPage({
         <div className="grid gap-12 lg:grid-cols-2">
           <div>
             <h2 className="text-[length:var(--text-h3)] font-semibold tracking-tight">
-              Typical figures
+              Seats, range and speed (typical figures)
             </h2>
             <dl className="mt-5 divide-y divide-white/10 border-t border-white/10">
               {/* A specification we do not have is omitted entirely. There is no
@@ -125,15 +131,15 @@ export default async function AircraftDetailPage({
                 ))}
             </dl>
             <p className="mt-5 text-[length:var(--text-small)] text-[var(--color-ink-inverse-muted)]">
-              Typical for the type, not specific to an individual airframe. Varies with variant,
+              Typical for the type, not for one specific aircraft. Figures vary with variant,
               options, weight, altitude and temperature. Source: {AIRCRAFT_SPEC_SOURCE.document}.
             </p>
           </div>
 
           <div className="space-y-10">
-            <PointList heading="Ideal for" points={curated.idealFor} />
+            <PointList heading="Best for" points={curated.idealFor} />
             {curated.limitations ? (
-              <PointList heading="Where it is not the right choice" points={curated.limitations} />
+              <PointList heading="When to choose another aircraft" points={curated.limitations} />
             ) : null}
           </div>
         </div>
@@ -142,7 +148,7 @@ export default async function AircraftDetailPage({
       {siblings.length > 0 ? (
         <Section ground="ivory" width="wide">
           <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-            Compare against other {hub.label.toLowerCase()}
+            Compare with other {hub.label.toLowerCase()} for charter
           </h2>
           <div className="mt-8">
             <AircraftTable aircraft={siblings} />
@@ -176,7 +182,7 @@ export default async function AircraftDetailPage({
       <JsonLd
         json={graph([
           webPageSchema({
-            name: `${aircraft.name} Charter`,
+            name: `${aircraft.name} Charter in India`,
             description: curated.summary,
             path: aircraft.href,
           }),

@@ -41,6 +41,8 @@ const CATEGORY_HREF: Partial<Record<AircraftCategory, string>> = {
 
 export function ServicePageTemplate({ service }: { service: Service }) {
   const path = service.canonical;
+  const topic = service.keyword ?? service.name.toLowerCase();
+  const Topic = topic.charAt(0).toUpperCase() + topic.slice(1);
   // Counted from the real fleet data, so the panel cannot claim a type that
   // is not listed further down the same page.
   const typeCount = service.suitableCategories.reduce(
@@ -71,7 +73,13 @@ export function ServicePageTemplate({ service }: { service: Service }) {
               secondaryLabel="How pricing works"
             />
           }
-          intro={<PageIntro path={path} title={service.name} summary={service.summary} />}
+          intro={
+            <PageIntro
+              path={path}
+              title={service.headline ?? service.name}
+              summary={service.summary}
+            />
+          }
         >
           <Prose paragraphs={service.definition} />
         </IntroLayout>
@@ -79,14 +87,14 @@ export function ServicePageTemplate({ service }: { service: Service }) {
 
       <Section ground="surface" width="wide">
         <div className="grid gap-12 lg:grid-cols-2">
-          <PointList heading="Who it is for" points={service.whoItIsFor} />
-          <PointList heading="When to use it" points={service.whenToUseIt} />
+          <PointList heading={`Who ${topic} is for`} points={service.whoItIsFor} />
+          <PointList heading={`When to choose ${topic}`} points={service.whenToUseIt} />
         </div>
       </Section>
 
       <Section ground="ivory" width="wide">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-          How it works
+          How {topic} works
         </h2>
         <ol className="mt-8 grid gap-px border-t border-[var(--color-ink)]/15 sm:grid-cols-2 lg:grid-cols-4">
           {service.howItWorks.map((step, index) => (
@@ -109,7 +117,7 @@ export function ServicePageTemplate({ service }: { service: Service }) {
           rather than a decorative list. */}
       <Section ground="ivory" width="wide" className="pt-0">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-          Aircraft that suit this
+          Best aircraft for {topic}
         </h2>
         <div className="mt-8 grid gap-px border-t border-[var(--color-ink)]/15 sm:grid-cols-2 lg:grid-cols-4">
           {service.suitableCategories.map((category) => {
@@ -174,10 +182,10 @@ export function ServicePageTemplate({ service }: { service: Service }) {
           page read as heavy. The final call to action keeps the one dark band. */}
       <Section ground="surface" width="wide">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-          <PointList heading="What to know before you book" points={service.considerations} />
+          <PointList heading={`Before you book ${topic}`} points={service.considerations} />
           <div>
             <h2 className="text-[length:var(--text-h3)] font-semibold tracking-tight">
-              What drives the cost
+              {Topic} cost: what you pay for
             </h2>
             <dl className="mt-5 divide-y divide-[var(--color-hairline)] border-t border-[var(--color-hairline)]">
               {service.pricingFactors.map((item) => (
@@ -194,7 +202,7 @@ export function ServicePageTemplate({ service }: { service: Service }) {
       </Section>
 
       <Section ground="ivory" width="default">
-        <FaqSection faqs={service.faqs} />
+        <FaqSection heading={`${Topic}: common questions`} faqs={service.faqs} />
       </Section>
 
       <Section ground="ivory" width="wide" className="pt-0">
@@ -204,7 +212,7 @@ export function ServicePageTemplate({ service }: { service: Service }) {
       <Section ground="midnight" width="wide">
         <div className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
           <h2 className="max-w-[40ch] text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-            Tell us the route, the date and how many are travelling.
+            Get a {topic} quote. Share your route, date and number of passengers.
           </h2>
           <Button href="/request-a-charter">
             Request a Charter
