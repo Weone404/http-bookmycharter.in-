@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { ArrowRight } from 'lucide-react';
 import type { Path } from '@/types/common';
 import { pageMetadata } from '@/lib/metadata';
 import { breadcrumbSchema, graph, webPageSchema } from '@/lib/schema';
@@ -13,13 +12,17 @@ import {
 } from '@/data/aircraft';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
-import { Button } from '@/components/ui/Button';
 import { PageIntro } from '@/components/content/PageIntro';
+import { HeroActions } from '@/components/booking/HeroActions';
+
 import { heroImageForCategory } from '@/lib/page-images';
 import { PointList, Prose } from '@/components/content/Prose';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
 import { AircraftTable } from '@/components/aircraft/AircraftTable';
 import { AircraftPhoto } from '@/components/aircraft/AircraftPhoto';
+
+/** Aircraft values the request form's select understands. */
+const QUOTE_AIRCRAFT = new Set(['private-jet', 'helicopter', 'turboprop', 'group-charter']);
 
 /**
  * Only aircraft marked `publish` get a URL. Every other type is a row in the
@@ -92,6 +95,16 @@ export default async function AircraftDetailPage({
           title={aircraft.name}
           summary={curated.summary}
           image={heroImageForCategory(aircraft.category)}
+          action={
+            <HeroActions
+              href={
+                QUOTE_AIRCRAFT.has(aircraft.category)
+                  ? `/request-a-charter?aircraft=${aircraft.category}`
+                  : '/request-a-charter'
+              }
+              label={`Get a ${aircraft.name} quote`}
+            />
+          }
         />
         {/* Renders nothing until a credited Commons photo of this exact type is confirmed. */}
         <AircraftPhoto
@@ -101,15 +114,6 @@ export default async function AircraftDetailPage({
           sizes="(min-width: 1280px) 72rem, 100vw"
           className="mt-10 max-w-5xl"
         />
-        <div className="mt-10">
-          <Prose paragraphs={curated.narrative ?? []} />
-        </div>
-        <div className="mt-10">
-          <Button href="/request-a-charter">
-            Request a Charter
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Button>
-        </div>
       </Section>
 
       <Section ground="midnight" width="wide">
@@ -155,6 +159,16 @@ export default async function AircraftDetailPage({
           </div>
         </Section>
       ) : null}
+
+      {/* UX first: specs and fit come first; the longer write-up follows. */}
+      <Section ground="ivory" width="default">
+        <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
+          About the {aircraft.name}
+        </h2>
+        <div className="mt-6">
+          <Prose paragraphs={curated.narrative ?? []} />
+        </div>
+      </Section>
 
       <Section ground="ivory" width="wide" className="pt-0">
         <RelatedLinks

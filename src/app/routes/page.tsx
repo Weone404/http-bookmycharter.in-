@@ -1,13 +1,12 @@
 import type { Metadata } from 'next';
-import { ArrowRight } from 'lucide-react';
 import { metadataForRoute } from '@/lib/metadata';
 import { getRoute } from '@/lib/routes';
 import { breadcrumbSchema, faqSchema, graph, webPageSchema } from '@/lib/schema';
 import type { Faq } from '@/types/faq';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
-import { Button } from '@/components/ui/Button';
 import { PageIntro } from '@/components/content/PageIntro';
+import { HeroBooking } from '@/components/booking/HeroBooking';
 import { PointList, Prose } from '@/components/content/Prose';
 import { FaqSection } from '@/components/content/FaqSection';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
@@ -45,28 +44,13 @@ export default function RoutesPage() {
 
   return (
     <>
-      <Section ground="ivory" width="wide">
+      <Section ground="ivory" width="wide" className="pb-0">
         <PageIntro
           path={PATH}
           title="Charter Routes in India"
           summary="Charter routes in India are city pairs, not scheduled services. Each one depends on the airport at each end, which aircraft can use both, and where that aircraft is before your trip."
+          action={<HeroBooking heading="Get a quote for your route" />}
         />
-        <div className="mt-10">
-          <Prose
-            paragraphs={[
-              'A charter route is any two places you want to connect. Airlines publish routes because they fly them again and again to a timetable. Charter has no timetable.',
-              'That matters for two reasons. Charter can serve a city pair no airline flies. And the same city pair can cost very different amounts on two different days.',
-              'Three things decide a charter route. First, the aerodrome (airport or airfield) at each end: its runway, facilities and hours decide which aircraft can use it. Second, the distance, which decides whether a turboprop or a jet makes sense. Third, positioning (flying the aircraft to your city): where the aircraft is before your trip, and where it must go afterwards.',
-              'We publish a page for a city pair only once its distance and typical flight time are verified. An estimated figure would be worse than none, because people plan their day around a flight time.',
-            ]}
-          />
-        </div>
-        <div className="mt-10">
-          <Button href="/request-a-charter">
-            Price a specific route
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Button>
-        </div>
       </Section>
 
       <Section ground="midnight" width="wide">
@@ -97,6 +81,24 @@ export default function RoutesPage() {
 
       <Section ground="ivory" width="default">
         <FaqSection faqs={ROUTE_FAQS} heading="Charter routes: common questions" />
+      </Section>
+
+      {/* UX first: the long explanation is kept whole, but after the
+          parts a booker scans. */}
+      <Section ground="surface" width="default">
+        <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
+          How a charter route is planned
+        </h2>
+        <div className="mt-6">
+          <Prose
+            paragraphs={[
+              'A charter route is any two places you want to connect. Airlines publish routes because they fly them again and again to a timetable. Charter has no timetable.',
+              'That matters for two reasons. Charter can serve a city pair no airline flies. And the same city pair can cost very different amounts on two different days.',
+              'Three things decide a charter route. First, the aerodrome (airport or airfield) at each end: its runway, facilities and hours decide which aircraft can use it. Second, the distance, which decides whether a turboprop or a jet makes sense. Third, positioning (flying the aircraft to your city): where the aircraft is before your trip, and where it must go afterwards.',
+              'We publish a page for a city pair only once its distance and typical flight time are verified. An estimated figure would be worse than none, because people plan their day around a flight time.',
+            ]}
+          />
+        </div>
       </Section>
 
       <Section ground="ivory" width="wide" className="pt-0">

@@ -9,7 +9,7 @@ import { DESTINATION_PAGES } from '@/data/destinations';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
 import { PageIntro } from '@/components/content/PageIntro';
-import { GlanceCard, IntroLayout } from '@/components/content/GlanceCard';
+import { HeroActions } from '@/components/booking/HeroActions';
 import { Prose } from '@/components/content/Prose';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
 
@@ -25,38 +25,16 @@ export default function DestinationsPage() {
 
   return (
     <>
-      <Section ground="ivory" width="wide">
-        <IntroLayout
-          intro={
-            <PageIntro
-              path={PATH}
-              title="Private Jet Charter Destinations in India"
-              summary="Private jet charter destinations in India depend on the airfield at the far end: its runway, its facilities and its opening hours. So trip planning starts with the airfield, not the aircraft."
-            />
-          }
-          aside={
-            <GlanceCard
-              stats={[
-                { label: 'Airfields recorded', value: AIRPORTS.length },
-                { label: 'Operational with a code', value: CHARTER_AIRPORTS.length },
-                { label: 'States and union territories', value: states.length },
-                { label: 'Destination guides', value: DESTINATION_PAGES.length },
-              ]}
-              secondaryHref="/routes"
-              secondaryLabel="See charter routes"
-            />
-          }
-        >
-          <Prose
-            paragraphs={[
-              `India has far more aerodromes (airfields) than airports with scheduled flights. ${AIRPORTS.length} are recorded in the reference below, across ${states.length} states and union territories. Of these, ${CHARTER_AIRPORTS.length} are recorded as operational with an assigned code. Most travellers know only a handful of airports. That gap is the main reason to charter.`,
-              'A city guide is published here only when there is something specific and true to say about chartering to or from it. Cities whose operating facts are not yet confirmed are left out on purpose. A page that just swaps in a new city name helps nobody, and that is what the previous version of this site did.',
-            ]}
-          />
-        </IntroLayout>
+      <Section ground="ivory" width="wide" className="pb-0">
+        <PageIntro
+          path={PATH}
+          title="Private Jet Charter Destinations in India"
+          summary="Private jet charter destinations in India depend on the airfield at the far end: its runway, its facilities and its opening hours. So trip planning starts with the airfield, not the aircraft."
+          action={<HeroActions />}
+        />
       </Section>
 
-      <Section ground="ivory" width="wide" className="pt-0">
+      <Section ground="surface" width="wide">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
           City charter guides
         </h2>
@@ -114,6 +92,22 @@ export default function DestinationsPage() {
               Source for the airfield data: {AIRPORT_SOURCE.document}, {AIRPORT_SOURCE.dated}.
             </p>
           </div>
+        </div>
+      </Section>
+
+      {/* UX first: the long explanation is kept whole, but after the
+          parts a booker scans. */}
+      <Section ground="surface" width="default">
+        <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
+          Charter destinations explained
+        </h2>
+        <div className="mt-6">
+          <Prose
+            paragraphs={[
+              `India has far more aerodromes (airfields) than airports with scheduled flights. ${AIRPORTS.length} are recorded in the reference below, across ${states.length} states and union territories. Of these, ${CHARTER_AIRPORTS.length} are recorded as operational with an assigned code. Most travellers know only a handful of airports. That gap is the main reason to charter.`,
+              'A city guide is published here only when there is something specific and true to say about chartering to or from it. Cities whose operating facts are not yet confirmed are left out on purpose. A page that just swaps in a new city name helps nobody, and that is what the previous version of this site did.',
+            ]}
+          />
         </div>
       </Section>
 

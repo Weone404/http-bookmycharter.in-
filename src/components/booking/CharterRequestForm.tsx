@@ -105,6 +105,23 @@ export function CharterRequestForm() {
       time: query.get('time') ?? '',
     });
     setDeparture(query.get('date') ?? '');
+
+    // Aircraft and purpose are plain selects, so they are seeded directly —
+    // and only with a value the select actually offers.
+    for (const [param, field] of [
+      ['aircraft', 'aircraftPreference'],
+      ['purpose', 'purpose'],
+    ] as const) {
+      const value = query.get(param);
+      const select = form.elements.namedItem(field);
+      if (
+        value &&
+        select instanceof HTMLSelectElement &&
+        [...select.options].some((option) => option.value === value)
+      ) {
+        select.value = value;
+      }
+    }
   }, []);
 
   /** Fired once, on the first real interaction rather than on mount. */

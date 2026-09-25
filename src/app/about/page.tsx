@@ -4,12 +4,12 @@ import { metadataForRoute } from '@/lib/metadata';
 import { getRoute } from '@/lib/routes';
 import { breadcrumbSchema, graph, webPageSchema } from '@/lib/schema';
 import { voice } from '@/lib/business-model';
-import { ADDRESS, CONTACT, SISTER_SITE } from '@/lib/site';
+import { ADDRESS, CONTACT, SISTER_SITE, SITE } from '@/lib/site';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { PageIntro } from '@/components/content/PageIntro';
-import { GlanceCard, IntroLayout } from '@/components/content/GlanceCard';
+import { HeroActions } from '@/components/booking/HeroActions';
 import { PointList, Prose } from '@/components/content/Prose';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
 
@@ -35,53 +35,13 @@ export default function AboutPage() {
 
   return (
     <>
-      <Section ground="ivory" width="wide">
-        <IntroLayout
-          intro={
-            <PageIntro
-              path={PATH}
-              title="About Book My Charter"
-              summary="Book My Charter is a private jet and helicopter charter service based in Dwarka, Delhi, that arranges charter flights across India. We explain how charter works and what it costs, so you can decide before you commit."
-            />
-          }
-          aside={
-            <GlanceCard
-              heading="Get in touch"
-              secondaryHref="/contact"
-              secondaryLabel="Contact Book My Charter"
-            >
-              <address className="mt-5 not-italic text-[length:var(--text-small)] leading-relaxed text-[var(--color-ink-muted)]">
-                {ADDRESS.street}
-                <br />
-                {ADDRESS.locality}
-                <br />
-                {ADDRESS.region} {ADDRESS.postalCode}, India
-              </address>
-              <div className="mt-4 flex flex-col gap-1.5 text-[length:var(--text-small)] font-medium">
-                <a
-                  href={`tel:${CONTACT.phone}`}
-                  data-track="call_click"
-                  className="numeric hover:text-[var(--color-accent-strong)]"
-                >
-                  {CONTACT.phoneDisplay}
-                </a>
-                <a
-                  href={`mailto:${CONTACT.email}`}
-                  className="hover:text-[var(--color-accent-strong)]"
-                >
-                  {CONTACT.email}
-                </a>
-              </div>
-            </GlanceCard>
-          }
-        >
-          <Prose
-            paragraphs={[
-              `${voice().whatWeDo} Our job is planning, not selling. We work out which aircraft can fly your trip and what it will really cost once positioning and ground time are counted. If the first answer does not fit, we show you what would need to change.`,
-              'Most of this website explains rather than sells, and that is on purpose. Charter is new to most people who need it. Prices look random until you know what goes into them, and many quotes leave things out. Once you understand positioning (flying the aircraft to you) and block time (engine start to engine stop), you can check whether any quote is complete, including ours.',
-            ]}
-          />
-        </IntroLayout>
+      <Section ground="ivory" width="wide" className="pb-0">
+        <PageIntro
+          path={PATH}
+          title="About Book My Charter"
+          summary="Book My Charter is a private jet and helicopter charter service based in Dwarka, Delhi, that arranges charter flights across India. We explain how charter works and what it costs, so you can decide before you commit."
+          action={<HeroActions />}
+        />
       </Section>
 
       <Section ground="midnight" width="wide">
@@ -158,6 +118,33 @@ export default function AboutPage() {
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Button>
         </div>
+      </Section>
+
+      {/* UX first: the long explanation is kept whole, but after the
+          parts a booker scans. */}
+      <Section ground="surface" width="default">
+        <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
+          About Book My Charter
+        </h2>
+        <div className="mt-6">
+          <Prose
+            paragraphs={[
+              `${voice().whatWeDo} Our job is planning, not selling. We work out which aircraft can fly your trip and what it will really cost once positioning and ground time are counted. If the first answer does not fit, we show you what would need to change.`,
+              'Most of this website explains rather than sells, and that is on purpose. Charter is new to most people who need it. Prices look random until you know what goes into them, and many quotes leave things out. Once you understand positioning (flying the aircraft to you) and block time (engine start to engine stop), you can check whether any quote is complete, including ours.',
+            ]}
+          />
+        </div>
+        <address className="mt-8 not-italic text-[length:var(--text-small)] leading-relaxed text-[var(--color-ink-muted)]">
+          {SITE.name}, {ADDRESS.street}, {ADDRESS.locality}, {ADDRESS.region} {ADDRESS.postalCode},
+          India ·{' '}
+          <a href={`tel:${CONTACT.phone}`} data-track="call_click" className="numeric underline">
+            {CONTACT.phoneDisplay}
+          </a>{' '}
+          ·{' '}
+          <a href={`mailto:${CONTACT.email}`} className="underline">
+            {CONTACT.email}
+          </a>
+        </address>
       </Section>
 
       <Section ground="ivory" width="wide" className="pt-0">

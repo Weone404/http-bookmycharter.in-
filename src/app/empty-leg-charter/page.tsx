@@ -15,7 +15,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { PageIntro } from '@/components/content/PageIntro';
-import { GlanceCard, IntroLayout } from '@/components/content/GlanceCard';
+import { HeroBooking } from '@/components/booking/HeroBooking';
 import { PointList, Prose } from '@/components/content/Prose';
 import { FaqSection } from '@/components/content/FaqSection';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
@@ -30,33 +30,13 @@ export default function EmptyLegPage() {
 
   return (
     <>
-      <Section ground="ivory" width="wide">
-        <IntroLayout
-          aside={
-            <GlanceCard
-              heading="Is an empty leg right for you?"
-              stats={[
-                { label: 'Conditions that apply', value: EMPTY_LEG_CONDITIONS.length },
-                { label: 'When it suits', value: EMPTY_LEG_SUITS.length },
-                { label: 'When it does not', value: EMPTY_LEG_DOES_NOT_SUIT.length },
-                { label: 'Empty legs listed now', value: AVAILABLE_EMPTY_LEGS.length },
-              ]}
-              note="We do not list empty legs as standing inventory, because availability changes faster than any published list."
-              primaryLabel="Tell us your route and dates"
-              secondaryHref="/pricing"
-              secondaryLabel="How pricing works"
-            />
-          }
-          intro={
-            <PageIntro
-              path={PATH}
-              title="Empty Leg Flights in India"
-              summary="Empty leg flights in India are charter aircraft flying without passengers, out to collect a client or back to base afterwards, which an operator may sell for less because it flies anyway."
-            />
-          }
-        >
-          <Prose paragraphs={EMPTY_LEG_EXPLAINER} />
-        </IntroLayout>
+      <Section ground="ivory" width="wide" className="pb-0">
+        <PageIntro
+          path={PATH}
+          title="Empty Leg Flights in India"
+          summary="Empty leg flights in India are charter aircraft flying without passengers, out to collect a client or back to base afterwards, which an operator may sell for less because it flies anyway."
+          action={<HeroBooking heading="Request an empty leg or one-way charter quote" />}
+        />
       </Section>
 
       {/* Availability.
@@ -105,6 +85,17 @@ export default function EmptyLegPage() {
 
       <Section ground="ivory" width="default" className="pt-0">
         <FaqSection faqs={EMPTY_LEG_FAQS} heading="Empty leg flights: common questions" />
+      </Section>
+
+      {/* UX first: the long explanation is kept whole, but after the
+          parts a booker scans. */}
+      <Section ground="surface" width="default">
+        <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
+          Empty leg flights explained
+        </h2>
+        <div className="mt-6">
+          <Prose paragraphs={EMPTY_LEG_EXPLAINER} />
+        </div>
       </Section>
 
       <Section ground="ivory" width="wide" className="pt-0">

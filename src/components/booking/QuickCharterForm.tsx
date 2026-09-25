@@ -28,7 +28,24 @@ import { TimeField } from './TimeField';
  * required, because someone who has not decided should not be blocked at the
  * first field.
  */
-export function QuickCharterForm() {
+/**
+ * Context a page can hand forward: an aircraft type and a trip purpose, using
+ * the same values as the selects on /request-a-charter.
+ */
+export interface QuotePreset {
+  readonly aircraft?: 'private-jet' | 'helicopter' | 'turboprop' | 'group-charter';
+  readonly purpose?:
+    | 'corporate'
+    | 'leisure'
+    | 'wedding'
+    | 'medical'
+    | 'film-and-aerial'
+    | 'pilgrimage'
+    | 'event'
+    | 'other';
+}
+
+export function QuickCharterForm({ preset }: { preset?: QuotePreset } = {}) {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [date, setDate] = useState('');
@@ -48,13 +65,15 @@ export function QuickCharterForm() {
     setSubmitting(true);
     // The funnel starts here, not on /request-a-charter: this is where most
     // people first commit a route and a date.
-    track('charter_form_started', { path: '/', label: 'hero' });
+    track('charter_form_started', { path: window.location.pathname, label: 'hero' });
     const data = new FormData(event.currentTarget);
     const params = new URLSearchParams();
     for (const key of ['from', 'to', 'date', 'time', 'passengers'] as const) {
       const value = data.get(key);
       if (typeof value === 'string' && value.trim() !== '') params.set(key, value.trim());
     }
+    if (preset?.aircraft) params.set('aircraft', preset.aircraft);
+    if (preset?.purpose) params.set('purpose', preset.purpose);
     router.push(`/request-a-charter?${params.toString()}`);
   }
 

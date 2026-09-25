@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, MessageCircle, Phone } from 'lucide-react';
+import { ArrowRight, MessageCircle } from 'lucide-react';
 import { metadataForRoute } from '@/lib/metadata';
 import { breadcrumbSchema, faqSchema, graph, webPageSchema } from '@/lib/schema';
 import { getRoute } from '@/lib/routes';
-import { CONTACT, whatsappLink } from '@/lib/site';
+import { whatsappLink } from '@/lib/site';
 import { HOME_AIRCRAFT_GROUPS, HOME_SERVICES, HOW_IT_WORKS, PRICING_FACTORS } from '@/data/home';
 import { AircraftGroupCard } from '@/components/aircraft/AircraftGroupCard';
 import { HOME_FAQS } from '@/data/faqs';
@@ -13,7 +13,7 @@ import { Section } from '@/components/ui/Section';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { FaqSection } from '@/components/content/FaqSection';
-import { QuickCharterForm } from '@/components/booking/QuickCharterForm';
+import { HeroBooking } from '@/components/booking/HeroBooking';
 import { HeroImage } from '@/components/home/HeroImage';
 import { SiteImageFill } from '@/components/ui/SiteImageFill';
 
@@ -77,36 +77,7 @@ export default function HomePage() {
               </ul>
             </div>
 
-            <div className="mt-8 rounded-[var(--radius-card)] border border-white/10 bg-[var(--color-midnight-950)]/70 p-4 backdrop-blur-sm sm:p-6">
-              <h2 className="text-[length:var(--text-micro)] font-semibold uppercase tracking-[0.16em] text-[var(--color-ink-inverse-muted)]">
-                Request a charter quote
-              </h2>
-              <div className="mt-5">
-                <QuickCharterForm />
-              </div>
-            </div>
-
-            <p className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-[length:var(--text-small)] text-[var(--color-ink-inverse-muted)]">
-              <span>Prefer to talk?</span>
-              <a
-                href={`tel:${CONTACT.phone}`}
-                data-track="call_click"
-                className="inline-flex items-center gap-1.5 font-medium text-[var(--color-ink-inverse)] hover:text-[var(--color-accent)]"
-              >
-                <Phone className="h-4 w-4" aria-hidden="true" />
-                <span className="numeric">{CONTACT.phoneDisplay}</span>
-              </a>
-              <a
-                href={whatsappLink(WHATSAPP_MESSAGE)}
-                data-track="whatsapp_click"
-                target="_blank"
-                rel="noopener"
-                className="inline-flex items-center gap-1.5 font-medium text-[var(--color-ink-inverse)] hover:text-[var(--color-accent)]"
-              >
-                <MessageCircle className="h-4 w-4" aria-hidden="true" />
-                WhatsApp
-              </a>
-            </p>
+            <HeroBooking whatsappMessage={WHATSAPP_MESSAGE} />
           </div>
         </Container>
       </section>

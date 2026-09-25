@@ -6,7 +6,7 @@ import { COST_COMPONENTS, PRICING_FAQS } from '@/data/pricing';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
 import { PageIntro } from '@/components/content/PageIntro';
-import { GlanceCard, IntroLayout } from '@/components/content/GlanceCard';
+import { HeroBooking } from '@/components/booking/HeroBooking';
 import { Prose } from '@/components/content/Prose';
 import { FaqSection } from '@/components/content/FaqSection';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
@@ -21,84 +21,52 @@ export default function PricingPage() {
 
   return (
     <>
-      <Section ground="ivory" width="wide">
-        {/* Answer-first. This paragraph is written to be quoted on its own by a
-            search result or an answer engine, and to be the first useful thing a
-            reader sees. */}
-        <IntroLayout
-          aside={
-            <GlanceCard
-              heading="What this page covers"
-              stats={[
-                { label: 'Cost components explained', value: COST_COMPONENTS.length },
-                { label: 'Questions answered', value: PRICING_FAQS.length },
-              ]}
-              note="We don’t publish a headline rate. A rate without positioning, handling and ground time is not the price of a trip."
-              primaryLabel="Get an itemised quote"
-              secondaryHref="/insights/how-private-jet-charter-pricing-works-in-india"
-              secondaryLabel="Read the full pricing guide"
-            />
-          }
-          intro={
-            <PageIntro
-              path={PATH}
-              title="Private Jet and Helicopter Charter Cost in India"
-              summary="Private jet charter cost in India depends on the aircraft type, billed hours, positioning to your city, airport and handling fees, crew overnights, waiting time and taxes. Helicopter charter cost works the same way."
-            />
-          }
-        >
-          <div className="mt-10">
-            <Prose
-              paragraphs={[
-                'In simple terms, the price is the aircraft’s hourly rate times the billed hours. Then add positioning, airport and handling fees, crew overnights, waiting time and taxes. A trip abroad also adds permits.',
-                'We explain the method instead of showing a headline figure. A "from" price that leaves out positioning, handling and ground time is not the price of a trip. It is one part of it, chosen to look good in a search result.',
-                'Two operators can quote the same aircraft on the same route and be far apart. The gap is almost always in what each quote includes, not in the aircraft.',
-                'Below is each part of a real charter quote, what makes it go up or down, and what most often surprises people. Use it to compare two quotes item by item, not just two totals.',
-              ]}
-            />
-          </div>
-        </IntroLayout>
+      <Section ground="ivory" width="wide" className="pb-0">
+        <PageIntro
+          path={PATH}
+          title="Private Jet and Helicopter Charter Cost in India"
+          summary="Private jet charter cost in India depends on the aircraft type, billed hours, positioning to your city, airport and handling fees, crew overnights, waiting time and taxes. Helicopter charter cost works the same way."
+          action={<HeroBooking heading="Get an itemised charter quote" />}
+        />
       </Section>
 
-      <Section ground="ivory" width="wide" className="pt-0">
+      <Section ground="surface" width="wide">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
           What goes into a charter quote
         </h2>
-        <div className="mt-10 space-y-12">
+        {/* Scannable: nine cards, each with the one-line answer on top. */}
+        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {COST_COMPONENTS.map((component, index) => (
-            <article key={component.name} className="border-t border-[var(--color-ink)]/15 pt-6">
-              <div className="grid gap-6 lg:grid-cols-[0.55fr_1.45fr]">
-                <div>
-                  <span className="numeric text-[length:var(--text-small)] font-semibold text-[var(--color-accent-strong)]">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <h3 className="mt-2 text-[length:var(--text-h3)] font-semibold tracking-tight">
-                    {component.name}
-                  </h3>
-                </div>
-                <div className="max-w-[66ch]">
-                  <p>{component.whatItIs}</p>
-                  <h4 className="mt-5 text-[length:var(--text-micro)] uppercase tracking-[0.14em] text-[var(--color-ink-muted)]">
-                    What changes it
-                  </h4>
-                  <ul className="mt-3 space-y-2 text-[length:var(--text-small)]">
-                    {component.whatMovesIt.map((item) => (
-                      <li key={item} className="flex gap-3">
-                        <span
-                          aria-hidden="true"
-                          className="mt-[0.7em] h-px w-3.5 shrink-0 bg-[var(--color-accent)]"
-                        />
-                        <span className="text-[var(--color-ink-muted)]">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  {component.typicalSurprise ? (
-                    <p className="mt-5 border-l-2 border-[var(--color-accent)] pl-4 text-[length:var(--text-small)]">
-                      {component.typicalSurprise}
-                    </p>
-                  ) : null}
-                </div>
+            <article
+              key={component.name}
+              className="flex flex-col rounded-[var(--radius-card)] border border-[var(--color-hairline)] bg-[var(--color-surface)] p-5 sm:p-6"
+            >
+              <div className="flex items-center gap-3">
+                <span className="numeric inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--color-accent)] text-[length:var(--text-small)] font-semibold text-[var(--color-on-accent)]">
+                  {index + 1}
+                </span>
+                <h3 className="font-semibold leading-snug">{component.name}</h3>
               </div>
+              <p className="mt-4 text-[length:var(--text-small)]">{component.whatItIs}</p>
+              <h4 className="mt-4 text-[length:var(--text-micro)] uppercase tracking-[0.14em] text-[var(--color-ink-muted)]">
+                What changes it
+              </h4>
+              <ul className="mt-2 space-y-1.5 text-[length:var(--text-small)]">
+                {component.whatMovesIt.map((item) => (
+                  <li key={item} className="flex gap-2.5">
+                    <span
+                      aria-hidden="true"
+                      className="mt-[0.7em] h-px w-3 shrink-0 bg-[var(--color-accent)]"
+                    />
+                    <span className="text-[var(--color-ink-muted)]">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              {component.typicalSurprise ? (
+                <p className="mt-4 border-l-2 border-[var(--color-accent)] pl-3 text-[length:var(--text-small)]">
+                  {component.typicalSurprise}
+                </p>
+              ) : null}
             </article>
           ))}
         </div>
@@ -131,6 +99,24 @@ export default function PricingPage() {
 
       <Section ground="ivory" width="default">
         <FaqSection faqs={PRICING_FAQS} heading="Charter cost: common questions" />
+      </Section>
+
+      {/* UX first: the long explanation is kept whole, but after the
+          parts a booker scans. */}
+      <Section ground="surface" width="default">
+        <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
+          How charter pricing works
+        </h2>
+        <div className="mt-6">
+          <Prose
+            paragraphs={[
+              'In simple terms, the price is the aircraft’s hourly rate times the billed hours. Then add positioning, airport and handling fees, crew overnights, waiting time and taxes. A trip abroad also adds permits.',
+              'We explain the method instead of showing a headline figure. A "from" price that leaves out positioning, handling and ground time is not the price of a trip. It is one part of it, chosen to look good in a search result.',
+              'Two operators can quote the same aircraft on the same route and be far apart. The gap is almost always in what each quote includes, not in the aircraft.',
+              'Below is each part of a real charter quote, what makes it go up or down, and what most often surprises people. Use it to compare two quotes item by item, not just two totals.',
+            ]}
+          />
+        </div>
       </Section>
 
       <Section ground="ivory" width="wide" className="pt-0">

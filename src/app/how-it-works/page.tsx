@@ -9,7 +9,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { PageIntro } from '@/components/content/PageIntro';
-import { GlanceCard, IntroLayout } from '@/components/content/GlanceCard';
+import { HeroBooking } from '@/components/booking/HeroBooking';
 import { PointList, Prose } from '@/components/content/Prose';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
 
@@ -23,39 +23,16 @@ export default function HowItWorksPage() {
 
   return (
     <>
-      <Section ground="ivory" width="wide">
-        <IntroLayout
-          aside={
-            <GlanceCard
-              heading="What you need to start"
-              stats={[
-                { label: 'Steps from enquiry to flight', value: HOW_IT_WORKS.length },
-                { label: 'Details needed to begin', value: 3 },
-              ]}
-              note="Your route, date and number of passengers is enough. We check runway length, range, crew duty limits and permissions for you."
-              primaryLabel="Request a charter quote"
-              secondaryHref="/pricing"
-              secondaryLabel="How pricing works"
-            />
-          }
-          intro={
-            <PageIntro
-              path={PATH}
-              title="How to Book a Private Jet or Helicopter"
-              summary="You can book a private jet or helicopter in India in five steps: share your trip, we find aircraft that fit, you get a charter quote with the cost broken down, you choose, and we coordinate the journey."
-            />
-          }
-        >
-          <Prose
-            paragraphs={[
-              `${voice().whatWeDo} A charter is planned, not just booked. Most of that planning happens out of sight, which is why a first enquiry can feel harder to send than it is.`,
-              'You do not need to know anything about aviation. Your route, date and number of passengers is enough to begin. We check the things that matter, such as runway length, range, crew duty limits and permissions.',
-            ]}
-          />
-        </IntroLayout>
+      <Section ground="ivory" width="wide" className="pb-0">
+        <PageIntro
+          path={PATH}
+          title="How to Book a Private Jet or Helicopter"
+          summary="You can book a private jet or helicopter in India in five steps: share your trip, we find aircraft that fit, you get a charter quote with the cost broken down, you choose, and we coordinate the journey."
+          action={<HeroBooking heading="Start your charter request" />}
+        />
       </Section>
 
-      <Section ground="ivory" width="wide" className="pt-0">
+      <Section ground="surface" width="wide">
         <ol className="space-y-0 divide-y divide-[var(--color-ink)]/15 border-t border-[var(--color-ink)]/15">
           {HOW_IT_WORKS.map((step) => (
             <li key={step.step} className="grid gap-4 py-8 lg:grid-cols-[0.3fr_1.7fr]">
@@ -101,6 +78,22 @@ export default function HowItWorksPage() {
             Request a Charter
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Button>
+        </div>
+      </Section>
+
+      {/* UX first: the long explanation is kept whole, but after the
+          parts a booker scans. */}
+      <Section ground="surface" width="default">
+        <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
+          Booking a charter, explained
+        </h2>
+        <div className="mt-6">
+          <Prose
+            paragraphs={[
+              `${voice().whatWeDo} A charter is planned, not just booked. Most of that planning happens out of sight, which is why a first enquiry can feel harder to send than it is.`,
+              'You do not need to know anything about aviation. Your route, date and number of passengers is enough to begin. We check the things that matter, such as runway length, range, crew duty limits and permissions.',
+            ]}
+          />
         </div>
       </Section>
 

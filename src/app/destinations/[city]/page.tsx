@@ -1,13 +1,12 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { ArrowRight } from 'lucide-react';
 import { pageMetadata } from '@/lib/metadata';
 import { breadcrumbSchema, faqSchema, graph, webPageSchema } from '@/lib/schema';
 import { DESTINATION_PAGES, aerodromesForCity, destinationBySlug } from '@/data/destinations';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
-import { Button } from '@/components/ui/Button';
 import { PageIntro } from '@/components/content/PageIntro';
+import { HeroBooking } from '@/components/booking/HeroBooking';
 import { PointList, Prose } from '@/components/content/Prose';
 import { FaqSection } from '@/components/content/FaqSection';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
@@ -39,26 +38,18 @@ export default async function DestinationPage({ params }: { params: Promise<{ ci
 
   return (
     <>
-      <Section ground="ivory" width="wide">
+      <Section ground="ivory" width="wide" className="pb-0">
         <PageIntro
           path={page.canonical}
           dynamic={{ path: page.canonical, label: page.city, parent: '/destinations' }}
           eyebrow="Charter destination"
           title={page.title}
           summary={page.summary}
+          action={<HeroBooking heading={`Get a charter quote from ${page.city}`} />}
         />
-        <div className="mt-10">
-          <Prose paragraphs={page.body} />
-        </div>
-        <div className="mt-10">
-          <Button href="/request-a-charter">
-            Request a Charter
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Button>
-        </div>
       </Section>
 
-      <Section ground="ivory" width="wide" className="pt-0">
+      <Section ground="surface" width="wide">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
           Airports and airfields on record
         </h2>
@@ -76,6 +67,17 @@ export default async function DestinationPage({ params }: { params: Promise<{ ci
 
       <Section ground="ivory" width="default">
         <FaqSection faqs={page.faqs} />
+      </Section>
+
+      {/* UX first: the long explanation is kept whole, but after the
+          parts a booker scans. */}
+      <Section ground="surface" width="default">
+        <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
+          {page.title} explained
+        </h2>
+        <div className="mt-6">
+          <Prose paragraphs={page.body} />
+        </div>
       </Section>
 
       <Section ground="ivory" width="wide" className="pt-0">

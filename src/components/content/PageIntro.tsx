@@ -31,6 +31,7 @@ export function PageIntro({
   summary,
   image: imageOverride,
   children,
+  action,
 }: {
   path: Path;
   dynamic?: DynamicCrumb;
@@ -40,6 +41,11 @@ export function PageIntro({
   /** Overrides the route's picture, e.g. an aircraft page picks by type. */
   image?: SiteImageName;
   children?: ReactNode;
+  /**
+   * Full-width block under the text, e.g. the quote form. Sits outside the
+   * 60ch measure that keeps the heading and summary readable.
+   */
+  action?: ReactNode;
 }) {
   const name = imageOverride ?? heroImageFor(path);
   const image = SITE_IMAGES[name];
@@ -66,7 +72,7 @@ export function PageIntro({
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(11,23,38,0.1)_0%,rgba(11,23,38,0.3)_35%,rgba(11,23,38,0.8)_68%,rgba(11,23,38,1)_100%)] lg:bg-[linear-gradient(to_right,rgba(11,23,38,0.93)_0%,rgba(11,23,38,0.78)_38%,rgba(11,23,38,0.25)_70%,rgba(11,23,38,0.05)_100%)]"
+          className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(11,23,38,0.1)_0%,rgba(11,23,38,0.3)_35%,rgba(11,23,38,0.8)_68%,rgba(11,23,38,1)_100%)] lg:bg-[linear-gradient(to_right,rgba(11,23,38,0.94)_0%,rgba(11,23,38,0.86)_40%,rgba(11,23,38,0.3)_72%,rgba(11,23,38,0.05)_100%)]"
         />
       </div>
       <div className="page-hero-inner px-[var(--frame-left)] pb-[var(--hero-pad-bottom)] pt-[calc(58vw-3.25rem)] lg:pt-[clamp(1.75rem,1rem+3vw,3.5rem)]">
@@ -87,6 +93,7 @@ export function PageIntro({
           </p>
           {children}
         </div>
+        {action}
       </div>
     </div>
   );
