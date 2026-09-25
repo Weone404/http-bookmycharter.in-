@@ -1,4 +1,5 @@
-import type { SiteImageName } from './site-images.generated';
+import { SITE_IMAGES, type SiteImage, type SiteImageName } from './site-images.generated';
+import { TYPE_IMAGES } from './type-images.generated';
 import { AIRCRAFT, type ResolvedAircraft } from './aircraft';
 import type { QuotePreset } from '@/components/booking/QuickCharterForm';
 
@@ -243,7 +244,10 @@ export interface AircraftListItem {
   readonly href: string;
   readonly classId: FleetClassId;
   readonly classLabel: string;
-  readonly image: SiteImageName;
+  /** The type's own illustration when one exists, else a class picture. */
+  readonly picture: SiteImage;
+  /** True when `picture` is this exact type, not a class stand-in. */
+  readonly ownPicture: boolean;
   readonly mirror: boolean;
   /** One short line: the type's own description, or its curated summary. */
   readonly blurb: string | null;
@@ -315,11 +319,15 @@ export function listItems(items: readonly ResolvedAircraft[]): readonly Aircraft
       href: a.href,
       classId,
       classLabel: meta?.singular ?? '',
-      image: (() => {
-        const pool = CARD_IMAGES[classId];
-        return pool[hash(a.slug) % pool.length] ?? meta?.image ?? 'band-aircraft';
-      })(),
-      mirror: hash(a.slug + ':m') % 2 === 1,
+      picture:
+        TYPE_IMAGES[a.slug] ??
+        SITE_IMAGES[
+          CARD_IMAGES[classId][hash(a.slug) % CARD_IMAGES[classId].length] ??
+            meta?.image ??
+            'band-aircraft'
+        ],
+      ownPicture: Boolean(TYPE_IMAGES[a.slug]),
+      mirror: !TYPE_IMAGES[a.slug] && hash(a.slug + ':m') % 2 === 1,
       blurb: a.sourceDescription ?? a.curated?.summary ?? null,
       seats: formatSpan(a.specs.passengers),
       seatsMax: a.specs.passengers?.max ?? null,

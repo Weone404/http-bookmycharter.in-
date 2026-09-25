@@ -3,7 +3,7 @@ import Image from 'next/image';
 import type { Path } from '@/types/common';
 import type { SiteImageName } from '@/data/site-images.generated';
 import type { DynamicCrumb } from '@/lib/routes';
-import { SITE_IMAGES } from '@/data/site-images.generated';
+import { SITE_IMAGES, type SiteImage } from '@/data/site-images.generated';
 import { HERO_FRAMING, heroImageFor } from '@/lib/page-images';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
@@ -30,6 +30,7 @@ export function PageIntro({
   title,
   summary,
   image: imageOverride,
+  picture,
   children,
   action,
 }: {
@@ -40,6 +41,8 @@ export function PageIntro({
   summary: string;
   /** Overrides the route's picture, e.g. an aircraft page picks by type. */
   image?: SiteImageName;
+  /** A specific picture (e.g. one aircraft type's illustration), over `image`. */
+  picture?: SiteImage;
   children?: ReactNode;
   /**
    * Full-width block under the text, e.g. the quote form. Sits outside the
@@ -48,8 +51,8 @@ export function PageIntro({
   action?: ReactNode;
 }) {
   const name = imageOverride ?? heroImageFor(path);
-  const image = SITE_IMAGES[name];
-  const framing = HERO_FRAMING[name] ?? {};
+  const image = picture ?? SITE_IMAGES[name];
+  const framing = picture ? {} : (HERO_FRAMING[name] ?? {});
 
   return (
     <div className="page-hero on-dark relative isolate ml-[calc(-1*var(--frame-left))] w-screen overflow-hidden bg-[var(--color-midnight)] text-[var(--color-ink-inverse)]">

@@ -25,3 +25,5 @@ assets-incoming/aircraft-photos/*
 
 # AI-generated image originals (processed copies are committed under public/)
 assets-incoming/images/*
+assets-incoming/aircraft-types/*
+!assets-incoming/aircraft-types/.gitkeep

@@ -2,8 +2,9 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
+  ArrowLeft,
   ArrowRight,
   Gauge,
   Plane,
@@ -13,7 +14,6 @@ import {
   Users,
   X,
 } from 'lucide-react';
-import { SITE_IMAGES } from '@/data/site-images.generated';
 import type { AircraftListItem, FleetClassId } from '@/data/fleet-classes';
 
 type SortKey = 'recommended' | 'seats' | 'range' | 'name';
@@ -263,7 +263,7 @@ export function AircraftList({
 }
 
 export function AircraftCard({ item, index }: { item: AircraftListItem; index: number }) {
-  const image = SITE_IMAGES[item.image];
+  const image = item.picture;
   const rangeShare = item.rangePct ?? 0;
   const stats = [
     { icon: Users, label: 'Seats', value: item.seats, unit: null },
@@ -281,7 +281,13 @@ export function AircraftCard({ item, index }: { item: AircraftListItem; index: n
           sizes="(min-width: 1536px) 22rem, (min-width: 640px) 45vw, 92vw"
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06] motion-reduce:transition-none"
           style={{
-            objectPosition: index % 3 === 1 ? '40% 50%' : index % 3 === 2 ? '60% 50%' : '50% 50%',
+            objectPosition: item.ownPicture
+              ? '50% 50%'
+              : index % 3 === 1
+                ? '40% 50%'
+                : index % 3 === 2
+                  ? '60% 50%'
+                  : '50% 50%',
             ...(item.mirror ? { transform: 'scaleX(-1)' } : {}),
           }}
         />
@@ -384,42 +390,125 @@ export function AircraftCard({ item, index }: { item: AircraftListItem; index: n
 }
 
 /**
- * A swipeable row of the same cards, for a page that shows one class of
- * aircraft (every helicopter page). Native horizontal scroll with snapping;
- * the last tile leads to the full list.
+ * A row of the same cards for a page that shows one class of aircraft (every
+ * helicopter page).
+ *
+ * "Compare all" sits in the header, visible before any scrolling, not at the
+ * far end of the row. On a phone the row is a native swipe with snapping; on
+ * a pointer device, hovering the row fades in previous / next arrows and the
+ * edges fade out to show there is more. Arrow buttons scroll by one screen of
+ * cards.
  */
 export function AircraftRail({
   items,
   viewAllHref,
   viewAllLabel,
+  heading,
+  headingId,
 }: {
   items: readonly AircraftListItem[];
   viewAllHref: string;
   viewAllLabel: string;
+  heading: string;
+  headingId?: string;
 }) {
+  const track = useRef<HTMLUListElement>(null);
+  const [edge, setEdge] = useState({ start: true, end: false });
+
+  const measure = useCallback(() => {
+    const node = track.current;
+    if (!node) return;
+    setEdge({
+      start: node.scrollLeft < 8,
+      end: node.scrollLeft + node.clientWidth >= node.scrollWidth - 8,
+    });
+  }, []);
+
+  useEffect(() => {
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [measure]);
+
+  const page = (direction: 1 | -1) => {
+    const node = track.current;
+    if (!node) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    node.scrollBy({
+      left: direction * node.clientWidth * 0.85,
+      behavior: reduced ? 'auto' : 'smooth',
+    });
+  };
+
+  const arrow =
+    'pointer-events-auto grid h-12 w-12 place-items-center rounded-full bg-white text-[#0b1726] shadow-[0_10px_28px_-8px_rgba(7,20,40,0.5)] transition-all duration-300 hover:scale-105 hover:bg-[#1f5fd6] hover:text-white disabled:pointer-events-none disabled:opacity-0';
+
   return (
-    <div className="-mx-[var(--spacing-gutter)]">
-      <ul className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--spacing-gutter)] pb-4 pt-1 [scrollbar-width:thin] sm:gap-5">
-        {items.map((item, index) => (
-          <li
-            key={item.slug}
-            className="w-[82vw] max-w-[22rem] shrink-0 snap-start scroll-ml-[var(--spacing-gutter)]"
+    <div>
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <h2
+          id={headingId}
+          className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight"
+        >
+          {heading}
+        </h2>
+        <Link
+          href={viewAllHref}
+          className="group/all inline-flex items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-hairline-strong)] bg-[var(--color-surface)] px-5 py-2.5 text-[length:var(--text-small)] font-semibold transition-colors hover:border-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-[var(--color-on-accent)]"
+        >
+          {viewAllLabel}
+          <ArrowRight
+            className="h-4 w-4 transition-transform group-hover/all:translate-x-1"
+            aria-hidden="true"
+          />
+        </Link>
+      </div>
+
+      <div className="group/rail relative -mx-[var(--spacing-gutter)] mt-8">
+        <ul
+          ref={track}
+          onScroll={measure}
+          className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-[var(--spacing-gutter)] px-[var(--spacing-gutter)] pb-4 pt-2 [scrollbar-width:none] sm:gap-5 [&::-webkit-scrollbar]:hidden"
+        >
+          {items.map((item, index) => (
+            <li key={item.slug} className="w-[82vw] max-w-[22rem] shrink-0 snap-start">
+              <AircraftCard item={item} index={index} />
+            </li>
+          ))}
+        </ul>
+
+        {/* Edge fades: only where there is more to see. */}
+        <div
+          aria-hidden="true"
+          className={`pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[var(--color-surface)] to-transparent transition-opacity duration-300 ${edge.start ? 'opacity-0' : 'opacity-100'}`}
+        />
+        <div
+          aria-hidden="true"
+          className={`pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[var(--color-surface)] to-transparent transition-opacity duration-300 ${edge.end ? 'opacity-0' : 'opacity-100'}`}
+        />
+
+        {/* Pointer devices: arrows fade in when the row is hovered or focused. */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 right-0 hidden items-center justify-between px-3 opacity-0 transition-opacity duration-300 group-focus-within/rail:opacity-100 group-hover/rail:opacity-100 sm:flex">
+          <button
+            type="button"
+            onClick={() => page(-1)}
+            disabled={edge.start}
+            aria-label="Previous aircraft"
+            className={arrow}
           >
-            <AircraftCard item={item} index={index} />
-          </li>
-        ))}
-        <li className="w-[60vw] max-w-[16rem] shrink-0 snap-start">
-          <Link
-            href={viewAllHref}
-            className="flex h-full min-h-[12rem] flex-col items-center justify-center gap-3 rounded-[1.25rem] border border-dashed border-[var(--color-hairline-strong)] bg-[var(--color-surface)] p-6 text-center font-semibold text-[var(--color-accent-strong)] hover:border-[var(--color-accent)]"
+            <ArrowLeft className="h-5 w-5" aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            onClick={() => page(1)}
+            disabled={edge.end}
+            aria-label="Next aircraft"
+            className={arrow}
           >
-            <span className="grid h-12 w-12 place-items-center rounded-full bg-[var(--color-accent)] text-[var(--color-on-accent)]">
-              <ArrowRight className="h-5 w-5" aria-hidden="true" />
-            </span>
-            {viewAllLabel}
-          </Link>
-        </li>
-      </ul>
+            <ArrowRight className="h-5 w-5" aria-hidden="true" />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

@@ -22,6 +22,7 @@ import { Section } from '@/components/ui/Section';
 import { PageIntro } from '@/components/content/PageIntro';
 import { HeroActions } from '@/components/booking/HeroActions';
 import { heroImageForCategory } from '@/lib/page-images';
+import { TYPE_IMAGES } from '@/data/type-images.generated';
 import { PointList, Prose } from '@/components/content/Prose';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
 import { AircraftList } from '@/components/aircraft/AircraftList';
@@ -141,6 +142,7 @@ export default async function AircraftDetailPage({
           title={aircraft.name}
           summary={summary}
           image={heroImageForCategory(aircraft.category)}
+          {...(TYPE_IMAGES[aircraft.slug] ? { picture: TYPE_IMAGES[aircraft.slug] } : {})}
           action={
             <>
               <dl className="mt-7 grid max-w-2xl grid-cols-3 gap-2 sm:gap-3">

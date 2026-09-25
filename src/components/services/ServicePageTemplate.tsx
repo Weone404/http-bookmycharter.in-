@@ -92,17 +92,17 @@ function quoteHref(aircraft?: QuotePreset['aircraft']): string {
  * actual types as a swipeable row of cards: tap one for its page, or the last
  * tile for the full list.
  */
-function SingleCategory({ category }: { category: AircraftCategory }) {
+function SingleCategory({ category, heading }: { category: AircraftCategory; heading: string }) {
   const types = aircraftByCategory(category);
   const label = CATEGORY_LABEL[category].toLowerCase();
   return (
-    <div className="mt-8">
-      <AircraftRail
-        items={listItems(types)}
-        viewAllHref={`${CATEGORY_HREF[category] ?? '/aircraft'}#types`}
-        viewAllLabel={`Compare all ${types.length} ${label}`}
-      />
-    </div>
+    <AircraftRail
+      heading={heading}
+      headingId="service-aircraft-heading"
+      items={listItems(types)}
+      viewAllHref={`${CATEGORY_HREF[category] ?? '/aircraft'}#types`}
+      viewAllLabel={`Compare all ${types.length} ${label}`}
+    />
   );
 }
 
@@ -128,24 +128,26 @@ export function ServicePageTemplate({ service }: { service: Service }) {
 
       {/* 1. Choose the aircraft: the second thing a booker wants to see. */}
       <Section ground="surface" width="wide">
-        <h2 id="service-aircraft-heading" className={H2}>
-          Best aircraft for {topic}
-        </h2>
         {single ? (
           <>
-            <SingleCategory category={single} />
+            <SingleCategory category={single} heading={`Best aircraft for ${topic}`} />
             <p className="mt-5 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
               Seats are typical for each type and change with layout, baggage, altitude and
               temperature on the day.
             </p>
           </>
         ) : (
-          <div className="mt-8">
-            <FleetCarousel
-              classes={fleetClasses(classIdsFor(service.suitableCategories))}
-              headingId="service-aircraft-heading"
-            />
-          </div>
+          <>
+            <h2 id="service-aircraft-heading" className={H2}>
+              Best aircraft for {topic}
+            </h2>
+            <div className="mt-8">
+              <FleetCarousel
+                classes={fleetClasses(classIdsFor(service.suitableCategories))}
+                headingId="service-aircraft-heading"
+              />
+            </div>
+          </>
         )}
       </Section>
 

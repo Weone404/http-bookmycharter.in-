@@ -15,7 +15,7 @@
     "indexnow": "node scripts/indexnow.mjs",
     "aircraft": "node scripts/build-aircraft.mjs",
     "photos": "node scripts/ingest-aircraft-photos.mjs",
-    "images": "node scripts/build-site-images.mjs"
+    "images": "node scripts/build-site-images.mjs && node scripts/build-type-images.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.6",
