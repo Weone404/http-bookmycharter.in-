@@ -194,8 +194,7 @@ export function FleetCarousel({
                   <div
                     onPointerMove={(event) => onTilt(event, index)}
                     onPointerLeave={resetTilt}
-                    onClick={() => (index === active ? undefined : goTo(index))}
-                    className="fleet-tilt relative overflow-hidden rounded-[1.25rem] bg-[var(--color-midnight)] shadow-[0_30px_60px_-25px_rgba(7,20,40,0.55)] aspect-square sm:aspect-[16/10] lg:aspect-[16/9]"
+                    className="fleet-tilt group/card relative cursor-pointer overflow-hidden rounded-[1.25rem] bg-[var(--color-midnight)] shadow-[0_30px_60px_-25px_rgba(7,20,40,0.55)] aspect-square sm:aspect-[16/10] lg:aspect-[16/9]"
                   >
                     <Image
                       src={image.src}
@@ -213,9 +212,34 @@ export function FleetCarousel({
                         {item.count} types
                         {item.seats ? ` · ${item.seats} seats` : ''}
                       </p>
-                      <h3 className="mt-1.5 text-[clamp(1.6rem,1.2rem+2vw,2.6rem)] font-semibold leading-tight tracking-tight">
-                        {item.label}
-                      </h3>
+                      <div className="mt-1.5 flex flex-wrap items-end justify-between gap-x-4 gap-y-3">
+                        <h3 className="text-[clamp(1.6rem,1.2rem+2vw,2.6rem)] font-semibold leading-tight tracking-tight">
+                          {/* Stretched link: tapping the centred card opens the
+                              list; tapping a side card brings it to the centre. */}
+                          <Link
+                            href={item.listHref}
+                            tabIndex={index === active ? 0 : -1}
+                            onClick={(event) => {
+                              if (index !== activeRef.current) {
+                                event.preventDefault();
+                                goTo(index);
+                              }
+                            }}
+                            className="after:absolute after:inset-0 after:content-[''] focus:outline-none"
+                          >
+                            {item.label}
+                          </Link>
+                        </h3>
+                        <span
+                          aria-hidden="true"
+                          className={`inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] bg-white px-4 py-2 text-[length:var(--text-small)] font-semibold text-[#0b1726] shadow-lg transition-all duration-300 group-hover/card:bg-[#1f5fd6] group-hover/card:text-white ${
+                            index === active ? 'opacity-100' : 'opacity-0'
+                          }`}
+                        >
+                          Explore {item.count}
+                          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>

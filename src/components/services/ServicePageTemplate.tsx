@@ -12,11 +12,10 @@ import { FaqSection } from '@/components/content/FaqSection';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { breadcrumbSchema, faqSchema, graph, serviceSchema, webPageSchema } from '@/lib/schema';
-import { aircraftByCategory, formatRange } from '@/data/aircraft';
-import { SiteImageFill } from '@/components/ui/SiteImageFill';
-import { CATEGORY_IMAGE } from '@/data/category-images';
+import { aircraftByCategory } from '@/data/aircraft';
 import { FleetCarousel } from '@/components/fleet/FleetCarousel';
-import { fleetClasses, type FleetClassId } from '@/data/fleet-classes';
+import { fleetClasses, listItems, type FleetClassId } from '@/data/fleet-classes';
+import { AircraftRail } from '@/components/aircraft/AircraftList';
 
 /** The carousel classes that fly a service's aircraft categories. */
 function classIdsFor(categories: readonly AircraftCategory[]): FleetClassId[] {
@@ -88,88 +87,21 @@ function quoteHref(aircraft?: QuotePreset['aircraft']): string {
   return aircraft ? `/request-a-charter?aircraft=${aircraft}` : '/request-a-charter';
 }
 
-function seatRange(
-  types: readonly { specs: { passengers: { min: number; max: number } | null } }[],
-) {
-  const seats = types
-    .map((t) => t.specs.passengers)
-    .filter((p): p is { min: number; max: number } => p !== null);
-  return seats.length > 0
-    ? formatRange({
-        min: Math.min(...seats.map((x) => x.min)),
-        max: Math.max(...seats.map((x) => x.max)),
-      })
-    : null;
-}
-
 /**
- * A service flown by one kind of aircraft (every helicopter page) gets one
- * wide card listing the actual types, so the choice is visible at a glance
- * instead of one lonely tile in a four-column grid.
+ * A service flown by one kind of aircraft (every helicopter page) shows the
+ * actual types as a swipeable row of cards: tap one for its page, or the last
+ * tile for the full list.
  */
 function SingleCategory({ category }: { category: AircraftCategory }) {
   const types = aircraftByCategory(category);
-  const href = CATEGORY_HREF[category];
-  const capacity = seatRange(types);
+  const label = CATEGORY_LABEL[category].toLowerCase();
   return (
-    <div className="mt-8 grid overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-hairline)] bg-[var(--color-surface)] lg:grid-cols-[0.9fr_1.1fr]">
-      {CATEGORY_IMAGE[category] ? (
-        <SiteImageFill
-          name={CATEGORY_IMAGE[category]}
-          sizes="(min-width: 1024px) 45vw, 100vw"
-          className="aspect-[3/2] lg:aspect-auto lg:h-full"
-        />
-      ) : null}
-      <div className="p-5 sm:p-8">
-        <h3 className="text-[length:var(--text-h3)] font-semibold">{CATEGORY_LABEL[category]}</h3>
-        <p className="mt-1 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
-          {types.length} types{capacity ? <> · {capacity} passengers</> : null}
-        </p>
-        <ul className="mt-5 grid gap-x-6 sm:grid-cols-2">
-          {types.map((type) => {
-            const seats = type.specs.passengers ? formatRange(type.specs.passengers) : null;
-            const label = (
-              <>
-                <span className="font-medium">{type.name}</span>
-                {seats ? (
-                  <span className="numeric text-[var(--color-ink-muted)]"> · {seats} seats</span>
-                ) : null}
-              </>
-            );
-            return (
-              <li
-                key={type.slug}
-                className="border-b border-[var(--color-hairline)] py-2.5 text-[length:var(--text-small)]"
-              >
-                {type.published ? (
-                  <Link href={type.href} className="hover:text-[var(--color-accent-strong)]">
-                    {label}
-                  </Link>
-                ) : (
-                  label
-                )}
-              </li>
-            );
-          })}
-        </ul>
-        <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 text-[length:var(--text-small)] font-semibold">
-          <Link
-            href={quoteHref(QUOTE_AIRCRAFT[category])}
-            className="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-4 py-2 text-[var(--color-on-accent)] hover:bg-[var(--color-accent-strong)]"
-          >
-            Get a quote
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Link>
-          {href ? (
-            <Link
-              href={href}
-              className="text-[var(--color-accent-strong)] underline-offset-4 hover:underline"
-            >
-              Compare seats, range and speed
-            </Link>
-          ) : null}
-        </div>
-      </div>
+    <div className="mt-8">
+      <AircraftRail
+        items={listItems(types)}
+        viewAllHref={`${CATEGORY_HREF[category] ?? '/aircraft'}#types`}
+        viewAllLabel={`Compare all ${types.length} ${label}`}
+      />
     </div>
   );
 }

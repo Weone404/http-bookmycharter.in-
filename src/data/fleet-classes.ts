@@ -243,23 +243,96 @@ export interface AircraftListItem {
   readonly href: string;
   readonly classId: FleetClassId;
   readonly classLabel: string;
+  readonly image: SiteImageName;
+  readonly mirror: boolean;
+  /** One short line: the type's own description, or its curated summary. */
+  readonly blurb: string | null;
   readonly seats: string | null;
+  readonly seatsMax: number | null;
   readonly range: string | null;
+  readonly rangeKm: string | null;
+  /**
+   * Upper range as a share (0–100) of the longest range on the whole sheet,
+   * for the comparison bar and the range sort. A share, not raw miles, so the
+   * bar means the same thing on every page.
+   */
+  readonly rangePct: number | null;
   readonly speed: string | null;
+  readonly speedKmh: string | null;
+  /** km/h figures without the unit, for a narrow stat cell. */
+  readonly speedKmhValue: string | null;
+  readonly crew: string | null;
+  readonly quote: NonNullable<QuotePreset['aircraft']>;
 }
+
+/**
+ * Illustrations a card may use, per class, so a list of twelve midsize jets
+ * is not twelve copies of one picture. Chosen per type by a stable hash of the
+ * slug, so a card keeps its picture whatever the filter or sort.
+ */
+const CARD_IMAGES: Record<FleetClassId, readonly SiteImageName[]> = {
+  helicopters: [
+    'group-helicopters',
+    'service-helicopters',
+    'band-helicopter-charter',
+    'service-himalaya',
+  ],
+  'light-jets': [
+    'service-empty-legs',
+    'service-private-jets',
+    'group-private-jets',
+    'og-background',
+  ],
+  'midsize-jets': [
+    'service-private-jets',
+    'band-private-charter',
+    'group-private-jets',
+    'band-corporate',
+    'og-background',
+    'service-empty-legs',
+  ],
+  'super-midsize-jets': ['band-company', 'home-hero-desktop'],
+  'large-jets': ['home-hero-desktop', 'band-company', 'group-private-jets', 'band-corporate'],
+  turboprops: ['group-turboprops'],
+  airliners: ['group-regional'],
+};
+
+function hash(text: string): number {
+  let h = 0;
+  for (const char of text) h = (h * 31 + char.charCodeAt(0)) >>> 0;
+  return h;
+}
+
+const LONGEST_RANGE = Math.max(1, ...AIRCRAFT.map((a) => a.specs.rangeNm?.max ?? 0));
 
 export function listItems(items: readonly ResolvedAircraft[]): readonly AircraftListItem[] {
   return items.map((a) => {
     const classId = classOf(a);
+    const meta = CLASS_META_BY_ID.get(classId);
     return {
       slug: a.slug,
       name: a.name,
       href: a.href,
       classId,
-      classLabel: CLASS_META_BY_ID.get(classId)?.singular ?? '',
+      classLabel: meta?.singular ?? '',
+      image: (() => {
+        const pool = CARD_IMAGES[classId];
+        return pool[hash(a.slug) % pool.length] ?? meta?.image ?? 'band-aircraft';
+      })(),
+      mirror: hash(a.slug + ':m') % 2 === 1,
+      blurb: a.sourceDescription ?? a.curated?.summary ?? null,
       seats: formatSpan(a.specs.passengers),
+      seatsMax: a.specs.passengers?.max ?? null,
       range: formatSpan(a.specs.rangeNm, 'nm'),
+      rangeKm: inKm(a.specs.rangeNm, NM_TO_KM, 'km'),
+      rangePct: a.specs.rangeNm
+        ? Math.max(4, Math.round((a.specs.rangeNm.max / LONGEST_RANGE) * 100))
+        : null,
       speed: formatSpan(a.specs.cruiseKts, 'kts'),
+      speedKmh: inKm(a.specs.cruiseKts, KTS_TO_KMH, 'km/h'),
+      speedKmhValue: inKm(a.specs.cruiseKts, KTS_TO_KMH, ''),
+      crew: formatSpan(a.specs.crew),
+      quote: meta?.quote ?? 'private-jet',
     };
   });
 }
