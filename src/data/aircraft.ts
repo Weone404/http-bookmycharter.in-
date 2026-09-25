@@ -286,7 +286,10 @@ export const AIRCRAFT: readonly ResolvedAircraft[] = GENERATED_AIRCRAFT.map((gen
     ...generated,
     ...(curated?.category ? { category: curated.category } : {}),
     ...(curated ? { curated } : {}),
-    published: curated?.publish === true,
+    // Every type has its own page. Curated types add a written narrative;
+    // the rest are built from the specification sheet and the type's own
+    // description, which is still a complete answer for someone choosing.
+    published: true,
     href: `/aircraft/${generated.slug}` as Path,
   };
 });

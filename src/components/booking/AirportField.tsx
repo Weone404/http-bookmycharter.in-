@@ -1,8 +1,8 @@
 'use client';
 
 import { useCallback, useId, useMemo, useRef, useState } from 'react';
-import { MapPin } from 'lucide-react';
-import { AIRPORT_COUNT, searchAirports, type AirportOption } from '@/lib/airport-search';
+import { LocateFixed, MapPin, PenLine } from 'lucide-react';
+import { searchAirports, type AirportOption } from '@/lib/airport-search';
 import { popoverSide, usePopover } from '@/lib/use-popover';
 
 /**
@@ -32,6 +32,7 @@ export function AirportField({
   defaultValue = '',
   tone = 'dark',
   required = true,
+  mode = 'any',
 }: {
   readonly id: string;
   readonly name: string;
@@ -40,6 +41,12 @@ export function AirportField({
   readonly defaultValue?: string;
   readonly tone?: 'dark' | 'light';
   readonly required?: boolean;
+  /**
+   * 'helicopter': a helicopter needs no airport, so the field leads with
+   * "use my current location" and "use this place as typed", and the
+   * placeholder says any place works. The site is checked before a quote.
+   */
+  readonly mode?: 'any' | 'helicopter';
 }) {
   const listId = useId();
   const [value, setValue] = useState(defaultValue);
@@ -49,7 +56,31 @@ export function AirportField({
   const input = useRef<HTMLInputElement>(null);
   const list = useRef<HTMLUListElement>(null);
 
-  const results = useMemo(() => searchAirports(value), [value]);
+  const [locating, setLocating] = useState(false);
+  const [locateError, setLocateError] = useState<string | null>(null);
+  const helicopter = mode === 'helicopter';
+  const results = useMemo(() => searchAirports(value, helicopter ? 6 : 10), [value, helicopter]);
+
+  // Extra rows around the airports. "Use as typed" appears once something is
+  // typed that is not an airport already chosen, because a helipad, venue or
+  // farm is a valid place to ask for. It goes first only when no airport
+  // matches, so "Delh" + Enter still picks Delhi. Helicopter mode adds "use my
+  // current location" at the top of an empty field.
+  const typed = value.trim();
+  const exact = results.some((r) => r.label === value);
+  type Row =
+    { kind: 'gps' } | { kind: 'custom'; text: string } | { kind: 'airport'; option: AirportOption };
+  const rows: Row[] = [
+    ...(helicopter && !typed ? [{ kind: 'gps' as const }] : []),
+    ...(typed.length >= 2 && !exact && results.length === 0
+      ? [{ kind: 'custom' as const, text: typed }]
+      : []),
+    ...results.map((option) => ({ kind: 'airport' as const, option })),
+    ...(typed.length >= 2 && !exact && results.length > 0
+      ? [{ kind: 'custom' as const, text: typed }]
+      : []),
+  ];
+  const shownPlaceholder = helicopter ? 'City, helipad or any place' : placeholder;
 
   const close = useCallback(() => setOpen(false), []);
   // Flip-when-cramped and close-on-outside-pointer live in one shared hook,
@@ -69,6 +100,41 @@ export function AirportField({
     setActive(0);
   }
 
+  function acceptTyped(text: string) {
+    setValue(text);
+    setOpen(false);
+    setActive(0);
+  }
+
+  function locate() {
+    setOpen(false);
+    if (!('geolocation' in navigator)) {
+      setLocateError('Location is not available on this device. Type the place instead.');
+      return;
+    }
+    setLocating(true);
+    setLocateError(null);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLocating(false);
+        const { latitude, longitude } = position.coords;
+        setValue(`My location (${latitude.toFixed(5)}, ${longitude.toFixed(5)})`);
+      },
+      () => {
+        setLocating(false);
+        setLocateError('Could not get your location. Type the place instead.');
+      },
+      { enableHighAccuracy: true, timeout: 10000 },
+    );
+  }
+
+  function pick(row: Row | undefined) {
+    if (!row) return;
+    if (row.kind === 'gps') locate();
+    else if (row.kind === 'custom') acceptTyped(row.text);
+    else choose(row.option);
+  }
+
   function onKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
       event.preventDefault();
@@ -79,17 +145,17 @@ export function AirportField({
       const step = event.key === 'ArrowDown' ? 1 : -1;
       setActive((current) => {
         const next = current + step;
-        if (next < 0) return results.length - 1;
-        if (next >= results.length) return 0;
+        if (next < 0) return rows.length - 1;
+        if (next >= rows.length) return 0;
         return next;
       });
       return;
     }
     if (event.key === 'Enter' && open) {
-      const option = results[active];
-      if (option) {
+      const row = rows[active];
+      if (row) {
         event.preventDefault();
-        choose(option);
+        pick(row);
       }
       return;
     }
@@ -134,11 +200,12 @@ export function AirportField({
           aria-expanded={open}
           aria-controls={listId}
           aria-autocomplete="list"
-          aria-activedescendant={open && results[active] ? `${listId}-${active}` : undefined}
+          aria-activedescendant={open && rows[active] ? `${listId}-${active}` : undefined}
           autoComplete="off"
-          placeholder={placeholder}
+          placeholder={locating ? 'Finding your location…' : shownPlaceholder}
           className={field}
           onChange={(event) => {
+            setLocateError(null);
             setValue(event.target.value);
             setOpen(true);
             setActive(0);
@@ -152,20 +219,19 @@ export function AirportField({
             ref={list}
             id={listId}
             role="listbox"
-            aria-label={`${label} airport suggestions`}
+            aria-label={`${label} suggestions`}
             style={{ maxHeight: placement.maxHeight }}
-            className={`absolute right-0 left-0 z-50 min-w-[min(22rem,calc(100vw-2rem))] overflow-y-auto overscroll-contain rounded-[var(--radius-card)] border border-[var(--color-hairline-strong)] bg-[var(--color-surface)] py-1 shadow-[0_18px_40px_-12px_rgba(7,26,43,0.35)] ${popoverSide(
+            className={`popover-light absolute right-0 left-0 z-50 min-w-[min(22rem,calc(100vw-2rem))] overflow-y-auto overscroll-contain rounded-[var(--radius-card)] border border-[var(--color-hairline-strong)] bg-[var(--color-surface)] py-1 shadow-[0_18px_40px_-12px_rgba(7,26,43,0.35)] ${popoverSide(
               placement,
             )}`}
           >
-            {results.length === 0 ? (
+            {rows.length === 0 ? (
               <li className="px-4 py-3 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
-                No match in the {AIRPORT_COUNT} aerodromes listed. You can still type a helipad or
-                airstrip by name — we will confirm it.
+                Start typing a city, airport or code. A helipad or airstrip can be typed by name.
               </li>
             ) : (
-              results.map((option, index) => (
-                <li key={option.id} role="none">
+              rows.map((row, index) => (
+                <li key={row.kind === 'airport' ? row.option.id : row.kind} role="none">
                   <button
                     type="button"
                     id={`${listId}-${index}`}
@@ -176,24 +242,54 @@ export function AirportField({
                       // Before blur, so the click is not lost to the field
                       // closing underneath it.
                       event.preventDefault();
-                      choose(option);
+                      pick(row);
                     }}
                     onMouseEnter={() => setActive(index)}
-                    className={`block w-full px-4 py-2.5 text-left ${
+                    className={`flex w-full items-start gap-3 px-4 py-2.5 text-left ${
                       index === active ? 'bg-[var(--color-ivory)]' : ''
                     }`}
                   >
-                    <span className="block text-[length:var(--text-small)] font-medium text-[var(--color-ink)]">
-                      {option.city}
-                      {option.iata ? (
-                        <span className="numeric ml-1.5 text-[var(--color-accent-strong)]">
-                          {option.iata}
+                    {row.kind === 'airport' ? (
+                      <span className="min-w-0">
+                        <span className="block text-[length:var(--text-small)] font-semibold text-[var(--color-ink)]">
+                          {row.option.city}
+                          {row.option.iata ? (
+                            <span className="numeric ml-1.5 font-semibold text-[var(--color-accent-strong)]">
+                              {row.option.iata}
+                            </span>
+                          ) : null}
                         </span>
-                      ) : null}
-                    </span>
-                    <span className="block text-[length:var(--text-micro)] text-[var(--color-ink-muted)]">
-                      {option.name} · {option.state}
-                    </span>
+                        <span className="block text-[length:var(--text-micro)] text-[var(--color-ink-muted)]">
+                          {row.option.name} · {row.option.state}
+                        </span>
+                      </span>
+                    ) : (
+                      <>
+                        {row.kind === 'gps' ? (
+                          <LocateFixed
+                            className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-accent-strong)]"
+                            aria-hidden="true"
+                          />
+                        ) : (
+                          <PenLine
+                            className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-accent-strong)]"
+                            aria-hidden="true"
+                          />
+                        )}
+                        <span className="min-w-0">
+                          <span className="block text-[length:var(--text-small)] font-semibold text-[var(--color-ink)]">
+                            {row.kind === 'gps' ? 'Use my current location' : `Use “${row.text}”`}
+                          </span>
+                          <span className="block text-[length:var(--text-micro)] text-[var(--color-ink-muted)]">
+                            {row.kind === 'gps'
+                              ? 'Pick-up from where you are now'
+                              : helicopter
+                                ? 'A helipad, venue, farm or open ground. We check the site first.'
+                                : 'A helipad, airstrip or place not on the list. We will confirm it.'}
+                          </span>
+                        </span>
+                      </>
+                    )}
                   </button>
                 </li>
               ))
@@ -202,8 +298,17 @@ export function AirportField({
         ) : null}
       </div>
 
+      {locateError ? (
+        <p
+          className={`mt-1.5 text-[length:var(--text-micro)] ${
+            dark ? 'text-[#ffb4a8]' : 'text-[#b42318]'
+          }`}
+        >
+          {locateError}
+        </p>
+      ) : null}
       <span className="sr-only" aria-live="polite">
-        {open ? `${results.length} suggestions` : ''}
+        {open ? `${rows.length} suggestions` : locating ? 'Finding your location' : ''}
       </span>
     </div>
   );

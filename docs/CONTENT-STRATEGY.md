@@ -13,7 +13,7 @@ is enforced rather than assumed.
 |---|---|---|
 | Private charter | Hub, private jet charter, aircraft charter | Turboprop, group and international charter — each needs content that does not repeat the hub |
 | Helicopter charter | Hub, private helicopter charter, helicopter rental | VVIP, corporate, wedding, aerial services — pending operational specifics |
-| Aircraft | Hub, 3 category pages with comparison tables, 11 detail pages | 41 of 52 types are table rows, not pages. A spec sheet is not an article |
+| Aircraft | Hub with the 3D class carousel and the full compact list, 3 category pages, a page for all 52 types (11 with a written narrative, the rest built from the spec sheet and the type's own description) | Narratives for the other 41 as they are written |
 | Services | Hub, corporate charter, aerial flower dropping | Wedding, medical, film, events, logistics — pending B3 (which pillars are live) |
 | Pricing | Full methodology, 9 cost components, comparison guide | No figures. E2 unanswered, and an invented "from" price is the practice this rebuild removed |
 | Empty legs | Full explainer, honest empty availability state | No inventory. F1 unanswered; fabricated rows would be a false availability claim |

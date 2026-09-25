@@ -63,6 +63,8 @@ export function CharterRequestForm() {
   // Tracked so the time list can disable slots already gone today, and so the
   // return date cannot be set before the departure.
   const [departure, setDeparture] = useState('');
+  // Helicopter changes what From and To accept: any place, not only airports.
+  const [aircraftPref, setAircraftPref] = useState('');
   const [state, setState] = useState<SubmissionState>({ status: 'idle' });
   const [errors, setErrors] = useState<CharterRequestErrors>({});
   const [unavailable, setUnavailable] = useState(false);
@@ -120,6 +122,7 @@ export function CharterRequestForm() {
         [...select.options].some((option) => option.value === value)
       ) {
         select.value = value;
+        if (field === 'aircraftPreference') setAircraftPref(value);
       }
     }
   }, []);
@@ -261,6 +264,7 @@ export function CharterRequestForm() {
               label="From"
               placeholder="City, airport or code"
               tone="light"
+              mode={aircraftPref === 'helicopter' ? 'helicopter' : 'any'}
               defaultValue={prefill?.from ?? ''}
             />
             <FieldError id="err-from" message={errors.from} />
@@ -273,6 +277,7 @@ export function CharterRequestForm() {
               label="To"
               placeholder="City, airport or code"
               tone="light"
+              mode={aircraftPref === 'helicopter' ? 'helicopter' : 'any'}
               defaultValue={prefill?.to ?? ''}
             />
             <FieldError id="err-to" message={errors.to} />
@@ -362,6 +367,7 @@ export function CharterRequestForm() {
               name="aircraftPreference"
               className={FIELD}
               defaultValue=""
+              onChange={(event) => setAircraftPref(event.target.value)}
             >
               <option value="">No preference</option>
               <option value="private-jet">Private jet</option>

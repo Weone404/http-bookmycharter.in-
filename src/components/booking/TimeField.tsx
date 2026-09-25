@@ -230,7 +230,7 @@ export function TimeField({
             role="listbox"
             aria-label={`${label} options`}
             style={{ maxHeight: placement.maxHeight }}
-            className={`absolute left-0 z-50 w-full min-w-[11rem] overflow-y-auto overscroll-contain rounded-[var(--radius-card)] border border-[var(--color-hairline-strong)] bg-[var(--color-surface)] py-1 shadow-[0_18px_40px_-12px_rgba(7,26,43,0.35)] ${popoverSide(placement)}`}
+            className={`popover-light absolute left-0 z-50 w-full min-w-[11rem] overflow-y-auto overscroll-contain rounded-[var(--radius-card)] border border-[var(--color-hairline-strong)] bg-[var(--color-surface)] py-1 shadow-[0_18px_40px_-12px_rgba(7,26,43,0.35)] ${popoverSide(placement)}`}
           >
             {options.map((slot, index) => {
               const disabled = isDisabled(slot);

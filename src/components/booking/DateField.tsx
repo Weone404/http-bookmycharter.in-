@@ -236,7 +236,7 @@ export function DateField({
             aria-modal="false"
             aria-label={`Choose ${label.toLowerCase()}`}
             style={{ maxHeight: placement.maxHeight }}
-            className={`absolute left-0 z-50 w-[min(21rem,calc(100vw-2rem))] overflow-y-auto overscroll-contain rounded-[var(--radius-card)] border border-[var(--color-hairline-strong)] bg-[var(--color-surface)] p-4 text-[var(--color-ink)] shadow-[0_18px_40px_-12px_rgba(7,26,43,0.35)] ${popoverSide(placement)}`}
+            className={`popover-light absolute left-0 z-50 w-[min(21rem,calc(100vw-2rem))] overflow-y-auto overscroll-contain rounded-[var(--radius-card)] border border-[var(--color-hairline-strong)] bg-[var(--color-surface)] p-4 text-[var(--color-ink)] shadow-[0_18px_40px_-12px_rgba(7,26,43,0.35)] ${popoverSide(placement)}`}
           >
             <div className="flex items-center justify-between">
               <button

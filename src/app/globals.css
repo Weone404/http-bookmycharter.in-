@@ -250,6 +250,18 @@ main > section:first-of-type:has(.page-hero) {
   --color-ink-muted: #c6d0dc;
 }
 
+/* A popover (airport list, calendar, time list) is a white card, even when
+   its field sits in a dark hero. It restores the light-ground tokens, or the
+   hero's light "ink" would put near-white text on the white card. */
+.popover-light {
+  --color-ink: #0b1726;
+  --color-ink-muted: #526273;
+  --color-accent: #1f5fd6;
+  --color-accent-strong: #1a4fb5;
+  --color-on-accent: #ffffff;
+  color: var(--color-ink);
+}
+
 /* Breadcrumbs are dimmed on light pages; over a picture they need full
    strength to stay above 4.5:1 (measured over every hero at 390 and 1440). */
 .page-hero nav[aria-label='Breadcrumb'] ol {
@@ -280,4 +292,62 @@ main > section:first-of-type:has(.page-hero) {
 .no-spinner {
   appearance: textfield;
   -moz-appearance: textfield;
+}
+
+/* Aircraft carousel (FleetCarousel). The slide width is shared by the track's
+   padding, so the first and last card can sit in the centre. */
+.fleet-slide {
+  width: min(76vw, 42rem);
+}
+.fleet-track {
+  padding-inline: calc(50% - min(38vw, 21rem));
+  transform-style: preserve-3d;
+}
+.fleet-card {
+  transform-origin: center center;
+}
+.fleet-tilt {
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 0.35s var(--ease-flight, ease-out);
+}
+.fleet-image {
+  translate: var(--shift-x, 0) var(--shift-y, 0);
+  scale: 1.06;
+  transition:
+    translate 0.4s ease-out,
+    scale 0.6s ease-out;
+}
+.fleet-image.is-active {
+  animation: fleet-drift 16s ease-in-out infinite alternate;
+}
+@keyframes fleet-drift {
+  from {
+    scale: 1.06;
+  }
+  to {
+    scale: 1.14;
+  }
+}
+.fleet-panel {
+  animation: fleet-panel-in 0.45s ease-out both;
+}
+@keyframes fleet-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fleet-image.is-active,
+  .fleet-panel {
+    animation: none;
+  }
+  .fleet-tilt,
+  .fleet-image {
+    transition: none;
+  }
 }

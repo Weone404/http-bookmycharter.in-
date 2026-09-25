@@ -5,8 +5,9 @@ import { metadataForRoute } from '@/lib/metadata';
 import { breadcrumbSchema, faqSchema, graph, webPageSchema } from '@/lib/schema';
 import { getRoute } from '@/lib/routes';
 import { whatsappLink } from '@/lib/site';
-import { HOME_AIRCRAFT_GROUPS, HOME_SERVICES, HOW_IT_WORKS, PRICING_FACTORS } from '@/data/home';
-import { AircraftGroupCard } from '@/components/aircraft/AircraftGroupCard';
+import { HOME_SERVICES, HOW_IT_WORKS, PRICING_FACTORS } from '@/data/home';
+import { FleetCarousel } from '@/components/fleet/FleetCarousel';
+import { fleetClasses } from '@/data/fleet-classes';
 import { HOME_FAQS } from '@/data/faqs';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
@@ -124,10 +125,17 @@ export default function HomePage() {
           Choose by aircraft: seats, range and cruise speed for each group,
           computed from the fleet data — the spans across every type listed,
           so no figure appears here that is not on a type's own row. */}
-      <Section ground="ivory" width="wide" className="py-[clamp(3rem,2rem+4vw,5.5rem)]!">
+      <Section
+        ground="ivory"
+        width="wide"
+        className="overflow-hidden py-[clamp(3rem,2rem+4vw,5.5rem)]!"
+      >
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-[60ch]">
-            <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
+            <h2
+              id="home-aircraft-heading"
+              className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight"
+            >
               Which aircraft suits your trip?
             </h2>
             <p className="mt-3 text-[var(--color-ink-muted)]">
@@ -144,17 +152,9 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {HOME_AIRCRAFT_GROUPS.map((group) => (
-            <li key={group.category}>
-              <AircraftGroupCard title={group.title} category={group.category} href={group.href} />
-            </li>
-          ))}
-        </ul>
-        <p className="mt-4 text-[length:var(--text-micro)] text-[var(--color-ink-muted)]">
-          Ranges cover the types listed in each group. These are typical figures. They vary with the
-          model, load, altitude and temperature.
-        </p>
+        <div className="mt-8">
+          <FleetCarousel classes={fleetClasses()} headingId="home-aircraft-heading" />
+        </div>
       </Section>
 
       {/* --------------------------------------------------------- HOW IT WORKS */}

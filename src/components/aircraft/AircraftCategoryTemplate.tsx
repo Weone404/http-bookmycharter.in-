@@ -9,12 +9,15 @@ import { heroImageForCategory } from '@/lib/page-images';
 import { PointList, Prose } from '@/components/content/Prose';
 import { FaqSection } from '@/components/content/FaqSection';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
-import { AircraftTable } from '@/components/aircraft/AircraftTable';
+import { AircraftList } from '@/components/aircraft/AircraftList';
+import { FleetCarousel } from '@/components/fleet/FleetCarousel';
+import { FLEET_CLASS_META, classOf, fleetClasses, listItems } from '@/data/fleet-classes';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { breadcrumbSchema, faqSchema, graph, webPageSchema } from '@/lib/schema';
 
 export function AircraftCategoryTemplate({ page }: { page: AircraftCategoryPage }) {
   const types = aircraftByCategory(page.category);
+  const classes = fleetClasses([...new Set(types.map(classOf))]);
   const preset =
     page.category === 'private-jet' ||
     page.category === 'helicopter' ||
@@ -39,18 +42,34 @@ export function AircraftCategoryTemplate({ page }: { page: AircraftCategoryPage 
         />
       </Section>
 
-      {/* UX first: how to pick, then the comparison, then answers. The
-          longer explanation sits last. */}
-      <Section ground="surface" width="wide">
-        <PointList heading={page.choosing.heading} points={page.choosing.points} />
-      </Section>
+      {/* 1. The 3D carousel of the classes in this category (jets split into
+          light, midsize, super-midsize and large), then every type as a
+          compact list. */}
+      {classes.length > 1 ? (
+        <Section ground="surface" width="wide">
+          <h2
+            id="classes-heading"
+            className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight"
+          >
+            Choose a size
+          </h2>
+          <div className="mt-6">
+            <FleetCarousel classes={classes} headingId="classes-heading" />
+          </div>
+        </Section>
+      ) : null}
 
-      <Section ground="ivory" width="wide">
+      <Section ground="ivory" width="wide" id="types">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-          Compare types: typical seats, range and speed
+          All {types.length} {page.title.replace(/ for Charter$/, '').toLowerCase()}: seats, range
+          and speed
         </h2>
-        <div className="mt-8">
-          <AircraftTable aircraft={types} />
+        <div className="mt-6">
+          <AircraftList
+            items={listItems(types)}
+            classes={FLEET_CLASS_META.map(({ id, label }) => ({ id, label }))}
+            searchable={types.length > 12}
+          />
         </div>
         <div className="mt-10">
           <Button href={preset ? `/request-a-charter?aircraft=${preset}` : '/request-a-charter'}>
@@ -58,6 +77,12 @@ export function AircraftCategoryTemplate({ page }: { page: AircraftCategoryPage 
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Button>
         </div>
+      </Section>
+
+      {/* UX first: how to pick, then the comparison, then answers. The
+          longer explanation sits last. */}
+      <Section ground="midnight" width="wide">
+        <PointList heading={page.choosing.heading} points={page.choosing.points} />
       </Section>
 
       <Section ground="surface" width="default">

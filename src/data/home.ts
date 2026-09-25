@@ -192,17 +192,3 @@ export const HOME_SERVICES: readonly HomeService[] = [
     summary: 'Corporate charter for executive teams, multi-city days and regular business travel.',
   },
 ];
-
-/** Aircraft groups shown as spec cards on the home page. */
-export interface HomeAircraftGroup {
-  readonly title: string;
-  readonly category: AircraftCategory;
-  readonly href: Path;
-}
-
-export const HOME_AIRCRAFT_GROUPS: readonly HomeAircraftGroup[] = [
-  { title: 'Helicopters', category: 'helicopter', href: '/aircraft/helicopters' },
-  { title: 'Turboprops', category: 'turboprop', href: '/aircraft/turboprops' },
-  { title: 'Private Jets', category: 'private-jet', href: '/aircraft/private-jets' },
-  { title: 'Regional Aircraft', category: 'executive-airliner', href: '/aircraft' },
-];

@@ -15,6 +15,22 @@ import { breadcrumbSchema, faqSchema, graph, serviceSchema, webPageSchema } from
 import { aircraftByCategory, formatRange } from '@/data/aircraft';
 import { SiteImageFill } from '@/components/ui/SiteImageFill';
 import { CATEGORY_IMAGE } from '@/data/category-images';
+import { FleetCarousel } from '@/components/fleet/FleetCarousel';
+import { fleetClasses, type FleetClassId } from '@/data/fleet-classes';
+
+/** The carousel classes that fly a service's aircraft categories. */
+function classIdsFor(categories: readonly AircraftCategory[]): FleetClassId[] {
+  const ids = new Set<FleetClassId>();
+  for (const category of categories) {
+    if (category === 'helicopter') ids.add('helicopters');
+    else if (category === 'turboprop') ids.add('turboprops');
+    else if (category === 'private-jet') {
+      for (const id of ['light-jets', 'midsize-jets', 'super-midsize-jets', 'large-jets'] as const)
+        ids.add(id);
+    } else ids.add('airliners');
+  }
+  return [...ids];
+}
 
 /**
  * UX first: a visitor who lands here came to book, so the page opens with the
@@ -71,12 +87,6 @@ function presetFor(service: Service): QuotePreset {
 function quoteHref(aircraft?: QuotePreset['aircraft']): string {
   return aircraft ? `/request-a-charter?aircraft=${aircraft}` : '/request-a-charter';
 }
-
-const GRID_COLS: Record<number, string> = {
-  2: 'lg:max-w-4xl',
-  3: 'lg:grid-cols-3',
-  4: 'lg:grid-cols-4',
-};
 
 function seatRange(
   types: readonly { specs: { passengers: { min: number; max: number } | null } }[],
@@ -186,75 +196,25 @@ export function ServicePageTemplate({ service }: { service: Service }) {
 
       {/* 1. Choose the aircraft: the second thing a booker wants to see. */}
       <Section ground="surface" width="wide">
-        <h2 className={H2}>Best aircraft for {topic}</h2>
+        <h2 id="service-aircraft-heading" className={H2}>
+          Best aircraft for {topic}
+        </h2>
         {single ? (
-          <SingleCategory category={single} />
+          <>
+            <SingleCategory category={single} />
+            <p className="mt-5 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
+              Seats are typical for each type and change with layout, baggage, altitude and
+              temperature on the day.
+            </p>
+          </>
         ) : (
-          <div
-            className={`mt-8 grid gap-5 sm:grid-cols-2 ${GRID_COLS[service.suitableCategories.length] ?? 'lg:grid-cols-4'}`}
-          >
-            {service.suitableCategories.map((category) => {
-              const types = aircraftByCategory(category);
-              const href = CATEGORY_HREF[category];
-              const seats = types
-                .map((t) => t.specs.passengers)
-                .filter((p): p is { min: number; max: number } => p !== null);
-              const capacity =
-                seats.length > 0
-                  ? formatRange({
-                      min: Math.min(...seats.map((x) => x.min)),
-                      max: Math.max(...seats.map((x) => x.max)),
-                    })
-                  : null;
-              return (
-                <div
-                  key={category}
-                  className="flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-hairline)] bg-[var(--color-surface)]"
-                >
-                  {CATEGORY_IMAGE[category] ? (
-                    <SiteImageFill
-                      name={CATEGORY_IMAGE[category]}
-                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                      className="aspect-[3/2]"
-                    />
-                  ) : null}
-                  <div className="flex flex-1 flex-col p-5">
-                    <h3 className="text-[length:var(--text-h3)] font-semibold">
-                      {CATEGORY_LABEL[category]}
-                    </h3>
-                    {types.length > 0 ? (
-                      <p className="mt-1 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
-                        {types.length} types
-                        {capacity ? <> · {capacity} passengers</> : null}
-                      </p>
-                    ) : null}
-                    <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 pt-5 text-[length:var(--text-small)] font-semibold">
-                      <Link
-                        href={quoteHref(QUOTE_AIRCRAFT[category])}
-                        className="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-4 py-2 text-[var(--color-on-accent)] hover:bg-[var(--color-accent-strong)]"
-                      >
-                        Get a quote
-                        <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                      </Link>
-                      {href ? (
-                        <Link
-                          href={href}
-                          className="text-[var(--color-accent-strong)] underline-offset-4 hover:underline"
-                        >
-                          Compare types
-                        </Link>
-                      ) : null}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+          <div className="mt-8">
+            <FleetCarousel
+              classes={fleetClasses(classIdsFor(service.suitableCategories))}
+              headingId="service-aircraft-heading"
+            />
           </div>
         )}
-        <p className="mt-5 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
-          Seats are typical for each type and change with layout, baggage, altitude and temperature
-          on the day.
-        </p>
       </Section>
 
       {/* 2. How it works, in four short steps. */}
