@@ -208,7 +208,7 @@ export default async function AircraftDetailPage({
             </dl>
             <p className="mt-5 text-[length:var(--text-small)] text-[var(--color-ink-inverse-muted)]">
               Typical for the type, not for one specific aircraft. Figures vary with variant,
-              options, weight, altitude and temperature. Source: {AIRCRAFT_SPEC_SOURCE.document}.
+              options, weight, altitude and temperature. Source: our aircraft specification sheet ({AIRCRAFT_SPEC_SOURCE.dated}).
             </p>
           </div>
 

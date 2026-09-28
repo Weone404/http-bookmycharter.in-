@@ -3,6 +3,9 @@ import { indexableRoutes } from '@/lib/routes';
 import { absoluteUrl } from '@/lib/site';
 import { PUBLISHED_AIRCRAFT } from '@/data/aircraft';
 import { INSIGHTS } from '@/data/insights';
+import { CHARTER_ROUTES, routeHref } from '@/data/charter-routes';
+import { DESTINATION_PAGES } from '@/data/destinations';
+import { HELICOPTER_CITIES, helicopterCityHref } from '@/data/helicopter-cities';
 
 /**
  * Only canonical, live, indexable URLs. No redirects, no 404s, no query
@@ -39,5 +42,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...registry, ...aircraft, ...insights];
+  const dated = (path: string, priority: number) => ({
+    url: absoluteUrl(path),
+    lastModified: new Date('2026-09-28'),
+    changeFrequency: 'monthly' as const,
+    priority,
+  });
+  const routes = CHARTER_ROUTES.map((r) => dated(routeHref(r), 0.7));
+  const cities = DESTINATION_PAGES.map((d) => dated(d.canonical, 0.7));
+  const helicopterCities = HELICOPTER_CITIES.map((c) => dated(helicopterCityHref(c), 0.7));
+
+  return [...registry, ...aircraft, ...insights, ...cities, ...routes, ...helicopterCities];
 }

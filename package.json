@@ -2,11 +2,11 @@
   "name": "bookmycharter",
   "version": "1.0.0",
   "private": true,
-  "description": "Book My Charter — private aviation and charter access platform",
+  "description": "Book My Charter \u2014 private aviation and charter access platform",
   "type": "module",
   "scripts": {
     "dev": "next dev -p 3001",
-    "build": "npm run airports && npm run aircraft && next build",
+    "build": "npm run airports && npm run aircraft && npm run geo && next build",
     "start": "next start -p 3001",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
@@ -15,7 +15,8 @@
     "indexnow": "node scripts/indexnow.mjs",
     "aircraft": "node scripts/build-aircraft.mjs",
     "photos": "node scripts/ingest-aircraft-photos.mjs",
-    "images": "node scripts/build-site-images.mjs && node scripts/build-type-images.mjs"
+    "images": "node scripts/build-site-images.mjs && node scripts/build-type-images.mjs",
+    "geo": "node scripts/build-airport-geo.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.6",

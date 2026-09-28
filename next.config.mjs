@@ -48,6 +48,12 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   trailingSlash: false,
+  experimental: {
+    // Put the (small) site stylesheet in the HTML instead of a separate
+    // render-blocking request: one round trip less before first paint on a
+    // phone connection.
+    inlineCss: true,
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [320, 375, 430, 768, 1024, 1280, 1440, 1920, 2560],

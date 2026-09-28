@@ -90,3 +90,9 @@ export function searchAirports(query: string, limit = 10): readonly AirportOptio
   scored.sort((a, b) => a.rank - b.rank || a.option.city.localeCompare(b.option.city));
   return scored.slice(0, limit).map((entry) => entry.option);
 }
+
+/** The option for one aerodrome, by ICAO code (route pages prefill the form with it). */
+export function airportByIcao(icao: string): AirportOption | undefined {
+  const record = AIRPORTS.find((a) => a.icao === icao);
+  return record ? toOption(record) : undefined;
+}

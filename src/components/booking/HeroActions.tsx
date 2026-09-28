@@ -14,7 +14,7 @@ export function HeroActions({
   label?: string;
 }) {
   const ghost =
-    'inline-flex items-center gap-2 rounded-[var(--radius-pill)] border border-white/25 px-5 py-3 text-[length:var(--text-small)] font-semibold text-[var(--color-ink-inverse)] hover:border-white/60';
+    'inline-flex items-center gap-2 rounded-[var(--radius-pill)] border border-white/25 bg-[var(--color-midnight-950)]/55 px-5 py-3 backdrop-blur-sm text-[length:var(--text-small)] font-semibold text-[var(--color-ink-inverse)] hover:border-white/60';
   return (
     <div className="mt-8 flex flex-wrap gap-3">
       <Link

@@ -1,4 +1,5 @@
 import { getImageProps } from 'next/image';
+import { preload } from 'react-dom';
 import { SITE_IMAGES } from '@/data/site-images.generated';
 
 /**
@@ -24,12 +25,30 @@ export function HeroImage() {
     sizes: '100vw',
   }).props;
 
+  // getImageProps does not preload the way <Image priority> does, so ask
+  // for the right frame per screen width at the top of the document.
+  preload(mobile.src, {
+    as: 'image',
+    fetchPriority: 'high',
+    imageSrcSet: mobile.srcSet,
+    imageSizes: mobile.sizes,
+    media: '(max-width: 767px)',
+  });
+  preload(desktop.src, {
+    as: 'image',
+    fetchPriority: 'high',
+    imageSrcSet: desktop.srcSet,
+    imageSizes: desktop.sizes,
+    media: '(min-width: 768px)',
+  });
+
   return (
     <picture>
       <source media="(max-width: 767px)" srcSet={mobile.srcSet} sizes={mobile.sizes} />
       <img
         {...desktop}
         alt=""
+        fetchPriority="high"
         className="absolute inset-0 h-full w-full object-cover object-[50%_0%] md:object-[75%_50%]"
       />
     </picture>

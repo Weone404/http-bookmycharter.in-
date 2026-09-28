@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { pageMetadata } from '@/lib/metadata';
 import { breadcrumbSchema, faqSchema, graph, webPageSchema } from '@/lib/schema';
-import { DESTINATION_PAGES, aerodromesForCity, destinationBySlug } from '@/data/destinations';
+import { DESTINATION_PAGES, aerodromesFor, destinationBySlug } from '@/data/destinations';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/ui/Section';
 import { PageIntro } from '@/components/content/PageIntro';
@@ -11,6 +11,9 @@ import { PointList, Prose } from '@/components/content/Prose';
 import { FaqSection } from '@/components/content/FaqSection';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
 import { AerodromeTable } from '@/components/destinations/AerodromeTable';
+import { airportByIcao } from '@/lib/airport-search';
+import { routeHref, routesFor } from '@/data/charter-routes';
+import { HELICOPTER_CITIES, helicopterCityHref } from '@/data/helicopter-cities';
 
 export function generateStaticParams() {
   return DESTINATION_PAGES.map((d) => ({ city: d.slug }));
@@ -34,7 +37,29 @@ export default async function DestinationPage({ params }: { params: Promise<{ ci
   const page = destinationBySlug(city);
   if (!page) notFound();
 
-  const aerodromes = aerodromesForCity(page.matchCity);
+  const aerodromes = aerodromesFor(page);
+  // Prefill "From" only when the city has one operational airport; with two
+  // (Goa) the visitor picks.
+  const operational = aerodromes.filter((a) => a.operational && a.icao);
+  const home = operational.length === 1 ? airportByIcao(operational[0]?.icao ?? '') : undefined;
+  const heli = HELICOPTER_CITIES.find((c) => c.city === page.city);
+  const related = [
+    ...page.related,
+    ...(heli
+      ? [
+          {
+            label: `Helicopter Charter in ${heli.city}`,
+            href: helicopterCityHref(heli),
+            description: 'Short trips, distances and times',
+          },
+        ]
+      : []),
+    ...routesFor(page.city).map((r) => ({
+      label: `${r.from.city} to ${r.to.city}`,
+      href: routeHref(r),
+      description: 'Distance, flying time and aircraft',
+    })),
+  ].filter((l, i, all) => all.findIndex((x) => x.href === l.href) === i);
 
   return (
     <>
@@ -45,7 +70,12 @@ export default async function DestinationPage({ params }: { params: Promise<{ ci
           eyebrow="Charter destination"
           title={page.title}
           summary={page.summary}
-          action={<HeroBooking heading={`Get a charter quote from ${page.city}`} />}
+          action={
+            <HeroBooking
+              heading={`Get a charter quote from ${page.city}`}
+              {...(home ? { preset: { from: home.label } } : {})}
+            />
+          }
         />
       </Section>
 
@@ -81,7 +111,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ ci
       </Section>
 
       <Section ground="ivory" width="wide" className="pt-0">
-        <RelatedLinks links={page.related} />
+        <RelatedLinks links={related} />
       </Section>
 
       <JsonLd

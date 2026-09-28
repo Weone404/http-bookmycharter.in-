@@ -3,6 +3,9 @@ import { ADDRESS, CONTACT, SITE, absoluteUrl } from '@/lib/site';
 import { INSIGHTS } from '@/data/insights';
 import { PUBLISHED_AIRCRAFT } from '@/data/aircraft';
 import { HOME_FAQS } from '@/data/faqs';
+import { CHARTER_ROUTES, routeHref } from '@/data/charter-routes';
+import { DESTINATION_PAGES } from '@/data/destinations';
+import { HELICOPTER_CITIES, helicopterCityHref } from '@/data/helicopter-cities';
 
 /**
  * /llms.txt — a plain-text map of the site for AI answer engines (the
@@ -44,6 +47,19 @@ export function GET() {
     '## Guides',
     '',
     ...INSIGHTS.map((i) => line(i.title, i.canonical, i.summary)),
+    '',
+    '## Cities',
+    '',
+    ...DESTINATION_PAGES.map((d) => line(d.title, d.canonical, d.summary)),
+    ...HELICOPTER_CITIES.map((c) =>
+      line(`Helicopter Charter in ${c.city}`, helicopterCityHref(c), c.summary),
+    ),
+    '',
+    '## Charter routes',
+    '',
+    ...CHARTER_ROUTES.map(
+      (r) => `- [${r.from.city} to ${r.to.city} private jet charter](${absoluteUrl(routeHref(r))})`,
+    ),
     '',
     '## Aircraft types',
     '',

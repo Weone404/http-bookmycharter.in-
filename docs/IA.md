@@ -97,7 +97,7 @@ wearing a costume.
 |---|---|---|
 | **T1 — launch** | `/`, `/private-charter/` + 2 children, `/helicopter-charter/` + 2 children, `/aircraft/` + verified aircraft pages, `/pricing/`, `/how-it-works/`, `/empty-leg-charter/`, `/chardham/` + Kedarnath, `/about/`, `/contact/`, `/request-a-charter/`, `/privacy/`, `/terms/` | Every page has original, verified content |
 | **T2** | Remaining service children, `/destinations/` with 4–6 cities where operations are real, `/insights/` with 5–6 articles | Airport + helipad facts verified per city |
-| **T3** | `/routes/` pairs, remaining destinations, case studies | Distance and flight time verified per pair; case studies need real trips |
+| **T3** | Remaining destinations, case studies | `/routes/` pairs shipped with computed distance and labelled time estimates; case studies need real trips |
 
 Destinations and routes are **not** generated across a matrix. A city page ships only when its
 airport, helipad and operating facts are real; a route page ships only when its distance, typical

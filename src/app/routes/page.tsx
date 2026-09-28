@@ -1,4 +1,8 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
+import { CHARTER_ROUTES, routeHref } from '@/data/charter-routes';
+import { formatKm, greatCircleKm } from '@/lib/route-math';
 import { metadataForRoute } from '@/lib/metadata';
 import { getRoute } from '@/lib/routes';
 import { breadcrumbSchema, faqSchema, graph, webPageSchema } from '@/lib/schema';
@@ -32,9 +36,9 @@ const ROUTE_FAQS: readonly Faq[] = [
       'No. The aircraft category, where that aircraft is based, the airports used at each end and the ground time all change the price for the same city pair.',
   },
   {
-    question: 'Why don’t you publish flight times for charter routes in India?',
+    question: 'How do you work out flight times for charter routes in India?',
     answer:
-      'We publish a route’s distance and typical flight time only once verified, because people plan their day around a flight time and an estimate could mislead them.',
+      'Each route page takes the straight-line distance between the two airports, adds 10% for airways, divides by each aircraft’s typical cruise speed and adds 25 minutes for taxi, climb and descent, so it is an estimate, not a schedule.',
   },
 ];
 
@@ -53,16 +57,51 @@ export default function RoutesPage() {
         />
       </Section>
 
+      {/* Every route page, one tap each. */}
+      <Section ground="surface" width="wide">
+        <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
+          Popular charter routes
+        </h2>
+        <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {CHARTER_ROUTES.map((r) => {
+            const km = greatCircleKm(r.from.icao, r.to.icao);
+            return (
+              <li key={r.slug}>
+                <Link
+                  href={routeHref(r)}
+                  className="group flex items-center justify-between gap-4 rounded-[var(--radius-card)] border border-[var(--color-hairline)] bg-[var(--color-surface)] p-4 transition-colors hover:border-[var(--color-accent)]"
+                >
+                  <span>
+                    <span className="block font-semibold group-hover:text-[var(--color-accent-strong)]">
+                      {r.from.city} to {r.to.city}
+                    </span>
+                    {km ? (
+                      <span className="numeric text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
+                        {formatKm(km)}
+                      </span>
+                    ) : null}
+                  </span>
+                  <ArrowRight
+                    className="h-4 w-4 shrink-0 text-[var(--color-accent-strong)] transition-transform group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </Section>
+
       <Section ground="midnight" width="wide">
         <div className="grid gap-12 lg:grid-cols-2">
           <PointList
-            heading="What we check before publishing a route page"
+            heading="What every route page shows"
             points={[
-              'Verified distance for the city pair',
-              'Verified typical flight time by aircraft category',
-              'The aerodromes actually used at each end',
-              'Charter points specific to that city pair',
-              'Whether a one-way flight makes practical sense on it',
+              'Distance: straight line between the two airports, from public airport data',
+              'Flying time: an estimate for jets, turboprops and, on short legs, helicopters',
+              'Aircraft: which classes and types can fly it nonstop',
+              'Airports: codes, elevation and longest runway at each end',
+              'Notes: charter points specific to that city pair',
             ]}
           />
           <PointList
@@ -95,7 +134,7 @@ export default function RoutesPage() {
               'A charter route is any two places you want to connect. Airlines publish routes because they fly them again and again to a timetable. Charter has no timetable.',
               'That matters for two reasons. Charter can serve a city pair no airline flies. And the same city pair can cost very different amounts on two different days.',
               'Three things decide a charter route. First, the aerodrome (airport or airfield) at each end: its runway, facilities and hours decide which aircraft can use it. Second, the distance, which decides whether a turboprop or a jet makes sense. Third, positioning (flying the aircraft to your city): where the aircraft is before your trip, and where it must go afterwards.',
-              'We publish a page for a city pair only once its distance and typical flight time are verified. An estimated figure would be worse than none, because people plan their day around a flight time.',
+              'Each route page shows its working: the distance comes from public airport coordinates, and the flying time is an estimate from each aircraft’s typical speed. The operator’s flight plan on the day is what counts.',
             ]}
           />
         </div>

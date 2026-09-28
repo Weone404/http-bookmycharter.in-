@@ -89,7 +89,8 @@ export default function DestinationsPage() {
               price.
             </p>
             <p className="mt-4">
-              Source for the airfield data: {AIRPORT_SOURCE.document}, {AIRPORT_SOURCE.dated}.
+              Source for the airfield data: our airport list, compiled from Wikipedia’s “List of
+              airports in India” ({AIRPORT_SOURCE.dated}).
             </p>
           </div>
         </div>

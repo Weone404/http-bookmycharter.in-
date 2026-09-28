@@ -43,6 +43,9 @@ export interface QuotePreset {
     | 'pilgrimage'
     | 'event'
     | 'other';
+  /** Prefilled From / To, as the airport field's label text (a route page). */
+  readonly from?: string;
+  readonly to?: string;
 }
 
 export function QuickCharterForm({ preset }: { preset?: QuotePreset } = {}) {
@@ -126,6 +129,7 @@ export function QuickCharterForm({ preset }: { preset?: QuotePreset } = {}) {
         label="From"
         placeholder="City, airport or code"
         mode={helicopter ? 'helicopter' : 'any'}
+        {...(preset?.from ? { defaultValue: preset.from } : {})}
       />
       <AirportField
         id="to"
@@ -133,6 +137,7 @@ export function QuickCharterForm({ preset }: { preset?: QuotePreset } = {}) {
         label="To"
         placeholder="City, airport or code"
         mode={helicopter ? 'helicopter' : 'any'}
+        {...(preset?.to ? { defaultValue: preset.to } : {})}
       />
 
       <DateField

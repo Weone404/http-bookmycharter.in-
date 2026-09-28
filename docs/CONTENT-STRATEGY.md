@@ -17,8 +17,8 @@ is enforced rather than assumed.
 | Services | Hub, corporate charter, aerial flower dropping | Wedding, medical, film, events, logistics — pending B3 (which pillars are live) |
 | Pricing | Full methodology, 9 cost components, comparison guide | No figures. E2 unanswered, and an invented "from" price is the practice this rebuild removed |
 | Empty legs | Full explainer, honest empty availability state | No inventory. F1 unanswered; fabricated rows would be a false availability claim |
-| Destinations | Hub with the sourced airport reference, Delhi, Mumbai | Other cities pending D1/D2. A template with the city swapped is not a page |
-| Routes | Hub explaining how a city pair is planned | No route pages: distance and flight time are unverified, and a flight time is a number people plan a day around |
+| Destinations | Hub with the sourced airport reference and 10 city pages (Delhi, Mumbai, Bengaluru, Hyderabad, Chennai, Kolkata, Goa, Jaipur, Udaipur, Dehradun) | Each city has copy written for it plus sourced airport, elevation and runway data. A template with the city swapped is not a page |
+| Routes | Hub, 20 city-pair pages (`src/data/charter-routes.ts`) and 3 helicopter city pages (`src/data/helicopter-cities.ts`) | Distance is computed from OurAirports coordinates (public domain). Flying time is an estimate from the rule in `src/lib/route-math.ts` (+10% routing, typical cruise speed, +25 min). It is shown as a range, labelled as an estimate, and the method is on every page. No timetable, price or availability claims. A pair gets a page only with a note written for it |
 | Chardham | Hub, Kedarnath | Badrinath, Do Dham, travel information pending D4 |
 | Insights | 6 articles | More as they are written; each must support a commercial page |
 

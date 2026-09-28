@@ -35,8 +35,8 @@ The site is honest without these; it is thinner than it should be.
 | B3 | Which of the eight pillars are genuinely live today vs aspirational? | Seven service pages are `planned` pending this. | |
 | C1, C2 | Which of the 52 aircraft types are genuinely available, and is there a dated operator document naming them? | Aircraft pages say specs are typical for the type. Confirmed availability would let them say more. | |
 | C3 | Helicopter types actually available | The fleet data is jet-heavy; 11 helicopters are catalogued from an inherited spec sheet. | |
-| D1, D2 | Cities you genuinely operate from and to, and the airports and helipads used at each | `/destinations` publishes Delhi and Mumbai only. Others are `planned` rather than templated. | |
-| D3 | The 6–10 commercially real route pairs | **No route pages exist.** A page needs a verified distance and flight time; an estimated flight time is a number people plan a day around. | |
+| D1, D2 | Cities you genuinely operate from and to, and the airports and helipads used at each | `/destinations` publishes 10 cities. Each has city-specific copy and sourced airport data, and none claims a base or operation there. Confirm the ones you operate from so that can be said. | |
+| D3 | The route pairs you actually fly most | 20 route pages are live. Each has a computed distance and a flying-time estimate that is labelled as one, with the method shown. Tell us which pairs matter commercially so pages can be added or dropped. | |
 | D4 | Any helipad with confirmed reporting times, restrictions or night-ops limits | Badrinath, Do Dham and Char Dham travel information are `planned`. | |
 | E1 | Does the existing price set (Kedarnath ₹95,000/seat and the rest) belong on this domain, or only on bookmychardham.in? | `/pricing` publishes methodology and no figures. | |
 | E2 | Any hourly or per-category rate you are willing to publish as indicative | Would let `/pricing` carry a real number. It ranks without one. | |
