@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { ImageResponse } from 'next/og';
 import { SITE } from '@/lib/site';
+import { BRAND_BLUE, PLANE_PATH, PLANE_TRANSFORM } from '@/components/ui/BrandMark';
 
 /**
  * The social card, generated in code at build time: the illustrated
@@ -78,15 +79,16 @@ export function GET() {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
-          <svg width="44" height="44" viewBox="0 0 24 24" fill="none">
-            <path d="M2 13.6l20-9.1-4.4 9.1 4.4 9.1-20-9.1z" fill="#F4F6F9" opacity="0.9" />
+          <svg width="56" height="56" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="14" fill={BRAND_BLUE} />
+            <path d={PLANE_PATH} transform={PLANE_TRANSFORM} fill="#FFFFFF" />
           </svg>
           <div
             style={{
               display: 'flex',
               gap: '10px',
               fontSize: 40,
-              fontWeight: 600,
+              fontWeight: 700,
               color: '#F4F6F9',
             }}
           >

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 64" role="img" aria-label="Book My Charter">
+  <rect width="64" height="64" rx="14" fill="#1F5FD6"/>
+  <g transform="translate(32 32) rotate(45) scale(1.95) translate(-12 -12.2)">
+    <path d="M12 2c.9 0 1.4 1 1.4 2.2v5l8.6 4.8v2l-8.6-2.4v5.4l2.6 1.9v1.5L12 21.4l-4 1v-1.5l2.6-1.9v-5.4L2 16v-2l8.6-4.8v-5C10.6 3 11.1 2 12 2z" fill="#FFFFFF"/>
+  </g>
+  <text x="80" y="43" font-family="Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="-0.3" fill="#0B1726">Book My <tspan fill="#1F5FD6">Charter</tspan></text>
+</svg>
