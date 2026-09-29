@@ -1,5 +1,3 @@
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
 import type { Path } from '@/types/common';
 import INDEX from '@/data/areas/index.json';
 import { AIRPORTS, type AirportRecord } from '@/data/airports.generated';
@@ -25,9 +23,11 @@ export interface StateSummary {
   readonly name: string;
   readonly districts: readonly DistrictSummary[];
 }
+/** [name, slug, lat, lon]; the position is the post office's, when recorded. */
+export type Area = readonly [name: string, slug: string, lat: number | null, lon: number | null];
 export interface PinArea {
   readonly pin: string;
-  readonly areas: readonly string[];
+  readonly areas: readonly Area[];
   readonly lat: number | null;
   readonly lon: number | null;
 }
@@ -46,25 +46,35 @@ export function stateBySlug(slug: string): StateSummary | undefined {
   return STATES.find((s) => s.slug === slug);
 }
 
-const cache = new Map<string, readonly District[]>();
-/** A state's districts with all their pincodes. Read at build time only. */
-export function districtsOf(stateSlug: string): readonly District[] {
-  const hit = cache.get(stateSlug);
-  if (hit) return hit;
-  if (!/^[a-z0-9-]+$/.test(stateSlug)) return [];
-  const file = join(process.cwd(), 'src/data/areas', `${stateSlug}.json`);
-  const data = JSON.parse(readFileSync(file, 'utf8')) as { districts: District[] };
-  cache.set(stateSlug, data.districts);
-  return data.districts;
+const cache = new Map<string, Promise<readonly District[]>>();
+/**
+ * A state's districts with all their pincodes and areas. Imported (not read
+ * from disk) so the data ships inside the server bundle: pincode and area
+ * pages are rendered on first request, not at build time.
+ */
+export function districtsOf(stateSlug: string): Promise<readonly District[]> {
+  if (!STATES.some((s) => s.slug === stateSlug)) return Promise.resolve([]);
+  let hit = cache.get(stateSlug);
+  if (!hit) {
+    hit = import(`@/data/areas/${stateSlug}.json`).then(
+      (m: { default: { districts: District[] } }) => m.default.districts,
+    );
+    cache.set(stateSlug, hit);
+  }
+  return hit;
 }
 
-export function districtBySlug(stateSlug: string, districtSlug: string): District | undefined {
-  return districtsOf(stateSlug).find((d) => d.slug === districtSlug);
+export async function districtBySlug(stateSlug: string, districtSlug: string): Promise<District | undefined> {
+  return (await districtsOf(stateSlug)).find((d) => d.slug === districtSlug);
 }
 
 export const stateHref = (s: { slug: string }) => `/charter/${s.slug}` as Path;
 export const districtHref = (s: { slug: string }, d: { slug: string }) =>
   `/charter/${s.slug}/${d.slug}` as Path;
+export const pinHref = (s: { slug: string }, d: { slug: string }, pin: string) =>
+  `/charter/${s.slug}/${d.slug}/${pin}` as Path;
+export const areaHref = (s: { slug: string }, d: { slug: string }, pin: string, area: Area) =>
+  `/charter/${s.slug}/${d.slug}/${pin}/${area[1]}` as Path;
 
 export const totals = {
   states: STATES.length,
@@ -72,6 +82,10 @@ export const totals = {
   pins: STATES.reduce((n, s) => n + s.districts.reduce((m, d) => m + d.pins, 0), 0),
   areas: STATES.reduce((n, s) => n + s.districts.reduce((m, d) => m + d.areas, 0), 0),
 };
+
+/** Area pages per sitemap file (the limit is 50,000). */
+export const AREAS_PER_SITEMAP = 45_000;
+export const AREA_SITEMAP_FILES = Math.ceil(totals.areas / AREAS_PER_SITEMAP);
 
 // ----------------------------------------------------------------- geography
 const R = 6371.0088;
@@ -170,5 +184,45 @@ export function nearbyDistricts(state: StateSummary, d: DistrictSummary, count =
     .filter((x) => x.slug !== d.slug && x.lat !== null && x.lon !== null)
     .map((x) => ({ ...x, km: kmBetween(lat, lon, x.lat as number, x.lon as number) }))
     .sort((a, b) => a.km - b.km)
+    .slice(0, count);
+}
+
+/** Nearest airports and metro flying times for a point. */
+export function placeFacts(lat: number | null, lon: number | null) {
+  const near = lat !== null && lon !== null ? nearestAirports(lat, lon, 3) : [];
+  const main = near[0];
+  const legs = main ? metroLegs(main.icao) : [];
+  return { near, main, legs };
+}
+
+/** Position of an area: its own post office if recorded, else its pincode's centre. */
+export function areaPoint(pin: PinArea, area: Area): { lat: number | null; lon: number | null; own: boolean } {
+  if (area[2] !== null && area[3] !== null) return { lat: area[2], lon: area[3], own: true };
+  return { lat: pin.lat, lon: pin.lon, own: false };
+}
+
+/** Closest areas under other pincodes of the same district (its own pincode's areas are listed separately). */
+export function nearbyAreas(district: District, lat: number | null, lon: number | null, ownPin: string, count = 8) {
+  if (lat === null || lon === null) return [];
+  const out: { pin: string; area: Area; km: number }[] = [];
+  for (const p of district.pins) {
+    if (p.pin === ownPin) continue;
+    for (const a of p.areas) {
+      if (a[2] === null || a[3] === null) continue;
+      out.push({ pin: p.pin, area: a, km: kmBetween(lat, lon, a[2], a[3]) });
+    }
+  }
+  return out.sort((x, y) => x.km - y.km).slice(0, count);
+}
+
+/** Closest other pincodes in the same district. */
+export function nearbyPins(district: District, pin: PinArea, count = 6) {
+  const { lat, lon } = pin;
+  const others = district.pins.filter((p) => p.pin !== pin.pin);
+  if (lat === null || lon === null) return others.slice(0, count).map((p) => ({ pin: p, km: null as number | null }));
+  return others
+    .filter((p) => p.lat !== null && p.lon !== null)
+    .map((p) => ({ pin: p, km: kmBetween(lat, lon, p.lat as number, p.lon as number) as number | null }))
+    .sort((a, b) => (a.km ?? 0) - (b.km ?? 0))
     .slice(0, count);
 }

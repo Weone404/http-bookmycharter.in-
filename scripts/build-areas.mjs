@@ -76,8 +76,8 @@ const key = (t) => t.toUpperCase().replace(/[^A-Z0-9]/g, '');
 
 /** "Padam Nagar SO" -> "Padam Nagar"; keeps GPO and names in brackets. */
 function cleanOffice(name) {
-  // The office type (BO/SO/HO) and anything after it, e.g. "SO North Delhi".
-  const bare = name.replace(/\s+[BSH]\.?O\.?(?=\s|$).*$/i, '').trim().replace(/\s+/g, ' ');
+  // The office type (BO/SO/HO/PO) and anything after it, e.g. "SO North Delhi".
+  const bare = name.replace(/\s+[BSHP]\.?O\.?(?=\s|$).*$/i, '').trim().replace(/\s+/g, ' ');
   if (/[a-z]/.test(bare)) return bare;
   // All-caps initialisms (RCAO, CRPF) stay as they are.
   return /^[A-Z.]{2,6}$/.test(bare) ? bare : titleCase(bare);
@@ -104,7 +104,7 @@ const col = Object.fromEntries(head.map((h, i) => [h, i]));
 const FACILITY = /nodal|\bndc\b|ecom|parcel|\bbpc\b|speed ?post|\brms\b|mail business|sorting|\bich\b|\bhub\b|\bmbc\b|delivery cent|mechanized/i;
 const valid = (lat, lon) => lat > 6 && lat < 37.5 && lon > 68 && lon < 98;
 /** pin -> { areas: Map<key, name>, votes: Map<districtKey, n>, coords: [] } */
-const pins = new Map();
+const pins = new Map(); // areas: Map<key, { name, lat, lon }>
 /** districtKey -> { state, district } */
 const districts = new Map();
 
@@ -118,11 +118,14 @@ for (const line of lines.slice(1)) {
   districts.set(dKey, { state, district });
   const entry = pins.get(pin) ?? { areas: new Map(), votes: new Map(), coords: [] };
   const office = cleanOffice(r[col.OfficeName]);
-  if (!FACILITY.test(office)) entry.areas.set(key(office), office);
   entry.votes.set(dKey, (entry.votes.get(dKey) ?? 0) + 1);
   const lat = Number(r[col.Latitude]);
   const lon = Number(r[col.Longitude]);
-  if (valid(lat, lon)) entry.coords.push([lat, lon]);
+  const ok = valid(lat, lon);
+  if (ok) entry.coords.push([lat, lon]);
+  if (!FACILITY.test(office) && !entry.areas.has(key(office))) {
+    entry.areas.set(key(office), { name: office, lat: ok ? lat : null, lon: ok ? lon : null });
+  }
   pins.set(pin, entry);
 }
 
@@ -137,9 +140,10 @@ if (existsSync(PDF_TEXT)) {
       pending = '';
       const entry = pins.get(m[2]);
       if (!name || !entry) continue;
-      const k = key(name);
-      if (k.length < 3 || entry.areas.has(k) || FACILITY.test(name)) continue;
-      entry.areas.set(k, titleCase(name));
+      const clean = cleanOffice(name);
+      const k = key(clean);
+      if (k.length < 3 || entry.areas.has(k) || FACILITY.test(clean)) continue;
+      entry.areas.set(k, { name: clean, lat: null, lon: null });
       added += 1;
     } else if (/^\s{0,4}\S/.test(raw) && !/PIN CODE|POST OFFICE NAME/.test(raw)) {
       pending = raw.trim(); // a name wrapped onto two lines
@@ -164,12 +168,22 @@ for (const [pin, entry] of pins) {
   const [sSlug, dSlug] = dKey.split('/');
   const s = states.get(sSlug) ?? { name: state, districts: new Map() };
   const d = s.districts.get(dSlug) ?? { name: district, pins: [] };
-  d.pins.push({
-    pin,
-    areas: [...entry.areas.values()].sort((a, b) => a.localeCompare(b)),
-    lat: round(median(entry.coords.map((c) => c[0]))),
-    lon: round(median(entry.coords.map((c) => c[1]))),
-  });
+  const pLat = median(entry.coords.map((c) => c[0]));
+  const pLon = median(entry.coords.map((c) => c[1]));
+  // Each area: [name, slug, lat, lon]. An office position more than ~40 km
+  // from its pincode's centre is treated as misfiled and dropped (the page
+  // then uses the pincode centre).
+  const used = new Set();
+  const areas = [...entry.areas.values()]
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map((a) => {
+      let slug = slugify(a.name) || 'area';
+      while (used.has(slug)) slug = `${slug}-2`;
+      used.add(slug);
+      const near = a.lat !== null && pLat !== null && Math.hypot(a.lat - pLat, a.lon - pLon) < 0.4;
+      return [a.name, slug, near ? round(a.lat) : null, near ? round(a.lon) : null];
+    });
+  d.pins.push({ pin, areas, lat: round(pLat), lon: round(pLon) });
   s.districts.set(dSlug, d);
   states.set(sSlug, s);
 }
@@ -184,6 +198,8 @@ const index = [];
 /** [stateSlug, districtSlug, districtName, stateName]; search files refer to it by position. */
 const districtList = [];
 const byPin3 = new Map();
+/** [pin, districtId, lat, lon] for "use my location". */
+const pinGeo = [];
 const byName2 = new Map();
 let areaCount = 0;
 
@@ -212,15 +228,16 @@ for (const [sSlug, s] of [...states.entries()].sort((a, b) => a[1].name.localeCo
     summaries.push({ slug: dSlug, name: d.name, pins: d.pins.length, areas, lat: round(lat), lon: round(lon) });
     const dId = districtList.push([sSlug, dSlug, d.name, s.name]) - 1;
     for (const p of d.pins) {
+      if (p.lat !== null) pinGeo.push([p.pin, dId, Number(p.lat.toFixed(3)), Number(p.lon.toFixed(3))]);
       const k3 = p.pin.slice(0, 3);
       const bucket = byPin3.get(k3) ?? {};
-      bucket[p.pin] = [dId, ...p.areas];
+      bucket[p.pin] = [dId, ...p.areas.map((a) => a[0])];
       byPin3.set(k3, bucket);
-      for (const a of p.areas) {
+      for (const [a, slug] of p.areas) {
         const k2 = key(a).slice(0, 2).toLowerCase();
         if (k2.length < 2) continue;
         const list = byName2.get(k2) ?? [];
-        list.push([a, p.pin, dId]);
+        list.push([a, p.pin, dId, slug]);
         byName2.set(k2, list);
       }
     }
@@ -240,6 +257,7 @@ writeFileSync(
   }),
 );
 writeFileSync(join(OUT_SEARCH, 'districts.json'), JSON.stringify(districtList));
+writeFileSync(join(OUT_SEARCH, 'pins-geo.json'), JSON.stringify(pinGeo));
 for (const [k, v] of byPin3) writeFileSync(join(OUT_SEARCH, 'pin', `${k}.json`), JSON.stringify(v));
 for (const [k, v] of byName2) {
   v.sort((a, b) => a[0].localeCompare(b[0]));

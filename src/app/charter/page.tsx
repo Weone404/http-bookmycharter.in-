@@ -61,7 +61,7 @@ export default function CharterHub() {
           action={
             <div className="mt-8 max-w-2xl">
               <AreaSearch label="Search your pincode or area" />
-              <p className="mt-4 flex flex-wrap gap-2 text-[length:var(--text-small)] text-[var(--color-ink-inverse-muted)]">
+              <p className="mt-4 flex flex-wrap gap-2 text-[length:var(--text-small)] font-medium text-[var(--color-ink-inverse)]">
                 Try:
                 {[
                   ['110007', '/charter/delhi/north-delhi#pin-110007'],

@@ -17,6 +17,8 @@ import { FaqSection } from '@/components/content/FaqSection';
 import { HeroBooking } from '@/components/booking/HeroBooking';
 import { HeroImage } from '@/components/home/HeroImage';
 import { SiteImageFill } from '@/components/ui/SiteImageFill';
+import { AreaSearch } from '@/components/areas/AreaSearch';
+import { totals } from '@/lib/areas';
 
 const PATH = '/' as const;
 
@@ -65,6 +67,14 @@ export default function HomePage() {
                 are repeated here as one row of chips, one tap each. */}
             <div className="-mx-[var(--spacing-gutter)] mt-6 overflow-x-auto xl:hidden">
               <ul className="flex w-max gap-2 px-[var(--spacing-gutter)]">
+                <li>
+                  <Link
+                    href="/charter"
+                    className="block whitespace-nowrap rounded-[var(--radius-pill)] border border-[var(--color-accent)] bg-[var(--color-accent)]/15 px-4 py-2 text-[length:var(--text-small)] font-semibold hover:border-white/50"
+                  >
+                    Charter near me
+                  </Link>
+                </li>
                 {HOME_SERVICES.map((service) => (
                   <li key={service.href}>
                     <Link
@@ -119,6 +129,36 @@ export default function HomePage() {
             </li>
           ))}
         </ul>
+      </Section>
+
+      {/* ------------------------------------------------------ NEAR YOU
+          Any pincode or area in India, or one tap on "use my location". */}
+      <Section ground="midnight" width="wide" id="near-you">
+        <div className="grid items-end gap-8 lg:grid-cols-[1fr_minmax(0,34rem)]">
+          <div>
+            <p className="text-[length:var(--text-micro)] font-semibold uppercase tracking-[0.2em] text-[var(--color-accent-strong)]">
+              Charter near you
+            </p>
+            <h2 className="mt-3 text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
+              Private jet and helicopter charter near you
+            </h2>
+            <p className="mt-4 max-w-[52ch] text-[var(--color-ink-inverse-muted)]">
+              Every pincode and area in India has its own page: the nearest airports, how far they
+              are, flying times to the big cities and a quote form.{' '}
+              <span className="numeric">
+                {totals.pins.toLocaleString('en-IN')} pincodes · {totals.districts} districts
+              </span>
+              .
+            </p>
+            <Link
+              href="/charter"
+              className="mt-5 inline-flex items-center gap-1.5 text-[length:var(--text-small)] font-semibold text-[var(--color-ink-inverse)] hover:underline"
+            >
+              Browse by state <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </div>
+          <AreaSearch label="Your pincode or area" />
+        </div>
       </Section>
 
       {/* ------------------------------------------------------------ AIRCRAFT

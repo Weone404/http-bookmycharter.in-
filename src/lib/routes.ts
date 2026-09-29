@@ -540,7 +540,7 @@ export const ROUTES: readonly RouteEntry[] = [
     title: 'Private Jet & Helicopter Charter Near Me',
     description:
       'Find private jet and helicopter charter for any state, district, locality or pincode in India: nearest airports, distances, flying times and a quote.',
-    label: 'Charter Near You',
+    label: 'Charter Near Me',
     cluster: 'destinations',
     nav: 'footer',
     status: 'live',

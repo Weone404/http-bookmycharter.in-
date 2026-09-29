@@ -47,6 +47,25 @@ const urlOf = (file) => {
 };
 const built = new Set([...pages.keys()].map(urlOf));
 
+// Pincode and area pages are rendered on first request, not at build time.
+// A link to one counts only if that pincode or area exists in the same data
+// the pages are built from (src/data/areas), so a typo still fails.
+const onDemand = new Set();
+{
+  const dir = path.join('src', 'data', 'areas');
+  for (const file of await readdir(dir)) {
+    if (!file.endsWith('.json') || file === 'index.json') continue;
+    const state = JSON.parse(await readFile(path.join(dir, file), 'utf8'));
+    for (const d of state.districts) {
+      for (const p of d.pins) {
+        const base = `/charter/${state.slug}/${d.slug}/${p.pin}`;
+        onDemand.add(base);
+        for (const area of p.areas) onDemand.add(`${base}/${area[1]}`);
+      }
+    }
+  }
+}
+
 const CANONICAL_ORIGIN = 'https://bookmycharter.in';
 
 /**
@@ -170,7 +189,7 @@ for (const [file, html] of pages) {
     const href = match[1] === '' ? '/' : match[1].replace(/\/$/, '') || '/';
     if (KNOWN_NON_PAGE.has(href)) continue;
     if (href.startsWith('/_next') || href.startsWith('/api/') || href.includes('.')) continue;
-    if (!built.has(href)) note(`${url}: links to ${href} which has no built page`);
+    if (!built.has(href) && !onDemand.has(href)) note(`${url}: links to ${href} which has no built page`);
   }
 
   // 10. Old brand, outside the legitimate uses.

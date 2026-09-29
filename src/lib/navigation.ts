@@ -34,6 +34,7 @@ function link(path: Path, label?: string): NavLink {
 
 /** The services, up front in the header bar. */
 export const HEADER_SERVICES: readonly NavLink[] = [
+  link('/charter', 'Near Me'),
   link('/private-charter/private-jet-charter', 'Private Jets'),
   link('/helicopter-charter', 'Helicopters'),
   link('/chardham', 'Char Dham'),
@@ -54,7 +55,13 @@ export const MORE_GROUPS: readonly NavGroup[] = [
   },
   {
     heading: 'Plan a trip',
-    links: [link('/pricing'), link('/how-it-works'), link('/destinations'), link('/routes')],
+    links: [
+      link('/charter', 'Charter near me'),
+      link('/pricing'),
+      link('/how-it-works'),
+      link('/destinations'),
+      link('/routes'),
+    ],
   },
   {
     heading: 'Company',
@@ -67,6 +74,7 @@ export const DRAWER_GROUPS: readonly NavGroup[] = [
   {
     heading: 'Charter',
     links: [
+      link('/charter', 'Charter near me'),
       link('/private-charter/private-jet-charter'),
       link('/helicopter-charter'),
       link('/chardham', 'Char Dham'),

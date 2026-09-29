@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { SITE } from '@/lib/site';
+import { AREA_SITEMAP_FILES } from '@/lib/areas';
 
 /**
  * Search and answer-engine crawlers are explicitly welcome.
@@ -33,7 +34,11 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: '*', allow: '/', disallow: ['/api/'] },
       ...RETRIEVAL_CRAWLERS.map((userAgent) => ({ userAgent, allow: '/' })),
     ],
-    sitemap: `${SITE.url}/sitemap.xml`,
+    sitemap: [
+      `${SITE.url}/sitemap.xml`,
+      `${SITE.url}/sitemaps/pincodes`,
+      ...Array.from({ length: AREA_SITEMAP_FILES }, (_, i) => `${SITE.url}/sitemaps/areas-${i + 1}`),
+    ],
     host: SITE.url,
   };
 }

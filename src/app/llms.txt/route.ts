@@ -58,7 +58,7 @@ export function GET() {
     '',
     '## Charter by state, district and pincode',
     '',
-    `Every district in India has a page listing all its pincodes and localities, the nearest airports with distance, and estimated flying times (${totals.districts} districts, ${totals.pins} pincodes). Start at ${absoluteUrl('/charter')}.`,
+    `Every district, pincode and locality in India has its own page with the nearest airports (distance and direction) and estimated flying times: ${totals.districts} districts, ${totals.pins} pincodes, ${totals.areas} localities. URL pattern: /charter/<state>/<district>/<pincode>/<locality>. Start at ${absoluteUrl('/charter')}.`,
     '',
     ...STATES.map((st) => `- [Private jet & helicopter charter in ${st.name}](${absoluteUrl(stateHref(st))})`),
     '',
