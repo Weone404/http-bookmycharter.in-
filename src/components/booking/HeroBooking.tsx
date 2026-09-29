@@ -1,6 +1,14 @@
 import { MessageCircle, Phone } from 'lucide-react';
 import { CONTACT, whatsappLink } from '@/lib/site';
-import { QuickCharterForm, type QuotePreset } from './QuickCharterForm';
+import { classCruise } from '@/lib/route-math';
+import { QuickCharterForm, type Cruise, type QuotePreset } from './QuickCharterForm';
+
+/** Typical cruise speeds per aircraft choice, from the spec sheet (computed once). */
+const CRUISE: Cruise = {
+  jet: classCruise('midsize-jets'),
+  turboprop: classCruise('turboprops'),
+  helicopter: classCruise('helicopters'),
+};
 
 /**
  * The booking block every charter hero carries: the four-field quote form,
@@ -27,7 +35,7 @@ export function HeroBooking({
           {heading}
         </h2>
         <div className="mt-5">
-          <QuickCharterForm {...(preset ? { preset } : {})} />
+          <QuickCharterForm cruise={CRUISE} {...(preset ? { preset } : {})} />
         </div>
       </div>
 

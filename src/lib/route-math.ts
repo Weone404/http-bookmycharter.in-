@@ -19,11 +19,16 @@ import { FLEET_CLASS_META, classOf, type FleetClassId } from '@/data/fleet-class
  * - Helicopters are shown only for legs up to 300 km straight-line; beyond
  *   that a helicopter is slow and costly next to a plane, whatever its range.
  */
-export const ROUTING_FACTOR = 1.1;
+import {
+  FIXED_MINUTES,
+  HELICOPTER_MAX_KM,
+  KM_PER_NM,
+  ROUTING_FACTOR,
+  formatDuration,
+} from '@/lib/flight-time';
+
+export { FIXED_MINUTES, HELICOPTER_MAX_KM, ROUTING_FACTOR, formatDuration };
 export const RANGE_MARGIN = 0.8;
-export const FIXED_MINUTES = 25;
-export const HELICOPTER_MAX_KM = 300;
-const KM_PER_NM = 1.852;
 
 export function greatCircleKm(fromIcao: string, toIcao: string): number | null {
   const a = AIRPORT_GEO[fromIcao];
@@ -40,15 +45,6 @@ export function greatCircleKm(fromIcao: string, toIcao: string): number | null {
 
 export function kmToNm(km: number): number {
   return km / KM_PER_NM;
-}
-
-/** Rounded to the nearest 5 minutes, as "1 h 45 min". */
-export function formatDuration(hours: number): string {
-  const minutes = Math.round((hours * 60) / 5) * 5;
-  const h = Math.floor(minutes / 60);
-  const m = minutes % 60;
-  if (h === 0) return `${m} min`;
-  return m === 0 ? `${h} h` : `${h} h ${m} min`;
 }
 
 export interface ClassFit {
@@ -102,4 +98,13 @@ export function formatNm(km: number): string {
 }
 export function feetToMetres(ft: number): number {
   return Math.round(ft * 0.3048);
+}
+
+/** Typical cruise-speed range (knots) of a class, fastest and slowest type, for the quote form. */
+export function classCruise(id: FleetClassId): { min: number; max: number } | null {
+  const speeds = AIRCRAFT.filter((a) => classOf(a) === id)
+    .map((a) => a.specs.cruiseKts)
+    .filter((s): s is { min: number; max: number } => s !== null);
+  if (speeds.length === 0) return null;
+  return { min: Math.min(...speeds.map((s) => s.min)), max: Math.max(...speeds.map((s) => s.max)) };
 }

@@ -231,7 +231,7 @@ for (const [sSlug, s] of [...states.entries()].sort((a, b) => a[1].name.localeCo
       if (p.lat !== null) pinGeo.push([p.pin, dId, Number(p.lat.toFixed(3)), Number(p.lon.toFixed(3))]);
       const k3 = p.pin.slice(0, 3);
       const bucket = byPin3.get(k3) ?? {};
-      bucket[p.pin] = [dId, ...p.areas.map((a) => a[0])];
+      bucket[p.pin] = [dId, p.lat, p.lon, ...p.areas.map((a) => a[0])];
       byPin3.set(k3, bucket);
       for (const [a, slug] of p.areas) {
         const k2 = key(a).slice(0, 2).toLowerCase();

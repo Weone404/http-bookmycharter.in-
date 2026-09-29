@@ -2,6 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
 import { RelatedLinks } from '@/components/content/RelatedLinks';
+import { AreaSearch } from '@/components/areas/AreaSearch';
 
 /**
  * A 404 that helps rather than apologises.
@@ -32,10 +33,16 @@ export default function NotFound() {
         </Button>
       </div>
 
+      {/* A mistyped area link is the likeliest 404 now; let them search it. */}
+      <div className="mt-12 max-w-2xl">
+        <AreaSearch label="Looking for charter near you? Search your pincode or area" />
+      </div>
+
       <div className="mt-16">
         <RelatedLinks
           heading="Where you may have been heading"
           links={[
+            { label: 'Charter Near Me', href: '/charter', description: 'Any state, pincode or area' },
             { label: 'Private Charter', href: '/private-charter', description: 'Whole-aircraft hire' },
             { label: 'Helicopter Charter', href: '/helicopter-charter', description: 'Point-to-point rotary' },
             { label: 'Aircraft & Fleet', href: '/aircraft', description: 'Types and typical figures' },

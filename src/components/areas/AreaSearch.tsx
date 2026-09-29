@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useId, useRef, useState } from 'react';
-import { LocateFixed, MapPin, Search } from 'lucide-react';
+import { History, LocateFixed, MapPin, Search } from 'lucide-react';
 
 /**
  * Find any pincode or locality in India and jump to its district page.
@@ -12,7 +12,7 @@ import { LocateFixed, MapPin, Search } from 'lucide-react';
  * pincode, or the first two letters of a place name.
  */
 type DistrictRow = [stateSlug: string, districtSlug: string, district: string, state: string];
-type PinBucket = Record<string, [number, ...string[]]>;
+type PinBucket = Record<string, [number, number | null, number | null, ...string[]]>;
 type NameRow = [name: string, pin: string, districtId: number, slug: string];
 
 interface Result {
@@ -49,7 +49,7 @@ async function find(query: string): Promise<Result[]> {
     return Object.entries(bucket)
       .filter(([pin]) => pin.startsWith(q))
       .slice(0, 12)
-      .flatMap(([pin, [id, ...areas]]) => {
+      .flatMap(([pin, [id, , , ...areas]]) => {
         const d = where(id);
         if (!d) return [];
         const shown = areas.slice(0, 4).join(', ');
@@ -87,6 +87,27 @@ async function find(query: string): Promise<Result[]> {
 }
 
 type PinGeo = [pin: string, districtId: number, lat: number, lon: number];
+
+/** The last few places opened from this search, kept in this browser only. */
+const RECENT_KEY = 'bmc-recent-areas';
+type Recent = { title: string; href: string };
+function readRecent(): Recent[] {
+  try {
+    const raw = window.localStorage.getItem(RECENT_KEY);
+    const list = raw ? (JSON.parse(raw) as Recent[]) : [];
+    return Array.isArray(list) ? list.filter((r) => r && typeof r.href === 'string' && r.href.startsWith('/charter/')).slice(0, 4) : [];
+  } catch {
+    return [];
+  }
+}
+function remember(item: Recent) {
+  try {
+    const next = [item, ...readRecent().filter((r) => r.href !== item.href)].slice(0, 4);
+    window.localStorage.setItem(RECENT_KEY, JSON.stringify(next));
+  } catch {
+    /* storage unavailable: nothing to remember */
+  }
+}
 
 /** The pincode nearest to the visitor, from the browser's location (asked for on tap only). */
 function locate(): Promise<string> {
@@ -153,6 +174,9 @@ export function AreaSearch({ label = 'Find your area' }: { label?: string }) {
   }, [query]);
 
   const open = query.trim().length >= 2 && searched;
+  const [recent, setRecent] = useState<Recent[]>([]);
+  const [focused, setFocused] = useState(false);
+  const showRecent = focused && query.trim().length < 2 && recent.length > 0;
 
   return (
     <div className="relative">
@@ -168,7 +192,10 @@ export function AreaSearch({ label = 'Find your area' }: { label?: string }) {
           autoComplete="off"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          onBlur={() => setTimeout(() => setFocused(false), 150)}
           onFocus={(e) => {
+            setRecent(readRecent());
+            setFocused(true);
             // On a phone the keyboard covers the results; lift the box to the top.
             if (window.innerWidth < 768) e.currentTarget.parentElement?.scrollIntoView({ block: 'start', behavior: 'smooth' });
           }}
@@ -181,7 +208,10 @@ export function AreaSearch({ label = 'Find your area' }: { label?: string }) {
               setActive((a) => Math.max(a - 1, 0));
             } else if (e.key === 'Enter') {
               const pick = results[active >= 0 ? active : 0];
-              if (pick) window.location.assign(pick.href);
+              if (pick) {
+                remember({ title: `${pick.title} · ${pick.detail.split(' · ')[0]}`.slice(0, 80), href: pick.href });
+                window.location.assign(pick.href);
+              }
             }
           }}
           placeholder="Pincode or area name"
@@ -193,6 +223,26 @@ export function AreaSearch({ label = 'Find your area' }: { label?: string }) {
           className="min-w-0 flex-1 bg-transparent text-[1rem] text-[#0b1726] outline-none placeholder:text-[#5b6675] focus:outline-none"
         />
       </div>
+      {showRecent ? (
+        <div className="mt-2 rounded-[var(--radius-card)] border border-[#dfe4ec] bg-white p-2 text-[#0b1726] shadow-[0_24px_60px_rgba(0,0,0,0.3)]">
+          <p className="px-3 pt-1 pb-2 text-[length:var(--text-micro)] font-semibold uppercase tracking-[0.14em] text-[#4a5566]">
+            Recently viewed
+          </p>
+          <ul>
+            {recent.map((r) => (
+              <li key={r.href}>
+                <Link
+                  href={r.href}
+                  className="flex items-center gap-3 rounded-[calc(var(--radius-card)-4px)] px-3 py-2 text-[length:var(--text-small)] font-medium hover:bg-[#eef3fb]"
+                >
+                  <History className="h-4 w-4 shrink-0 text-[#1a4fb5]" aria-hidden="true" />
+                  {r.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
       {open ? (
         <ul
           id={listId}
@@ -208,6 +258,7 @@ export function AreaSearch({ label = 'Find your area' }: { label?: string }) {
               <li key={r.key} id={`${listId}-${i}`} role="option" aria-selected={i === active}>
                 <Link
                   href={r.href}
+                  onClick={() => remember({ title: `${r.title} · ${r.detail.split(' · ')[0]}`.slice(0, 80), href: r.href })}
                   className={`flex items-start gap-3 rounded-[calc(var(--radius-card)-4px)] px-3 py-2.5 hover:bg-[#eef3fb] ${
                     i === active ? 'bg-[#eef3fb]' : ''
                   }`}

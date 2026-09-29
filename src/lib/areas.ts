@@ -3,6 +3,8 @@ import INDEX from '@/data/areas/index.json';
 import { AIRPORTS, type AirportRecord } from '@/data/airports.generated';
 import { AIRPORT_GEO } from '@/data/airport-geo.generated';
 import { classFits } from '@/lib/route-math';
+import { bearing, compassWord, kmBetween } from '@/lib/geo';
+import { isJetAirport } from '@/lib/airport-search';
 
 /**
  * Every state, district, pincode and locality in India, for the /charter
@@ -88,24 +90,7 @@ export const AREAS_PER_SITEMAP = 45_000;
 export const AREA_SITEMAP_FILES = Math.ceil(totals.areas / AREAS_PER_SITEMAP);
 
 // ----------------------------------------------------------------- geography
-const R = 6371.0088;
-const rad = (d: number) => (d * Math.PI) / 180;
-export function kmBetween(aLat: number, aLon: number, bLat: number, bLon: number): number {
-  const h =
-    Math.sin(rad(bLat - aLat) / 2) ** 2 +
-    Math.cos(rad(aLat)) * Math.cos(rad(bLat)) * Math.sin(rad(bLon - aLon) / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(h));
-}
-/** Compass bearing in degrees, 0 = north. */
-export function bearing(aLat: number, aLon: number, bLat: number, bLon: number): number {
-  const y = Math.sin(rad(bLon - aLon)) * Math.cos(rad(bLat));
-  const x =
-    Math.cos(rad(aLat)) * Math.sin(rad(bLat)) -
-    Math.sin(rad(aLat)) * Math.cos(rad(bLat)) * Math.cos(rad(bLon - aLon));
-  return ((Math.atan2(y, x) * 180) / Math.PI + 360) % 360;
-}
-const POINTS = ['north', 'north-east', 'east', 'south-east', 'south', 'south-west', 'west', 'north-west'];
-export const compassWord = (deg: number) => POINTS[Math.round(deg / 45) % 8] ?? 'north';
+export { bearing, compassWord, kmBetween };
 
 export interface NearAirport {
   readonly record: AirportRecord;
@@ -115,19 +100,7 @@ export interface NearAirport {
   readonly runwayFt: number | null;
 }
 
-/**
- * Airports a charter jet would normally use: operational international and
- * domestic airports with coordinates and, where the runway is recorded, at
- * least 4,500 ft of it. State, private and military-run fields (Safdarjung,
- * for example) are left out, because access to them cannot be assumed.
- */
-const JET_MIN_RUNWAY_FT = 4500;
-const PLOTTABLE = AIRPORTS.filter((a) => {
-  if (!a.operational || !a.icao || !AIRPORT_GEO[a.icao]) return false;
-  if (a.kind !== 'international-airport' && a.kind !== 'domestic-airport') return false;
-  const runway = AIRPORT_GEO[a.icao]?.longestRunwayFt;
-  return runway === null || runway === undefined || runway >= JET_MIN_RUNWAY_FT;
-});
+const PLOTTABLE = AIRPORTS.filter((a) => isJetAirport(a) && a.icao && AIRPORT_GEO[a.icao]);
 
 export function nearestAirports(lat: number, lon: number, count = 3): readonly NearAirport[] {
   return PLOTTABLE.map((a) => {

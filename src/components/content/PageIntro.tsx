@@ -55,12 +55,14 @@ export function PageIntro({
   const framing = picture ? {} : (HERO_FRAMING[name] ?? {});
 
   return (
-    <div className="page-hero on-dark relative isolate ml-[calc(-1*var(--frame-left))] w-screen overflow-hidden bg-[var(--color-midnight)] text-[var(--color-ink-inverse)]">
+    <div className="page-hero on-dark relative z-10 isolate ml-[calc(-1*var(--frame-left))] w-screen overflow-x-clip bg-[var(--color-midnight)] text-[var(--color-ink-inverse)]">
       {/* Phones: the picture is a 16:9-ish panel across the top that fades
           into the dark ground, and the text starts over its lower edge — the
           subject stays visible instead of being buried under the scrim.
           From lg the picture fills the hero behind left-aligned text. */}
-      <div className="absolute inset-x-0 top-0 -z-10 h-[58vw] lg:inset-0 lg:h-auto">
+      {/* The picture is clipped here, not on the hero, so the airport and date
+          pickers in the hero can open past its bottom edge. */}
+      <div className="absolute inset-x-0 top-0 -z-10 h-[58vw] overflow-hidden lg:inset-0 lg:h-auto">
         <Image
           src={image.src}
           alt=""

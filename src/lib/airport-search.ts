@@ -1,4 +1,6 @@
 import { AIRPORTS, AIRPORT_SOURCE } from '@/data/airports.generated';
+import { AIRPORT_GEO } from '@/data/airport-geo.generated';
+import { kmBetween } from '@/lib/geo';
 
 /**
  * The airport index behind the search fields.
@@ -28,9 +30,29 @@ export interface AirportOption {
   readonly label: string;
   /** Lower-cased haystack, precomputed once rather than per keystroke. */
   readonly search: string;
+  /** Position (OurAirports), when recorded. */
+  readonly lat: number | null;
+  readonly lon: number | null;
+  /** An airport a charter jet would normally use (see isJetAirport). */
+  readonly jet: boolean;
+}
+
+/**
+ * Airports a charter jet would normally use: operational international and
+ * domestic airports and, where the runway is recorded, at least 4,500 ft of
+ * it. State, private and military-run fields are left out, because access to
+ * them cannot be assumed. One rule for the pages and the form.
+ */
+export const JET_MIN_RUNWAY_FT = 4500;
+export function isJetAirport(record: (typeof AIRPORTS)[number]): boolean {
+  if (!record.operational || !record.icao) return false;
+  if (record.kind !== 'international-airport' && record.kind !== 'domestic-airport') return false;
+  const runway = AIRPORT_GEO[record.icao]?.longestRunwayFt;
+  return runway === null || runway === undefined || runway >= JET_MIN_RUNWAY_FT;
 }
 
 function toOption(record: (typeof AIRPORTS)[number]): AirportOption {
+  const geo = record.icao ? AIRPORT_GEO[record.icao] : undefined;
   const label = record.iata
     ? `${record.city} (${record.iata}) — ${record.name}`
     : `${record.city} — ${record.name}`;
@@ -45,6 +67,9 @@ function toOption(record: (typeof AIRPORTS)[number]): AirportOption {
       .filter((part): part is string => typeof part === 'string')
       .join(' ')
       .toLowerCase(),
+    lat: geo?.lat ?? null,
+    lon: geo?.lon ?? null,
+    jet: isJetAirport(record),
   };
 }
 
@@ -95,4 +120,17 @@ export function searchAirports(query: string, limit = 10): readonly AirportOptio
 export function airportByIcao(icao: string): AirportOption | undefined {
   const record = AIRPORTS.find((a) => a.icao === icao);
   return record ? toOption(record) : undefined;
+}
+
+/** Jet-capable airports nearest a point, with straight-line distance. */
+export function nearestJetAirports(lat: number, lon: number, count = 2) {
+  return AIRPORT_OPTIONS.filter((o) => o.jet && o.lat !== null && o.lon !== null)
+    .map((option) => ({ option, km: kmBetween(lat, lon, option.lat as number, option.lon as number) }))
+    .sort((a, b) => a.km - b.km)
+    .slice(0, count);
+}
+
+/** The option whose label is exactly this text (a value picked from the list). */
+export function optionByLabel(label: string): AirportOption | undefined {
+  return AIRPORT_OPTIONS.find((o) => o.label === label);
 }

@@ -2,9 +2,11 @@
 
 import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowLeftRight, ArrowRight, MapPin, Route } from 'lucide-react';
 import { track } from '@/lib/analytics';
-import { AIRPORT_COUNT } from '@/lib/airport-search';
+import { AIRPORT_COUNT, optionByLabel } from '@/lib/airport-search';
+import { kmBetween } from '@/lib/geo';
+import { HELICOPTER_MAX_KM, flyingTime } from '@/lib/flight-time';
 import { AirportField } from './AirportField';
 import { PassengerField } from './PassengerField';
 import { DateField } from './DateField';
@@ -48,7 +50,21 @@ export interface QuotePreset {
   readonly to?: string;
 }
 
-export function QuickCharterForm({ preset }: { preset?: QuotePreset } = {}) {
+/** Typical cruise-speed range (knots) per aircraft choice. */
+export interface Cruise {
+  readonly jet: { min: number; max: number } | null;
+  readonly turboprop: { min: number; max: number } | null;
+  readonly helicopter: { min: number; max: number } | null;
+}
+
+type End = { label: string; lat: number | null; lon: number | null; note?: string | null };
+const endOf = (label = ''): End => {
+  const o = optionByLabel(label);
+  return { label, lat: o?.lat ?? null, lon: o?.lon ?? null };
+};
+const short = (label: string) => label.split(/ — | \(|, /)[0] ?? label;
+
+export function QuickCharterForm({ preset, cruise }: { preset?: QuotePreset; cruise?: Cruise } = {}) {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [date, setDate] = useState('');
@@ -58,6 +74,33 @@ export function QuickCharterForm({ preset }: { preset?: QuotePreset } = {}) {
   // also changes what From and To accept: any place, not just airports.
   const [aircraft, setAircraft] = useState<QuotePreset['aircraft'] | ''>(preset?.aircraft ?? '');
   const helicopter = aircraft === 'helicopter';
+  // Both ends, with positions once known, for the live distance and time.
+  const [from, setFrom] = useState<End>(() => endOf(preset?.from));
+  const [to, setTo] = useState<End>(() => endOf(preset?.to));
+  // Swapping remounts both fields with each other's value.
+  const [swaps, setSwaps] = useState(0);
+  function swap() {
+    setFrom({ ...to, note: null });
+    setTo({ ...from, note: null });
+    setSwaps((n) => n + 1);
+  }
+  const km =
+    from.lat !== null && from.lon !== null && to.lat !== null && to.lon !== null
+      ? kmBetween(from.lat, from.lon, to.lat, to.lon)
+      : null;
+  const speed = helicopter ? cruise?.helicopter : aircraft === 'turboprop' ? cruise?.turboprop : cruise?.jet;
+  const craft = helicopter ? 'helicopter' : aircraft === 'turboprop' ? 'turboprop' : 'jet';
+  let estimate: string | null = null;
+  if (km !== null && km >= 5 && speed) {
+    const lead = `${short(from.label)} to ${short(to.label)} · ${Math.round(km).toLocaleString('en-IN')} km`;
+    if (helicopter && km > HELICOPTER_MAX_KM) {
+      estimate = `${lead}. Too far to be practical by helicopter${
+        cruise?.jet ? `; a jet takes about ${flyingTime(km, cruise.jet)}` : ''
+      }.`;
+    } else {
+      estimate = `${lead} · about ${flyingTime(km, speed)} by ${craft} (estimate)`;
+    }
+  }
   const choices: { value: QuotePreset['aircraft'] | ''; label: string }[] = [
     { value: '', label: 'Any' },
     { value: 'private-jet', label: 'Jet' },
@@ -123,21 +166,38 @@ export function QuickCharterForm({ preset }: { preset?: QuotePreset } = {}) {
         </div>
       </fieldset>
 
+      <div className="relative">
+        <AirportField
+          key={`from-${swaps}`}
+          id="from"
+          name="from"
+          label="From"
+          placeholder="City, airport, pincode or area"
+          mode={helicopter ? 'helicopter' : 'any'}
+          onResolve={setFrom}
+          defaultValue={from.label}
+        />
+        {from.label || to.label ? (
+          <button
+            type="button"
+            onClick={swap}
+            aria-label="Swap From and To"
+            title="Swap From and To"
+            className="absolute -bottom-4 right-3 z-10 grid h-8 w-8 place-items-center rounded-full border border-white/20 bg-[var(--color-midnight-950)] text-[var(--color-ink-inverse)] transition-transform hover:rotate-180 hover:border-[var(--color-accent)] sm:-right-5 sm:bottom-2"
+          >
+            <ArrowLeftRight className="h-3.5 w-3.5 rotate-90 sm:rotate-0" aria-hidden="true" />
+          </button>
+        ) : null}
+      </div>
       <AirportField
-        id="from"
-        name="from"
-        label="From"
-        placeholder="City, airport or code"
-        mode={helicopter ? 'helicopter' : 'any'}
-        {...(preset?.from ? { defaultValue: preset.from } : {})}
-      />
-      <AirportField
+        key={`to-${swaps}`}
         id="to"
         name="to"
         label="To"
-        placeholder="City, airport or code"
+        placeholder="City, airport, pincode or area"
         mode={helicopter ? 'helicopter' : 'any'}
-        {...(preset?.to ? { defaultValue: preset.to } : {})}
+        onResolve={setTo}
+        defaultValue={to.label}
       />
 
       <DateField
@@ -163,6 +223,27 @@ export function QuickCharterForm({ preset }: { preset?: QuotePreset } = {}) {
         {submitting ? 'Opening…' : 'Continue'}
         <ArrowRight className="h-4 w-4" aria-hidden="true" />
       </button>
+
+      <p
+        aria-live="polite"
+        className={`flex flex-wrap gap-2 sm:col-span-2 xl:col-span-6 ${estimate || from.note || to.note ? '' : 'hidden'}`}
+      >
+        {[from.note, to.note].filter(Boolean).map((note) => (
+          <span
+            key={note}
+            className="inline-flex items-center gap-2 rounded-[var(--radius-card)] border border-white/10 px-3.5 py-2 text-[length:var(--text-small)] text-[var(--color-ink-inverse-muted)]"
+          >
+            <MapPin className="h-4 w-4 shrink-0 text-[var(--color-accent)]" aria-hidden="true" />
+            {note}
+          </span>
+        ))}
+        {estimate ? (
+          <span className="inline-flex items-start gap-2 rounded-[var(--radius-card)] border border-white/15 bg-white/5 px-3.5 py-2 text-[length:var(--text-small)] text-[var(--color-ink-inverse)]">
+            <Route className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-accent)]" aria-hidden="true" />
+            <span className="numeric">{estimate}</span>
+          </span>
+        ) : null}
+      </p>
 
       <p className="text-[length:var(--text-micro)] text-[var(--color-ink-inverse-muted)] sm:col-span-2 xl:col-span-6">
         {helicopter
