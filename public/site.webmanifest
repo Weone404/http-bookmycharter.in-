@@ -4,8 +4,8 @@
   "description": "Private jet, helicopter and aircraft charter across India.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#071A2B",
-  "theme_color": "#071A2B",
+  "background_color": "#0D2341",
+  "theme_color": "#0D2341",
   "icons": [
     {
       "src": "/icon.png",

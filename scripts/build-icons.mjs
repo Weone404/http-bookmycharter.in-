@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * App icons from the brand mark (public/brand/mark.svg):
+ * App icons from the brand icon (public/brand/app-icon*.svg):
  *   src/app/icon.png        512 × 512, rounded tile on transparent
  *   src/app/apple-icon.png  180 × 180, full-bleed (iOS rounds the corners)
  *   src/app/favicon.ico     16, 32, 48 px
@@ -10,8 +10,8 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import sharp from 'sharp';
 
-const svg = readFileSync('public/brand/mark.svg', 'utf8');
-const fullBleed = svg.replace('rx="14"', 'rx="0"');
+const svg = readFileSync('public/brand/app-icon.svg', 'utf8');
+const fullBleed = readFileSync('public/brand/app-icon-square.svg', 'utf8');
 const render = (source, size) =>
   sharp(Buffer.from(source), { density: 1200 }).resize(size, size).png().toBuffer();
 

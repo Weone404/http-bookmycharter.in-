@@ -2,7 +2,8 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { ImageResponse } from 'next/og';
 import { SITE } from '@/lib/site';
-import { BRAND_BLUE, PLANE_PATH, PLANE_TRANSFORM } from '@/components/ui/BrandMark';
+import { BRAND_GOLD } from '@/components/ui/BrandMark';
+import { LOGO_WIDTH, MARK_PATHS, WORD_PATHS } from '@/components/ui/logo-paths';
 
 /**
  * The social card, generated in code at build time: the illustrated
@@ -78,23 +79,15 @@ export function GET() {
           position: 'relative',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
-          <svg width="56" height="56" viewBox="0 0 64 64">
-            <rect width="64" height="64" rx="14" fill={BRAND_BLUE} />
-            <path d={PLANE_PATH} transform={PLANE_TRANSFORM} fill="#FFFFFF" />
+        <div style={{ display: 'flex' }}>
+          <svg width={(LOGO_WIDTH * 76) / 100} height="76" viewBox={`0 0 ${LOGO_WIDTH} 100`}>
+            <path d={MARK_PATHS.top} fill="#FFFFFF" />
+            <path d={MARK_PATHS.bottom} fill="#FFFFFF" />
+            <path d={MARK_PATHS.wing} fill={BRAND_GOLD} />
+            {WORD_PATHS.map((p, i) => (
+              <path key={i} d={p.d} transform={p.transform} fill={p.role === 'accent' ? BRAND_GOLD : '#FFFFFF'} />
+            ))}
           </svg>
-          <div
-            style={{
-              display: 'flex',
-              gap: '10px',
-              fontSize: 40,
-              fontWeight: 700,
-              color: '#F4F6F9',
-            }}
-          >
-            <span>Book My</span>
-            <span style={{ color: '#8AB4FF' }}>Charter</span>
-          </div>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>

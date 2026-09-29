@@ -13,7 +13,7 @@ export const SITE: SiteIdentity = {
   name: 'Book My Charter',
   legalName: 'Book My Charter',
   url: 'https://bookmycharter.in',
-  logo: 'https://bookmycharter.in/logo.svg',
+  logo: 'https://bookmycharter.in/logo.png',
   description:
     'Book My Charter arranges private jet, helicopter and aircraft charter across India. Compare aircraft, see what a charter costs, and request a quote for your trip.',
   locale: 'en_IN',

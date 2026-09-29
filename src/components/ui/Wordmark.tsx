@@ -1,23 +1,27 @@
-import { BrandMark } from './BrandMark';
+import { BRAND_GOLD } from './BrandMark';
+import { LOGO_WIDTH, MARK_PATHS, WORD_PATHS } from './logo-paths';
 
 /**
- * The wordmark, drawn in code.
+ * The full logo (mark plus "BOOK MY CHARTER"), drawn as outlined vector
+ * paths: identical everywhere, sharp at any size, no font or image request.
  *
- * The inherited logo.webp reads "CHARTER BOOKING" rather than a brand name and
- * cannot be used. This is type plus the brand mark (BrandMark), so it stays sharp at any
- * size, costs no image request, and needs no licence.
- *
- * The accent resolves through `--wordmark-accent`, which defaults to the deep
- * cyan because the bright one measures about 2.4:1 on white and fails at this
- * weight. Dark surfaces add `on-dark` and get the bright accent back.
+ * The navy parts follow `--logo-ink` (navy by default, white on `.on-dark`
+ * grounds); "MY" and the wing stay gold.
  */
 export function Wordmark({ className = '' }: { className?: string }) {
   return (
-    <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      <BrandMark className="h-[1.3em] w-[1.3em] shrink-0 self-center" />
-      <span className="font-semibold tracking-[0.02em] leading-none">
-        Book My <span className="text-[var(--wordmark-accent,var(--color-accent-strong))]">Charter</span>
-      </span>
-    </span>
+    <svg
+      viewBox={`0 0 ${LOGO_WIDTH} 100`}
+      role="img"
+      aria-label="Book My Charter"
+      className={`block h-[1.75em] w-auto ${className}`}
+    >
+      <path d={MARK_PATHS.top} fill="var(--logo-ink)" />
+      <path d={MARK_PATHS.bottom} fill="var(--logo-ink)" />
+      <path d={MARK_PATHS.wing} fill={BRAND_GOLD} />
+      {WORD_PATHS.map((p, i) => (
+        <path key={i} d={p.d} transform={p.transform} fill={p.role === 'accent' ? BRAND_GOLD : 'var(--logo-ink)'} />
+      ))}
+    </svg>
   );
 }

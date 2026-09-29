@@ -21,6 +21,8 @@
 
   /* Ink — text, and the dark ground. */
   --color-midnight: #0b1726;
+  /* Logo navy (the brand colour); white on dark grounds. */
+  --logo-ink: #0d2341;
   --color-midnight-950: #060e18;
   --color-midnight-900: #0b1726;
   --color-midnight-800: #13243a;
@@ -124,6 +126,7 @@
   --color-accent-strong: #b3ceff;
   --color-on-accent: #0b1726;
   --wordmark-accent: var(--color-accent);
+  --logo-ink: #ffffff;
 }
 
 html {
