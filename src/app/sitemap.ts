@@ -5,6 +5,7 @@ import { PUBLISHED_AIRCRAFT } from '@/data/aircraft';
 import { INSIGHTS } from '@/data/insights';
 import { CHARTER_ROUTES, routeHref } from '@/data/charter-routes';
 import { DESTINATION_PAGES } from '@/data/destinations';
+import { STATES, districtHref, stateHref } from '@/lib/areas';
 import { HELICOPTER_CITIES, helicopterCityHref } from '@/data/helicopter-cities';
 
 /**
@@ -52,5 +53,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const cities = DESTINATION_PAGES.map((d) => dated(d.canonical, 0.7));
   const helicopterCities = HELICOPTER_CITIES.map((c) => dated(helicopterCityHref(c), 0.7));
 
-  return [...registry, ...aircraft, ...insights, ...cities, ...routes, ...helicopterCities];
+  const areas = STATES.flatMap((st) => [
+    dated(stateHref(st), 0.6),
+    ...st.districts.map((d) => dated(districtHref(st, d), 0.5)),
+  ]);
+
+  return [...registry, ...aircraft, ...insights, ...cities, ...routes, ...helicopterCities, ...areas];
 }

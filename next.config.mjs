@@ -37,7 +37,6 @@ const LEGACY_REDIRECTS = {
   '/char-dham-yatra': '/chardham',
   '/kedarnath': '/chardham/kedarnath-helicopter',
   '/kedarnath-helicopter': '/chardham/kedarnath-helicopter',
-  '/charter': '/private-charter',
   '/helicopter-charter-old': '/helicopter-charter',
   '/flower-drop': '/services/aerial-flower-dropping',
   '/flower-dropping': '/services/aerial-flower-dropping',

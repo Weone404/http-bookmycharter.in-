@@ -114,10 +114,13 @@ export function serviceSchema({
   name,
   description,
   path,
+  area,
 }: {
   name: string;
   description: string;
   path: Path;
+  /** A specific place (e.g. a district and its state) instead of the site-wide list. */
+  area?: JsonLdNode;
 }): JsonLdNode {
   return {
     '@type': 'Service',
@@ -126,7 +129,7 @@ export function serviceSchema({
     description,
     serviceType: name,
     provider: { '@id': `${SITE.url}/#organization` },
-    areaServed: AREA_SERVED.map((placeName) => ({ '@type': 'Place', name: placeName })),
+    areaServed: area ?? AREA_SERVED.map((placeName) => ({ '@type': 'Place', name: placeName })),
     url: absoluteUrl(path),
   };
 }

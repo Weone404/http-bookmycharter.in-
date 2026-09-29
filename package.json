@@ -16,7 +16,8 @@
     "aircraft": "node scripts/build-aircraft.mjs",
     "photos": "node scripts/ingest-aircraft-photos.mjs",
     "images": "node scripts/build-site-images.mjs && node scripts/build-type-images.mjs",
-    "geo": "node scripts/build-airport-geo.mjs"
+    "geo": "node scripts/build-airport-geo.mjs",
+    "areas": "node scripts/build-areas.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.6",

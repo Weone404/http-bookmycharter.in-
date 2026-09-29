@@ -5,6 +5,7 @@ import { PUBLISHED_AIRCRAFT } from '@/data/aircraft';
 import { HOME_FAQS } from '@/data/faqs';
 import { CHARTER_ROUTES, routeHref } from '@/data/charter-routes';
 import { DESTINATION_PAGES } from '@/data/destinations';
+import { STATES, stateHref, totals } from '@/lib/areas';
 import { HELICOPTER_CITIES, helicopterCityHref } from '@/data/helicopter-cities';
 
 /**
@@ -54,6 +55,12 @@ export function GET() {
     ...HELICOPTER_CITIES.map((c) =>
       line(`Helicopter Charter in ${c.city}`, helicopterCityHref(c), c.summary),
     ),
+    '',
+    '## Charter by state, district and pincode',
+    '',
+    `Every district in India has a page listing all its pincodes and localities, the nearest airports with distance, and estimated flying times (${totals.districts} districts, ${totals.pins} pincodes). Start at ${absoluteUrl('/charter')}.`,
+    '',
+    ...STATES.map((st) => `- [Private jet & helicopter charter in ${st.name}](${absoluteUrl(stateHref(st))})`),
     '',
     '## Charter routes',
     '',

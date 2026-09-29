@@ -535,6 +535,20 @@ export const ROUTES: readonly RouteEntry[] = [
     changeFrequency: 'monthly',
     lastModified: TODAY,
   },
+  {
+    path: '/charter',
+    title: 'Private Jet & Helicopter Charter Near Me',
+    description:
+      'Find private jet and helicopter charter for any state, district, locality or pincode in India: nearest airports, distances, flying times and a quote.',
+    label: 'Charter Near You',
+    cluster: 'destinations',
+    nav: 'footer',
+    status: 'live',
+    index: true,
+    priority: 0.75,
+    changeFrequency: 'monthly',
+    lastModified: TODAY,
+  },
 
   // ---------------------------------------------------------------------- chardham
   {
@@ -732,6 +746,11 @@ export interface DynamicCrumb {
   readonly path: Path;
   readonly label: string;
   readonly parent: Path;
+  /**
+   * Unregistered levels between the leaf and `parent`, nearest first, e.g. a
+   * district page's state page: /charter (registered) > state > district.
+   */
+  readonly between?: readonly { readonly path: Path; readonly label: string }[];
 }
 
 /** Breadcrumb trail from the home page down to `path`, inclusive. */
@@ -740,21 +759,24 @@ export function breadcrumbTrail(path: Path, dynamic?: DynamicCrumb): readonly Ro
 
   let current = BY_PATH.get(path);
   if (!current && dynamic && dynamic.path === path) {
-    // Synthesised leaf: carries only what a breadcrumb needs.
-    trail.push({
-      path: dynamic.path,
-      title: dynamic.label,
-      description: '',
-      label: dynamic.label,
-      cluster: 'root',
-      parent: dynamic.parent,
-      nav: 'none',
-      status: 'live',
-      index: true,
-      priority: 0.5,
-      changeFrequency: 'monthly',
-      lastModified: TODAY,
-    });
+    // Synthesised levels: carry only what a breadcrumb needs.
+    const levels = [{ path: dynamic.path, label: dynamic.label }, ...(dynamic.between ?? [])];
+    for (const level of levels) {
+      trail.unshift({
+        path: level.path,
+        title: level.label,
+        description: '',
+        label: level.label,
+        cluster: 'root',
+        parent: dynamic.parent,
+        nav: 'none',
+        status: 'live',
+        index: true,
+        priority: 0.5,
+        changeFrequency: 'monthly',
+        lastModified: TODAY,
+      });
+    }
     current = BY_PATH.get(dynamic.parent);
   }
 

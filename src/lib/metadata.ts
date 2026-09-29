@@ -21,6 +21,8 @@ interface MetadataInput {
   readonly path: Path;
   readonly index?: boolean;
   readonly image?: { url: string; width: number; height: number; alt: string };
+  /** Append " | Book My Charter". Off for long keyword titles that would be cut off anyway. */
+  readonly brand?: boolean;
 }
 
 /**
@@ -36,10 +38,11 @@ export function pageMetadata({
   path,
   index = true,
   image,
+  brand = true,
 }: MetadataInput): Metadata {
   const card = image ?? OG_IMAGE;
   return {
-    title: { absolute: `${title} | ${SITE.name}` },
+    title: { absolute: brand ? `${title} | ${SITE.name}` : title },
     description,
     alternates: { canonical: absoluteUrl(path) },
     robots: index ? { index: true, follow: true } : { index: false, follow: true },
