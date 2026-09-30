@@ -88,7 +88,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
           dynamic={{ path, label: state.name, parent: '/charter' }}
           eyebrow={`${state.districts.length} districts · ${pins.toLocaleString('en-IN')} pincodes`}
           image="band-destinations"
-          title={`Private Jet & Helicopter Charter in ${state.name}`}
+          title={title(state.name).title}
           summary={summary}
           action={
             <div className="mt-8 max-w-2xl">
@@ -134,7 +134,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
       </Section>
 
       <Section ground="surface" width="default">
-        <FaqSection heading={`Charter in ${state.name}: common questions`} faqs={faqs} />
+        <FaqSection heading={`${state.name} charter FAQs`} faqs={faqs} />
       </Section>
 
       <Section ground="ivory" width="wide">

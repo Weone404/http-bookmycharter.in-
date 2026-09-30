@@ -98,7 +98,7 @@ export default function PricingPage() {
       </Section>
 
       <Section ground="ivory" width="default">
-        <FaqSection faqs={PRICING_FAQS} heading="Charter cost: common questions" />
+        <FaqSection faqs={PRICING_FAQS} heading="Charter cost FAQs" />
       </Section>
 
       {/* UX first: the long explanation is kept whole, but after the

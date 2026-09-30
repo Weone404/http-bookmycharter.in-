@@ -37,7 +37,7 @@ export const dynamicParams = false;
 const H2 = 'text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight';
 
 function title(c: HelicopterCity) {
-  return `Helicopter Charter in ${c.city}`;
+  return `Helicopter Charter & Rental in ${c.city}`;
 }
 
 /** Distance and helicopter time for each trip; trips beyond the helicopter rule are dropped. */
@@ -83,9 +83,16 @@ export default async function HelicopterCityPage({
   if (!c) notFound();
 
   const path = helicopterCityHref(c);
+  // "Helicopter on rent" is how many people search; answer it plainly.
+  const faqs = [
+    ...c.faqs,
+    {
+      question: `Can I hire a helicopter on rent in ${c.city}?`,
+      answer: `Yes. In ${c.city} a helicopter can be hired by the hour, with waiting time between stops, or chartered for one trip; both are quoted per trip once the landing sites are confirmed.`,
+    },
+  ];
   const list = trips(c);
   const from = airportByIcao(c.fromIcao);
-  const label = `Helicopter charter in ${c.city}`;
 
   return (
     <>
@@ -109,7 +116,7 @@ export default async function HelicopterCityPage({
 
       {/* 1. The trips, with the two numbers people ask first. */}
       <Section ground="surface" width="wide">
-        <h2 className={H2}>Popular helicopter trips from {c.city}</h2>
+        <h2 className={H2}>Helicopter trips from {c.city}</h2>
         <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {list.map((t) => (
             <li
@@ -146,19 +153,19 @@ export default async function HelicopterCityPage({
       </Section>
 
       <Section ground="ivory" width="default">
-        <h2 className={H2}>How helicopter charter in {c.city} works</h2>
+        <h2 className={H2}>How helicopter charter works in {c.city}</h2>
         <div className="mt-6">
           <Prose paragraphs={c.body} />
         </div>
       </Section>
 
       <Section ground="surface" width="default">
-        <FaqSection heading={`${label}: common questions`} faqs={c.faqs} />
+        <FaqSection heading={`Helicopter charter in ${c.city} FAQs`} faqs={faqs} />
       </Section>
 
       <Section ground="ivory" width="default">
         <h2 className="text-[length:var(--text-h3)] font-semibold tracking-tight">
-          How these figures are worked out
+          How we calculate
         </h2>
         <ul className="mt-4 space-y-2 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
           <li>
@@ -200,7 +207,7 @@ export default async function HelicopterCityPage({
         json={graph([
           webPageSchema({ name: title(c), description: c.summary, path }),
           breadcrumbSchema(path, { path, label: c.city, parent: '/helicopter-charter' }),
-          faqSchema(c.faqs, path),
+          faqSchema(faqs, path),
         ])}
       />
     </>

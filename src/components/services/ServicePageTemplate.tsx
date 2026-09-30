@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import type { Service } from '@/types/service';
+import type { Service, ServiceHeading } from '@/types/service';
 import type { AircraftCategory } from '@/types/aircraft';
 import { Section } from '@/components/ui/Section';
 import { Button } from '@/components/ui/Button';
@@ -108,10 +108,29 @@ function SingleCategory({ category, heading }: { category: AircraftCategory; hea
 
 const H2 = 'text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight';
 
+/** "private jet charter" -> "Private jet charter" (the site uses sentence case). */
+function sentence(text: string): string {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+export function serviceHeadings(service: Service): Record<ServiceHeading, string> {
+  const kw = service.keyword ?? service.name.toLowerCase();
+  return {
+    quote: `Get a ${kw} quote`,
+    aircraft: `${sentence(kw)} aircraft`,
+    how: `How ${kw} works`,
+    cost: `${sentence(kw)} cost`,
+    fit: `Is ${kw} right for you?`,
+    faq: `${sentence(kw)} FAQs`,
+    what: `What is ${kw}?`,
+    book: `Book ${kw}`,
+    ...service.headings,
+  };
+}
+
 export function ServicePageTemplate({ service }: { service: Service }) {
   const path = service.canonical;
-  const topic = service.keyword ?? service.name.toLowerCase();
-  const Topic = topic.charAt(0).toUpperCase() + topic.slice(1);
+  const h = serviceHeadings(service);
   const single =
     service.suitableCategories.length === 1 ? service.suitableCategories[0] : undefined;
 
@@ -122,7 +141,7 @@ export function ServicePageTemplate({ service }: { service: Service }) {
           path={path}
           title={service.headline ?? service.name}
           summary={service.summary}
-          action={<HeroBooking heading={`Get a ${topic} quote`} preset={presetFor(service)} />}
+          action={<HeroBooking heading={h.quote} preset={presetFor(service)} />}
         />
       </Section>
 
@@ -130,7 +149,7 @@ export function ServicePageTemplate({ service }: { service: Service }) {
       <Section ground="surface" width="wide">
         {single ? (
           <>
-            <SingleCategory category={single} heading={`Best aircraft for ${topic}`} />
+            <SingleCategory category={single} heading={h.aircraft} />
             <p className="mt-5 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
               Seats are typical for each type and change with layout, baggage, altitude and
               temperature on the day.
@@ -139,7 +158,7 @@ export function ServicePageTemplate({ service }: { service: Service }) {
         ) : (
           <>
             <h2 id="service-aircraft-heading" className={H2}>
-              Best aircraft for {topic}
+              {h.aircraft}
             </h2>
             <div className="mt-8">
               <FleetCarousel
@@ -153,7 +172,7 @@ export function ServicePageTemplate({ service }: { service: Service }) {
 
       {/* 2. How it works, in four short steps. */}
       <Section ground="ivory" width="wide">
-        <h2 className={H2}>How {topic} works</h2>
+        <h2 className={H2}>{h.how}</h2>
         <ol className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {service.howItWorks.map((step, index) => (
             <li
@@ -175,7 +194,7 @@ export function ServicePageTemplate({ service }: { service: Service }) {
       {/* 3. Cost, as scannable cards rather than a long list. */}
       <Section ground="surface" width="wide">
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <h2 className={H2}>{Topic} cost: what you pay for</h2>
+          <h2 className={H2}>{h.cost}</h2>
           <Link
             href="/pricing"
             className="inline-flex items-center gap-1.5 text-[length:var(--text-small)] font-semibold text-[var(--color-accent-strong)] hover:underline"
@@ -201,20 +220,21 @@ export function ServicePageTemplate({ service }: { service: Service }) {
 
       {/* 4. Is it right for me: three short lists side by side. */}
       <Section ground="ivory" width="wide">
-        <div className="grid gap-12 lg:grid-cols-3">
-          <PointList heading={`Who ${topic} is for`} points={service.whoItIsFor} />
-          <PointList heading={`When to choose ${topic}`} points={service.whenToUseIt} />
-          <PointList heading={`Before you book ${topic}`} points={service.considerations} />
+        <h2 className={H2}>{h.fit}</h2>
+        <div className="mt-8 grid gap-12 lg:grid-cols-3">
+          <PointList level={3} heading="Best for" points={service.whoItIsFor} />
+          <PointList level={3} heading="When to book" points={service.whenToUseIt} />
+          <PointList level={3} heading="Before you book" points={service.considerations} />
         </div>
       </Section>
 
       <Section ground="surface" width="default">
-        <FaqSection heading={`${Topic}: common questions`} faqs={service.faqs} />
+        <FaqSection heading={h.faq} faqs={service.faqs} />
       </Section>
 
       {/* 5. The full explanation: kept whole, placed last. */}
       <Section ground="ivory" width="default">
-        <h2 className={H2}>{Topic} explained</h2>
+        <h2 className={H2}>{h.what}</h2>
         <div className="mt-6">
           <Prose paragraphs={service.definition} />
         </div>
@@ -226,9 +246,14 @@ export function ServicePageTemplate({ service }: { service: Service }) {
 
       <Section ground="midnight" width="wide">
         <div className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
-          <h2 className="max-w-[40ch] text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-            Get a {topic} quote. Share your route, date and number of passengers.
-          </h2>
+          <div>
+            <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
+              {h.book}
+            </h2>
+            <p className="mt-3 text-[var(--color-ink-inverse-muted)]">
+              Share your route, date and number of passengers for a quote.
+            </p>
+          </div>
           <Button href={quoteHref(presetFor(service).aircraft)}>
             Request a Charter
             <ArrowRight className="h-4 w-4" aria-hidden="true" />

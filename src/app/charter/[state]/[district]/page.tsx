@@ -43,6 +43,18 @@ export function generateStaticParams() {
 }
 export const dynamicParams = false;
 
+/** The page title, also its H1: unique across the site (the state is added unless the district name already says it). */
+function districtTitle(state: { name: string }, district: { name: string }) {
+  const place = district.name.includes(state.name) ? district.name : `${district.name}, ${state.name}`;
+  return fitTitle([
+    `Private Jet & Helicopter Charter in ${place}`,
+    `Private Jet Charter in ${place}`,
+    `Charter in ${place}`,
+    `Private Jet Charter in ${district.name}`,
+    `Charter in ${district.name}`,
+  ]);
+}
+
 async function load(stateSlug: string, districtSlug: string) {
   const state = stateBySlug(stateSlug);
   const district = state ? await districtBySlug(stateSlug, districtSlug) : undefined;
@@ -66,13 +78,7 @@ export async function generateMetadata({
   const names = district.pins.flatMap((p) => p.areas.map((a) => a[0]));
   const base = `Private jet & helicopter charter in ${district.name}, ${state.name}${air}. All ${pinText}`;
   return pageMetadata({
-    ...fitTitle([
-      `Private Jet & Helicopter Charter in ${district.name}, ${state.name}`,
-      `Private Jet Charter in ${district.name}, ${state.name}`,
-      `Charter in ${district.name}, ${state.name}`,
-      `Private Jet Charter in ${district.name}`,
-      `Charter in ${district.name}`,
-    ]),
+    ...districtTitle(state, district),
     description: fitDescription([
       `${base}, incl. ${names.slice(0, 3).join(', ')}. Get a quote.`,
       `${base}, incl. ${names.slice(0, 2).join(', ')}. Get a quote.`,
@@ -157,7 +163,7 @@ export default async function DistrictPage({
           dynamic={crumbs}
           eyebrow={`${state.name} · ${district.pins.length} pincodes`}
           image={main && main.km <= HELICOPTER_MAX_KM ? 'band-helicopter-charter' : 'band-private-charter'}
-          title={`Private Jet & Helicopter Charter in ${district.name}`}
+          title={districtTitle(state, district).title}
           summary={summary}
           action={
             <HeroBooking
@@ -190,7 +196,7 @@ export default async function DistrictPage({
 
       {/* The reason most people land here: find their own pincode or area. */}
       <Section ground="ivory" width="wide">
-        <h2 className={H2}>All pincodes and areas in {district.name}</h2>
+        <h2 className={H2}>Pincodes and areas in {district.name}</h2>
         <p className="mt-3 max-w-[65ch] text-[var(--color-ink-muted)]">
           Tap a pincode or an area for its own page: nearest airports, distances and a quote.
         </p>
@@ -236,7 +242,7 @@ export default async function DistrictPage({
       <FlyingTimes place={district.name} airport={mainName} legs={legs} />
 
       <Section ground="surface" width="default">
-        <FaqSection heading={`Charter in ${district.name}: common questions`} faqs={faqs} />
+        <FaqSection heading={`${district.name} charter FAQs`} faqs={faqs} />
       </Section>
 
       <Section ground="midnight" width="wide">

@@ -47,6 +47,16 @@ export function generateStaticParams() {
 export const dynamicParams = true;
 export const revalidate = false;
 
+/** The page title, also its H1. */
+function pinTitle(district: { name: string }, pin: { pin: string }) {
+  return fitTitle([
+    `Private Jet & Helicopter Charter in ${pin.pin}, ${district.name}`,
+    `Private Jet Charter in ${pin.pin}, ${district.name}`,
+    `Private Jet & Helicopter Charter in ${pin.pin}`,
+    `Charter in ${pin.pin}, ${district.name}`,
+  ]);
+}
+
 async function load(s: string, d: string, pinCode: string) {
   if (!/^\d{6}$/.test(pinCode)) return null;
   const state = stateBySlug(s);
@@ -67,12 +77,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const air = main ? ` Nearest airport ${main.record.iata ?? main.icao}, ${Math.round(main.km)} km.` : '';
   const head = `Private jet & helicopter charter in ${pin.pin}, ${district.name}, ${state.name}`;
   return pageMetadata({
-    ...fitTitle([
-      `Private Jet & Helicopter Charter in ${pin.pin}, ${district.name}`,
-      `Private Jet Charter in ${pin.pin}, ${district.name}`,
-      `Private Jet & Helicopter Charter in ${pin.pin}`,
-      `Charter in ${pin.pin}, ${district.name}`,
-    ]),
+    ...pinTitle(district, pin),
     description: fitDescription([
       `${head}: ${names.slice(0, 3).join(', ')}.${air} Get a quote.`,
       `${head}: ${names.slice(0, 2).join(', ')}.${air} Get a quote.`,
@@ -148,7 +153,7 @@ export default async function PinPage({ params }: { params: Params }) {
           dynamic={crumbs}
           eyebrow={`${district.name}, ${state.name}`}
           image={main && main.km <= HELICOPTER_MAX_KM ? 'band-helicopter-charter' : 'band-private-charter'}
-          title={`Private Jet & Helicopter Charter in ${pin.pin}`}
+          title={pinTitle(district, pin).title}
           summary={summary}
           action={
             <HeroBooking
@@ -180,7 +185,7 @@ export default async function PinPage({ params }: { params: Params }) {
       />
 
       <Section ground="ivory" width="wide">
-        <h2 className={H2}>Areas under pincode {pin.pin}</h2>
+        <h2 className={H2}>Areas in {pin.pin}</h2>
         <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {pin.areas.map((a) => (
             <li key={a[1]}>
@@ -215,7 +220,7 @@ export default async function PinPage({ params }: { params: Params }) {
       />
 
       <Section ground="surface" width="default">
-        <FaqSection heading={`Charter in ${pin.pin}: common questions`} faqs={faqs} />
+        <FaqSection heading={`${pin.pin} charter FAQs`} faqs={faqs} />
       </Section>
 
       <Section ground="midnight" width="wide">

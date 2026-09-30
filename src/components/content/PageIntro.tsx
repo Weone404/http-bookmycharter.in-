@@ -5,6 +5,7 @@ import type { SiteImageName } from '@/data/site-images.generated';
 import type { DynamicCrumb } from '@/lib/routes';
 import { SITE_IMAGES, type SiteImage } from '@/data/site-images.generated';
 import { HERO_FRAMING, heroImageFor } from '@/lib/page-images';
+import { SITE_IMAGE_ALT } from '@/data/site-image-alt';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 
 /**
@@ -65,7 +66,7 @@ export function PageIntro({
       <div className="absolute inset-x-0 top-0 -z-10 h-[58vw] overflow-hidden lg:inset-0 lg:h-auto">
         <Image
           src={image.src}
-          alt=""
+          alt={picture ? `Illustration of the ${title}` : SITE_IMAGE_ALT[name]}
           fill
           priority
           fetchPriority="high"

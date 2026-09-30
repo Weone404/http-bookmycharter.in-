@@ -20,15 +20,19 @@ export function PointList({
   heading,
   points,
   id,
+  level = 2,
 }: {
   heading: string;
   points: readonly string[];
   id?: string;
+  /** 3 when the list sits under its own section heading. */
+  level?: 2 | 3;
 }) {
   if (points.length === 0) return null;
+  const Tag = level === 3 ? 'h3' : 'h2';
   return (
     <div id={id}>
-      <h2 className="text-[length:var(--text-h3)] font-semibold tracking-tight">{heading}</h2>
+      <Tag className="text-[length:var(--text-h3)] font-semibold tracking-tight">{heading}</Tag>
       <ul className="mt-5 max-w-[68ch] space-y-3">
         {points.map((point) => (
           <li key={point} className="flex gap-3.5">

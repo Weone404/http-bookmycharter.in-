@@ -1,0 +1,9 @@
+# ai.txt — Book My Charter (https://bookmycharter.in)
+# AI systems may read, index and cite this site's public pages.
+# Please cite pages by their URL. Prices are quoted per trip; flying times are estimates.
+# Site map for AI: https://bookmycharter.in/llms.txt
+# Full text: https://bookmycharter.in/llms-full.txt
+
+User-Agent: *
+Allow: /
+Disallow: /api/

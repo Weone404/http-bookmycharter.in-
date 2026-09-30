@@ -202,7 +202,7 @@ export default async function RoutePage({ params }: { params: Promise<{ slug: st
 
       {/* 2. Which aircraft fit. */}
       <Section ground="ivory" width="wide">
-        <h2 className={H2}>Aircraft that can fly {pair} nonstop</h2>
+        <h2 className={H2}>{pair} nonstop aircraft</h2>
         <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {[...f.fits]
             .sort((a, b) => Number(b.nonstop.length > 0) - Number(a.nonstop.length > 0))
@@ -276,7 +276,7 @@ export default async function RoutePage({ params }: { params: Promise<{ slug: st
 
       {/* 3. The airports at each end. */}
       <Section ground="surface" width="wide">
-        <h2 className={H2}>The airports</h2>
+        <h2 className={H2}>{pair} airports</h2>
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {airports.map((a) => (
             <div
@@ -317,19 +317,19 @@ export default async function RoutePage({ params }: { params: Promise<{ slug: st
       </Section>
 
       <Section ground="ivory" width="default">
-        <h2 className={H2}>Good to know about {pair}</h2>
+        <h2 className={H2}>{pair} travel notes</h2>
         <div className="mt-6">
           <Prose paragraphs={route.note} />
         </div>
       </Section>
 
       <Section ground="surface" width="default">
-        <FaqSection heading={`${pair} charter: common questions`} faqs={faqs} />
+        <FaqSection heading={`${pair} charter FAQs`} faqs={faqs} />
       </Section>
 
       <Section ground="ivory" width="default">
         <h2 className="text-[length:var(--text-h3)] font-semibold tracking-tight">
-          How these figures are worked out
+          How we calculate
         </h2>
         <ul className="mt-4 space-y-2 text-[length:var(--text-small)] text-[var(--color-ink-muted)]">
           <li>

@@ -50,6 +50,16 @@ export function generateStaticParams() {
 export const dynamicParams = true;
 export const revalidate = false;
 
+/** The page title, also its H1 (with the pincode, as area names repeat across India). */
+function areaTitle(name: string, pin: string) {
+  return fitTitle([
+    `Private Jet & Helicopter Charter in ${name}, ${pin}`,
+    `Private Jet Charter in ${name}, ${pin}`,
+    `Charter in ${name}, ${pin}`,
+    `Charter in ${name}`,
+  ]);
+}
+
 async function load(s: string, d: string, p: string, slug: string) {
   if (!/^\d{6}$/.test(p) || !/^[a-z0-9-]+$/.test(slug)) return null;
   const state = stateBySlug(s);
@@ -75,13 +85,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const leg = legs[0] ? ` Jet to ${legs[0].city} about ${legs[0].jet}.` : '';
   const head = `Private jet & helicopter charter in ${name}, ${district.name} ${pin.pin}`;
   return pageMetadata({
-    ...fitTitle([
-      `Private Jet & Helicopter Charter in ${name}, ${pin.pin}`,
-      `Private Jet Charter in ${name}, ${pin.pin}`,
-      `Private Jet & Helicopter Charter in ${name}`,
-      `Charter in ${name}, ${pin.pin}`,
-      `Charter in ${name}`,
-    ]),
+    ...areaTitle(name, pin.pin),
     description: fitDescription([
       `${head}.${air}${leg} Get a quote.`,
       `${head}.${air} Get a quote.`,
@@ -173,7 +177,7 @@ export default async function AreaPage({ params }: { params: Params }) {
           dynamic={crumbs}
           eyebrow={`${pin.pin} · ${district.name}, ${state.name}`}
           image={main && main.km <= HELICOPTER_MAX_KM ? 'band-helicopter-charter' : 'band-private-charter'}
-          title={`Private Jet & Helicopter Charter in ${name}`}
+          title={areaTitle(name, pin.pin).title}
           summary={summary}
           action={
             <HeroBooking
@@ -223,7 +227,7 @@ export default async function AreaPage({ params }: { params: Params }) {
       />
 
       <Section ground="surface" width="default">
-        <FaqSection heading={`Charter in ${name}: common questions`} faqs={faqs} />
+        <FaqSection heading={`${name} charter FAQs`} faqs={faqs} />
       </Section>
 
       <Section ground="midnight" width="wide">

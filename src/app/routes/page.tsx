@@ -119,7 +119,7 @@ export default function RoutesPage() {
       </Section>
 
       <Section ground="ivory" width="default">
-        <FaqSection faqs={ROUTE_FAQS} heading="Charter routes: common questions" />
+        <FaqSection faqs={ROUTE_FAQS} heading="Charter route FAQs" />
       </Section>
 
       {/* UX first: the long explanation is kept whole, but after the

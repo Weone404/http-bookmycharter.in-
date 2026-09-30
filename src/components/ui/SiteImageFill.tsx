@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import { SITE_IMAGES, type SiteImageName } from '@/data/site-images.generated';
+import { SITE_IMAGE_ALT } from '@/data/site-image-alt';
 
 /**
  * A site illustration filling its box (the box sets the aspect ratio through
- * `className`). Decorative: every place it is used, the words beside it say
- * what it shows, so it carries empty alt text rather than repeating them.
+ * `className`). Its alt text describes the scene (SITE_IMAGE_ALT), which the
+ * card title beside it does not.
  */
 export function SiteImageFill({
   name,
@@ -24,7 +25,7 @@ export function SiteImageFill({
     <div className={`relative overflow-hidden bg-[var(--color-ivory-dim)] ${className}`}>
       <Image
         src={image.src}
-        alt=""
+        alt={SITE_IMAGE_ALT[name]}
         fill
         sizes={sizes}
         priority={priority}

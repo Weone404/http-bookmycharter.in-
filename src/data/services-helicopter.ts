@@ -9,6 +9,10 @@ export const HELICOPTER_SERVICES: readonly Service[] = [
     cluster: 'helicopter-charter',
     name: 'Helicopter Charter',
     keyword: 'helicopter charter',
+    headings: {
+      aircraft: 'Helicopters for charter',
+      book: 'Book a helicopter',
+    },
     headline: 'Helicopter Charter in India',
     summary:
       'Helicopter charter flies you point to point without a runway, so it suits executives, wedding and event guests, and hill travellers going where there is no airport.',
@@ -185,6 +189,10 @@ export const HELICOPTER_SERVICES: readonly Service[] = [
     cluster: 'helicopter-charter',
     name: 'Private Helicopter Charter',
     keyword: 'private helicopter charter',
+    headings: {
+      aircraft: 'Helicopters for private charter',
+      book: 'Book a private helicopter',
+    },
     headline: 'Private Helicopter Charter in India',
     summary:
       'Private helicopter charter means hiring a whole helicopter for one point-to-point trip, so executives, families and small groups fly on their own schedule with nobody else on board.',
@@ -311,6 +319,10 @@ export const HELICOPTER_SERVICES: readonly Service[] = [
     cluster: 'helicopter-charter',
     name: 'Helicopter Rental',
     keyword: 'helicopter rental',
+    headings: {
+      aircraft: 'Helicopters for rent',
+      book: 'Rent a helicopter',
+    },
     headline: 'Helicopter Rental in India',
     summary:
       'Helicopter rental means hiring a helicopter and crew for a block of time, not one journey, which suits filming, surveys, events and multi-site days where plans change.',
@@ -438,6 +450,15 @@ export const HELICOPTER_SERVICES: readonly Service[] = [
     cluster: 'helicopter-charter',
     name: 'Helicopter Charter Price',
     keyword: 'helicopter charter price',
+    headings: {
+      quote: 'Get a helicopter price quote',
+      aircraft: 'Helicopter types',
+      how: 'How helicopter charter price is worked out',
+      cost: 'Helicopter charter price factors',
+      fit: 'Before you ask for a helicopter price',
+      what: 'What decides helicopter charter price?',
+      book: 'Get a helicopter charter price',
+    },
     headline: 'Helicopter Charter Price in India',
     summary:
       'Helicopter charter price in India is set by the helicopter’s hourly rate times the billed flying hours, plus positioning from its base, waiting time, landing permissions and taxes.',
@@ -573,6 +594,13 @@ export const HELICOPTER_SERVICES: readonly Service[] = [
     cluster: 'helicopter-charter',
     name: 'Wedding Helicopter',
     keyword: 'wedding helicopter',
+    headings: {
+      aircraft: 'Helicopters for weddings',
+      how: 'How wedding helicopter booking works',
+      fit: 'Is a wedding helicopter right for you?',
+      what: 'What is a wedding helicopter?',
+      book: 'Book a wedding helicopter',
+    },
     headline: 'Wedding Helicopter Booking in India',
     summary:
       'A wedding helicopter in India is a private helicopter hired for the couple’s arrival, a flower shower or guest transfers, flown to a venue site approved for landing.',

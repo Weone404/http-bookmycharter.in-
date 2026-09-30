@@ -68,7 +68,7 @@ export default function AircraftHubPage() {
           parts a booker scans. */}
       <Section ground="surface" width="default">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-          Choosing a charter aircraft, explained
+          How to choose a charter aircraft
         </h2>
         <div className="mt-6">
           <Prose
@@ -83,9 +83,14 @@ export default function AircraftHubPage() {
 
       <Section ground="ivory" width="wide">
         <div className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
-          <h2 className="max-w-[44ch] text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-            Not sure which aircraft you need? Describe your trip instead.
-          </h2>
+          <div>
+            <h2 className="max-w-[44ch] text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
+              Not sure which aircraft?
+            </h2>
+            <p className="mt-3 text-[var(--color-ink-muted)]">
+              Describe your trip and we suggest the aircraft that fit.
+            </p>
+          </div>
           <Button href="/request-a-charter">
             Request a Charter
             <ArrowRight className="h-4 w-4" aria-hidden="true" />

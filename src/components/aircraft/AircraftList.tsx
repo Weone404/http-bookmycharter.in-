@@ -276,7 +276,9 @@ export function AircraftCard({ item, index }: { item: AircraftListItem; index: n
       <div className="relative aspect-[16/9] overflow-hidden bg-[var(--color-midnight)]">
         <Image
           src={image.src}
-          alt=""
+          // Its own illustration is named; a class picture shown in place
+          // of a missing one is not this aircraft, so it stays decorative.
+          alt={item.ownPicture ? `Illustration of the ${item.name}` : ''}
           fill
           sizes="(min-width: 1536px) 22rem, (min-width: 640px) 45vw, 92vw"
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06] motion-reduce:transition-none"

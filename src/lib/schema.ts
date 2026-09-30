@@ -169,6 +169,35 @@ export function faqSchema(faqs: readonly Faq[], path: Path): JsonLdNode | null {
   };
 }
 
+/**
+ * HowTo, for a step-by-step process rendered visibly on the same page (the
+ * home page's "How to book a charter in 5 steps").
+ */
+export function howToSchema({
+  name,
+  description,
+  steps,
+  path,
+}: {
+  name: string;
+  description: string;
+  steps: readonly { title: string; description: string }[];
+  path: Path;
+}): JsonLdNode {
+  return {
+    '@type': 'HowTo',
+    '@id': `${absoluteUrl(path)}#howto`,
+    name,
+    description,
+    step: steps.map((s, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: s.title,
+      text: s.description,
+    })),
+  };
+}
+
 /** Wrap nodes into a single @graph. One script tag per page, not five. */
 export function graph(nodes: readonly (JsonLdNode | null)[]): string {
   return JSON.stringify({

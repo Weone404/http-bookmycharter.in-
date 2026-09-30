@@ -84,14 +84,14 @@ export default function EmptyLegPage() {
       </Section>
 
       <Section ground="ivory" width="default" className="pt-0">
-        <FaqSection faqs={EMPTY_LEG_FAQS} heading="Empty leg flights: common questions" />
+        <FaqSection faqs={EMPTY_LEG_FAQS} heading="Empty leg flight FAQs" />
       </Section>
 
       {/* UX first: the long explanation is kept whole, but after the
           parts a booker scans. */}
       <Section ground="surface" width="default">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-          Empty leg flights explained
+          What is an empty leg flight?
         </h2>
         <div className="mt-6">
           <Prose paragraphs={EMPTY_LEG_EXPLAINER} />

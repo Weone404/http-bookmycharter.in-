@@ -17,6 +17,9 @@ export const PRIVATE_CHARTER_SERVICES: readonly Service[] = [
     cluster: 'private-charter',
     name: 'Private Charter',
     keyword: 'private charter',
+    headings: {
+      book: 'Book a private charter',
+    },
     headline: 'Private Charter Flights in India',
     summary:
       'Private charter means hiring a whole aircraft for one trip, so companies, groups and busy travellers choose the route, the departure time and who flies, not an airline.',
@@ -171,6 +174,10 @@ export const PRIVATE_CHARTER_SERVICES: readonly Service[] = [
     cluster: 'private-charter',
     name: 'Private Jet Charter',
     keyword: 'private jet charter',
+    headings: {
+      aircraft: 'Private jets for charter',
+      book: 'Book a private jet',
+    },
     headline: 'Private Jet Charter in India',
     summary:
       'Private jet charter means hiring a whole jet for your trip, best for executives and groups of four to twelve on flights of about two hours or more.',
@@ -307,6 +314,9 @@ export const PRIVATE_CHARTER_SERVICES: readonly Service[] = [
     cluster: 'private-charter',
     name: 'Aircraft Charter',
     keyword: 'aircraft charter',
+    headings: {
+      book: 'Book an aircraft charter',
+    },
     headline: 'Aircraft Charter in India',
     summary:
       'Aircraft charter means hiring any type of aircraft for your trip, not just a jet, and for companies and groups on many Indian routes, a turboprop is the more sensible choice.',

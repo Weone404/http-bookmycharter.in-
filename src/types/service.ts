@@ -20,6 +20,9 @@ export interface PricingFactor {
   readonly explanation: string;
 }
 
+/** The sections of a service page whose headings can be overridden. */
+export type ServiceHeading = 'quote' | 'aircraft' | 'how' | 'cost' | 'fit' | 'faq' | 'what' | 'book';
+
 export interface Service {
   readonly slug: Slug;
   readonly cluster: ServiceCluster;
@@ -30,6 +33,11 @@ export interface Service {
    * the page's topic appears in its h2s without anyone hand-writing them.
    */
   readonly keyword?: string;
+  /**
+   * Section headings, when the ones built from `keyword` read badly
+   * ("How helicopter charter price works"). Keys left out use the default.
+   */
+  readonly headings?: Partial<Record<ServiceHeading, string>>;
   /** The visible h1, when it should differ from `name` (e.g. adds "in India"). */
   readonly headline?: string;
   /** Answer-first: what this is, in one quotable sentence. */

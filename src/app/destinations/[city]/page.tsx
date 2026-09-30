@@ -81,7 +81,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ ci
 
       <Section ground="surface" width="wide">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-          Airports and airfields on record
+          Airports in {page.city}
         </h2>
         <div className="mt-8">
           <AerodromeTable aerodromes={aerodromes} />
@@ -90,20 +90,20 @@ export default async function DestinationPage({ params }: { params: Promise<{ ci
 
       <Section ground="midnight" width="wide">
         <PointList
-          heading={`What to know before you charter from ${page.city}`}
+          heading={`${page.city} charter checklist`}
           points={page.charterNotes}
         />
       </Section>
 
       <Section ground="ivory" width="default">
-        <FaqSection faqs={page.faqs} />
+        <FaqSection heading={`${page.city} charter FAQs`} faqs={page.faqs} />
       </Section>
 
       {/* UX first: the long explanation is kept whole, but after the
           parts a booker scans. */}
       <Section ground="surface" width="default">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-          {page.title} explained
+          {page.city} charter guide
         </h2>
         <div className="mt-6">
           <Prose paragraphs={page.body} />

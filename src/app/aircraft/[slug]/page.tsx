@@ -215,10 +215,10 @@ export default async function AircraftDetailPage({
           <div className="space-y-10">
             {curated ? (
               <>
-                <PointList heading="Best for" points={curated.idealFor} />
+                <PointList heading={`${aircraft.name}: best for`} points={curated.idealFor} />
                 {curated.limitations ? (
                   <PointList
-                    heading="When to choose another aircraft"
+                    heading={`${aircraft.name} alternatives`}
                     points={curated.limitations}
                   />
                 ) : null}
@@ -229,7 +229,7 @@ export default async function AircraftDetailPage({
                 {aircraft.sourceDescription ? (
                   <div>
                     <h2 className="text-[length:var(--text-h3)] font-semibold tracking-tight">
-                      Type overview
+                      {aircraft.name} overview
                     </h2>
                     <p className="mt-4 text-[var(--color-ink-inverse-muted)]">
                       {aircraft.sourceDescription}

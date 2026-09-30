@@ -62,7 +62,7 @@ export default function DestinationsPage() {
 
       <Section ground="midnight" width="wide">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-          What decides whether you can fly to a destination
+          What decides a charter destination
         </h2>
         <div className="mt-8 grid gap-10 lg:grid-cols-2">
           <ul className="space-y-4 text-[var(--color-ink-inverse-muted)]">
@@ -100,7 +100,7 @@ export default function DestinationsPage() {
           parts a booker scans. */}
       <Section ground="surface" width="default">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-          Charter destinations explained
+          How charter destinations work
         </h2>
         <div className="mt-6">
           <Prose

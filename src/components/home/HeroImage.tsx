@@ -1,6 +1,7 @@
 import { getImageProps } from 'next/image';
 import { preload } from 'react-dom';
 import { SITE_IMAGES } from '@/data/site-images.generated';
+import { SITE_IMAGE_ALT } from '@/data/site-image-alt';
 
 /**
  * The home hero background: one art-directed <picture>. Phones get the
@@ -47,7 +48,7 @@ export function HeroImage() {
       <source media="(max-width: 767px)" srcSet={mobile.srcSet} sizes={mobile.sizes} />
       <img
         {...desktop}
-        alt=""
+        alt={SITE_IMAGE_ALT['home-hero-desktop']}
         fetchPriority="high"
         className="absolute inset-0 h-full w-full object-cover object-[50%_0%] md:object-[75%_50%]"
       />

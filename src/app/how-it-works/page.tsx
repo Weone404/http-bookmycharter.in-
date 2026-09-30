@@ -85,7 +85,7 @@ export default function HowItWorksPage() {
           parts a booker scans. */}
       <Section ground="surface" width="default">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-          Booking a charter, explained
+          How charter booking works
         </h2>
         <div className="mt-6">
           <Prose

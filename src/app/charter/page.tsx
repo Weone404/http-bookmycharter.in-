@@ -99,7 +99,7 @@ export default function CharterHub() {
       </Section>
 
       <Section ground="ivory" width="wide">
-        <h2 className={H2}>Private jet and helicopter charter by state</h2>
+        <h2 className={H2}>Charter by state</h2>
         <div className="mt-6">
           <AreaFilter target="state-list" placeholder="Search states and districts" total={STATES.length} noun="states" />
         </div>
@@ -130,7 +130,7 @@ export default function CharterHub() {
       </Section>
 
       <Section ground="surface" width="default">
-        <FaqSection heading="Charter near you: common questions" faqs={FAQS} />
+        <FaqSection heading="Charter near me FAQs" faqs={FAQS} />
       </Section>
 
       <Section ground="ivory" width="wide">

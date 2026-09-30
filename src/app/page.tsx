@@ -2,7 +2,10 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 import { metadataForRoute } from '@/lib/metadata';
-import { breadcrumbSchema, faqSchema, graph, webPageSchema } from '@/lib/schema';
+import { breadcrumbSchema, faqSchema, graph, howToSchema, webPageSchema } from '@/lib/schema';
+import { AIRPORT_COUNT } from '@/lib/airport-search';
+import { PUBLISHED_AIRCRAFT } from '@/data/aircraft';
+import { classFits, formatKm, greatCircleKm } from '@/lib/route-math';
 import { getRoute } from '@/lib/routes';
 import { whatsappLink } from '@/lib/site';
 import { HOME_SERVICES, HOW_IT_WORKS, PRICING_FACTORS } from '@/data/home';
@@ -25,6 +28,12 @@ const PATH = '/' as const;
 export const metadata: Metadata = metadataForRoute(PATH);
 
 const WHATSAPP_MESSAGE = 'Hello, I would like to enquire about a charter.';
+
+// Facts for the opening answer, computed from the site's own data so they
+// always match the pages they summarise.
+const DEL_BOM_KM = greatCircleKm('VIDP', 'VABB');
+const DEL_BOM_JET =
+  DEL_BOM_KM === null ? null : classFits(DEL_BOM_KM).find((f) => f.id === 'midsize-jets')?.time;
 
 export default function HomePage() {
   const route = getRoute(PATH);
@@ -58,8 +67,14 @@ export default function HomePage() {
               Private Jet &amp; Helicopter Charter in India
             </h1>
             <p className="mt-4 max-w-[54ch] text-[length:var(--text-lead)] text-[var(--color-ink-inverse)]/85">
-              Book My Charter arranges private jet, helicopter and aircraft charter across India,
-              planned around your route, date and group size, with a quote you can request below.
+              Book My Charter arranges private jet and helicopter charter across India. Compare{' '}
+              {PUBLISHED_AIRCRAFT.length} aircraft types, fly from any of {AIRPORT_COUNT} airports or an
+              approved helipad, and see the nearest airport to any of{' '}
+              {totals.pins.toLocaleString('en-IN')} pincodes.
+              {DEL_BOM_KM !== null && DEL_BOM_JET
+                ? ` Delhi to Mumbai is ${formatKm(DEL_BOM_KM)}, about ${DEL_BOM_JET} by jet.`
+                : ''}{' '}
+              Share your route, date and group size below for a quote.
             </p>
 
             {/* Below the desktop breakpoint the header has no service links,
@@ -98,7 +113,7 @@ export default function HomePage() {
           the same order as the header. */}
       <Section ground="surface" width="wide" className="py-[clamp(2.5rem,1.5rem+3vw,4rem)]!">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-          What would you like to charter?
+          Charter services
         </h2>
         <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           {HOME_SERVICES.map((service, index) => (
@@ -140,7 +155,7 @@ export default function HomePage() {
               Charter near you
             </p>
             <h2 className="mt-3 text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-              Private jet and helicopter charter near you
+              Charter near me
             </h2>
             <p className="mt-4 max-w-[52ch] text-[var(--color-ink-inverse-muted)]">
               Every pincode and area in India has its own page: the nearest airports, how far they
@@ -176,7 +191,7 @@ export default function HomePage() {
               id="home-aircraft-heading"
               className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight"
             >
-              Which aircraft suits your trip?
+              Charter aircraft
             </h2>
             <p className="mt-3 text-[var(--color-ink-muted)]">
               Three things decide the aircraft, in this order: where you land, how far you fly and
@@ -202,7 +217,7 @@ export default function HomePage() {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-[60ch]">
             <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-              How to book a charter in 5 steps
+              How to book a charter
             </h2>
             <p className="mt-3 text-[var(--color-ink-muted)]">
               Booking a private jet or helicopter takes five clear steps. Here is what happens after
@@ -240,7 +255,7 @@ export default function HomePage() {
       <Section ground="ivory" width="wide" id="pricing">
         <div className="max-w-[65ch]">
           <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-            How much does a private jet charter cost?
+            Private jet price in India
           </h2>
           {/* Answer-first: this paragraph is written to be quotable on its own. */}
           <p className="mt-5 text-[length:var(--text-lead)]">
@@ -276,7 +291,7 @@ export default function HomePage() {
 
       {/* ------------------------------------------------------------------ FAQ */}
       <Section ground="surface" width="default">
-        <FaqSection faqs={HOME_FAQS} />
+        <FaqSection heading="Private jet and helicopter charter FAQs" faqs={HOME_FAQS} />
       </Section>
 
       {/* ------------------------------------------------------------ FINAL CTA */}
@@ -284,7 +299,7 @@ export default function HomePage() {
         <div className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
           <div className="max-w-[46ch]">
             <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-              Ready to book a private jet or helicopter?
+              Book a private jet or helicopter
             </h2>
             <p className="mt-4 text-[var(--color-ink-inverse-muted)]">
               Your route, date and number of passengers is enough to start. You get aircraft options
@@ -315,6 +330,13 @@ export default function HomePage() {
           webPageSchema({ name: route.title, description: route.description, path: PATH }),
           breadcrumbSchema(PATH),
           faqSchema(HOME_FAQS, PATH),
+          howToSchema({
+            name: 'How to book a private jet or helicopter charter in India',
+            description:
+              'Booking a private jet or helicopter charter takes five steps, from sharing your route to flying.',
+            steps: HOW_IT_WORKS,
+            path: PATH,
+          }),
         ])}
       />
     </>

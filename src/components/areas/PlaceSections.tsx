@@ -46,7 +46,7 @@ export function NearestAirports({ place, near }: { place: string; near: readonly
   if (near.length === 0) return null;
   return (
     <Section ground="ivory" width="wide">
-      <h2 className={H2}>Nearest airports to {place}</h2>
+      <h2 className={H2}>Airports near {place}</h2>
       <div className="mt-8 grid items-center gap-8 lg:grid-cols-[minmax(0,22rem)_1fr]">
         <div className="rounded-[var(--radius-card)] border border-[var(--color-hairline)] bg-[var(--color-surface)] p-4 text-[var(--color-ink)]">
           <AirportCompass place={place} airports={near} />
@@ -88,7 +88,7 @@ export function FlyingTimes({
   if (legs.length === 0) return null;
   return (
     <Section ground="surface" width="wide">
-      <h2 className={H2}>Private jet flying times from {place}</h2>
+      <h2 className={H2}>Flying times from {place}</h2>
       <p className="mt-3 max-w-[60ch] text-[var(--color-ink-muted)]">
         From {airport}, the nearest airport. Estimated flying time, not a schedule.
       </p>

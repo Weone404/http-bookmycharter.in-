@@ -7,6 +7,15 @@ export const SPECIALIST_SERVICES: readonly Service[] = [
     cluster: 'services',
     name: 'Charter Services',
     keyword: 'charter services',
+    headings: {
+      quote: 'Get a charter quote',
+      aircraft: 'Charter aircraft',
+      how: 'How charter services work',
+      cost: 'Charter cost',
+      fit: 'Which charter service is right for you?',
+      what: 'What are charter services?',
+      book: 'Book a charter',
+    },
     headline: 'Charter Services in India',
     summary:
       'Charter services in India are flights planned around the purpose of the trip, such as corporate travel, weddings, medical transfers, aerial work and events, not around the aircraft alone.',
@@ -105,6 +114,9 @@ export const SPECIALIST_SERVICES: readonly Service[] = [
     cluster: 'services',
     name: 'Corporate Charter',
     keyword: 'corporate charter',
+    headings: {
+      book: 'Book a corporate charter',
+    },
     headline: 'Corporate Charter in India',
     summary:
       'Corporate charter in India is private air travel used as a business tool: it moves teams to places scheduled flights serve badly and fits multi-city trips into one working day.',
@@ -221,6 +233,9 @@ export const SPECIALIST_SERVICES: readonly Service[] = [
     cluster: 'services',
     name: 'Aerial Flower Dropping',
     keyword: 'helicopter flower dropping',
+    headings: {
+      aircraft: 'Helicopters for flower dropping',
+    },
     headline: 'Helicopter Flower Dropping',
     summary:
       'Helicopter flower dropping is a short helicopter flight that releases petals over a wedding, temple event or ceremony, and the site and crowd below matter more than the flying.',

@@ -12,6 +12,7 @@ import {
 } from 'react';
 import { ArrowLeft, ArrowRight, List } from 'lucide-react';
 import { SITE_IMAGES } from '@/data/site-images.generated';
+import { SITE_IMAGE_ALT } from '@/data/site-image-alt';
 import type { FleetClassSummary } from '@/data/fleet-classes';
 
 /**
@@ -198,7 +199,7 @@ export function FleetCarousel({
                   >
                     <Image
                       src={image.src}
-                      alt=""
+                      alt={SITE_IMAGE_ALT[item.image]}
                       fill
                       sizes="(min-width: 1024px) 42rem, 76vw"
                       className={`fleet-image object-cover ${index === active ? 'is-active' : ''}`}

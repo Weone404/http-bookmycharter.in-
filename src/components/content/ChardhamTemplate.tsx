@@ -47,12 +47,12 @@ export function ChardhamTemplate({ page }: { page: ChardhamPage }) {
       </Section>
 
       <Section ground="ivory" width="default">
-        <FaqSection heading={`${page.title}: common questions`} faqs={page.faqs} />
+        <FaqSection heading={`${page.title} FAQs`} faqs={page.faqs} />
       </Section>
 
       <Section ground="surface" width="default">
         <h2 className="text-[length:var(--text-h2)] font-semibold leading-tight tracking-tight">
-          {page.title} explained
+          What is {page.title}?
         </h2>
         <div className="mt-6">
           <Prose paragraphs={page.body} />
